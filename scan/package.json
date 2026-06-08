@@ -1,6 +1,6 @@
 {
   "name": "@1-/scan",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Incrementally scan directory files and track metadata in SQLite / 增量扫描目录文件并使用 SQLite 记录元数据",
   "keywords": [
     "scan",
