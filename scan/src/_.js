@@ -1,14 +1,14 @@
 import { BinMap } from "@3-/binmap";
 import vbE from "@3-/vb/vbE.js";
 import sqlite from "./sqlite.js";
-import fileAll from "./fileAll.js";
+import load from "./load.js";
 import dirWalk from "./dirWalk.js";
-import fileWrite from "./fileWrite.js";
+import save from "./save.js";
 
 export default async (dir, db_path) => {
   using db = sqlite(db_path);
   const existing = new BinMap(),
-    db_rows = fileAll(db);
+    db_rows = load(db);
 
   for (const row of db_rows) {
     existing.set(row.hash, vbE([row.size, row.mtime]));
@@ -22,6 +22,6 @@ export default async (dir, db_path) => {
     }
   }
 
-  fileWrite(db, to_update, to_delete);
+  save(db, to_update, to_delete);
   return to_update.map(([rel_path]) => rel_path);
 };

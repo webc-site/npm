@@ -1,6 +1,6 @@
 # @1-/scan : 增量扫描目录文件并使用 SQLite 记录元数据
 
-增量扫描目录，比对并同步文件大小与修改时间，记录存入 SQLite 数据库。
+基于 Bun 原生的高性能内置 SQLite 数据库（`bun:sqlite`）增量扫描目录，比对并同步文件大小与修改时间，并返回有变更的相对路径数组。
 
 ## 功能介绍
 
@@ -9,6 +9,7 @@
 - 路径映射：相对路径长度不大于 16 字节时保留原始字节，大于 16 字节时计算为 16 字节 MD5，优化数据库索引。
 - 事务同步：更新与删除操作合并至单次数据库事务，确保一致性。
 - 规则过滤：基于 `@1-/walk` 的忽略规则过滤特定文件与目录。
+- 原生数据库：使用 Bun 内置的 `bun:sqlite`，性能优异且无需安装或编译外部依赖。
 
 ## 使用演示
 
@@ -30,18 +31,18 @@ console.log(updatedPaths);
 ```mermaid
 graph TD
     Entry["_.js (主入口)"] -->|打开数据库| Sqlite[sqlite.js]
-    Entry -->|载入已有记录| FileAll[fileAll.js]
+    Entry -->|载入已有记录| Load[load.js]
     Entry -->|遍历并比对| DirWalk[dirWalk.js]
     DirWalk -->|扫描文件系统| Walk["@1-/walk/walkRelIgnore"]
     DirWalk -->|计算路径哈希| Hash[hash.js]
-    Entry -->|写入变更数据| FileWrite[fileWrite.js]
-    FileWrite -->|执行事务控制| Trans[trans.js]
+    Entry -->|写入变更数据| Save[save.js]
+    Save -->|执行事务控制| Trans[trans.js]
 ```
 
 ## 技术栈
 
 - Bun：运行环境与测试工具
-- SQLite：本地关系型数据库
+- Bun SQLite：Bun 内置的高性能 SQLite 模块
 - `@1-/walk`：支持忽略规则的目录遍历工具
 - `@3-/vb`：可变长度整型编码器
 - `@3-/binmap` / `@3-/binset`：二进制哈希键容器
@@ -53,8 +54,8 @@ graph TD
 ├── src
 │   ├── _.js          # 主入口，统筹扫描与同步逻辑
 │   ├── dirWalk.js    # 递归遍历目录，比对筛选出变更文件
-│   ├── fileAll.js    # 读取数据库中全部记录，初始化数据表
-│   ├── fileWrite.js  # 事务内执行批量插入与删除
+│   ├── load.js       # 读取数据库中全部记录，初始化数据表
+│   ├── save.js       # 事务内执行批量插入与删除
 │   ├── hash.js       # 计算相对路径哈希值或保留原始字节
 │   ├── sqlite.js     # 管理 SQLite 数据库连接及资源释放
 │   └── trans.js      # 封装数据库事务控制

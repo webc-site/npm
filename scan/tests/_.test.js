@@ -1,55 +1,7 @@
 #!/usr/bin/env -S bun test
 
-import { mock, test, expect } from "bun:test";
+import { test, expect } from "bun:test";
 import { Database } from "bun:sqlite";
-
-mock.module("node:sqlite", () => ({
-  DatabaseSync: class {
-    constructor(path) {
-      this.db = new Database(path === ":memory:" ? ":memory:" : path);
-    }
-    exec(sql) {
-      this.db.run(sql);
-    }
-    prepare(sql) {
-      try {
-        const stmt = this.db.prepare(sql);
-        return {
-          run(...args) {
-            try {
-              return stmt.run(...args);
-            } catch (err) {
-              err.errcode = 1;
-              throw err;
-            }
-          },
-          all(...args) {
-            try {
-              return stmt.all(...args);
-            } catch (err) {
-              err.errcode = 1;
-              throw err;
-            }
-          },
-          get(...args) {
-            try {
-              return stmt.get(...args);
-            } catch (err) {
-              err.errcode = 1;
-              throw err;
-            }
-          },
-        };
-      } catch (err) {
-        err.errcode = 1;
-        throw err;
-      }
-    }
-    close() {
-      this.db.close();
-    }
-  },
-}));
 
 import { mkdir, writeFile, rm } from "node:fs/promises";
 import { join } from "node:path";
@@ -69,9 +21,8 @@ const TMP_DIR = join(import.meta.dirname, "tmp_scan_dir"),
   },
   cleanup = () =>
     Promise.all([rm(TMP_DIR, { recursive: true, force: true }), rm(DB_PATH, { force: true })]),
-  allRows = async () => {
-    const { DatabaseSync } = await import("node:sqlite"),
-      db = new DatabaseSync(DB_PATH),
+  allRows = () => {
+    const db = new Database(DB_PATH),
       rows = db.prepare("SELECT * FROM file ORDER BY size").all();
     db.close();
     return rows;

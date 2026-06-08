@@ -1,6 +1,6 @@
 # @1-/scan : Incrementally scan directory files and track metadata in SQLite
 
-Incrementally scans directory files, tracks file sizes and modification times, and synchronizes status into a SQLite database.
+Incrementally scans directory files, tracks file sizes and modification times, and synchronizes status into an SQLite database using Bun's native SQLite driver (`bun:sqlite`), returning an array of updated relative paths.
 
 ## Features
 
@@ -9,6 +9,7 @@ Incrementally scans directory files, tracks file sizes and modification times, a
 - Smart Path Key: Stores relative paths not exceeding 16 bytes as raw binary to preserve readability, while hashing longer paths to 16-byte MD5 digests to optimize index performance.
 - Database Synchronization: Synchronizes updates and deletions in a single atomic transaction.
 - Ignore Pattern Support: Integrates ignore rules dynamically during traversal.
+- Native SQLite: Leverages Bun's native, high-performance `bun:sqlite` engine, eliminating external build dependencies.
 
 ## Usage
 
@@ -30,18 +31,18 @@ Execution flow of modules:
 ```mermaid
 graph TD
     Entry["_.js (Main)"] -->|Open database| Sqlite[sqlite.js]
-    Entry -->|Load existing records| FileAll[fileAll.js]
+    Entry -->|Load existing records| Load[load.js]
     Entry -->|Walk and compare| DirWalk[dirWalk.js]
     DirWalk -->|Traverse files| Walk["@1-/walk/walkRelIgnore"]
     DirWalk -->|Optimize keys| Hash[hash.js]
-    Entry -->|Apply modifications| FileWrite[fileWrite.js]
-    FileWrite -->|Wrap transaction| Trans[trans.js]
+    Entry -->|Apply modifications| Save[save.js]
+    Save -->|Wrap transaction| Trans[trans.js]
 ```
 
 ## Tech Stack
 
 - Bun: Runtime and test runner
-- SQLite: Local relational database engine
+- Bun SQLite: Bun's built-in high-performance SQLite engine
 - `@1-/walk`: Directory walker with ignore support
 - `@3-/vb`: Variable-length byte encoder
 - `@3-/binmap` / `@3-/binset`: Efficient binary collection structures
@@ -53,8 +54,8 @@ graph TD
 ├── src
 │   ├── _.js          # Entry point orchestrating the scanning and sync process
 │   ├── dirWalk.js    # Recursively scans files and filters modified ones
-│   ├── fileAll.js    # Retrieves database records and initializes schema
-│   ├── fileWrite.js  # Performs bulk database inserts and deletes
+│   ├── load.js       # Retrieves database records and initializes schema
+│   ├── save.js       # Performs bulk database inserts and deletes
 │   ├── hash.js       # Processes path keys into raw bytes or MD5 digests
 │   ├── sqlite.js     # Manages SQLite database connection and disposal
 │   └── trans.js      # Wraps operations inside an SQL transaction

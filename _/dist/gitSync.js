@@ -2,7 +2,6 @@ import path from "node:path";
 import fs from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { simpleGit } from "simple-git";
-import GREEN from "@3-/log/GREEN.js";
 
 const mergeToMain = async (git, git_tmp_dir) => {
   await git.raw("worktree", "prune");
@@ -27,7 +26,6 @@ export default async (pkg_name, current_version, next_version, work_dir) => {
   console.log("正在合并到 main 分支并推送...");
   try {
     await mergeToMain(git, git_tmp_dir);
-    GREEN("https://www.npmjs.com/package/" + pkg_name + " " + current_version);
   } finally {
     try {
       await git.raw("worktree", "remove", git_tmp_dir, "--force");

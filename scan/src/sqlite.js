@@ -1,7 +1,7 @@
-const { DatabaseSync } = await import("node:sqlite");
+import { Database } from "bun:sqlite";
 
 export default (db_path) => {
-  const db = new DatabaseSync(db_path);
+  const db = new Database(db_path);
   db[Symbol.dispose] = () => db.close();
   return db;
 };
