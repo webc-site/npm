@@ -5,8 +5,8 @@ export default (db, to_update, to_delete) => {
     trans(db, () => {
       if (to_update.length > 0) {
         const insert = db.prepare("INSERT OR REPLACE INTO file(hash,size,mtime)VALUES(?,?,?)");
-        for (const record of to_update) {
-          insert.run(...record);
+        for (const [_, h, size, mtime] of to_update) {
+          insert.run(h, size, mtime);
         }
       }
       if (to_delete.length > 0) {

@@ -24,7 +24,7 @@ export default async (dir, existing) => {
       if (val && u8eq(val, vbE([size, mtime]))) {
         return;
       }
-      to_update.push([h, size, mtime]);
+      to_update.push([rel_path, h, size, mtime]);
     }
   });
 

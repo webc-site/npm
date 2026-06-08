@@ -80,7 +80,14 @@ const TMP_DIR = join(import.meta.dirname, "tmp_scan_dir"),
 test("扫描目录记录", async () => {
   await init();
   try {
-    await scan(TMP_DIR, DB_PATH);
+    const res1 = await scan(TMP_DIR, DB_PATH);
+    expect(res1.sort()).toEqual(
+      [
+        "file1.txt",
+        "file2.txt",
+        "file_with_a_very_long_name_that_exceeds_sixteen_characters.txt",
+      ].sort(),
+    );
 
     let rows = await allRows();
 
@@ -102,12 +109,17 @@ test("扫描目录记录", async () => {
     expect(decoder.decode(row2.hash)).toBe("file2.txt");
 
     await rm(join(TMP_DIR, "file2.txt"));
-    await scan(TMP_DIR, DB_PATH);
+    const res2 = await scan(TMP_DIR, DB_PATH);
+    expect(res2).toEqual([]);
 
     rows = await allRows();
 
     expect(rows.length).toBe(2);
     expect(rows.find((r) => decoder.decode(r.hash) === "file2.txt")).toBeUndefined();
+
+    await writeFile(join(TMP_DIR, "file1.txt"), "modified_abc");
+    const res3 = await scan(TMP_DIR, DB_PATH);
+    expect(res3).toEqual(["file1.txt"]);
   } finally {
     await cleanup();
   }

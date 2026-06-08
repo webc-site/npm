@@ -23,4 +23,5 @@ export default async (dir, db_path) => {
   }
 
   fileWrite(db, to_update, to_delete);
+  return to_update.map(([rel_path]) => rel_path);
 };

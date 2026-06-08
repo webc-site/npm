@@ -4,22 +4,23 @@ Incrementally scans directory files, tracks file sizes and modification times, a
 
 ## Features
 
-- **Incremental Scanning**: Detects and updates only new, modified, or deleted files, avoiding redundant file system operations
-- **Space-Efficient Storage**: Employs Varint compression (`@3-/vb`) to serialize and compare file sizes and modification times
-- **Smart Path Key**: Stores short relative paths (≤ 16 bytes) as raw binary to preserve readability, while hashing longer paths to 16-byte MD5 digests to optimize index performance
-- **Database Synchronization**: Synchronizes updates and deletions in a single atomic transaction
-- **Ignore Pattern Support**: Integrates ignore rules dynamically during traversal
+- Incremental Scanning: Detects and updates only new, modified, or deleted files, avoiding redundant file system operations.
+- Space-Efficient Storage: Employs Varint compression to serialize and compare file sizes and modification times.
+- Smart Path Key: Stores relative paths not exceeding 16 bytes as raw binary to preserve readability, while hashing longer paths to 16-byte MD5 digests to optimize index performance.
+- Database Synchronization: Synchronizes updates and deletions in a single atomic transaction.
+- Ignore Pattern Support: Integrates ignore rules dynamically during traversal.
 
 ## Usage
 
 ```javascript
 import scan from "@1-/scan";
 
-const directoryPath = "./src";
-const sqliteDbPath = "./files.db";
+const dir = "./src";
+const dbPath = "./files.db";
 
-// Scan directory and sync records into SQLite
-await scan(directoryPath, sqliteDbPath);
+// Scan directory and sync records into SQLite, returning an array of updated relative paths
+const updatedPaths = await scan(dir, dbPath);
+console.log(updatedPaths);
 ```
 
 ## Design Ideas
@@ -39,11 +40,11 @@ graph TD
 
 ## Tech Stack
 
-- **Bun**: Runtime and test runner
-- **SQLite**: Local relational database engine
-- **@1-/walk**: Directory walker with ignore support
-- **@3-/vb**: Variable-length byte encoder
-- **@3-/binmap** / **@3-/binset**: Efficient binary collection structures
+- Bun: Runtime and test runner
+- SQLite: Local relational database engine
+- `@1-/walk`: Directory walker with ignore support
+- `@3-/vb`: Variable-length byte encoder
+- `@3-/binmap` / `@3-/binset`: Efficient binary collection structures
 
 ## Directory Structure
 
