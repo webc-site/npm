@@ -8,11 +8,14 @@ import vbE from "@3-/vb/vbE.js";
 import int from "@3-/int";
 import hash from "./hash.js";
 
-export default async (dir, existing) => {
+export default async (dir, existing, ignore) => {
   const scanned = new BinSet(),
     to_update = [];
 
   await walkRelIgnore(dir, async (kind, rel_path) => {
+    if (ignore && ignore(kind, rel_path)) {
+      return false;
+    }
     if (kind === FILE) {
       const { size, mtimeMs } = await stat(join(dir, rel_path)),
         mtime = int(mtimeMs),

@@ -5,7 +5,7 @@ import load from "./load.js";
 import dirWalk from "./dirWalk.js";
 import save from "./save.js";
 
-export default async (dir, db_path) => {
+export default async (dir, db_path, ignore) => {
   using db = sqlite(db_path);
   const existing = new BinMap(),
     db_rows = load(db);
@@ -14,7 +14,7 @@ export default async (dir, db_path) => {
     existing.set(row.hash, vbE([row.size, row.mtime]));
   }
 
-  const [scanned, to_update] = await dirWalk(dir, existing),
+  const [scanned, to_update] = await dirWalk(dir, existing, ignore),
     to_delete = [];
   for (const row of db_rows) {
     if (!scanned.has(row.hash)) {

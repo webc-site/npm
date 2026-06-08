@@ -75,3 +75,15 @@ test("扫描目录记录", async () => {
     await cleanup();
   }
 });
+
+test("扫描目录记录带有 ignore", async () => {
+  await init();
+  try {
+    const res = await scan(TMP_DIR, DB_PATH, (kind, rel_path) => rel_path === "file2.txt");
+    expect(res.sort()).toEqual(
+      ["file1.txt", "file_with_a_very_long_name_that_exceeds_sixteen_characters.txt"].sort(),
+    );
+  } finally {
+    await cleanup();
+  }
+});

@@ -1,69 +1,94 @@
 # @1-/scan : 增量扫描目录文件并使用 SQLite 记录元数据
 
-基于 Bun 原生的高性能内置 SQLite 数据库（`bun:sqlite`）增量扫描目录，比对并同步文件大小与修改时间，并返回有变更的相对路径数组。
+增量扫描目录文件，通过比对文件大小和修改时间检测变更，并同步至 SQLite 数据库中，最终返回有更新的相对路径列表。
 
 ## 功能介绍
 
-- 增量扫描：仅处理新增、修改或删除的文件，避免冗余文件操作。
-- 紧凑存储：使用可变字节码（Varint）压缩技术比对并保存文件大小和修改时间。
-- 路径映射：相对路径长度不大于 16 字节时保留原始字节，大于 16 字节时计算为 16 字节 MD5，优化数据库索引。
-- 事务同步：更新与删除操作合并至单次数据库事务，确保一致性。
-- 规则过滤：基于 `@1-/walk` 的忽略规则过滤特定文件与目录。
-- 原生数据库：使用 Bun 内置的 `bun:sqlite`，性能优异且无需安装或编译外部依赖。
+- **增量扫描**：仅处理新增、修改或删除的文件，避免冗余的文件系统读写，提升同步速度。
+- **路径压缩**：当相对路径长度小于等于 16 字节时保留原始字节；超出 16 字节则转换为 16 字节 MD5 值作为数据库主键，优化索引空间与查询性能。
+- **元数据压缩**：使用 Varint（可变字节整型）编码方式压缩存储文件大小和修改时间。
+- **事务安全**：将更新与删除操作合并在单个数据库事务中执行，确保数据一致性。
+- **灵活过滤**：支持通过自定义回调函数过滤指定类型的文件与目录。
+- **原生依赖**：基于 Bun 内置 `bun:sqlite` 模块，无需额外安装或编译数据库驱动。
 
 ## 使用演示
+
+### 基础增量扫描
 
 ```javascript
 import scan from "@1-/scan";
 
-const dir = "./src";
-const dbPath = "./files.db";
+const dir = "./data";
+const dbPath = "./scan_record.db";
 
-// 扫描目录并同步至 SQLite 数据库，返回有变更的相对路径数组
+// 扫描目录并同步至 SQLite，返回发生变更的相对路径列表
 const updatedPaths = await scan(dir, dbPath);
-console.log(updatedPaths);
+console.log("更新文件列表：", updatedPaths);
+```
+
+### 带有忽略规则的扫描
+
+```javascript
+import { FILE } from "@1-/walk";
+import scan from "@1-/scan";
+
+const dir = "./data";
+const dbPath = "./scan_record.db";
+
+// 忽略特定文件或目录
+const ignore = (kind, relPath) => {
+  return relPath.startsWith("temp/") || relPath === "config.json";
+};
+
+const updatedPaths = await scan(dir, dbPath, ignore);
+console.log("已同步，更新列表：", updatedPaths);
 ```
 
 ## 设计思路
 
-模块调用流程：
+系统主入口调用各个独立模块完成增量扫描与数据同步流程。
 
 ```mermaid
 graph TD
-    Entry["_.js (主入口)"] -->|打开数据库| Sqlite[sqlite.js]
-    Entry -->|载入已有记录| Load[load.js]
-    Entry -->|遍历并比对| DirWalk[dirWalk.js]
-    DirWalk -->|扫描文件系统| Walk["@1-/walk/walkRelIgnore"]
-    DirWalk -->|计算路径哈希| Hash[hash.js]
-    Entry -->|写入变更数据| Save[save.js]
-    Save -->|执行事务控制| Trans[trans.js]
+    Entry["_.js (主入口)"] -->|1. 初始化连接| Sqlite[sqlite.js]
+    Entry -->|2. 加载已有记录| Load[load.js]
+    Entry -->|3. 扫描文件系统并对比| DirWalk[dirWalk.js]
+    DirWalk -->|调用| Walk["@1-/walk/walkRelIgnore"]
+    DirWalk -->|处理路径键| Hash[hash.js]
+    Entry -->|4. 持久化数据变更| Save[save.js]
+    Save -->|事务保障| Trans[trans.js]
 ```
+
+1. **初始化连接 (`sqlite.js`)**：打开 SQLite 数据库，并配置自动释放连接机制。
+2. **加载记录 (`load.js`)**：若表不存在则自动创建，读取已记录的文件哈希、大小及修改时间，在内存中还原比对集合。
+3. **文件系统扫描 (`dirWalk.js`)**：递归遍历目录，利用 `hash.js` 将路径映射为 16 字节键。对比当前文件与数据库元数据（利用 `@3-/vb` 进行压缩状态对比），筛选出新增和修改的文件。
+4. **数据存储 (`save.js`)**：使用 `trans.js` 开启事务，将需要删除的无效记录及需要更新的元数据批量写入 SQLite 数据库。
 
 ## 技术栈
 
-- Bun：运行环境与测试工具
-- Bun SQLite：Bun 内置的高性能 SQLite 模块
-- `@1-/walk`：支持忽略规则的目录遍历工具
-- `@3-/vb`：可变长度整型编码器
-- `@3-/binmap` / `@3-/binset`：二进制哈希键容器
+- **Bun**：JavaScript 运行时及测试框架。
+- **Bun SQLite**：内置的轻量级、高性能 SQLite 实现。
+- **@1-/walk**：支持过滤规则的目录递归遍历工具。
+- **@3-/vb**：Varint（可变字节）编码与解码器。
+- **@3-/binmap / @3-/binset**：针对二进制键优化的 Map 和 Set 容器。
 
 ## 目录结构
 
 ```
 .
 ├── src
-│   ├── _.js          # 主入口，统筹扫描与同步逻辑
-│   ├── dirWalk.js    # 递归遍历目录，比对筛选出变更文件
-│   ├── load.js       # 读取数据库中全部记录，初始化数据表
-│   ├── save.js       # 事务内执行批量插入与删除
-│   ├── hash.js       # 计算相对路径哈希值或保留原始字节
-│   ├── sqlite.js     # 管理 SQLite 数据库连接及资源释放
-│   └── trans.js      # 封装数据库事务控制
-└── tests             # 测试目录
+│   ├── _.js          # 核心流程控制器，调度各模块完成增量同步
+│   ├── dirWalk.js    # 遍历目录并比对元数据，输出变更队列
+│   ├── hash.js       # 将文件相对路径编码或计算为固定 16 字节键
+│   ├── load.js       # 查询数据库现有记录，若数据表缺失则执行初始化
+│   ├── save.js       # 执行批量写入与删除操作
+│   ├── sqlite.js     # 创建并配置 SQLite 数据库实例
+│   └── trans.js      # 封装 SQLite 事务，提供异常回滚机制
+└── tests             # 单元测试模块
 ```
 
 ## 历史故事
 
-SQLite 由 D. Richard Hipp 于 2000 年为驱逐舰控制系统编写。当时系统采用的商业数据库需要繁琐的管理，且一旦故障系统便无法运行。Hipp 设计出无服务器、零配置且直接读写单文件的 SQLite。
+SQLite 的诞生与军事应用密切相关。2000 年，D. Richard Hipp 在为美国海军陆战队设计导弹驱逐舰板载损害控制系统软件时，遇到商业数据库由于配置复杂、日常需要专业维护且一旦连接丢失便会导致整个软件瘫痪的问题。Hipp 随即着手设计了一套无需任何独立服务器、零配置且直接对本地文件进行读写的嵌入式数据库，这便是 SQLite。
 
-为节约存储空间，SQLite 内部采用可变长度整数（Varint）编码。本项目同样引入 Varint 压缩算法，对文件大小与修改时间做编码后再比对存储，延续了 SQLite 追求性能与紧凑空间的优良传统。
+为极限节约磁盘空间和降低读写延迟，SQLite 广泛应用了 Varint（可变字节整型）编码。在这种编码下，数值较小的整数（如常见的文件大小、序列号）仅占用 1 个字节，只有大数值才会占用更多字节。本项目中对文件大小和修改时间采用同样的压缩设计，从而秉承了 SQLite 极致节约空间与高效率的系统设计哲学。
