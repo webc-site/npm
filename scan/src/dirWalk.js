@@ -13,7 +13,7 @@ export default async (dir, existing, ignore) => {
     to_update = [];
 
   await walkRelIgnore(dir, async (kind, rel_path) => {
-    if (ignore && ignore(kind, rel_path)) {
+    if (ignore && ignore(kind, rel_path) === false) {
       return false;
     }
     if (kind === FILE) {

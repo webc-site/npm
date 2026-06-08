@@ -3,25 +3,49 @@ import vbE from "@3-/vb/vbE.js";
 import sqlite from "./sqlite.js";
 import load from "./load.js";
 import dirWalk from "./dirWalk.js";
-import save from "./save.js";
+import { stat } from "node:fs/promises";
+import { join } from "node:path";
+import int from "@3-/int";
+import hash from "./hash.js";
+import trans from "./trans.js";
 
 export default async (dir, db_path, ignore) => {
-  using db = sqlite(db_path);
-  const existing = new BinMap(),
+  const db = sqlite(db_path),
+    existing = new BinMap(),
     db_rows = load(db);
 
-  for (const row of db_rows) {
-    existing.set(row.hash, vbE([row.size, row.mtime]));
+  for (const { hash, size, mtime } of db_rows) {
+    existing.set(hash, vbE([size, mtime]));
   }
 
   const [scanned, to_update] = await dirWalk(dir, existing, ignore),
     to_delete = [];
-  for (const row of db_rows) {
-    if (!scanned.has(row.hash)) {
-      to_delete.push(row.hash);
+
+  for (const { hash } of db_rows) {
+    if (!scanned.has(hash)) {
+      to_delete.push(hash);
     }
   }
 
-  save(db, to_update, to_delete);
-  return to_update.map(([rel_path]) => rel_path);
+  if (to_delete.length > 0) {
+    trans(db, () => {
+      const del = db.prepare("DELETE FROM file WHERE hash=?");
+      for (const h of to_delete) {
+        del.run(h);
+      }
+    });
+  }
+
+  const insert = db.prepare("INSERT OR REPLACE INTO file(hash,size,mtime)VALUES(?,?,?)"),
+    upsert = async (rel_path) => {
+      const fp = join(dir, rel_path),
+        { size, mtimeMs } = await stat(fp),
+        mtime = int(mtimeMs),
+        h = hash(rel_path);
+      insert.run(h, size, mtime);
+    };
+
+  upsert[Symbol.dispose] = () => db.close();
+
+  return [to_update.map(([rel_path]) => rel_path), upsert];
 };
