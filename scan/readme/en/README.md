@@ -1,6 +1,6 @@
 # @1-/scan : Incrementally scan directory files and track metadata in SQLite
 
-Incrementally scans directory files, compares file sizes and modification times to detect changes, synchronizes metadata to an SQLite database, and returns updated relative paths.
+Incrementally scans directory files, compares file sizes and modification times to detect changes, synchronizes metadata to SQLite database, and returns updated relative paths.
 
 ## Features
 
@@ -9,7 +9,7 @@ Incrementally scans directory files, compares file sizes and modification times 
 - **Metadata Compression**: Compresses file sizes and modification times using Varint (variable-length byte) encoding.
 - **Transactional Integrity**: Packages updates and deletions in a single database transaction to guarantee consistency.
 - **Flexible Filtering**: Supports custom ignore callback functions to filter specific files and directories.
-- **Native Database**: Integrates Bun's native `bun:sqlite` module, eliminating external database driver dependencies.
+- **Native Database**: Integrates Bun native `bun:sqlite` module, eliminating external database driver dependencies.
 
 ## Usage
 
@@ -19,29 +19,43 @@ Incrementally scans directory files, compares file sizes and modification times 
 import scan from "@1-/scan";
 
 const dir = "./data";
-const dbPath = "./scan_record.db";
+const db_path = "./scan_record.db";
 
-// Scan directory and sync metadata to SQLite, returning modified relative paths
-const updatedPaths = await scan(dir, dbPath);
-console.log("Updated files:", updatedPaths);
+// Scan directory and sync metadata to SQLite, returning modified relative paths and upsert function
+const [updated_paths, upsert] = await scan(dir, db_path);
+
+// Auto-close database when exiting scope
+using _upsert = upsert;
+
+console.log("Updated files:", updated_paths);
+
+// Update scanned file metadata in database
+for (const rel_path of updated_paths) {
+  await upsert(rel_path);
+}
 ```
 
 ### Scan with Ignore Filter
 
 ```javascript
-import { FILE } from "@1-/walk";
 import scan from "@1-/scan";
 
 const dir = "./data";
-const dbPath = "./scan_record.db";
+const db_path = "./scan_record.db";
 
 // Ignore temporary files and specific configurations
-const ignore = (kind, relPath) => {
-  return relPath.startsWith("temp/") || relPath === "config.json";
+const ignore = (kind, rel_path) => {
+  return rel_path.startsWith("temp/") || rel_path === "config.json";
 };
 
-const updatedPaths = await scan(dir, dbPath, ignore);
-console.log("Synced. Updated files:", updatedPaths);
+const [updated_paths, upsert] = await scan(dir, db_path, ignore);
+using _upsert = upsert;
+
+console.log("Synced. Updated files:", updated_paths);
+
+for (const rel_path of updated_paths) {
+  await upsert(rel_path);
+}
 ```
 
 ## Design Ideas
@@ -50,19 +64,20 @@ The main entry orchestrates independent modules to execute the incremental scann
 
 ```mermaid
 graph TD
-    Entry["_.js (Entry Point)"] -->|1. Initialize Connection| Sqlite[sqlite.js]
-    Entry -->|2. Load Existing Records| Load[load.js]
-    Entry -->|3. Walk & Compare Files| DirWalk[dirWalk.js]
+    Entry["_.js (Entry Point)"] -->|1. Initialize Connection| Sqlite["sqlite.js"]
+    Entry -->|2. Load Existing Records| Load["load.js"]
+    Entry -->|3. Walk & Compare Files| DirWalk["dirWalk.js"]
     DirWalk -->|Invoke| Walk["@1-/walk/walkRelIgnore"]
-    DirWalk -->|Process Path Keys| Hash[hash.js]
-    Entry -->|4. Persist Changes| Save[save.js]
-    Save -->|Transaction Wrapper| Trans[trans.js]
+    DirWalk -->|Process Path Keys| Hash["hash.js"]
+    Entry -->|4. Delete Absent & Return Upsert| Trans["trans.js"]
+    Save["save.js (Independent Sync Helper)"] -->|Transaction Wrapper| Trans
 ```
 
-1. **Initialize Connection (`sqlite.js`)**: Opens the SQLite database connection and configures automatic connection disposal.
-2. **Load Records (`load.js`)**: Automatically creates the schema if missing, retrieves existing file hashes, sizes, and modification times, and reconstructs the reference set in memory.
-3. **Walk & Compare (`dirWalk.js`)**: Traverses the directory structure recursively. Paths are transformed into 16-byte keys via `hash.js`. File attributes are encoded using `@3-/vb` and compared against database records to identify additions and modifications.
-4. **Persist Changes (`save.js`)**: Executes bulk inserts and deletions in a single transaction via `trans.js` to update database state.
+1. **Initialize Connection (`sqlite.js`)**: Opens SQLite database connection and configures automatic connection disposal.
+2. **Load Records (`load.js`)**: Automatically creates schema if missing, retrieves existing file hashes, sizes, and modification times, and reconstructs reference set in memory.
+3. **Walk & Compare (`dirWalk.js`)**: Traverses directory structure recursively. Paths are transformed into 16-byte keys via `hash.js`. File attributes are encoded using `@3-/vb` and compared against database records to identify additions and modifications.
+4. **Delete & Return Upsert**: Uses `trans.js` to execute transaction-safe deletions for deleted files, and returns modified relative paths and an `upsert` function so that caller can update database records.
+5. **Independent Sync Helper (`save.js`)**: Exported independent module to execute bulk inserts and deletions in a single transaction.
 
 ## Tech Stack
 
@@ -77,11 +92,11 @@ graph TD
 ```
 .
 ├── src
-│   ├── _.js          # Entry point coordinating scanning and synchronization
+│   ├── _.js          # Entry point coordinating scanning and returning upsert helper
 │   ├── dirWalk.js    # Directory traverser comparing file metadata
 │   ├── hash.js       # Hashing helper mapping paths to 16-byte keys
 │   ├── load.js       # Database loader initializing schema and loading records
-│   ├── save.js       # Writer executing bulk updates and deletions
+│   ├── save.js       # Independent helper executing bulk updates and deletions
 │   ├── sqlite.js     # Connection manager instantiating SQLite database
 │   └── trans.js      # Transaction wrapper providing rollback mechanism
 └── tests             # Test suites

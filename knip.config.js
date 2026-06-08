@@ -8,6 +8,6 @@ export default {
       entry: ["tests/*.js"],
     },
   },
-  ignoreDependencies: ["node:sqlite"],
+  ignoreDependencies: [],
   ignore: [],
 };

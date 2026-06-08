@@ -14,25 +14,15 @@ export default async (dir, db_path, ignore) => {
     existing = new BinMap(),
     db_rows = load(db);
 
-  for (const { hash, size, mtime } of db_rows) {
-    existing.set(hash, vbE([size, mtime]));
-  }
+  db_rows.forEach(({ hash, size, mtime }) => existing.set(hash, vbE([size, mtime])));
 
   const [scanned, to_update] = await dirWalk(dir, existing, ignore),
-    to_delete = [];
-
-  for (const { hash } of db_rows) {
-    if (!scanned.has(hash)) {
-      to_delete.push(hash);
-    }
-  }
+    to_delete = db_rows.filter(({ hash }) => !scanned.has(hash)).map(({ hash }) => hash);
 
   if (to_delete.length > 0) {
     trans(db, () => {
       const del = db.prepare("DELETE FROM file WHERE hash=?");
-      for (const h of to_delete) {
-        del.run(h);
-      }
+      to_delete.forEach((h) => del.run(h));
     });
   }
 

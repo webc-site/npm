@@ -43,29 +43,26 @@ test("扫描目录记录", async () => {
       );
 
       // Save items to DB
-      for (const file of res1) {
-        await upsert(file);
-      }
+      await Promise.all(res1.map(upsert));
     }
 
-    let rows = await allRows();
+    let rows = allRows();
 
     expect(rows.length).toBe(3);
 
-    const size3Rows = rows.filter((r) => r.size === 3);
-    expect(size3Rows.length).toBe(2);
-    expect(size3Rows[0].hash instanceof Uint8Array).toBe(true);
-    expect(size3Rows[1].hash instanceof Uint8Array).toBe(true);
+    const size_3_rows = rows.filter((r) => r.size === 3);
+    expect(size_3_rows.length).toBe(2);
+    size_3_rows.forEach((r) => expect(r.hash instanceof Uint8Array).toBe(true));
 
     const decoder = new TextDecoder(),
-      file1Row = size3Rows.find((r) => decoder.decode(r.hash) === "file1.txt");
-    expect(file1Row).toBeDefined();
+      file_1_row = size_3_rows.find((r) => decoder.decode(r.hash) === "file1.txt");
+    expect(file_1_row).toBeDefined();
 
-    const longNameRow = size3Rows.find((r) => r.hash.length === 16);
-    expect(longNameRow).toBeDefined();
+    const long_name_row = size_3_rows.find((r) => r.hash.length === 16);
+    expect(long_name_row).toBeDefined();
 
-    const row2 = rows.find((r) => r.size === 5);
-    expect(decoder.decode(row2.hash)).toBe("file2.txt");
+    const row_2 = rows.find((r) => r.size === 5);
+    expect(decoder.decode(row_2.hash)).toBe("file2.txt");
 
     await rm(join(TMP_DIR, "file2.txt"));
     {
@@ -74,7 +71,7 @@ test("扫描目录记录", async () => {
       expect(res2).toEqual([]);
     }
 
-    rows = await allRows();
+    rows = allRows();
 
     expect(rows.length).toBe(2);
     expect(rows.find((r) => decoder.decode(r.hash) === "file2.txt")).toBeUndefined();

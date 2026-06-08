@@ -5,15 +5,11 @@ export default (db, to_update, to_delete) => {
     trans(db, () => {
       if (to_update.length > 0) {
         const insert = db.prepare("INSERT OR REPLACE INTO file(hash,size,mtime)VALUES(?,?,?)");
-        for (const [_, h, size, mtime] of to_update) {
-          insert.run(h, size, mtime);
-        }
+        to_update.forEach(([_, h, size, mtime]) => insert.run(h, size, mtime));
       }
       if (to_delete.length > 0) {
         const del = db.prepare("DELETE FROM file WHERE hash=?");
-        for (const h of to_delete) {
-          del.run(h);
-        }
+        to_delete.forEach((h) => del.run(h));
       }
     });
   }
