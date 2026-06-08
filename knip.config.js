@@ -5,8 +5,9 @@ export default {
       ignoreDependencies: ["oxlint", "lint-staged", "@3-/sleep", "@1-/mdcheck"],
     },
     "*": {
-      entry: ["tests/**/*.test.js"],
+      entry: ["tests/*.js"],
     },
   },
+  ignoreDependencies: ["node:sqlite"],
   ignore: [],
 };

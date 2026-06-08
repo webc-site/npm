@@ -1,0 +1,35 @@
+{
+  "lockfileVersion": 1,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "@1-/scan",
+      "dependencies": {
+        "@1-/walk": "^0.1.0",
+        "@3-/binmap": "^0.1.20",
+        "@3-/binset": "^0.1.6",
+        "@3-/int": "^0.1.1",
+        "@3-/u8": "^0.1.2",
+        "@3-/utf8": "^0.1.1",
+        "@3-/vb": "^0.1.6",
+      },
+    },
+  },
+  "packages": {
+    "@1-/walk": ["@1-/walk@0.1.0", "", { "dependencies": { "@3-/plimit": "^0.1.3" } }, "sha512-Xpktd+mMrQBpycDIzW4zi1SgQz2rmRKJwx0KInrtEjps370HG81WPlxIq46qI1Qzk79Nl/cMxl0doObBbtaMfQ=="],
+
+    "@3-/binmap": ["@3-/binmap@0.1.20", "", {}, "sha512-Eg2KzCJdvSnNSIgiTqFfWltr6QAdUUlAqr+uig2L8SHKQurGQ6nH2BKJA/c6sdVujizRtUcIGisxFblnOnCS2g=="],
+
+    "@3-/binset": ["@3-/binset@0.1.6", "", {}, "sha512-CijNccQLleXH3KXGnSYXlBXnanDG71ZRFZXND5W3oGyBLiGMzjOKGAFf9pY9FDLjKaX+UmyCM7AOMdYZv9/Hfg=="],
+
+    "@3-/int": ["@3-/int@0.1.1", "", {}, "sha512-hBH7ZmKIwSH4URleqo6U0ovTXGXGMEi2Xgr2KxPPcxSlxtoi3Mdsx6MFQz9U484bXpovJulXXwK/aUye0Gqzkw=="],
+
+    "@3-/plimit": ["@3-/plimit@0.1.3", "", {}, "sha512-kzoZ7NdplML8Tyrd7Fr9knHs8t/t3ULuw7KbFq46apGevN7q1Pn6v/jQjdjpalwpN51HcvgSB4LgXeZLOXAvxA=="],
+
+    "@3-/u8": ["@3-/u8@0.1.2", "", {}, "sha512-FBto/4tgnBnfSf/oesX5fq4mC6IXnzCzdb1w/CQpJEHBl2jLckloVrxvPAOfFTFXxPsd3U56swE7kvNQHI8pAA=="],
+
+    "@3-/utf8": ["@3-/utf8@0.1.1", "", {}, "sha512-WnbRCw6zRiSuHDdHqB88Th9pwmu2Y1aOs/jgK0g6ZIiVS8rDaTDV4XEGF8XOuVdzCGQPoTR3IgIKM5+05tugCQ=="],
+
+    "@3-/vb": ["@3-/vb@0.1.6", "", {}, "sha512-oxv/UD8RR/H9k8RaOA+3fqNuhPhrEZL+xDjtrHt+kZK8W4AEp/NcGBcNU1JtIG6/MQvEJ5IeHq9i7SX1JBA++Q=="],
+  }
+}
