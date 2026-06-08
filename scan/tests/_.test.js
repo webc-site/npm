@@ -23,7 +23,7 @@ const TMP_DIR = join(import.meta.dirname, "tmp_scan_dir"),
     Promise.all([rm(TMP_DIR, { recursive: true, force: true }), rm(DB_PATH, { force: true })]),
   allRows = () => {
     const db = new Database(DB_PATH),
-      rows = db.prepare("SELECT * FROM file ORDER BY size").all();
+      rows = db.prepare("SELECT * FROM scanMtimeLen ORDER BY size").all();
     db.close();
     return rows;
   };

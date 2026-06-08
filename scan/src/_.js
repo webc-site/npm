@@ -21,12 +21,12 @@ export default async (dir, db_path, ignore) => {
 
   if (to_delete.length > 0) {
     trans(db, () => {
-      const del = db.prepare("DELETE FROM file WHERE hash=?");
+      const del = db.prepare("DELETE FROM scanMtimeLen WHERE hash=?");
       to_delete.forEach((h) => del.run(h));
     });
   }
 
-  const insert = db.prepare("INSERT OR REPLACE INTO file(hash,size,mtime)VALUES(?,?,?)"),
+  const insert = db.prepare("INSERT OR REPLACE INTO scanMtimeLen(hash,size,mtime)VALUES(?,?,?)"),
     upsert = async (rel_path) => {
       const fp = join(dir, rel_path),
         { size, mtimeMs } = await stat(fp),

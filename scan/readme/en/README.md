@@ -74,7 +74,7 @@ graph TD
 ```
 
 1. **Initialize Connection (`sqlite.js`)**: Opens SQLite database connection and configures automatic connection disposal.
-2. **Load Records (`load.js`)**: Automatically creates schema if missing, retrieves existing file hashes, sizes, and modification times, and reconstructs reference set in memory.
+2. **Load Records (`load.js`)**: Automatically creates `scanMtimeLen` table if missing, retrieves existing file hashes, sizes, and modification times, and reconstructs reference set in memory.
 3. **Walk & Compare (`dirWalk.js`)**: Traverses directory structure recursively. Paths are transformed into 16-byte keys via `hash.js`. File attributes are encoded using `@3-/vb` and compared against database records to identify additions and modifications.
 4. **Delete & Return Upsert**: Uses `trans.js` to execute transaction-safe deletions for deleted files, and returns modified relative paths and an `upsert` function so that caller can update database records.
 5. **Independent Sync Helper (`save.js`)**: Exported independent module to execute bulk inserts and deletions in a single transaction.
