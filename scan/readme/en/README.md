@@ -4,11 +4,11 @@ Incrementally scans directory files, compares file sizes and modification times 
 
 ## Features
 
-- **Incremental Scanning**: Detects and processes only new, modified, or deleted files, avoiding redundant file system operations.
+- **Incremental Scanning**: Processes only new, modified, or deleted files, avoiding redundant file system operations.
 - **Key Optimization**: Stores relative paths within 16 bytes directly as raw bytes; hashes longer paths to 16-byte MD5 digests to optimize database index space and query performance.
 - **Metadata Compression**: Compresses file sizes and modification times using Varint (variable-length byte) encoding.
-- **Transactional Integrity**: Packages updates and deletions in a single database transaction to guarantee consistency.
-- **Flexible Filtering**: Supports custom ignore callback functions to filter specific files and directories.
+- **Transactional Integrity**: Packages updates and deletions in database transactions to guarantee consistency.
+- **File Filtering**: Supports custom ignore callback functions to filter files and directories.
 - **Native Database**: Integrates Bun native `bun:sqlite` module, eliminating external database driver dependencies.
 
 ## Usage
@@ -58,6 +58,28 @@ for (const rel_path of updated_paths) {
 }
 ```
 
+### Bulk Storage Module Usage
+
+```javascript
+import save from "@1-/scan/save.js";
+import sqlite from "@1-/scan/sqlite.js";
+
+const db = sqlite("./scan_record.db");
+
+// Bulk update and delete metadata
+save(
+  db,
+  [
+    ["file.txt", new Uint8Array([1, 2, 3]), 123, 1620000000]
+  ],
+  [
+    new Uint8Array([4, 5, 6])
+  ]
+);
+
+db.close();
+```
+
 ## Design Ideas
 
 The main entry orchestrates independent modules to execute the incremental scanning and synchronization flow.
@@ -77,12 +99,12 @@ graph TD
 2. **Load Records (`load.js`)**: Automatically creates `scanMtimeLen` table if missing, retrieves existing file hashes, sizes, and modification times, and reconstructs reference set in memory.
 3. **Walk & Compare (`dirWalk.js`)**: Traverses directory structure recursively. Paths are transformed into 16-byte keys via `hash.js`. File attributes are encoded using `@3-/vb` and compared against database records to identify additions and modifications.
 4. **Delete & Return Upsert**: Uses `trans.js` to execute transaction-safe deletions for deleted files, and returns modified relative paths and an `upsert` function so that caller can update database records.
-5. **Independent Sync Helper (`save.js`)**: Exported independent module to execute bulk inserts and deletions in a single transaction.
+5. **Independent Sync Helper (`save.js`)**: Exported independent module to execute bulk updates and deletions in transactions.
 
 ## Tech Stack
 
 - **Bun**: Runtime environment and test framework.
-- **Bun SQLite**: Native high-performance SQLite engine built into Bun.
+- **Bun SQLite**: Native SQLite engine built into Bun.
 - **@1-/walk**: Directory walker with ignore support.
 - **@3-/vb**: Variable-length byte (Varint) encoder and decoder.
 - **@3-/binmap / @3-/binset**: Memory-efficient collections designed for binary keys.
@@ -99,7 +121,7 @@ graph TD
 │   ├── save.js       # Independent helper executing bulk updates and deletions
 │   ├── sqlite.js     # Connection manager instantiating SQLite database
 │   └── trans.js      # Transaction wrapper providing rollback mechanism
-└── tests             # Test suites
+└── tests             # Test directory
 ```
 
 ## History
