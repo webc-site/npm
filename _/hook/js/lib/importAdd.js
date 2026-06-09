@@ -5,23 +5,16 @@ export default (pkg, stmt) => {
     has = false;
   return [
     (node) => {
-      if (node.type === IMPORT_DECLARATION) {
-        if (node.source?.value === pkg) {
-          has = true;
-        }
-        if (first === -1 || node.start < first) {
-          first = node.start;
-        }
+      const { type, source, start } = node;
+      if (type === IMPORT_DECLARATION) {
+        if (source?.value === pkg) has = true;
+        if (first === -1 || start < first) first = start;
       }
     },
     (edits, cond) => {
       if (cond && !has) {
-        const insert_pos = first !== -1 ? first : 0;
-        edits.push({
-          start: insert_pos,
-          end: insert_pos,
-          replacement: stmt,
-        });
+        const pos = first !== -1 ? first : 0;
+        edits.push({ start: pos, end: pos, replacement: stmt });
       }
     },
   ];

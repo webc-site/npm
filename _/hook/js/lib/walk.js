@@ -1,20 +1,14 @@
 import isObj from "@3-/is_obj";
 
-const walk = (node, callback) => {
-  if (!isObj(node)) {
-    return;
-  }
+const walk = (node, cb) => {
+  if (!isObj(node)) return;
   if (Array.isArray(node)) {
-    for (const item of node) {
-      walk(item, callback);
-    }
+    for (const item of node) walk(item, cb);
     return;
   }
-  callback(node);
+  cb(node);
   for (const key in node) {
-    if (Object.prototype.hasOwnProperty.call(node, key)) {
-      walk(node[key], callback);
-    }
+    if (Object.hasOwn(node, key)) walk(node[key], cb);
   }
 };
 

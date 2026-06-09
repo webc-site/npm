@@ -50,3 +50,16 @@ const data = readFileSync("a.txt", "utf8");
   expect(res).toContain('read("a.txt")');
   expect(res).not.toContain("readFileSync");
 });
+
+test("while(true) 替换为 for(;;)", async () => {
+  const code = `
+const run = () => {
+  while (true) {
+    console.log(1);
+  }
+};
+  `,
+    res = await rule(code);
+  expect(res).toContain("for (;;)");
+  expect(res).not.toContain("while (true)");
+});

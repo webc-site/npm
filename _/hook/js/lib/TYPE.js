@@ -12,4 +12,5 @@ export const ARROW_FUNCTION_EXPRESSION = "ArrowFunctionExpression",
   PROGRAM = "Program",
   RETURN_STATEMENT = "ReturnStatement",
   SWITCH_CASE = "SwitchCase",
-  VARIABLE_DECLARATION = "VariableDeclaration";
+  VARIABLE_DECLARATION = "VariableDeclaration",
+  WHILE_STATEMENT = "WhileStatement";

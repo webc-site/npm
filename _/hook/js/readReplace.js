@@ -9,83 +9,73 @@ import {
   MEMBER_EXPRESSION,
 } from "./lib/TYPE.js";
 
-const isReadFileSyncUtf8 = (node) => {
-    if (!node || node.type !== CALL_EXPRESSION) {
-      return false;
-    }
-    const { arguments: args, callee } = node;
-    if (args?.length !== 2 || args[1]?.type !== LITERAL) {
-      return false;
-    }
-    const val = args[1].value;
-    if (val !== "utf8" && val !== "utf-8") {
-      return false;
-    }
-    if (callee?.type === IDENTIFIER && callee.name === "readFileSync") {
-      return true;
-    }
-    if (callee?.type === MEMBER_EXPRESSION) {
-      const { object, property } = callee;
-      return (
-        object?.type === IDENTIFIER &&
-        object.name === "fs" &&
-        property?.type === IDENTIFIER &&
-        property.name === "readFileSync"
-      );
+const isReadUtf8 = (node) => {
+    if (!node) return false;
+    const { type, arguments: args, callee } = node;
+    if (type !== CALL_EXPRESSION || args?.length !== 2) return false;
+
+    const [, arg1] = args;
+    if (arg1?.type !== LITERAL || (arg1.value !== "utf8" && arg1.value !== "utf-8")) return false;
+
+    if (callee) {
+      const { type: c_type, name } = callee;
+      if (c_type === IDENTIFIER && name === "readFileSync") return true;
+      if (c_type === MEMBER_EXPRESSION) {
+        const { object: obj, property: prop } = callee;
+        if (
+          obj?.type === IDENTIFIER &&
+          obj.name === "fs" &&
+          prop?.type === IDENTIFIER &&
+          prop.name === "readFileSync"
+        ) {
+          return true;
+        }
+      }
     }
     return false;
   },
   inspectImport = (node, state, checkImport) => {
     checkImport(node);
-    if (node.type !== IMPORT_DECLARATION) {
-      return;
-    }
-    const { source, specifiers } = node;
-    if (source && (source.value === "fs" || source.value === "node:fs")) {
-      const has_read_file_sync = specifiers.some((i) => i.local && i.local.name === "readFileSync");
-      if (has_read_file_sync) {
-        state.readFileSync_import_node = node;
+    const { type, source, specifiers } = node;
+    if (type === IMPORT_DECLARATION && source) {
+      const { value } = source;
+      if (value === "fs" || value === "node:fs") {
+        if (specifiers.some((i) => i.local?.name === "readFileSync")) {
+          state.readFileSync_import_node = node;
+        }
       }
     }
   },
   checkCall = (node, code, state, edits) => {
-    if (node.type !== CALL_EXPRESSION) {
-      return;
-    }
-    const { callee, arguments: args, start, end } = node,
-      is_read = callee?.type === IDENTIFIER && callee.name === "readFileSync";
-    if (is_read) {
-      ++state.total_readFileSync_calls;
-    }
-    if (isReadFileSyncUtf8(node)) {
-      if (is_read) {
-        ++state.utf8_readFileSync_calls;
-      }
+    const { type, callee, arguments: args, start, end } = node;
+    if (type !== CALL_EXPRESSION) return;
+    const is_read = callee?.type === IDENTIFIER && callee.name === "readFileSync";
+    if (is_read) ++state.total_readFileSync_calls;
+    if (isReadUtf8(node)) {
+      if (is_read) ++state.utf8_readFileSync_calls;
       state.has_read_file_sync_call = true;
-      const arg_0 = code.substring(args[0].start, args[0].end);
+      const [arg0] = args,
+        { start: arg_start, end: arg_end } = arg0;
       edits.push({
         start,
         end,
-        replacement: "read(" + arg_0 + ")",
+        replacement: `read(${code.substring(arg_start, arg_end)})`,
       });
     }
   },
   removeImport = (node, code, edits) => {
-    const { start, end, specifiers } = node,
-      import_code = code.substring(start, end);
-    let new_import_code = import_code;
-    if (specifiers.length === 1) {
-      new_import_code = "";
-    } else {
-      new_import_code = new_import_code
-        .replace(/readFileSync,\s*/, "")
-        .replace(/,\s*readFileSync/, "")
-        .replace(/readFileSync/, "");
-    }
+    const { start, end, specifiers } = node;
     edits.push({
       start,
       end,
-      replacement: new_import_code,
+      replacement:
+        specifiers.length === 1
+          ? ""
+          : code
+              .substring(start, end)
+              .replace(/readFileSync,\s*/, "")
+              .replace(/,\s*readFileSync/, "")
+              .replace(/readFileSync/, ""),
     });
   };
 

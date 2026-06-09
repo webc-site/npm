@@ -8,8 +8,7 @@ import {
 } from "./lib/TYPE.js";
 
 const isExportConst = (node) => {
-    if (!node) return false;
-    const { type, declaration } = node;
+    const { type, declaration } = node || {};
     return (
       type === EXPORT_NAMED_DECLARATION &&
       declaration?.type === VARIABLE_DECLARATION &&
@@ -17,69 +16,54 @@ const isExportConst = (node) => {
     );
   },
   isPlainConst = (node) => {
-    if (!node) return false;
-    const { type, kind } = node;
+    const { type, kind } = node || {};
     return type === VARIABLE_DECLARATION && kind === "const";
   },
   bodyLists = (ast) => {
     const lists = [];
-    walk(ast, (node) => {
-      const { type, body, consequent } = node;
-      if (type === PROGRAM || type === BLOCK_STATEMENT) {
-        if (Array.isArray(body)) {
-          lists.push(body);
-        }
-      } else if (type === SWITCH_CASE) {
-        if (Array.isArray(consequent)) {
-          lists.push(consequent);
-        }
+    walk(ast, ({ type, body, consequent }) => {
+      if ((type === PROGRAM || type === BLOCK_STATEMENT) && Array.isArray(body)) {
+        lists.push(body);
+      } else if (type === SWITCH_CASE && Array.isArray(consequent)) {
+        lists.push(consequent);
       }
     });
     return lists;
   },
   findGroups = (list, code, predicate) => {
-    let current_group = [];
+    let current = [];
     const groups = [],
-      isCleanBetween = (start, end) => /^[;\s]*$/.test(code.substring(start, end));
+      isClean = (start, end) => /^[;\s]*$/.test(code.substring(start, end));
 
     for (const node of list) {
       if (predicate(node)) {
-        if (current_group.length === 0) {
-          current_group.push(node);
+        if (current.length === 0) {
+          current.push(node);
         } else {
-          const last_node = current_group[current_group.length - 1];
-          if (isCleanBetween(last_node.end, node.start)) {
-            current_group.push(node);
+          const { end: last_end } = current[current.length - 1],
+            { start } = node;
+          if (isClean(last_end, start)) {
+            current.push(node);
           } else {
-            if (current_group.length > 1) {
-              groups.push(current_group);
-            }
-            current_group = [node];
+            if (current.length > 1) groups.push(current);
+            current = [node];
           }
         }
       } else {
-        if (current_group.length > 1) {
-          groups.push(current_group);
-        }
-        current_group = [];
+        if (current.length > 1) groups.push(current);
+        current = [];
       }
     }
-    if (current_group.length > 1) {
-      groups.push(current_group);
-    }
+    if (current.length > 1) groups.push(current);
     return groups;
   },
   collectGroups = (ast, code) => {
-    const lists = bodyLists(ast),
-      groups = [];
-    for (const list of lists) {
-      const export_groups = findGroups(list, code, isExportConst),
-        plain_groups = findGroups(list, code, isPlainConst);
-
-      for (const g of export_groups) {
+    const groups = [];
+    for (const list of bodyLists(ast)) {
+      for (const g of findGroups(list, code, isExportConst)) {
         groups.push(["export const ", g, g[0].start, g[g.length - 1].end]);
       }
-      for (const g of plain_groups) {
+      for (const g of findGroups(list, code, isPlainConst)) {
         groups.push(["const ", g, g[0].start, g[g.length - 1].end]);
       }
     }
@@ -92,46 +76,35 @@ const isExportConst = (node) => {
   indent = (code, start) => {
     let idx = start - 1;
     const chars = [];
-    while (idx >= 0 && code[idx] !== "\n") {
-      chars.unshift(code[idx]);
-      --idx;
-    }
-    const line_head = chars.join(""),
-      match = line_head.match(/^\s*/);
+    while (idx >= 0 && code[idx] !== "\n") chars.unshift(code[idx--]);
+    const match = chars.join("").match(/^\s*/);
     return match ? match[0] : "";
   },
   replaceGroups = (code, groups) => {
     for (const [, nodes] of groups) {
       for (const node of nodes) {
         node.d_end = node.end;
-        for (const decl of decls(node)) {
-          decl.d_end = decl.end;
-        }
+        for (const d of decls(node)) d.d_end = d.end;
       }
     }
 
     groups.sort((a, b) => b[2] - a[2]);
 
-    let res = code,
-      i = 0,
-      j = 0;
-    for (; i < groups.length; ++i) {
+    let res = code;
+    for (let i = 0; i < groups.length; ++i) {
       const [prefix, nodes, start, end] = groups[i],
-        declarators = [];
-
-      for (const node of nodes) {
-        declarators.push(...decls(node));
-      }
-
-      const indent_str = indent(res, start),
+        declarators = nodes.flatMap(decls),
+        indent_str = indent(res, start),
         separator = ",\n" + indent_str + "  ",
-        merged = declarators.map((d) => res.substring(d.start, d.d_end)).join(separator),
+        merged = declarators
+          .map(({ start: d_start, d_end }) => res.substring(d_start, d_end))
+          .join(separator),
         replacement = prefix + merged + ";",
         delta = replacement.length - (end - start);
 
       res = res.substring(0, start) + replacement + res.substring(end);
 
-      for (j = i + 1; j < groups.length; ++j) {
+      for (let j = i + 1; j < groups.length; ++j) {
         const g_next = groups[j];
         if (g_next[3] > start) {
           g_next[3] += delta;

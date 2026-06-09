@@ -4,8 +4,8 @@ import { existsSync } from "node:fs";
 import { rm, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { spawnSync } from "node:child_process";
-import dump from "../src/sqliteDump.js";
-import load from "../src/sqliteLoad.js";
+import dump from "../src/dump.js";
+import load from "../src/load.js";
 
 test("gitsql 导出与导入集成测试", async () => {
   const db_path = join(import.meta.dirname, "test.db"),
