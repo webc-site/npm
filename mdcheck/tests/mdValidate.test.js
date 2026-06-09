@@ -10,6 +10,7 @@ const cases = [
     false,
     [11],
   ],
+  ["# Test 4\r\n\r\n```mermaid \r\nflowchart TD\r\n  A --> B\r\n```", true, []],
 ];
 
 cases.forEach(([md, is_valid, err_lines], index) => {

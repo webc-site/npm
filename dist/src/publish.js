@@ -14,7 +14,7 @@ const pubAndSync = async (
 ) => {
   console.log("正在将 " + pkg_name + " 发布到 npm...");
   execSync("npm publish --access public", { cwd: tmp_dir, stdio: "inherit" });
-  GREEN("https://www.npmjs.com/package/" + pkg_name + " " + current_version);
+  GREEN("https://www.npmjs.com/package/" + pkg_name + "/v/" + current_version);
 
   // B. 发布成功，更新源目录下的 package.json 版本号
   pkg_json.version = next_version;

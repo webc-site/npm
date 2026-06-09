@@ -13,15 +13,14 @@
   "bin": {
     "dist": "./src/dist.js"
   },
-  "files": [
-    "./*"
-  ],
+  "files": ["./*"],
   "type": "module",
   "exports": {
     ".": "./src/_.js",
     "./*": "./src/*"
   },
   "dependencies": {
+    "@1-/mdmermaid": "file:../mdmermaid",
     "@3-/gci": "^0.1.10",
     "@3-/log": "^0.1.9",
     "@3-/mdt": "^0.1.5",

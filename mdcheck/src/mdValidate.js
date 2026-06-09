@@ -1,22 +1,18 @@
 import mermaidValidate from "./mermaidValidate.js";
 import codeExtract from "@1-/md/code.js";
+import li from "@1-/md/li.js";
 
 export default async (md) => {
-  const lines = md.split("\n"),
-    errors = [],
-    blocks = codeExtract(lines)
-      .filter(([type]) => type === "mermaid")
-      .map(([_, start, end]) => {
-        const code = lines.slice(start, end - 1).join("\n");
-        return [start + 1, code];
-      });
+  const lines = li(md),
+    errors = await Promise.all(
+      codeExtract(lines)
+        .filter(([type]) => type === "mermaid")
+        .map(async ([_, start, end]) => {
+          const code = lines.slice(start, end - 1).join("\n"),
+            errs = await mermaidValidate(code);
+          return errs.map(([rel_line, msg]) => [start + rel_line, msg]);
+        }),
+    );
 
-  for (const [start, code] of blocks) {
-    const errs = await mermaidValidate(code);
-    errs.forEach(([rel_line, msg]) => {
-      errors.push([start + rel_line - 1, msg]);
-    });
-  }
-
-  return errors;
+  return errors.flat();
 };
