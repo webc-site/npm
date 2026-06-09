@@ -9,5 +9,5 @@ export default {
     },
   },
   ignoreDependencies: [],
-  ignore: [],
+  ignore: ["./new.js"],
 };

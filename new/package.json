@@ -1,8 +1,14 @@
 {
   "name": "@1-/new",
   "version": "0.1.0",
-  "description": "",
-  "keywords": [],
+  "description": "Template-based project initializer with name replacement / 基于模板与名称替换的项目初始化工具",
+  "keywords": [
+    "scaffolding",
+    "template",
+    "initializer",
+    "project",
+    "generator"
+  ],
   "homepage": "https://github.com/webc-site/npm/tree/main/new",
   "license": "MulanPSL-2.0",
   "author": "x-at-01@googlegroups.com",
@@ -20,9 +26,9 @@
     "./*": "./src/*"
   },
   "dependencies": {
+    "@1-/findgit": "^0.1.0",
     "@1-/walk": "^0.1.0",
     "@3-/log": "^0.1.9",
-    "yargs": "^18.0.0",
-    "@1-/findgit": "../findgit"
+    "yargs": "^18.0.0"
   }
 }
