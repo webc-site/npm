@@ -75,7 +75,7 @@ const isSleep = (node) => {
       edits.push({
         start,
         end,
-        replacement: `sleep(${delay_code})`,
+        replacement: "sleep(" + delay_code + ")",
       });
     }
   };

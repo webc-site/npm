@@ -59,7 +59,7 @@ const isReadUtf8 = (node) => {
       edits.push({
         start,
         end,
-        replacement: `read(${code.substring(arg_start, arg_end)})`,
+        replacement: "read(" + code.substring(arg_start, arg_end) + ")",
       });
     }
   },

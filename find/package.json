@@ -1,6 +1,6 @@
 {
   "name": "@1-/find",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Locate directory containing target file by walking up / 向上递归查找包含指定目标的目录",
   "keywords": [
     "find",
