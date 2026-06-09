@@ -1,6 +1,6 @@
 {
   "name": "@1-/mdmermaid",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Render Mermaid code blocks to SVG in Markdown / 将 Markdown 中的 Mermaid 代码块渲染为 SVG",
   "keywords": [
     "markdown",
