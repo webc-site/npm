@@ -16,6 +16,6 @@ test("extract generic code blocks from test.md", () => {
   expect(result).toEqual([
     ["mermaid", 3, 6],
     ["javascript", 10, 13],
-    ["mermaid", 16, 20],
+    ["mermaid", 17, 20],
   ]);
 });

@@ -13,6 +13,8 @@ console.log(a);
 ```
 
 Unclosed:
+
 ```mermaid
 graph LR
   C --> D
+```
