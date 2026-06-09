@@ -1,6 +1,6 @@
 {
   "name": "@1-/new",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Template-based project initializer with name replacement / 基于模板与名称替换的项目初始化工具",
   "keywords": [
     "scaffolding",
@@ -19,7 +19,9 @@
   "bin": {
     "new": "./src/new.js"
   },
-  "files": ["./*"],
+  "files": [
+    "./*"
+  ],
   "type": "module",
   "exports": {
     ".": "./src/_.js",
