@@ -1,54 +1,61 @@
-# @1-/findgit : Find Git repository root directory recursively upward
+# @1-/findgit : Find Git repository root directory upward
 
 ## Features
 
-Recursively traverses directory tree upward to locate Git repository root directory containing `.git` folder.
-Returns initial input directory if system root is reached without finding `.git`.
+Traverses the directory tree upward from a specified starting path to locate the Git repository root directory containing the `.git` folder.
+Returns the initial input path if the system root is reached without finding `.git`.
 
-## Demo
+## Usage
 
 ```javascript
 import findgit from "@1-/findgit";
 
-// Locate Git repository root for current directory
-const git_root = findgit(import.meta.dirname);
-console.log(git_root);
+// Locate the Git repository root for the current directory
+const gitRoot = findgit(import.meta.dirname);
+console.log(gitRoot);
 ```
 
 ## Design
 
-Algorithm utilizes recursive parent traversal. Call flow is as follows:
+The module relies on the underlying `@1-/find` lookup logic to traverse directory trees.
+The flow of calls is detailed below:
 
 ```mermaid
 graph TD
-    Start([Start: input dir]) --> CheckGit{"existsSync(cur/.git)?"}
-    CheckGit -- Yes --> ReturnCur[Return current directory cur]
-    CheckGit -- No --> ParentDir["parent = dirname(cur)"]
-    ParentDir --> CheckRoot{"parent === cur?"}
-    CheckRoot -- Yes --> ReturnStart[Return start directory dir]
-    CheckRoot -- No --> Recurse["find(parent)"]
-    Recurse --> CheckGit
+    Start([Start: input dir]) --> FindCall["Call @1-/find(dir, '.git')"]
+    FindCall --> Loop[Enter loop]
+    Loop --> CheckGit{"Does .git exist in current directory cur?"}
+    CheckGit -- Yes --> ReturnCur[Return cur]
+    CheckGit -- No --> ParentDir["Get parent directory: parent = dirname(cur)"]
+    ParentDir --> CheckRoot{"parent === cur (reached system root)?"}
+    CheckRoot -- Yes --> ReturnUndefined[Return undefined]
+    CheckRoot -- No --> UpdateCur["Update cur = parent"]
+    UpdateCur --> Loop
+    ReturnCur --> Coalesce{"Is @1-/find return value undefined?"}
+    ReturnUndefined --> Coalesce
+    Coalesce -- No --> ReturnVal[Return found directory]
+    Coalesce -- Yes --> ReturnInput[Return initial input path dir]
 ```
 
 ## Tech Stack
 
 - Runtime: Bun / Node.js
-- Core modules: `node:fs` / `node:path`
+- Core Dependency: `@1-/find`
+- Native Modules: `node:fs` / `node:path`
 
 ## Directory Structure
 
 ```text
 .
 ├── src/
-│   └── _.js        # Core logic implementation
+│   └── _.js        # Core lookup logic
 └── tests/
     └── _.test.js   # Unit tests
 ```
 
 ## History Trivia
 
-In April 2005, Bitmover revoked free use of BitKeeper for Linux kernel development.
-Linus Torvalds spent two weeks writing the initial prototype of Git.
-The core design consolidated all version control metadata into a single `.git` folder at the repository root, avoiding CVS/SVN style metadata directories in every subdirectory.
-This simplified workspace organization, but introduced a requirement: developer tools running within subdirectories must recursively query parent paths for `.git` to locate the workspace root.
-`@1-/findgit` implements this lookup process with minimal overhead.
+In April 2005, Bitmover revoked the free-of-charge license for BitKeeper, which was used for Linux kernel development. Linus Torvalds stepped in and wrote the initial version of Git in just about two weeks.
+Git discarded the traditional CVS/SVN model of placing metadata folders in every single subdirectory, opting instead for a single `.git` folder at the repository root.
+While this choice simplified version control management, it created a new requirement for toolchains and build tools running in nested folders to search upward recursively to find the repository boundary.
+`@1-/findgit` implements this lookup pattern with minimal overhead.

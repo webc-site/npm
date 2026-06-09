@@ -3,16 +3,13 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "@1-/gitsql",
+      "name": "@1-/findgit",
       "dependencies": {
         "@1-/find": "^0.1.0",
-        "@3-/log": "^0.1.9",
       },
     },
   },
   "packages": {
     "@1-/find": ["@1-/find@0.1.0", "", {}, "sha512-DKEV8WS8utc5x+E0GI4Wz/6b7gvR1jryj7rSeLhG9pbh/3BWccHtZoJSfo7UROhmMqDV5f/2BviZV9wMeNcOtQ=="],
-
-    "@3-/log": ["@3-/log@0.1.9", "", {}, "sha512-1TBShxjf2FjkzOByfC3TEmBLhypP9uMZMb2fQ2+BcC1gJ6s5SI9MP7soajHhFjd9yqj1u337euQB06ITY31FFA=="],
   }
 }

@@ -23,5 +23,8 @@
   "exports": {
     ".": "./src/_.js",
     "./*": "./src/*"
+  },
+  "dependencies": {
+    "@1-/find": "^0.1.0"
   }
 }

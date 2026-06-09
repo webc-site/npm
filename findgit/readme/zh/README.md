@@ -1,9 +1,9 @@
-# @1-/findgit : 向上递归定位 Git 仓库根目录
+# @1-/findgit : 向上寻找 Git 仓库根目录
 
 ## 功能介绍
 
-从指定路径起，逐级向上查找父目录，寻找包含 `.git` 文件夹的 Git 仓库根目录。
-若直至系统根目录仍未找到，则返回初始输入路径。
+从指定路径起点开始，逐级向上检索父目录，定位包含 `.git` 文件夹的 Git 仓库根目录。
+若遍历至系统根目录仍未找到，则返回初始输入路径。
 
 ## 使用演示
 
@@ -17,23 +17,31 @@ console.log(git_root);
 
 ## 设计思路
 
-算法通过递归向上遍历父目录。调用流程如下：
+模块依赖 `@1-/find` 底层通用查找逻辑，通过递归或循环方式向上遍历目录树。
+调用流程如下：
 
 ```mermaid
 graph TD
-    Start([开始: 传入 dir]) --> CheckGit{"existsSync(cur/.git)?"}
-    CheckGit -- 是 --> ReturnCur[返回当前目录 cur]
-    CheckGit -- 否 --> ParentDir["parent = dirname(cur)"]
-    ParentDir --> CheckRoot{"parent === cur?"}
-    CheckRoot -- 是 --> ReturnStart[返回起始目录 dir]
-    CheckRoot -- 否 --> Recurse["find(parent)"]
-    Recurse --> CheckGit
+    Start([开始: 传入 dir]) --> FindCall["调用 @1-/find(dir, '.git')"]
+    FindCall --> Loop[进入循环]
+    Loop --> CheckGit{"当前目录 cur 下存在 .git 文件夹?"}
+    CheckGit -- 是 --> ReturnCur[返回 cur]
+    CheckGit -- 否 --> ParentDir["获取父目录 parent = dirname(cur)"]
+    ParentDir --> CheckRoot{"parent === cur (到达系统根目录)?"}
+    CheckRoot -- 是 --> ReturnUndefined[返回 undefined]
+    CheckRoot -- 否 --> UpdateCur["更新 cur = parent"]
+    UpdateCur --> Loop
+    ReturnCur --> Coalesce{"@1-/find 返回值是否为 undefined?"}
+    ReturnUndefined --> Coalesce
+    Coalesce -- 否 --> ReturnVal[返回查找到的目录]
+    Coalesce -- 是 --> ReturnInput[返回初始输入路径 dir]
 ```
 
 ## 技术栈
 
 - 运行环境：Bun / Node.js
-- 核心模块：`node:fs` / `node:path`
+- 核心依赖：`@1-/find`
+- 原生模块：`node:fs` / `node:path`
 
 ## 目录结构
 

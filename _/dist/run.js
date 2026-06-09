@@ -9,8 +9,11 @@ import publish from "./publish.js";
 import gciCommit from "./gci.js";
 import ROOT from "../ROOT.js";
 import opencodeReadme from "./opencodeReadme.js";
+import knipCheck from "./knip.js";
 
 export default async (pkg_folder) => {
+  await knipCheck();
+
   const pkg_path = path.resolve(pkg_folder);
   await opencodeReadme(pkg_path);
 

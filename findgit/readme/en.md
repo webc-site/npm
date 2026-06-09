@@ -11,49 +11,60 @@
 
 ## Features
 
-Starts from specified path and searches parent directories upward to locate Git repository root containing `.git` folder. Returns initial path if system root is reached.
+Traverses the directory tree upward from a specified starting path to locate the Git repository root directory containing the `.git` folder.
+Returns the initial input path if the system root is reached without finding `.git`.
 
 ## Usage
 
 ```javascript
 import findgit from "@1-/findgit";
 
-// Locate Git repository root for current directory
-const git_root = findgit(import.meta.dirname);
-console.log(git_root);
+// Locate the Git repository root for the current directory
+const gitRoot = findgit(import.meta.dirname);
+console.log(gitRoot);
 ```
 
 ## Design
 
-The module implements upward traversal via recursion.
+The module relies on the underlying `@1-/find` lookup logic to traverse directory trees.
+The flow of calls is detailed below:
 
 ```mermaid
 graph TD
-    Start([Start: input dir]) --> CheckGit{"existsSync(cur/.git)?"}
-    CheckGit -- Yes --> ReturnCur[Return current directory cur]
-    CheckGit -- No --> ParentDir["parent = dirname(cur)"]
-    ParentDir --> CheckRoot{"parent === cur?"}
-    CheckRoot -- Yes --> ReturnStart[Return start directory]
-    CheckRoot -- No --> Recurse["find(parent)"]
-    Recurse --> CheckGit
+    Start([Start: input dir]) --> FindCall["Call @1-/find(dir, '.git')"]
+    FindCall --> Loop[Enter loop]
+    Loop --> CheckGit{"Does .git exist in current directory cur?"}
+    CheckGit -- Yes --> ReturnCur[Return cur]
+    CheckGit -- No --> ParentDir["Get parent directory: parent = dirname(cur)"]
+    ParentDir --> CheckRoot{"parent === cur (reached system root)?"}
+    CheckRoot -- Yes --> ReturnUndefined[Return undefined]
+    CheckRoot -- No --> UpdateCur["Update cur = parent"]
+    UpdateCur --> Loop
+    ReturnCur --> Coalesce{"Is @1-/find return value undefined?"}
+    ReturnUndefined --> Coalesce
+    Coalesce -- No --> ReturnVal[Return found directory]
+    Coalesce -- Yes --> ReturnInput[Return initial input path dir]
 ```
 
 ## Tech Stack
 
-- Runtime: Bun
-- Language: JavaScript (ES Modules)
-- APIs: `node:fs`, `node:path`
+- Runtime: Bun / Node.js
+- Core Dependency: `@1-/find`
+- Native Modules: `node:fs` / `node:path`
 
 ## Directory Structure
 
-```
+```text
 .
 ├── src/
-│   └── _.js        # Core search logic
+│   └── _.js        # Core lookup logic
 └── tests/
     └── _.test.js   # Unit tests
 ```
 
 ## History Trivia
 
-In April 2005, Bitmover revoked free use of BitKeeper for Linux kernel development. Linus Torvalds spent two weeks writing the initial prototype of Git. Core design principles—distributed architecture and snapshot-based tracking—revolutionized version control systems. This project `@1-/findgit` helps tools locate repository roots.
+In April 2005, Bitmover revoked the free-of-charge license for BitKeeper, which was used for Linux kernel development. Linus Torvalds stepped in and wrote the initial version of Git in just about two weeks.
+Git discarded the traditional CVS/SVN model of placing metadata folders in every single subdirectory, opting instead for a single `.git` folder at the repository root.
+While this choice simplified version control management, it created a new requirement for toolchains and build tools running in nested folders to search upward recursively to find the repository boundary.
+`@1-/findgit` implements this lookup pattern with minimal overhead.

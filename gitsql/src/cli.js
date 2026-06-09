@@ -1,10 +1,10 @@
 import { spawnSync } from "node:child_process";
 import { existsSync } from "node:fs";
-import { join, dirname } from "node:path";
+import { join } from "node:path";
+import find from "@1-/find";
 import ERR from "@3-/log/ERR.js";
 import dump from "./dump.js";
 import load from "./load.js";
-import find from "./find.js";
 
 const run = async () => {
   const args = process.argv.slice(2),

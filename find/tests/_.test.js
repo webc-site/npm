@@ -8,17 +8,17 @@ import find from "../src/_.js";
 
 test("寻找目标", () => {
   const tmp = mkdtempSync(join(tmpdir(), "find-")),
-    p1 = join(tmp, "a"),
-    p2 = join(p1, "b");
+    path_a = join(tmp, "a"),
+    path_b = join(path_a, "b");
 
-  mkdirSync(p2, { recursive: true });
+  mkdirSync(path_b, { recursive: true });
   writeFileSync(join(tmp, "r.txt"), "");
-  writeFileSync(join(p1, "m.txt"), "");
+  writeFileSync(join(path_a, "m.txt"), "");
 
   [
-    [p1, "m.txt", p1],
-    [p2, "r.txt", tmp],
-    [p2, "n.txt", undefined],
+    [path_a, "m.txt", path_a],
+    [path_b, "r.txt", tmp],
+    [path_b, "n.txt", undefined],
   ].forEach(([root, name, expected]) => {
     expect(find(root, name)).toBe(expected);
   });
