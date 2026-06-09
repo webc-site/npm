@@ -7,7 +7,7 @@ import cleanPkgJson from "./cleanPkgJson.js";
 import readme from "./readme.js";
 import publish from "./publish.js";
 import gciCommit from "./gci.js";
-import ROOT from "../ROOT.js";
+import ROOT from "../../_/ROOT.js";
 import opencodeReadme from "./opencodeReadme.js";
 import knipCheck from "./knip.js";
 
@@ -26,10 +26,9 @@ export default async (pkg_folder) => {
     version_parts = current_version.split(".");
 
   version_parts[2] = String(Number(version_parts[2]) + 1);
-  const next_version = version_parts.join(".");
-
-  // 4. 创建临时目录并复制 src 目录下的内容
-  const tmp_dir = path.join(tmpdir(), "npm-publish-" + pkg_folder + "-" + crypto.randomUUID()),
+  const next_version = version_parts.join("."),
+    // 4. 创建临时目录并复制 src 目录下的内容
+    tmp_dir = path.join(tmpdir(), "npm-publish-" + pkg_folder + "-" + crypto.randomUUID()),
     src_dir = path.join(pkg_path, "src");
 
   await fs.mkdir(tmp_dir, { recursive: true });

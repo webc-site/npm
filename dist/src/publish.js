@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import { execSync } from "node:child_process";
 import gitSync from "./gitSync.js";
-import ROOT from "../ROOT.js";
+import ROOT from "../../_/ROOT.js";
 import GREEN from "@3-/log/GREEN.js";
 
 const pubAndSync = async (

@@ -1,8 +1,8 @@
 import path from "node:path";
 import read from "@3-/read";
 import rJson from "@3-/read/rJson.js";
-import ROOT from "../ROOT.js";
-import LANG from "../conf/LANG.js";
+import ROOT from "../../_/ROOT.js";
+import LANG from "../../_/conf/LANG.js";
 import opencode from "../../opencode/src/_.js";
 
 export default async (pkg_path) => {

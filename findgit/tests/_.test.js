@@ -14,13 +14,12 @@ const TMP_DIR = join(import.meta.dirname, "tmp_test_dir"),
 
 test("查找git目录", async () => {
   await init();
-
-  const cases = [
-    [join(TMP_DIR, "a/b/c"), TMP_DIR],
-    ["/", "/"],
-  ];
-
-  cases.forEach(([dir, val]) => expect(findgit(dir)).toBe(val));
-
-  await cleanup();
+  try {
+    [
+      [join(TMP_DIR, "a/b/c"), TMP_DIR],
+      ["/", "/"],
+    ].forEach(([dir, val]) => expect(findgit(dir)).toBe(val));
+  } finally {
+    await cleanup();
+  }
 });

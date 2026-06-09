@@ -10,7 +10,7 @@ test("扫描目录", async () => {
   expect(err_map.size).toBe(2);
 
   [
-    ["invalid.md", 8],
+    ["invalid.md", 9],
     ["multiple.md", 15],
   ].forEach(([file, line]) => {
     expect(err_map.has(file)).toBe(true);

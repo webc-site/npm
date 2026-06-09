@@ -1,7 +1,7 @@
 import { main } from "knip";
 import { createOptions } from "knip/session";
 import path from "node:path";
-import ROOT from "../ROOT.js";
+import ROOT from "../../_/ROOT.js";
 import ERR from "@3-/log/ERR.js";
 
 const issueTypes = [

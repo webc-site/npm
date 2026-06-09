@@ -6,7 +6,7 @@ import check from "./check.js";
 const dir = import.meta.dirname,
   cases = [
     ["valid.md", true, []],
-    ["invalid.md", false, [8]],
+    ["invalid.md", false, [9]],
     ["multiple.md", false, [15]],
     ["no_mermaid.md", true, []],
   ];

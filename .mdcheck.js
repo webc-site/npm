@@ -1,1 +1,1 @@
-export default (rel_path) => rel_path.startsWith("mdcheck/tests/");
+export default (rel_path) => rel_path.includes("/tests/");
