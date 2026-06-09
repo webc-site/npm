@@ -3,11 +3,11 @@
   "version": "0.1.1",
   "description": "Fast directory walker with concurrency limit and directory skipping | 并发受控且支持目录跳过的快速文件遍历工具",
   "keywords": [
-    "walk",
-    "directory-traversal",
     "concurrency-limit",
+    "directory-traversal",
     "fs-walk",
-    "readdir"
+    "readdir",
+    "walk"
   ],
   "homepage": "https://github.com/webc-site/npm/tree/main/walk",
   "license": "MulanPSL-2.0",

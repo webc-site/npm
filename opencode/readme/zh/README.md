@@ -55,10 +55,10 @@ graph TD
     SDK -->|初始化 Client 实例| Client[createOpencodeClient]
     SDK -->|创建 Session| Session[client.session.create]
     SDK -->|订阅 Event 流| EventStream[client.event.subscribe]
-    
+
     ClientApp -->|执行 runPrompt| Prompt[prompt.js]
     Prompt -->|发送提示词| SessionPrompt[client.session.prompt]
-    
+
     EventStream -->|实时事件监听| Stream[stream.js]
     Stream -->|发现新 Token| PrintTerminal[终端流式输出]
     Stream -->|发现权限申请| AutoApprove[自动回复 permission.updated]

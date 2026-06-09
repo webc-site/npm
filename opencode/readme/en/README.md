@@ -55,10 +55,10 @@ graph TD
     SDK -->|Initialize Client Instance| Client[createOpencodeClient]
     SDK -->|Create Session| Session[client.session.create]
     SDK -->|Subscribe Event Stream| EventStream[client.event.subscribe]
-    
+
     ClientApp -->|Execute runPrompt| Prompt[prompt.js]
     Prompt -->|Send user input| SessionPrompt[client.session.prompt]
-    
+
     EventStream -->|Real-time listener| Stream[stream.js]
     Stream -->|New Token delta| PrintTerminal[Stream to stdout]
     Stream -->|Permission request| AutoApprove[Auto-approve permission.updated]

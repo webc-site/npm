@@ -16,12 +16,16 @@ Fast directory walker for Node.js and Bun. Restricts concurrency to prevent reso
 ```javascript
 import walk, { DIR, FILE } from "@1-/walk";
 
-await walk("/path/to/dir", async (kind, path) => {
-  if (kind === DIR && path.endsWith("/temp")) {
-    return false; // Skip traversing this directory
-  }
-  console.log(kind === FILE ? "File:" : "Dir:", path);
-}, 4); // Concurrency limit of 4
+await walk(
+  "/path/to/dir",
+  async (kind, path) => {
+    if (kind === DIR && path.endsWith("/temp")) {
+      return false; // Skip traversing this directory
+    }
+    console.log(kind === FILE ? "File:" : "Dir:", path);
+  },
+  4,
+); // Concurrency limit of 4
 ```
 
 ### Relative Path Traversal (`walkRel`)

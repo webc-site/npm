@@ -1,0 +1,28 @@
+{
+  "name": "@1-/new",
+  "version": "0.1.0",
+  "description": "",
+  "keywords": [],
+  "homepage": "https://github.com/webc-site/npm/tree/main/new",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "bin": {
+    "new": "./src/new.js"
+  },
+  "files": ["./*"],
+  "type": "module",
+  "exports": {
+    ".": "./src/_.js",
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@1-/walk": "^0.1.0",
+    "@3-/log": "^0.1.9",
+    "yargs": "^18.0.0",
+    "@1-/findgit": "../findgit"
+  }
+}

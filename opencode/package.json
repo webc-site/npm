@@ -3,11 +3,11 @@
   "version": "0.1.1",
   "description": "SDK wrapper for AI agent CLI sessions / @opencode-ai/sdk 封装，提供 AI 智能体命令行会话交互",
   "keywords": [
-    "opencode",
     "agent",
     "cli",
-    "session",
-    "events"
+    "events",
+    "opencode",
+    "session"
   ],
   "homepage": "https://github.com/webc-site/npm/tree/main/opencode",
   "license": "MulanPSL-2.0",

@@ -67,15 +67,7 @@ import sqlite from "@1-/scan/sqlite.js";
 const db = sqlite("./scan_record.db");
 
 // Bulk update and delete metadata
-save(
-  db,
-  [
-    ["file.txt", new Uint8Array([1, 2, 3]), 123, 1620000000]
-  ],
-  [
-    new Uint8Array([4, 5, 6])
-  ]
-);
+save(db, [["file.txt", new Uint8Array([1, 2, 3]), 123, 1620000000]], [new Uint8Array([4, 5, 6])]);
 
 db.close();
 ```

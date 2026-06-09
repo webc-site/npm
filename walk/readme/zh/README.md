@@ -16,12 +16,16 @@
 ```javascript
 import walk, { DIR, FILE } from "@1-/walk";
 
-await walk("/path/to/dir", async (kind, path) => {
-  if (kind === DIR && path.endsWith("/temp")) {
-    return false; // 跳过此目录的递归
-  }
-  console.log(kind === FILE ? "File:" : "Dir:", path);
-}, 4); // 并发限制为 4
+await walk(
+  "/path/to/dir",
+  async (kind, path) => {
+    if (kind === DIR && path.endsWith("/temp")) {
+      return false; // 跳过此目录的递归
+    }
+    console.log(kind === FILE ? "File:" : "Dir:", path);
+  },
+  4,
+); // 并发限制为 4
 ```
 
 ### 相对路径遍历 (`walkRel`)

@@ -4,6 +4,7 @@
     "prepare": "husky"
   },
   "devDependencies": {
+    "@1-/mdcheck": "file:./mdcheck/",
     "@3-/gci": "^0.1.10",
     "@3-/is_obj": "^0.1.1",
     "@3-/log": "^0.1.9",
@@ -20,8 +21,7 @@
     "oxlint": "^1.69.0",
     "simple-git": "^3.36.0",
     "yargs": "^18.0.0",
-    "zx": "^8.8.5",
-    "@1-/mdcheck": "file:./mdcheck/"
+    "zx": "^8.8.5"
   },
   "lint-staged": {
     "**/*.js": "bun _/hook/js.js"

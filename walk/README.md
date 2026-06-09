@@ -3,6 +3,7 @@
 ---
 
 <a id="en"></a>
+
 # @1-/walk : Fast directory walker with concurrency limit and directory skipping
 
 Directory traversal library with concurrency control, directory skipping, and path filtering.
@@ -21,12 +22,16 @@ Directory traversal library with concurrency control, directory skipping, and pa
 ```javascript
 import walk, { DIR, FILE } from "@1-/walk";
 
-await walk("/path/to/dir", async (kind, path) => {
-  if (kind === DIR && path.endsWith("/temp")) {
-    return false; // Skip this directory
-  }
-  console.log(kind === FILE ? "File:" : "Dir:", path);
-}, 4); // Concurrency limit of 4
+await walk(
+  "/path/to/dir",
+  async (kind, path) => {
+    if (kind === DIR && path.endsWith("/temp")) {
+      return false; // Skip this directory
+    }
+    console.log(kind === FILE ? "File:" : "Dir:", path);
+  },
+  4,
+); // Concurrency limit of 4
 ```
 
 ### Relative Path Traversal (`walkRel`)
@@ -94,6 +99,7 @@ With modern application growth, file system operations risk resource limit exhau
 ---
 
 <a id="zh"></a>
+
 # @1-/walk : 并发受控且支持目录跳过的快速文件遍历工具
 
 提供并发限制、目录跳过及路径过滤功能的文件系统遍历库。
@@ -112,12 +118,16 @@ With modern application growth, file system operations risk resource limit exhau
 ```javascript
 import walk, { DIR, FILE } from "@1-/walk";
 
-await walk("/path/to/dir", async (kind, path) => {
-  if (kind === DIR && path.endsWith("/temp")) {
-    return false; // 跳过此目录
-  }
-  console.log(kind === FILE ? "File:" : "Dir:", path);
-}, 4); // 并发限制为 4
+await walk(
+  "/path/to/dir",
+  async (kind, path) => {
+    if (kind === DIR && path.endsWith("/temp")) {
+      return false; // 跳过此目录
+    }
+    console.log(kind === FILE ? "File:" : "Dir:", path);
+  },
+  4,
+); // 并发限制为 4
 ```
 
 ### 相对路径遍历 (`walkRel`)

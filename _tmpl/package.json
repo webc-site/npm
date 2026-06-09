@@ -10,7 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/webc-site/npm.git"
   },
-  "files": ["./*"],
+  "files": [
+    "./*"
+  ],
   "type": "module",
   "exports": {
     ".": "./src/_.js",

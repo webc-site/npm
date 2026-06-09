@@ -3,11 +3,11 @@
   "version": "0.1.6",
   "description": "Incrementally scan directory files and track metadata in SQLite / 增量扫描目录文件并使用 SQLite 记录元数据",
   "keywords": [
-    "scan",
-    "incremental",
-    "sqlite",
     "directory",
-    "metadata"
+    "incremental",
+    "metadata",
+    "scan",
+    "sqlite"
   ],
   "homepage": "https://github.com/webc-site/npm/tree/main/scan",
   "license": "MulanPSL-2.0",
