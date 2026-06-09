@@ -2,64 +2,65 @@
 import { test, expect } from "bun:test";
 import rule from "../rule.js";
 
-test("sleep 替换", async () => {
-  const code = `
-const run = async () => {
-  await new Promise(resolve => setTimeout(resolve, 100));
-};
-  `,
-    res = await rule(code);
-  expect(res).toContain('import sleep from "@3-/sleep";');
-  expect(res).toContain("sleep(100)");
-});
+const TESTS = [
+  [
+    "sleep 替换",
+    "const run = async () => {\n" +
+      "  await new Promise(resolve => setTimeout(resolve, 100));\n" +
+      "};",
+    res => {
+      expect(res).toContain('import sleep from "@3-/sleep";');
+      expect(res).toContain("sleep(100)");
+    }
+  ],
+  [
+    "sleep 替换且已有 import",
+    'import sleep from "@3-/sleep";\n' +
+      "const run = async () => {\n" +
+      "  await new Promise(resolve => setTimeout(resolve, 100));\n" +
+      "};",
+    res => {
+      expect(res.match(/import sleep/g).length).toBe(1);
+      expect(res).toContain("sleep(100)");
+    }
+  ],
+  [
+    "read 替换",
+    'import { readFileSync } from "fs";\n' +
+      'const data = readFileSync("a.txt", "utf8");',
+    res => {
+      expect(res).toContain('import read from "@3-/read";');
+      expect(res).toContain('read("a.txt")');
+      expect(res).not.toContain('import { readFileSync } from "fs";');
+    }
+  ],
+  [
+    "read 替换且已有 import",
+    'import { readFileSync } from "fs";\n' +
+      'import read from "@3-/read";\n' +
+      'const data = readFileSync("a.txt", "utf8");',
+    res => {
+      expect(res.match(/import read/g).length).toBe(1);
+      expect(res).toContain('read("a.txt")');
+      expect(res).not.toContain("readFileSync");
+    }
+  ],
+  [
+    "while 替换",
+    "const run = () => {\n" +
+      "  while (true) {\n" +
+      "    console.log(1);\n" +
+      "  }\n" +
+      "};",
+    res => {
+      expect(res).toContain("for (;;)");
+      expect(res).not.toContain("while (true)");
+    }
+  ]
+];
 
-test("sleep 替换且已有 import", async () => {
-  const code = `
-import sleep from "@3-/sleep";
-const run = async () => {
-  await new Promise(resolve => setTimeout(resolve, 100));
-};
-  `,
-    res = await rule(code);
-  // 不应该有重复的 import 语句
-  const matches = res.match(/import sleep/g);
-  expect(matches.length).toBe(1);
-  expect(res).toContain("sleep(100)");
-});
-
-test("read 替换", async () => {
-  const code = `
-import { readFileSync } from "fs";
-const data = readFileSync("a.txt", "utf8");
-  `,
-    res = await rule(code);
-  expect(res).toContain('import read from "@3-/read";');
-  expect(res).toContain('read("a.txt")');
-  expect(res).not.toContain('import { readFileSync } from "fs";');
-});
-
-test("read 替换且已有 import", async () => {
-  const code = `
-import { readFileSync } from "fs";
-import read from "@3-/read";
-const data = readFileSync("a.txt", "utf8");
-  `,
-    res = await rule(code),
-    matches = res.match(/import read/g);
-  expect(matches.length).toBe(1);
-  expect(res).toContain('read("a.txt")');
-  expect(res).not.toContain("readFileSync");
-});
-
-test("while(true) 替换为 for(;;)", async () => {
-  const code = `
-const run = () => {
-  while (true) {
-    console.log(1);
-  }
-};
-  `,
-    res = await rule(code);
-  expect(res).toContain("for (;;)");
-  expect(res).not.toContain("while (true)");
+TESTS.forEach(([name, code, verify]) => {
+  test(name, async () => {
+    verify(await rule(code));
+  });
 });
