@@ -1,14 +1,16 @@
+use cersei::{
+  prelude::{Agent, AllowAll, Message, OpenAi},
+  tools::coding,
+};
+
 use crate::Result;
-use cersei::prelude::OpenAi;
-use cersei::prelude::{Agent, AllowAll};
-use cersei::tools::coding;
 
 pub fn build_agent(
   base_url: String,
   api_key: String,
   model: String,
   working_dir: String,
-  initial_messages: Option<Vec<cersei::prelude::Message>>,
+  initial_messages: Option<Vec<Message>>,
 ) -> Result<Agent> {
   let mut base_url = base_url;
   if base_url.ends_with('/') {

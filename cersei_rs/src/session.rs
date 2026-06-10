@@ -1,11 +1,16 @@
-use crate::Result;
-use crate::chat::{
-  get_runtime, AgentStream, MSG_END, MSG_ERR, MSG_TXT, MSG_TOOL,
-};
-use cersei::events::AgentEvent;
+use std::{env, sync::Arc};
+
+use cersei::prelude::{Message, MessageContent, Role};
 use napi_derive::napi;
-use std::sync::Arc;
-use tokio::sync::mpsc::Sender;
+use tokio::sync::mpsc::{Sender, channel};
+
+use crate::{
+  Result,
+  agent::build_agent,
+  msg,
+  rt::get_runtime,
+  stream::{self, AgentStream},
+};
 
 #[napi(object)]
 pub struct ChatMessage {
@@ -34,19 +39,14 @@ impl AgentSession {
         .into_iter()
         .map(|msg| {
           let role = match msg.role.as_str() {
-            "user" => cersei::prelude::Role::User,
-            "assistant" => cersei::prelude::Role::Assistant,
-            "system" => cersei::prelude::Role::System,
-            _ => match msg.role.to_lowercase().as_str() {
-              "user" => cersei::prelude::Role::User,
-              "assistant" => cersei::prelude::Role::Assistant,
-              "system" => cersei::prelude::Role::System,
-              _ => cersei::prelude::Role::User,
-            },
+            "user" => Role::User,
+            "assistant" => Role::Assistant,
+            "system" => Role::System,
+            _ => Role::User,
           };
-          cersei::prelude::Message {
+          Message {
             role,
-            content: cersei::prelude::MessageContent::Text(msg.content),
+            content: MessageContent::Text(msg.content),
             id: None,
             metadata: None,
           }
@@ -54,7 +54,7 @@ impl AgentSession {
         .collect::<Vec<_>>()
     });
 
-    let agent = Arc::new(crate::agent::build_agent(
+    let agent = Arc::new(build_agent(
       base_url,
       api_key,
       model,
@@ -66,7 +66,7 @@ impl AgentSession {
 
   #[napi]
   pub fn chat(&self, prompt: String) -> napi::Result<AgentStream> {
-    let (tx, rx) = tokio::sync::mpsc::channel(100);
+    let (tx, rx) = channel(100);
     let agent = Arc::clone(&self.agent);
     let working_dir = self.working_dir.clone();
 
@@ -74,7 +74,7 @@ impl AgentSession {
     rt.spawn(async move {
       let tx_clone = tx.clone();
       if let Err(e) = chat_inner(agent, prompt, working_dir, tx_clone).await {
-        let _ = tx.send((MSG_ERR, e.to_string())).await;
+        let _ = tx.send((msg::ERR, e.to_string())).await;
       }
     });
 
@@ -88,27 +88,7 @@ async fn chat_inner(
   working_dir: String,
   tx: Sender<(u32, String)>,
 ) -> Result<()> {
-  std::env::set_current_dir(&working_dir)?;
-  let mut stream = agent.run_stream(&prompt);
-
-  while let Some(event) = stream.next().await {
-    let callback_event = match event {
-      AgentEvent::TextDelta(t) => Some((MSG_TXT, t)),
-      AgentEvent::ToolStart { name, .. } => Some((MSG_TOOL, name)),
-      AgentEvent::Complete(_) => Some((MSG_END, String::new())),
-      _ => None,
-    };
-
-    if let Some(evt) = callback_event {
-      let is_complete = evt.0 == MSG_END;
-      if tx.send(evt).await.is_err() {
-        break;
-      }
-      if is_complete {
-        break;
-      }
-    }
-  }
-
-  Ok(())
+  env::set_current_dir(&working_dir)?;
+  let stream = agent.run_stream(&prompt);
+  stream::run(stream, tx).await
 }

@@ -1,4 +1,4 @@
-use std::result;
+use std::{io, result};
 
 use cersei::prelude::CerseiError;
 use thiserror::Error;
@@ -8,7 +8,7 @@ pub enum Error {
   #[error(transparent)]
   Cersei(#[from] CerseiError),
   #[error(transparent)]
-  Io(#[from] std::io::Error),
+  Io(#[from] io::Error),
 }
 
 pub type Result<T> = result::Result<T, Error>;

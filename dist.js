@@ -3,7 +3,7 @@ import { cd, $ } from "zx";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { existsSync } from "node:fs";
-import path from "node:path";
+import { resolve, join } from "node:path";
 import npmDist from "./dist/src/run.js";
 import rsDist from "./_/rs/dist.js";
 
@@ -12,12 +12,12 @@ const ROOT = import.meta.dirname,
     .usage("Usage: $0 <PROJECT>")
     .demandCommand(1, "PROJECT is required")
     .help().argv,
-  project = argv._[0].toString();
+  project = resolve(argv._[0].toString());
 
 cd(ROOT);
 $.verbose = true;
 
-if (existsSync(path.join(project, "Cargo.toml"))) {
+if (existsSync(join(project, "Cargo.toml"))) {
   await rsDist(project);
 } else {
   await npmDist(ROOT, project);
