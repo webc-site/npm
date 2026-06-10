@@ -4,7 +4,7 @@ import read from "@1-/read";
 import { $, cd } from "zx";
 import { readdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import org_name from "./src/npmOrg.js";
+import org_name from "../src/npmOrg.js";
 import urlExist from "@1-/url_exist";
 import { spawnSync } from "node:child_process";
 import ERR from "@3-/log/ERR.js";
@@ -13,17 +13,31 @@ const run = (cmd, args, dir) => {
     const { status, error } = spawnSync(cmd, args, { stdio: "inherit", cwd: dir });
     if (error) throw error;
     if (status !== 0) {
-      throw new Error(`${cmd} ${args.join(" ")} failed with code ${status}`);
+      throw new Error("命令 " + cmd + " " + args.join(" ") + " 执行失败，退出码 " + status);
     }
   },
-  ROOT = import.meta.dirname,
+  ROOT = join(import.meta.dirname, ".."),
   publish = async (name, dir, repo) => {
     console.log(name + " 发布中");
     try {
       run("npm", ["publish", "--access", "public", "--registry=https://registry.npmjs.org"], dir);
       console.log(name + " 已发布");
       console.log(name + " 正在配置 Trusted Publisher...");
-      run("npm", ["trust", "github", name, "--file", "cersei_rs.yml", "--repo", repo, "-y"], dir);
+      run(
+        "npm",
+        [
+          "trust",
+          "github",
+          name,
+          "--file",
+          "cersei_rs.yml",
+          "--repo",
+          repo,
+          "--allow-publish",
+          "-y",
+        ],
+        dir,
+      );
       console.log(name + " Trusted Publisher 配置成功");
     } catch (err) {
       ERR(name + " 发布/配置失败: " + err.message);
@@ -43,8 +57,8 @@ const run = (cmd, args, dir) => {
     console.log(pkg.name + ": " + (exists ? "已存在" : "不存在"));
 
     if (!exists) {
-      const repoUrl = pkg.repository?.url || pkg.repository || "",
-        match = repoUrl.match(/github\.com\/([^/]+\/[^/.]+)/),
+      const repo_url = pkg.repository?.url || pkg.repository || "",
+        match = repo_url.match(/github\.com\/([^/]+\/[^/.]+)/),
         repo = match ? match[1] : "webc-site/npm";
       await publish(pkg.name, join(npm_dir, dir), repo);
     }

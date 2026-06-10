@@ -19,5 +19,12 @@ export default {
   },
   ignoreDependencies: [],
   ignoreBinaries: ["fix/src/fix.js"],
-  ignore: ["./new.js", "./conf/**", "_/conf/**", "**/knip.js"],
+  ignore: [
+    "./new.js",
+    "./conf/**",
+    "_/conf/**",
+    "**/knip.js",
+    "_/rs/github_action/**",
+    "_/rs/dist.js",
+  ],
 };

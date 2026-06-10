@@ -25,7 +25,9 @@ const ROOT = import.meta.dirname,
 
     writeFileSync(
       join(OUT, "index.js"),
-      `const nativeBinding = require('./${file}');\n` +
+      "const nativeBinding = require('./" +
+        file +
+        "');\n" +
         index.slice(index.indexOf("\nmodule.exports =")),
     );
   };

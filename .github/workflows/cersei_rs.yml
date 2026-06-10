@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - "cersei_rs@*"
+      - "cersei_rs-v*"
 
 permissions:
   contents: write
