@@ -50,72 +50,22 @@ jobs:
 
     name: 稳定版 - ${{ matrix.settings.target }} - node
     runs-on: ${{ matrix.settings.host }}
-    defaults:
-      run:
-        working-directory: cersei_rs
     steps:
       - uses: actions/checkout@v6
 
       - name: 生成 OpenAI 配置文件
-        working-directory: .
         run: |
           mkdir -p conf
           echo "export default ${{ secrets.OPENAI_LI }};" > conf/OPENAI.js
 
-      - name: 设置 Node
-        uses: actions/setup-node@v6
+      - name: Build & Test
+        uses: ./.github/actions/build
         with:
-          node-version: 24
-          architecture: ${{ matrix.settings.node_arch }}
-
-      - name: 安装 Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
-
-      - name: 安装 Rust
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          toolchain: stable
-          targets: ${{ matrix.settings.target }}
-
-      - name: Rust 缓存
-        uses: Swatinem/rust-cache@v2
-        with:
-          workspaces: "cersei_rs -> target"
-
-      - name: 安装 Zig
-        if: ${{ contains(matrix.settings.extra, '--cross-compile') }}
-        uses: mlugg/setup-zig@v2
-
-      - name: 安装 cargo-zigbuild
-        if: ${{ contains(matrix.settings.extra, '--cross-compile') }}
-        run: pipx install cargo-zigbuild
-
-      - name: 安装依赖
-        shell: bash
-        run: bun install
-
-      - name: 构建
-        shell: bash
-        run: PLATFORM=${{ matrix.settings.platform }} bun ./dist.js --target ${{ matrix.settings.target }} ${{ matrix.settings.extra }}
-
-      - name: 运行测试 (原生)
-        shell: bash
-        run: |
-          if bun run | grep -q "  test"; then
-            binary_name=$(../_/rs/github_action/pkg_napi_binary_name.js)
-            cp *.node "${binary_name}.node"
-            bun run test
-            rm -f "${binary_name}.node"
-          fi
-
-      - name: 上传产物
-        uses: actions/upload-artifact@v4
-        with:
-          name: bindings-${{ matrix.settings.target }}
-          path: cersei_rs/npm/**/*.node
-          if-no-files-found: error
+          working-directory: "cersei_rs"
+          node_arch: ${{ matrix.settings.node_arch }}
+          target: ${{ matrix.settings.target }}
+          platform: ${{ matrix.settings.platform }}
+          extra: ${{ matrix.settings.extra || '' }}
 
   publish:
     name: 发布
@@ -125,43 +75,10 @@ jobs:
     permissions:
       contents: write
       id-token: write
-    defaults:
-      run:
-        working-directory: cersei_rs
     steps:
       - uses: actions/checkout@v6
 
-      - name: 设置 Node
-        uses: actions/setup-node@v6
+      - name: Publish to NPM
+        uses: ./.github/actions/publish
         with:
-          node-version: 24
-          registry-url: "https://registry.npmjs.org/"
-
-      - name: 安装 Bun
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
-
-      - name: 安装依赖
-        run: bun install
-
-      - name: 下载所有产物
-        uses: actions/download-artifact@v4
-        with:
-          path: cersei_rs/artifacts
-          merge-multiple: true
-
-      - name: 移动产物
-        run: |
-          bunx napi create-npm-dirs
-          bunx napi artifacts
-          if [ -f ./ops/prepublish.js ]; then
-            bun ./ops/prepublish.js
-          fi
-          echo "移动后检查产物："
-          ls -R npm/
-
-      - name: 发布 NPM 包
-        run: bun ../_/rs/github_action/publish.js
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+          working-directory: "cersei_rs"
