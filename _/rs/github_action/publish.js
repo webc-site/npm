@@ -6,8 +6,7 @@ import { join, resolve } from "node:path";
 import ERR from "@3-/log/ERR.js";
 
 const publishPkg = async (dir) => {
-    const abs_dir = resolve(dir),
-      pkg_path = join(abs_dir, "package.json");
+    const pkg_path = join(dir, "package.json");
     if (!existsSync(pkg_path)) {
       return;
     }
@@ -15,7 +14,7 @@ const publishPkg = async (dir) => {
       { name, version } = pkg;
 
     console.log("正在发布 " + dir + " (" + name + "@" + version + ")...");
-    await $`npm publish ${abs_dir} --provenance --access public`;
+    await $`npm publish ${dir} --provenance --access public`;
   },
   main = async () => {
     const npm_dir = resolve("npm");
