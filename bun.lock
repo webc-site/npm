@@ -9,6 +9,8 @@
       },
       "devDependencies": {
         "@1-/mdcheck": "file:./mdcheck/",
+        "@1-/read": "^0.1.0",
+        "@1-/url_exist": "^0.1.1",
         "@3-/log": "^0.1.9",
         "@3-/read": "^0.1.4",
         "@3-/sleep": "^0.0.4",
@@ -26,6 +28,8 @@
     "@1-/mdcheck": ["@1-/mdcheck@file:mdcheck", { "dependencies": { "@1-/md": "^0.1.3", "@1-/read": "^0.1.0", "@1-/walk": "^0.1.1", "@3-/log": "^0.1.9", "mermaid": "^11.15.0", "yargs": "^18.0.0" }, "bin": { "mdcheck": "./src/mdcheck.js" } }],
 
     "@1-/read": ["@1-/read@0.1.0", "", {}, "sha512-0RTH1qS8r62tMPUUTGIWJKicn5KP15Dp8GY8pkI01QqguvU5koMYERrryTMnTHFMJMZmWzw+LJlMOxxM6fCdDw=="],
+
+    "@1-/url_exist": ["@1-/url_exist@0.1.1", "", {}, "sha512-42l7sN0G9d1ILFOmvJ5dvcbXuwzRzo69W7EWODuegpfe1VTnuZO3Mll3mnpnGuTkeS3pndNEPAgCHusWhxMuXw=="],
 
     "@1-/walk": ["@1-/walk@0.1.1", "", { "dependencies": { "@3-/plimit": "^0.1.3" } }, "sha512-oRUuu/CmUxUhk9/xeAIGReshkVXaJw/sSwkjOL9rw6ODoLiE/b4hYSkyf+b6CxpCIrDcK+BVVtq6ASMeaqC6Rg=="],
 
