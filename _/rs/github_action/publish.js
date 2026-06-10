@@ -18,7 +18,7 @@ const publishPkg = async (dir) => {
     await $`npm publish ${abs_dir} --provenance --access public`;
   },
   main = async () => {
-    const npm_dir = "npm";
+    const npm_dir = resolve("npm");
     if (existsSync(npm_dir)) {
       const files = readdirSync(npm_dir);
       for (const file of files) {
