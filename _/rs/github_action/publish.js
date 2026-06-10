@@ -18,21 +18,22 @@ async function isPublished(dir) {
 }
 
 async function publishPkg(dir) {
-  const pkgPath = path.join(dir, "package.json");
+  const absDir = path.resolve(dir),
+    pkgPath = path.join(absDir, "package.json");
   if (!fs.existsSync(pkgPath)) return;
   const pkg = JSON.parse(read(pkgPath)),
     { name, version } = pkg;
 
-  if (await isPublished(dir)) {
+  if (await isPublished(absDir)) {
     console.log(`包 ${name}@${version} 已经发布。跳过。`);
     return;
   }
 
   console.log(`正在发布 ${dir} (${name}@${version})...`);
   try {
-    await $`npm publish ${dir} --provenance --access public`;
+    await $`npm publish ${absDir} --provenance --access public`;
   } catch (error) {
-    if (await isPublished(dir)) {
+    if (await isPublished(absDir)) {
       console.log(`${dir} 中的包在发布过程中已成功发布。跳过。`);
       return;
     }

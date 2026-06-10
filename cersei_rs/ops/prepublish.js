@@ -9,6 +9,7 @@ const ROOT = join(import.meta.dirname, ".."),
 
 let root_pkg_name = "cersei_rs";
 
+// 1. 更新根目录 package.json 中的可选依赖
 if (existsSync(root_pkg_path)) {
   const root_pkg = JSON.parse(read(root_pkg_path));
   root_pkg_name = root_pkg.name;
