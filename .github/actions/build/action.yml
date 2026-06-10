@@ -69,10 +69,11 @@ runs:
         PLATFORM: ${{ inputs.platform }}
       run: |
         set -ex
+        CMD="node ./ops/test.js"
         if [[ "${{ inputs.platform }}" == *"musl"* ]]; then
-          docker run --rm -v "${{ github.workspace }}":/workspace -w /workspace/cersei_rs -e PLATFORM=${{ inputs.platform }} node:alpine node ./ops/test.js
+          docker run --rm -v "${{ github.workspace }}":/workspace -w /workspace/cersei_rs -e PLATFORM=${{ inputs.platform }} node:alpine $CMD
         else
-          node ./ops/test.js
+          $CMD
         fi
 
     - name: 上传产物
