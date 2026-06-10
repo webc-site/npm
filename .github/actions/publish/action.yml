@@ -1,12 +1,12 @@
-name: 'NAPI 发布'
-description: '发布 N-API 包至 NPM'
+name: "NAPI 发布"
+description: "发布 N-API 包至 NPM"
 inputs:
   working-directory:
-    description: '工作目录'
+    description: "工作目录"
     required: true
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: 设置 Node
       uses: actions/setup-node@v6
@@ -15,9 +15,10 @@ runs:
         registry-url: "https://registry.npmjs.org/"
 
     - name: 安装 Bun
-      uses: oven-sh/setup-bun@v2
-      with:
-        bun-version: latest
+      shell: bash
+      run: |
+        curl -fsSL https://bun.sh/install | bash
+        echo "$HOME/.bun/bin" >> $GITHUB_PATH
 
     - name: 安装依赖
       shell: bash
@@ -36,9 +37,7 @@ runs:
       run: |
         bunx napi create-npm-dirs
         bunx napi artifacts
-        if [ -f ./ops/prepublish.js ]; then
-          bun ./ops/prepublish.js
-        fi
+        bun ./ops/prepublish.js
         echo "移动后检查产物："
         ls -R npm/
 

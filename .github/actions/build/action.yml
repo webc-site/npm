@@ -28,9 +28,10 @@ runs:
         architecture: ${{ inputs.node_arch }}
 
     - name: 安装 Bun
-      uses: oven-sh/setup-bun@v2
-      with:
-        bun-version: latest
+      shell: bash
+      run: |
+        curl -fsSL https://bun.sh/install | bash
+        echo "$HOME/.bun/bin" >> $GITHUB_PATH
 
     - name: 安装 Rust
       uses: dtolnay/rust-toolchain@stable
