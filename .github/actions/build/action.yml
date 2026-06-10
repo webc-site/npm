@@ -1,0 +1,80 @@
+name: "NAPI 构建"
+description: "构建并测试 N-API 原生绑定"
+inputs:
+  working-directory:
+    description: "工作目录"
+    required: true
+  node_arch:
+    description: "Node 架构"
+    required: true
+  target:
+    description: "Rust 目标"
+    required: true
+  platform:
+    description: "平台名称"
+    required: true
+  extra:
+    description: "额外构建参数"
+    required: false
+    default: ""
+
+runs:
+  using: "composite"
+  steps:
+    - name: 设置 Node
+      uses: actions/setup-node@v6
+      with:
+        node-version: latest
+        architecture: ${{ inputs.node_arch }}
+
+    - name: 安装 Bun
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: latest
+
+    - name: 安装 Rust
+      uses: dtolnay/rust-toolchain@stable
+      with:
+        toolchain: stable
+        targets: ${{ inputs.target }}
+
+    - name: Rust 缓存
+      uses: Swatinem/rust-cache@v2
+      with:
+        workspaces: "${{ inputs.working-directory }} -> target"
+
+    - name: 安装 Zig
+      if: ${{ contains(inputs.extra, '--cross-compile') }}
+      uses: mlugg/setup-zig@v2
+
+    - name: 安装 cargo-zigbuild
+      if: ${{ contains(inputs.extra, '--cross-compile') }}
+      shell: bash
+      run: pipx install cargo-zigbuild
+
+    - name: 安装依赖
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: bun install
+
+    - name: 构建
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: PLATFORM=${{ inputs.platform }} bun ./dist.js --target ${{ inputs.target }} ${{ inputs.extra }}
+
+    - name: 运行测试 (原生)
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        set -ex
+        binary_name=$(../_/rs/github_action/pkg_napi_binary_name.js)
+        cp *.node "${binary_name}.node"
+        bun ./ops/test.js
+        rm -f "${binary_name}.node"
+
+    - name: 上传产物
+      uses: actions/upload-artifact@v4
+      with:
+        name: bindings-${{ inputs.target }}
+        path: ${{ inputs.working-directory }}/npm/**/*.node
+        if-no-files-found: error

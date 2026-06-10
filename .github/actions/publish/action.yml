@@ -1,0 +1,48 @@
+name: "NAPI 发布"
+description: "发布 N-API 包至 NPM"
+inputs:
+  working-directory:
+    description: "工作目录"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: 设置 Node
+      uses: actions/setup-node@v6
+      with:
+        node-version: latest
+        registry-url: "https://registry.npmjs.org/"
+
+    - name: 安装 Bun
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: latest
+
+    - name: 安装依赖
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: bun install
+
+    - name: 下载所有产物
+      uses: actions/download-artifact@v4
+      with:
+        path: ${{ inputs.working-directory }}/artifacts
+        merge-multiple: true
+
+    - name: 移动产物
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        bunx napi create-npm-dirs
+        bunx napi artifacts
+        bun ./ops/prepublish.js
+        echo "移动后检查产物："
+        ls -R npm/
+
+    - name: 发布 NPM 包
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: bun ../_/rs/github_action/publish.js
+      env:
+        GITHUB_TOKEN: ${{ github.token }}

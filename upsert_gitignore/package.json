@@ -1,0 +1,31 @@
+{
+  "name": "@1-/upsert_gitignore",
+  "version": "0.1.4",
+  "description": "Safely and idempotently update .gitignore / 安全幂等地更新 .gitignore",
+  "keywords": [
+    "config",
+    "gitignore",
+    "idempotent",
+    "tool",
+    "upsert"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/upsert_gitignore",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/_.js",
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@3-/txt_li": "^0.1.8",
+    "@3-/write": "^0.0.2"
+  }
+}
