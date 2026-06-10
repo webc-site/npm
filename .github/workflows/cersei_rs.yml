@@ -54,7 +54,7 @@ jobs:
       run:
         working-directory: cersei_rs
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: 生成 OpenAI 配置文件
         working-directory: .
@@ -63,7 +63,7 @@ jobs:
           echo "export default ${{ secrets.OPENAI_LI }};" > conf/OPENAI.js
 
       - name: 设置 Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
           architecture: ${{ matrix.settings.node_arch }}
@@ -86,7 +86,7 @@ jobs:
 
       - name: 安装 Zig
         if: ${{ contains(matrix.settings.extra, '--cross-compile') }}
-        uses: goto-bus-stop/setup-zig@v2
+        uses: mlugg/setup-zig@v2
 
       - name: 安装 cargo-zigbuild
         if: ${{ contains(matrix.settings.extra, '--cross-compile') }}
@@ -129,10 +129,10 @@ jobs:
       run:
         working-directory: cersei_rs
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: 设置 Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
           registry-url: "https://registry.npmjs.org/"
@@ -162,46 +162,6 @@ jobs:
           ls -R npm/
 
       - name: 发布 NPM 包
-        run: |
-          is_published() {
-            local dir=$1
-            local pkg_name=$(../_/rs/github_action/pkg_name.js "$(pwd)/${dir}")
-            local pkg_version=$(../_/rs/github_action/pkg_version.js "$(pwd)/${dir}")
-            if npm view "${pkg_name}@${pkg_version}" version --quiet | grep -q "${pkg_version}"; then
-              return 0
-            else
-              return 1
-            fi
-          }
-
-          publish_pkg() {
-            local dir=$1
-            local name=$(../_/rs/github_action/pkg_name.js "$(pwd)/${dir}")
-            local version=$(../_/rs/github_action/pkg_version.js "$(pwd)/${dir}")
-            if is_published "$dir"; then
-              echo "包 ${name}@${version} 已经发布。跳过。"
-              return 0
-            fi
-
-            echo "正在发布 $dir..."
-            if npm publish "$dir" --provenance --access public; then
-              return 0
-            else
-              local status=$?
-              if is_published "$dir"; then
-                echo "$dir 中的包在发布过程中已成功发布。跳过。"
-                return 0
-              fi
-              return $status
-            fi
-          }
-
-          publish_pkg "."
-
-          for dir in npm/*; do
-            if [ -d "$dir" ]; then
-              publish_pkg "$dir"
-            fi
-          done
+        run: bun ../_/rs/github_action/publish.js
         env:
           GITHUB_TOKEN: ${{ github.token }}
