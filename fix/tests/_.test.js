@@ -103,6 +103,18 @@ const TESTS = [
     "const a = 1;\n" + "// line 1\n" + "// line 2\n" + "const b = 2;",
     ["const a = 1,\n// line 1\n// line 2\nb = 2;"],
   ],
+  [
+    "process.env 替换",
+    "const port = process.env.PORT || 8080;",
+    ['import { env } from "node:process";', "const port = env.PORT || 8080;"],
+  ],
+  [
+    "process.env 替换且已有 import",
+    'import { env } from "node:process";\n' + "const port = process.env.PORT || 8080;",
+    ["const port = env.PORT || 8080;"],
+    null,
+    ['import { env } from "node:process";', 1],
+  ],
 ];
 
 TESTS.forEach(([name, code, include, exclude, match]) => {

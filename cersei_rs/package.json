@@ -1,6 +1,6 @@
 {
   "name": "cersei_rs",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Cersei N-API 包装器，支持流式智能体对话 / Cersei N-API wrapper supporting streaming agent chat",
   "keywords": [
     "cersei",
@@ -42,7 +42,6 @@
   "napi": {
     "binaryName": "cersei_rs",
     "targets": [
-      "x86_64-pc-windows-msvc",
       "x86_64-apple-darwin",
       "x86_64-unknown-linux-gnu",
       "x86_64-unknown-linux-musl",
@@ -52,7 +51,6 @@
       "aarch64-linux-android",
       "x86_64-unknown-freebsd",
       "aarch64-unknown-linux-musl",
-      "aarch64-pc-windows-msvc",
       "armv7-linux-androideabi"
     ]
   },

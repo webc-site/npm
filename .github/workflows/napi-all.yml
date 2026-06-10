@@ -1,0 +1,141 @@
+name: NAPI 全平台发布模版
+
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        required: true
+        type: string
+
+
+env:
+  DEBUG: napi:*
+  MACOSX_DEPLOYMENT_TARGET: "11.0"
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+  OPENAI_LI: ${{ secrets.OPENAI_LI }}
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        settings:
+          - host: macos-latest
+            target: x86_64-apple-darwin
+            platform: darwin-x64
+            node_arch: x64
+          - host: macos-latest
+            target: aarch64-apple-darwin
+            platform: darwin-arm64
+            node_arch: arm64
+          - host: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            platform: linux-x64-gnu
+            node_arch: x64
+          - host: ubuntu-24.04-arm
+            target: aarch64-unknown-linux-gnu
+            platform: linux-arm64-gnu
+            node_arch: arm64
+          - host: ubuntu-latest
+            target: x86_64-unknown-linux-musl
+            platform: linux-x64-musl
+            extra: --cross-compile
+            node_arch: x64
+          - host: ubuntu-24.04-arm
+            target: aarch64-unknown-linux-musl
+            platform: linux-arm64-musl
+            extra: --cross-compile
+            node_arch: arm64
+          - host: windows-latest
+            target: x86_64-pc-windows-msvc
+            platform: win32-x64-msvc
+            node_arch: x64
+          - host: windows-11-arm
+            target: aarch64-pc-windows-msvc
+            platform: win32-arm64-msvc
+            node_arch: arm64
+
+    name: 稳定版 - ${{ matrix.settings.target }} - node
+    runs-on: ${{ matrix.settings.host }}
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 设置 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          architecture: ${{ matrix.settings.node_arch }}
+
+      - name: 安装 Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: 安装 Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+          targets: ${{ matrix.settings.target }}
+
+      - name: Rust 缓存
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: "${{ inputs.working-directory }} -> target"
+
+      - name: 安装 Zig
+        if: ${{ contains(matrix.settings.extra, '--cross-compile') }}
+        uses: goto-bus-stop/setup-zig@v2
+
+      - name: 安装 cargo-zigbuild
+        if: ${{ contains(matrix.settings.extra, '--cross-compile') }}
+        run: pipx install cargo-zigbuild
+
+      - name: 安装依赖
+        shell: bash
+        run: bun install
+
+      - name: 构建
+        shell: bash
+        run: PLATFORM=${{ matrix.settings.platform }} bun ./dist.js --target ${{ matrix.settings.target }} ${{ matrix.settings.extra }}
+
+      - name: 运行测试 (原生)
+        if: ${{ !matrix.settings.test_docker }}
+        shell: bash
+        run: |
+          if bun run | grep -q "  test"; then
+            binary_name=$(../_/rs/github_action/pkg_napi_binary_name.js)
+            cp *.node "${binary_name}.node"
+            bun run test
+            rm -f "${binary_name}.node"
+          fi
+
+      - name: 运行测试 (Docker)
+        if: ${{ matrix.settings.test_docker }}
+        run: |
+          if bun run | grep -q "  test"; then
+            binary_name=$(../_/rs/github_action/pkg_napi_binary_name.js)
+            cp *.node "${binary_name}.node"
+            docker run --rm --platform ${{ matrix.settings.test_platform }} \
+              -v ${{ github.workspace }}:/workspace \
+              -w /workspace/${{ inputs.working-directory }} \
+              ${{ matrix.settings.test_docker }} \
+              sh -c "bun install && bun run test"
+            rm -f "${binary_name}.node"
+          fi
+
+      - name: 上传产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: bindings-${{ matrix.settings.target }}
+          path: ${{ inputs.working-directory }}/npm/**/*.node
+          if-no-files-found: error
+
+  publish:
+    needs: build
+    uses: ./.github/workflows/napi-base.yml
+    secrets: inherit
+    with:
+      working-directory: ${{ inputs.working-directory }}
