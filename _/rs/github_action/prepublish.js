@@ -18,26 +18,19 @@ const argv = yargs(hideBin(process.argv))
 
 let root_pkg_name = "cersei_rs";
 
-// 1. 更新根目录 package.json 中的可选依赖
+// 1. 更新根目录 package.json 中的可选依赖与子包包名
 const root_pkg = JSON.parse(read(root_pkg_path));
 root_pkg_name = root_pkg.name;
+root_pkg.optionalDependencies = {};
 
-if (root_pkg.optionalDependencies) {
-  const new_opt_deps = {};
-  for (const key of Object.keys(root_pkg.optionalDependencies)) {
-    const new_key = key.startsWith("@" + npm_org + "/") ? key : "@" + npm_org + "/" + key;
-    new_opt_deps[new_key] = root_pkg.version;
-  }
-  root_pkg.optionalDependencies = new_opt_deps;
-}
-
-writeFileSync(root_pkg_path, JSON.stringify(root_pkg, null, 2) + "\n", "utf-8");
-console.log("已更新根目录 package.json 的可选依赖（追加组织前缀）。");
-
-// 2. 更新 npm/*/package.json 中的包名
 for (const dir of readdirSync(npm_dir)) {
   const pkg_path = join(npm_dir, dir, "package.json");
   if (existsSync(pkg_path)) {
+    // 增加可选依赖项
+    const key = "@" + npm_org + "/" + root_pkg_name + "-" + dir;
+    root_pkg.optionalDependencies[key] = root_pkg.version;
+
+    // 修改子包包名
     const pkg = JSON.parse(read(pkg_path));
     if (pkg.name && !pkg.name.startsWith("@" + npm_org + "/")) {
       pkg.name = "@" + npm_org + "/" + pkg.name;
@@ -46,6 +39,9 @@ for (const dir of readdirSync(npm_dir)) {
     }
   }
 }
+
+writeFileSync(root_pkg_path, JSON.stringify(root_pkg, null, 2) + "\n", "utf-8");
+console.log("已更新根目录 package.json 的可选依赖（追加组织前缀）。");
 
 // 3. 更新 src/_.js，从组织作用域包导入
 let content = read(js_path);

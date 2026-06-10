@@ -1,6 +1,8 @@
+import { createRequire } from "node:module";
 import PLATFORM from "./PLATFORM.js";
 
-const native = await import("../npm/" + PLATFORM + "/index.js"),
+const require = createRequire(import.meta.url),
+  native = require("../npm/" + PLATFORM),
   wrapStream = (stream) => {
     stream[Symbol.asyncIterator] = () => ({
       next: async () => {
