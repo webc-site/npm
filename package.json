@@ -8,7 +8,6 @@
     "@3-/log": "^0.1.9",
     "@3-/read": "^0.1.4",
     "@3-/sleep": "^0.0.4",
-    "@opencode-ai/sdk": "^1.17.0",
     "husky": "^9.1.7",
     "knip": "^6.16.1",
     "lint-staged": "^17.0.7",
@@ -17,5 +16,9 @@
   },
   "lint-staged": {
     "**/*.js": "fix/src/fix.js"
+  },
+  "dependencies": {
+    "@3-/int": "^0.1.1",
+    "yargs": "^18.0.0"
   }
 }

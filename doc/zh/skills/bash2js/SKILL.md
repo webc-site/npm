@@ -11,3 +11,5 @@ name: bash2sh
 如果需要运行 bash， `import {$} from "zx"`
 
 `bun i -D` 安装缺少的依赖
+
+用 `yargs` 解析命令行参数，要支持 `--help`

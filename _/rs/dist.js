@@ -1,5 +1,6 @@
 #!/usr/bin/env bun
 import read from "@3-/read";
+import int from "@3-/int";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import fs from "fs";
@@ -17,7 +18,7 @@ const argv = yargs(hideBin(process.argv))
   oldVersion = pkg.version || "0.1.0",
   parts = oldVersion.split(".");
 
-parts[2] = String(parseInt(parts[2], 10) + 1);
+parts[2] = String(int(parts[2]) + 1);
 
 const newVersion = parts.join(".");
 

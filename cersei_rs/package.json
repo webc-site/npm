@@ -1,6 +1,6 @@
 {
   "name": "cersei_rs",
-  "version": "1.0.11",
+  "version": "1.0.13",
   "description": "Cersei N-API 包装器，支持流式智能体对话 / Cersei N-API wrapper supporting streaming agent chat",
   "keywords": [
     "cersei",
