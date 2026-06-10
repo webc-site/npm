@@ -20,7 +20,10 @@ export default async (stream) => {
     if (type == MSG_TOOL) {
       stdout.write("\x1b[32m" + content + "\x1b[0m \x1b[90m" + args + "\x1b[0m\n");
     } else {
-      stdout.write("\n\x1b[90m" + MSG[type] + ":\x1b[0m " + content);
+      if (type !== lastType) {
+        stdout.write("\n\x1b[90m" + MSG[type] + ":\x1b[0m ");
+      }
+      stdout.write(content);
     }
     if (type == MSG_TXT) {
       lastTxt += content;
