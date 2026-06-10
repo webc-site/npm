@@ -18,13 +18,10 @@ const publishPkg = async (dir) => {
   },
   main = async () => {
     const npm_dir = resolve("npm");
-    if (existsSync(npm_dir)) {
-      const files = readdirSync(npm_dir);
-      for (const file of files) {
-        const dir_path = join(npm_dir, file);
-        if (statSync(dir_path).isDirectory()) {
-          await publishPkg(dir_path);
-        }
+    for (const file of readdirSync(npm_dir)) {
+      const dir_path = join(npm_dir, file);
+      if (statSync(dir_path).isDirectory()) {
+        await publishPkg(dir_path);
       }
     }
 
