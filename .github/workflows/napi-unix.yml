@@ -6,6 +6,9 @@ on:
       working-directory:
         required: true
         type: string
+    secrets:
+      OPENAI_LI:
+        required: false
 
 
 env:
