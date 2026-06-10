@@ -3,20 +3,29 @@
 import read from "@1-/read";
 import { $, cd } from "zx";
 import { readdir, writeFile } from "node:fs/promises";
-import { join } from "node:path";
-import org_name from "../src/npmOrg.js";
+import { join, resolve } from "node:path";
 import urlExist from "@1-/url_exist";
 import { spawnSync } from "node:child_process";
 import ERR from "@3-/log/ERR.js";
+import yargs from "yargs";
+import { hideBin } from "yargs/helpers";
 
 const run = (cmd, args, dir) => {
     const { status, error } = spawnSync(cmd, args, { stdio: "inherit", cwd: dir });
-    if (error) throw error;
+    if (error) {
+      throw error;
+    }
     if (status !== 0) {
       throw new Error("命令 " + cmd + " " + args.join(" ") + " 执行失败，退出码 " + status);
     }
   },
-  ROOT = join(import.meta.dirname, ".."),
+  argv = yargs(hideBin(process.argv))
+    .usage("Usage: $0 <PROJECT>")
+    .demandCommand(1, "PROJECT is required")
+    .parseSync(),
+  project = argv._[0].toString(),
+  ROOT = resolve(import.meta.dirname, "../..", project),
+  { default: org_name } = await import(join(ROOT, "src", "npmOrg.js")),
   publish = async (name, dir, repo) => {
     console.log(name + " 发布中");
     try {
@@ -30,7 +39,7 @@ const run = (cmd, args, dir) => {
           "github",
           name,
           "--file",
-          "cersei_rs.yml",
+          project + ".yml",
           "--repo",
           repo,
           "--allow-publish",
@@ -44,10 +53,9 @@ const run = (cmd, args, dir) => {
     }
   },
   pub = async (dir, npm_dir, org_name) => {
-    const pkg_path = join(npm_dir, dir, "package.json");
-    let pkg;
-    const content = await read(pkg_path);
-    pkg = JSON.parse(content);
+    const pkg_path = join(npm_dir, dir, "package.json"),
+      content = await read(pkg_path),
+      pkg = JSON.parse(content);
     if (pkg.name && !pkg.name.startsWith("@" + org_name + "/")) {
       pkg.name = "@" + org_name + "/" + pkg.name;
       await writeFile(pkg_path, JSON.stringify(pkg, null, 2) + "\n", "utf-8");

@@ -36,7 +36,7 @@ runs:
       run: |
         bunx napi create-npm-dirs
         bunx napi artifacts
-        bun ./ops/prepublish.js
+        bun ../_/rs/prepublish.js ${{ inputs.working-directory }}
         echo "移动后检查产物："
         ls -R npm/
 

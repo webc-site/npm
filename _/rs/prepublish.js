@@ -1,13 +1,20 @@
 #!/usr/bin/env bun
 import read from "@3-/read";
 import { writeFileSync, readdirSync, existsSync } from "node:fs";
-import { join } from "node:path";
-import npm_org from "../src/npmOrg.js";
+import { join, resolve } from "node:path";
+import yargs from "yargs";
+import { hideBin } from "yargs/helpers";
 
-const ROOT = join(import.meta.dirname, ".."),
+const argv = yargs(hideBin(process.argv))
+    .usage("Usage: $0 <PROJECT>")
+    .demandCommand(1, "PROJECT is required")
+    .parseSync(),
+  project = argv._[0].toString(),
+  ROOT = resolve(import.meta.dirname, "../..", project),
   root_pkg_path = join(ROOT, "package.json"),
   npm_dir = join(ROOT, "npm"),
-  js_path = join(ROOT, "src", "_.js");
+  js_path = join(ROOT, "src", "_.js"),
+  { default: npm_org } = await import(join(ROOT, "src", "npmOrg.js"));
 
 let root_pkg_name = "cersei_rs";
 

@@ -3,7 +3,7 @@ import cersei_rs from "./cersei_rs/knip.js";
 export default {
   workspaces: {
     ".": {
-      entry: ["_/hook/*.js", "./.mdcheck.js", "_/rs/dist.js"],
+      entry: ["_/hook/*.js", "./.mdcheck.js", "_/rs/*.js"],
       ignoreDependencies: ["oxlint", "lint-staged", "@3-/sleep", "@1-/mdcheck"],
     },
     str: {
