@@ -1,0 +1,40 @@
+{
+  "name": "@1-/gitsql",
+  "version": "0.1.2",
+  "description": "SQLite 数据库 Git 双向同步与版本控制工具 / SQLite database Git bidirectional synchronization and version control tool",
+  "keywords": [
+    "csv",
+    "git",
+    "sqlite",
+    "sync",
+    "version-control"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/gitsql",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "bin": {
+    "gitsql": "./src/cli.js",
+    "gitsql-install": "./src/postinstall.js"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    "./*": "./src/*"
+  },
+  "scripts": {
+    "postinstall": "bun run ./src/postinstall.js"
+  },
+  "dependencies": {
+    "@1-/find": "^0.1.1",
+    "@1-/read": "^0.1.0",
+    "@1-/scan": "^0.1.9",
+    "@1-/upsert_gitignore": "^0.1.3",
+    "@3-/log": "^0.1.9"
+  }
+}
