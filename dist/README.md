@@ -3,6 +3,7 @@
 ---
 
 <a id="en"></a>
+
 # @1-/dist : Minimalist monorepo package publishing and git sync tool
 
 - [@1-/dist : Minimalist monorepo package publishing and git sync tool](#1-dist-minimalist-monorepo-package-publishing-and-git-sync-tool)
@@ -115,17 +116,16 @@ Regarding version control, managing multi-branch synchronization in monorepos ty
 
 This tool resolves these issues by utilizing Git shared clones (`git clone --shared`) and sandboxed publish directory restructuring. By compiling code into temporary structures, it eliminates the risk of publishing local files, while automating the git workflow to ensure a zero-configuration, secure release pipeline.
 
-
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
-
 ---
 
 <a id="zh"></a>
+
 # @1-/dist : 极简 Monorepo 包发布与 Git 同步工具
 
 - [@1-/dist : 极简 Monorepo 包发布与 Git 同步工具](#1-dist-极简-monorepo-包发布与-git-同步工具)
@@ -235,10 +235,8 @@ src/
 
 本工具借鉴了 Git 共享克隆（`git clone --shared`）技术与临时目录隔离发布设计。通过在临时沙箱目录重构包结构，从根本上杜绝了开发依赖与私有文件泄露；同时利用自动化的多分支同步流水线，实现零配置的安全发布体验。
 
-
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
-

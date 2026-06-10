@@ -71,18 +71,19 @@ test(
     expect(blocks[0]).not.toContain("- [");
 
     // Block 1 should contain English TOC
-    expect(blocks[1]).toContain("# Test Project");
-    expect(blocks[1]).toContain("- [Test Project](#test-project)");
-    expect(blocks[1]).toContain("  - [Sub 1](#sub-1)");
-    expect(blocks[1]).toContain("    - [Sub Sub 1](#sub-sub-1)");
-    expect(blocks[1]).toContain("  - [Sub 2](#sub-2)");
-    // Should NOT contain the code block comment as TOC item
+    [
+      "# Test Project",
+      "- [Test Project](#test-project)",
+      "  - [Sub 1](#sub-1)",
+      "    - [Sub Sub 1](#sub-sub-1)",
+      "  - [Sub 2](#sub-2)",
+    ].forEach((t) => expect(blocks[1]).toContain(t));
     expect(blocks[1]).not.toContain("comment-inside-code-block");
 
     // Block 2 should contain Chinese TOC
-    expect(blocks[2]).toContain("# 测试项目");
-    expect(blocks[2]).toContain("- [测试项目](#测试项目)");
-    expect(blocks[2]).toContain("  - [1. 简介](#1-简介)");
+    ["# 测试项目", "- [测试项目](#测试项目)", "  - [1. 简介](#1-简介)"].forEach((t) =>
+      expect(blocks[2]).toContain(t),
+    );
 
     // Clean up
     await rmDir(pkg_path);
@@ -112,21 +113,20 @@ test(
     await readme(findgit(pkg_path), pkg_path, tmp_dir);
 
     // Verify files created
-    const dest_readme_path = join(pkg_path, "README.md"),
-      tmp_readme_path = join(tmp_dir, "README.md");
+    const dest_path = join(pkg_path, "README.md"),
+      tmp_path = join(tmp_dir, "README.md"),
+      paths = [dest_path, tmp_path];
 
-    expect(existsSync(dest_readme_path)).toBe(true);
-    expect(existsSync(tmp_readme_path)).toBe(true);
+    paths.forEach((p) => expect(existsSync(p)).toBe(true));
 
-    const dest_content = await read(dest_readme_path),
-      tmp_content = await read(tmp_readme_path);
+    const [dest, tmp] = await Promise.all(paths.map(read));
 
     // The original readme.md should retain the mermaid code block
-    expect(dest_content).toContain("```mermaid");
+    expect(dest).toContain("```mermaid");
 
     // The temp readme.md should have the svg URL instead of code block
-    expect(tmp_content).not.toContain("```mermaid");
-    expect(tmp_content).toContain("https://mock-cdn-url.com/uploaded.svg");
+    expect(tmp).not.toContain("```mermaid");
+    expect(tmp).toContain("https://mock-cdn-url.com/uploaded.svg");
 
     // Clean up
     await Promise.all(dirs.map(rmDir));
@@ -161,14 +161,13 @@ test(
     expect(current_version).toBe("1.0.0");
     expect(next_version).toBe("1.0.1");
 
-    // Check index.js copied
-    const copied_index_path = join(tmp_dir, "index.js");
-    expect(existsSync(copied_index_path)).toBe(true);
-    expect(await read(copied_index_path)).toBe("console.log('hello')");
+    // Check files copied
+    const index_path = join(tmp_dir, "index.js"),
+      json_path = join(tmp_dir, "package.json"),
+      paths = [index_path, json_path];
 
-    // Check package.json copied
-    const copied_pkg_json_path = join(tmp_dir, "package.json");
-    expect(existsSync(copied_pkg_json_path)).toBe(true);
+    paths.forEach((p) => expect(existsSync(p)).toBe(true));
+    expect(await read(index_path)).toBe("console.log('hello')");
 
     // Clean up
     await Promise.all([pkg_path, tmp_dir].map(rmDir));
@@ -177,7 +176,7 @@ test(
 );
 
 test(
-  "生成 readme 且指定自定义源码目录 (如 lib) 时，将带有 svg 的 readme 写入 lib 目录",
+  "指定自定义源码目录生成 readme",
   async () => {
     const pkg_path = join(import.meta.dirname, "tmp_test_readme_lib"),
       tmp_dir = join(import.meta.dirname, "tmp_test_readme_lib_tmp"),
@@ -203,24 +202,21 @@ test(
     await readme(findgit(pkg_path), pkg_path, tmp_dir, "lib");
 
     // Verify files created
-    const dest_readme_path = join(pkg_path, "README.md"),
-      tmp_readme_path = join(tmp_dir, "README.md"),
-      lib_readme_path = join(lib_path, "README.md");
+    const dest_path = join(pkg_path, "README.md"),
+      tmp_path = join(tmp_dir, "README.md"),
+      lib_readme_path = join(lib_path, "README.md"),
+      paths = [dest_path, tmp_path, lib_readme_path];
 
-    expect(existsSync(dest_readme_path)).toBe(true);
-    expect(existsSync(tmp_readme_path)).toBe(true);
-    expect(existsSync(lib_readme_path)).toBe(true);
+    paths.forEach((p) => expect(existsSync(p)).toBe(true));
 
-    const dest_content = await read(dest_readme_path),
-      tmp_content = await read(tmp_readme_path),
-      lib_content = await read(lib_readme_path);
+    const [dest, tmp, lib_content] = await Promise.all(paths.map(read));
 
     // Root README.md should retain the mermaid code block
-    expect(dest_content).toContain("```mermaid");
+    expect(dest).toContain("```mermaid");
 
     // Temp README.md should have SVG
-    expect(tmp_content).not.toContain("```mermaid");
-    expect(tmp_content).toContain("https://mock-cdn-url.com/uploaded.svg");
+    expect(tmp).not.toContain("```mermaid");
+    expect(tmp).toContain("https://mock-cdn-url.com/uploaded.svg");
 
     // Lib README.md should have SVG
     expect(lib_content).not.toContain("```mermaid");
