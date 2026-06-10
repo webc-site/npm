@@ -1,0 +1,52 @@
+{
+  "name": "cersei_rs",
+  "version": "1.0.0",
+  "description": "N-API wrapper for Cersei",
+  "homepage": "https://github.com/webc-site/npm/tree/main/cersei_rs",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "files": ["src/**/*.js", "src/**/*.d.ts"],
+  "type": "module",
+  "main": "./src/_.js",
+  "types": "./src/_.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/_.d.ts",
+      "import": "./src/_.js"
+    },
+    "./*": "./*"
+  },
+  "devDependencies": {
+    "@1-/read": "^0.1.0",
+    "@1-/url_exist": "^0.1.1",
+    "@3-/log": "^0.1.9",
+    "@3-/read": "^0.1.4",
+    "@napi-rs/cli": "^3.7.1",
+    "yargs": "^18.0.0",
+    "zx": "^8.8.5"
+  },
+  "napi": {
+    "binaryName": "cersei_rs",
+    "targets": [
+      "x86_64-pc-windows-msvc",
+      "x86_64-apple-darwin",
+      "x86_64-unknown-linux-gnu",
+      "x86_64-unknown-linux-musl",
+      "aarch64-unknown-linux-gnu",
+      "armv7-unknown-linux-gnueabihf",
+      "aarch64-apple-darwin",
+      "aarch64-linux-android",
+      "x86_64-unknown-freebsd",
+      "aarch64-unknown-linux-musl",
+      "aarch64-pc-windows-msvc",
+      "armv7-linux-androideabi"
+    ]
+  },
+  "engines": {
+    "node": ">= 18.17.0 < 19 || >= 20.3.0 < 21 || >= 21.1.0"
+  }
+}
