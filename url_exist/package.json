@@ -1,0 +1,27 @@
+{
+  "name": "@1-/url_exist",
+  "version": "0.1.2",
+  "description": "Check if URL exists using HTTP HEAD request with timeout / 基于 HTTP HEAD 请求且支持超时控制的 URL 存在性检测",
+  "keywords": [
+    "exist",
+    "fetch",
+    "head",
+    "timeout",
+    "url"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/url_exist",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/_.js",
+    "./*": "./src/*"
+  }
+}
