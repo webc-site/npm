@@ -14,6 +14,7 @@
         "@3-/gci": "^0.1.13",
         "@3-/log": "^0.1.9",
         "@3-/read": "^0.1.4",
+        "@napi_rs/cersei_rs-darwin-arm64": "^1.0.21",
         "cersei_rs": "^1.0.21",
         "knip": "^6.16.1",
         "simple-git": "^3.36.0",
@@ -92,6 +93,8 @@
     "@msgpackr-extract/msgpackr-extract-win32-x64": ["@msgpackr-extract/msgpackr-extract-win32-x64@3.0.4", "", { "os": "win32", "cpu": "x64" }, "sha512-CmCXPQrkbwExx3j946/PtHWHbYJiCRBRDl4BlkRQcJB/YOwQxJRTpoo7aTsortjgoJ1x7opzTSxn7C+ASSLVjQ=="],
 
     "@napi-rs/wasm-runtime": ["@napi-rs/wasm-runtime@1.1.5", "", { "dependencies": { "@tybys/wasm-util": "^0.10.2" }, "peerDependencies": { "@emnapi/core": "^1.7.1", "@emnapi/runtime": "^1.7.1" } }, "sha512-AWPoBRJ9tsnVhor4sjO7rkni+7p+2IAEFj6cx06UgP10jkQHqay/36uRV/bFkgrh18D9vb4cr8Q0Pthskgzy+Q=="],
+
+    "@napi_rs/cersei_rs-darwin-arm64": ["@napi_rs/cersei_rs-darwin-arm64@1.0.21", "", { "os": "darwin", "cpu": "arm64" }, "sha512-0JDtKBFGpgqjEtdk+CQMj2EI0d29Qp9Ge9hTv6IVDU/7/knpffyZRDVNYsvzq+LhQt0uY9Jq8yozzczdpPMd3Q=="],
 
     "@oxc-parser/binding-android-arm-eabi": ["@oxc-parser/binding-android-arm-eabi@0.133.0", "", { "os": "android", "cpu": "arm" }, "sha512-l/44caGse+VpnY9gx0yvvc5QnnG3yG1FO3KZgYvNL1GZrfK86zIwAOgGEVlxDyRymzrU/KHiblPFpevKOmJmUA=="],
 

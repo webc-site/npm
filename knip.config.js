@@ -13,6 +13,10 @@ export default {
       entry: ["tests/*.js", "example/*.js"],
     },
     cersei_rs,
+    dist: {
+      entry: ["tests/*.js"],
+      ignoreDependencies: ["@napi_rs/cersei_rs-darwin-arm64"],
+    },
     "*": {
       entry: ["tests/*.js"],
     },
