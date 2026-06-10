@@ -76,9 +76,8 @@ cd(ROOT);
 
 await $`rm -rf npm && bun x napi create-npm-dirs`;
 
-const npm_dir = join(ROOT, "npm"),
-  dirs = await readdir(npm_dir);
+const npm_dir = join(ROOT, "npm");
 
-for (const dir of dirs) {
+for (const dir of await readdir(npm_dir)) {
   await pub(dir, npm_dir, org_name);
 }
