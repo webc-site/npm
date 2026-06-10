@@ -1,37 +1,36 @@
-name: 'NAPI 构建'
-description: '构建并测试 N-API 原生绑定'
+name: "NAPI 构建"
+description: "构建并测试 N-API 原生绑定"
 inputs:
   working-directory:
-    description: '工作目录'
+    description: "工作目录"
     required: true
   node_arch:
-    description: 'Node 架构'
+    description: "Node 架构"
     required: true
   target:
-    description: 'Rust 目标'
+    description: "Rust 目标"
     required: true
   platform:
-    description: '平台名称'
+    description: "平台名称"
     required: true
   extra:
-    description: '额外构建参数'
+    description: "额外构建参数"
     required: false
-    default: ''
+    default: ""
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: 设置 Node
       uses: actions/setup-node@v6
       with:
-        node-version: 24
+        node-version: stable
         architecture: ${{ inputs.node_arch }}
 
     - name: 安装 Bun
-      shell: bash
-      run: |
-        curl -fsSL https://bun.sh/install | bash
-        echo "$HOME/.bun/bin" >> $GITHUB_PATH
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: latest
 
     - name: 安装 Rust
       uses: dtolnay/rust-toolchain@stable
