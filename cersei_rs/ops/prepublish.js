@@ -15,9 +15,9 @@ if (existsSync(root_pkg_path)) {
 
   if (root_pkg.optionalDependencies) {
     const new_opt_deps = {};
-    for (const [key, val] of Object.entries(root_pkg.optionalDependencies)) {
+    for (const key of Object.keys(root_pkg.optionalDependencies)) {
       const new_key = key.startsWith("@" + npm_org + "/") ? key : "@" + npm_org + "/" + key;
-      new_opt_deps[new_key] = val;
+      new_opt_deps[new_key] = root_pkg.version;
     }
     root_pkg.optionalDependencies = new_opt_deps;
   }
@@ -26,7 +26,7 @@ if (existsSync(root_pkg_path)) {
   console.log("已更新根目录 package.json 的可选依赖（追加组织前缀）。");
 }
 
-// 2. Update npm/*/package.json names
+// 2. 更新 npm/*/package.json 中的包名
 const npm_dir = join(ROOT, "npm");
 if (existsSync(npm_dir)) {
   const dirs = readdirSync(npm_dir);
@@ -43,13 +43,13 @@ if (existsSync(npm_dir)) {
   }
 }
 
-// 3. Update src/_.js to import from scoped packages
+// 3. 更新 src/_.js，从组织作用域包导入
 const js_path = join(ROOT, "src", "_.js");
 if (existsSync(js_path)) {
   let content = read(js_path);
   if (!content.includes("import npm_org from './npmOrg.js'")) {
     content = "import npm_org from './npmOrg.js';\n" + content;
-    // Replace "../npm/" with '@' + npm_org + '/' + root_pkg_name + '-'
+    // 将 "../npm/" 替换为 '@' + npm_org + '/' + root_pkg_name + '-'
     content = content.replace('"../npm/"', "'@' + npm_org + '/" + root_pkg_name + "-'");
     writeFileSync(js_path, content, "utf-8");
     console.log("已更新 src/_.js 中的导入路径（指向发布的组织包）。");
