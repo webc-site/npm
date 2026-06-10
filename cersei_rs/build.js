@@ -20,6 +20,8 @@ const ROOT = import.meta.dirname,
 
     await $`rm -rf npm && bun x napi build --platform ${args} --output-dir ${OUT}`;
 
+    writeFileSync(join("npm", "package.json"), '{"type": "commonjs"}');
+
     const files = readdirSync(OUT),
       file = files.find((f) => f.includes(`.${platform}.`)),
       index = read(join(OUT, "index.js"));
