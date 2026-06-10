@@ -5,7 +5,9 @@ import { join } from "node:path";
 import npm_org from "../src/npmOrg.js";
 
 const ROOT = join(import.meta.dirname, ".."),
-  root_pkg_path = join(ROOT, "package.json");
+  root_pkg_path = join(ROOT, "package.json"),
+  npm_dir = join(ROOT, "npm"),
+  js_path = join(ROOT, "src", "_.js");
 
 let root_pkg_name = "cersei_rs";
 
@@ -28,10 +30,8 @@ if (existsSync(root_pkg_path)) {
 }
 
 // 2. 更新 npm/*/package.json 中的包名
-const npm_dir = join(ROOT, "npm");
 if (existsSync(npm_dir)) {
-  const dirs = readdirSync(npm_dir);
-  for (const dir of dirs) {
+  for (const dir of readdirSync(npm_dir)) {
     const pkg_path = join(npm_dir, dir, "package.json");
     if (existsSync(pkg_path)) {
       const pkg = JSON.parse(read(pkg_path));
@@ -45,7 +45,6 @@ if (existsSync(npm_dir)) {
 }
 
 // 3. 更新 src/_.js，从组织作用域包导入
-const js_path = join(ROOT, "src", "_.js");
 if (existsSync(js_path)) {
   let content = read(js_path);
   if (!content.includes("import npm_org from './npmOrg.js'")) {
