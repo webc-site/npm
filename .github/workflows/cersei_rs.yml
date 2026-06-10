@@ -1,4 +1,4 @@
-name: Publish cersei_rs
+name: 发布 cersei_rs
 
 on:
   workflow_dispatch:
@@ -48,7 +48,7 @@ jobs:
             extra: --cross-compile
             node_arch: arm64
 
-    name: 稳定版 - ${{ matrix.settings.target }} - node
+    name: ${{ matrix.settings.target }}
     runs-on: ${{ matrix.settings.host }}
     steps:
       - uses: actions/checkout@v6
@@ -58,7 +58,7 @@ jobs:
           mkdir -p conf
           echo "export default ${{ secrets.OPENAI_LI }};" > conf/OPENAI.js
 
-      - name: Build & Test
+      - name: 构建与测试
         uses: ./.github/actions/build
         with:
           working-directory: "cersei_rs"
@@ -78,7 +78,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Publish to NPM
+      - name: 发布到 NPM
         uses: ./.github/actions/publish
         with:
           working-directory: "cersei_rs"

@@ -1,20 +1,20 @@
-name: 'NAPI Build'
-description: 'Build and test N-API native bindings'
+name: 'NAPI 构建'
+description: '构建并测试 N-API 原生绑定'
 inputs:
   working-directory:
-    description: 'Working directory'
+    description: '工作目录'
     required: true
   node_arch:
-    description: 'Node architecture'
+    description: 'Node 架构'
     required: true
   target:
-    description: 'Rust target'
+    description: 'Rust 目标'
     required: true
   platform:
-    description: 'Platform name'
+    description: '平台名称'
     required: true
   extra:
-    description: 'Extra build flags'
+    description: '额外构建参数'
     required: false
     default: ''
 

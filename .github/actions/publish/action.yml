@@ -1,8 +1,8 @@
-name: 'NAPI Publish'
-description: 'Publish N-API package to NPM'
+name: 'NAPI 发布'
+description: '发布 N-API 包至 NPM'
 inputs:
   working-directory:
-    description: 'Working directory'
+    description: '工作目录'
     required: true
 
 runs:
