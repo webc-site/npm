@@ -1,38 +1,39 @@
-# @1-/dist : Minimalist monorepo package publishing and git synchronization tool
+# @1-/dist : Monorepo package publishing and Git synchronization automation
 
 ## Functionality
 
-- **Static analysis and risk control**
-  Execute Knip static analysis before publishing to detect unused exports, missing declarations, and redundant dependencies.
+- **Static analysis**
+  Execute Knip before publishing to detect unused exports, missing declarations, and redundant dependencies.
 
-- **Metadata and documentation automation**
+- **Metadata automation**
   Detect missing `description` or `keywords` in `package.json`.
-  Invoke `opencode` LLM service to complete metadata and generate or update `README.md`.
+  Generate or update `README.md` using LLM services.
 
-- **Workspace automatic commit**
-  Inspect Git working tree status.
-  Automatically commit unstaged modifications via `gci` before publishing.
+- **Git working tree management**
+  Inspect repository status.
+  Commit unstaged modifications automatically before publishing.
 
-- **Publish directory sandbox restructuring**
+- **Sandboxed publishing**
   Create temporary directory under OS temp path.
   Copy only `src` source files.
-  Strip development metadata (`devDependencies`, `scripts`, `files`, `lint-staged`) from `package.json`.
-  Rewrite relative paths in fields like `exports`, `bin`, `main`, `module`, and `types`.
+  Strip development metadata from `package.json`.
+  Rewrite relative paths in `exports`, `bin`, `main`, `module`, and `types` fields.
 
-- **Mermaid diagram SVG rendering and CDN hosting**
+- **Mermaid diagram processing**
   Extract Mermaid diagrams from `README.mdt`.
-  Render diagrams to SVG, upload assets to S3 storage, and replace diagram blocks with CDN URLs.
-  Generate standard `README.md` locally and HTML-compatible Markdown with embedded SVG URLs in release directory.
+  Render diagrams to SVG and upload to S3 storage.
+  Replace diagram blocks with CDN URLs.
+  Generate standard `README.md` and HTML-compatible Markdown with embedded SVG URLs.
 
-- **Automated npm publishing and browser preview**
-  Execute public package publishing.
+- **Automated publishing**
+  Execute public npm package publishing.
   Increment local patch version upon successful release.
-  Automatically open package release page in default browser.
+  Open package release page in default browser.
 
-- **Safe multi-branch git synchronization**
+- **Multi-branch Git synchronization**
   Commit and push changes to `dev` branch.
-  Clone local repository to a temporary path via `git clone --shared`.
-  Merge branch safely to `main` and push updates to remote.
+  Use `git clone --shared` for safe merging.
+  Merge to `main` and push updates to remote.
 
 ## Usage demo
 
@@ -52,26 +53,27 @@ dist walk
 
 ```mermaid
 graph TD
-    Start([Start]) --> Knip[Knip Static Check]
-    Knip --> GenReadme[LLM Completes Metadata and README]
-    GenReadme --> Gci[Gci Commits Unstaged Changes]
-    Gci --> Prep[Create Temp Dir & Copy src Source]
-    Prep --> CleanPkg[Clean & Rewrite package.json Export Paths]
-    CleanPkg --> RenderReadme[Render Markdown & Upload S3 Assets]
-    RenderReadme --> Pub[Run npm publish]
-    Pub --> LocalVersion[Update Local package.json Version]
-    LocalVersion --> GitSync[Git Commit and Push dev Branch]
-    GitSync --> MergeMain[Clone Temp Repo, Merge & Push main Branch]
-    MergeMain --> End([End])
+    Start([Start]) --> Knip[Knip Static Analysis]
+    Knip --> Metadata[LLM Metadata Generation]
+    Metadata --> Gci[Git Working Tree Commit]
+    Gci --> Prep[Sandbox Preparation]
+    Prep --> Clean[package.json Cleanup]
+    Clean --> Readme[README Processing]
+    Readme --> Publish[npm Publish]
+    Publish --> Version[Version Update]
+    Version --> Dev[Push to dev Branch]
+    Dev --> Main[Merge to main Branch]
+    Main --> End([End])
 ```
 
 ## Tech stack
 
-- **Bun**: JS runtime and package manager
-- **Simple Git**: Git command executor
-- **Knip**: Unused exports and dependencies analyzer
-- **Yargs**: Command-line parser
-- **AWS S3 SDK**: Cloud storage client
+- **Bun**: Runtime and package manager
+- **Git CLI**: Version control operations
+- **Knip**: Static analysis tool
+- **Yargs**: Command-line argument parsing
+- **AWS S3 SDK**: Cloud storage integration
+- **Mermaid**: Diagram rendering
 
 ## Code structure
 
@@ -95,8 +97,8 @@ src/
 
 ## Historical story
 
-Early Node.js ecosystem published entire directories by default with `npm publish`. This frequently caused accidental leaks of configuration files like `.env`, local credentials, private test files, and redundant build cache. Although features like `.npmignore` and the `files` array in `package.json` were introduced, configuring them remains manual, tedious, and error-prone.
+Early Node.js package publishing relied on `npm publish` uploading entire directories, causing frequent leaks of sensitive files like `.env`, credentials, and test artifacts. While `.npmignore` and `files` arrays provided mitigation, configuration remained manual and error-prone.
 
-Regarding version control, managing multi-branch synchronization in monorepos typically requires developers to manually run checkout, pull, merge, and push operations. Active development tasks with uncommitted local changes further complicate these commands, increasing risk of merge conflicts and dirty commits.
+Monorepo Git workflows required developers to manually manage multi-branch synchronization with `git checkout`, `pull`, `merge`, and `push` commands. Uncommitted local changes complicated these operations, increasing merge conflict risks and introducing dirty commits.
 
-This tool resolves these issues by utilizing Git shared clones (`git clone --shared`) and sandboxed publish directory restructuring. By compiling code into temporary structures, it eliminates the risk of publishing local files, while automating the git workflow to ensure a zero-configuration, secure release pipeline.
+This tool addresses both challenges through Git shared clones (`git clone --shared`) and sandboxed publishing. Temporary directory isolation prevents accidental file inclusion, while automated Git synchronization ensures consistent, zero-configuration releases.
