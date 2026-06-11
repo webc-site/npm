@@ -8,7 +8,7 @@
 - [@1-/upsert_gitignore : Safely and idempotently update .gitignore rules](#1-upsert_gitignore-safely-and-idempotently-update-gitignore-rules)
   - [Functionality](#functionality)
   - [Usage demonstration](#usage-demonstration)
-  - [Design approach](#design-approach)
+  - [Design思路](#design思路)
   - [Technology stack](#technology-stack)
   - [Code structure](#code-structure)
   - [Historical context](#historical-context)
@@ -16,7 +16,7 @@
 
 ## Functionality
 
-Safely append ignore rules to target files with idempotent behavior.
+Append ignore rules to target files with idempotent behavior.
 
 Prevent duplicate entries by checking existence before appending.
 
@@ -29,30 +29,30 @@ import upsertGitignore from "@1-/upsert_gitignore";
 
 const filePath = "./.gitignore";
 
-// Appends "node_modules" if not present
+// Append "node_modules" if not present
 upsertGitignore(filePath, "node_modules");
 
-// Idempotent: does nothing since "node_modules" already exists
+// Idempotent: no operation since "node_modules" already exists
 upsertGitignore(filePath, "node_modules");
 
-// Supports multiple rules
+// Support multiple rules
 upsertGitignore(filePath, ["dist", ".env", "node_modules"]);
 ```
 
-## Design approach
+## Design思路
 
 ```mermaid
 graph TD
     A[Start] --> B{File exists?}
     B -- No --> C[Create parent directories]
-    C --> D["Write initial rule(s)"]
+    C --> D[Write initial rule(s)]
     D --> E[End]
     B -- Yes --> F[Read file content]
     F --> G[Split into lines]
     G --> H[Trim whitespace, filter empty lines]
-    H --> I{"Rule(s) exist?"}
+    H --> I{Rule(s) exist?}
     I -- Yes --> E
-    I -- No --> J["Append new rule(s)"]
+    I -- No --> J[Append new rule(s)]
     J --> K[Join with newlines]
     K --> L[Write updated content]
     L --> E
@@ -75,11 +75,11 @@ tests/
 
 ## Historical context
 
-Git introduced `.gitignore` in 2005 to manage version control exclusions. Early workflows relied on manual editing or fragile shell scripts like `echo "node_modules" >> .gitignore`.
+Git introduced `.gitignore` in 2005 as part of its initial release. Early workflows used manual editing or fragile shell scripts like `echo "node_modules" >> .gitignore`.
 
-Modern development requires reliable automation. This library emerged from the need for deterministic configuration management in CI/CD pipelines and project scaffolding tools.
+The rise of CI/CD pipelines and project scaffolding tools created demand for deterministic configuration management. This library implements the idempotent pattern to ensure consistent state regardless of execution frequency.
 
-The idempotent design pattern ensures consistent state regardless of execution frequency—critical for infrastructure-as-code and declarative configuration systems.
+Idempotence is essential for infrastructure-as-code systems where configuration must converge to desired state without side effects from repeated application.
 
 ## About
 
@@ -104,7 +104,7 @@ This library is developed by [WebC.site](https://webc.site).
 
 ## 功能介绍
 
-安全追加忽略规则至目标文件，具备幂等特性。
+追加忽略规则至目标文件，具备幂等特性。
 
 通过存在性检查避免重复条目。
 
@@ -163,11 +163,11 @@ tests/
 
 ## 历史故事
 
-Git 于 2005 年引入 `.gitignore` 管理版本控制排除规则。早期工作流依赖手动编辑或脆弱的 Shell 脚本，如 `echo "node_modules" >> .gitignore`。
+Git 于 2005 年随初始版本发布引入 `.gitignore`。早期工作流依赖手动编辑或脆弱的 Shell 脚本，如 `echo "node_modules" >> .gitignore`。
 
-现代开发需要可靠的自动化能力。本库源于 CI/CD 流水线和项目脚手架工具中确定性配置管理的需求。
+CI/CD 流水线和项目脚手架工具的普及催生了确定性配置管理需求。本库实现幂等模式，确保执行频率不影响最终状态。
 
-幂等设计确保执行频率不影响最终状态——这是基础设施即代码和声明式配置系统的关键特性。
+幂等性是基础设施即代码系统的关键特性，配置必须收敛至期望状态且无重复应用副作用。
 
 ## 关于
 

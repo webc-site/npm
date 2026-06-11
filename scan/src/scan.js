@@ -4,12 +4,12 @@ import vbE from "@3-/vb/vbE.js";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import bufmd5 from "@1-/hash/bufmd5.js";
+import pathMd5 from "./pathMd5.js";
 import stat from "./stat.js";
 
 export default async (dir, files, existing, limit, db_mtime, db_md5) => {
   const scanned = new BinSet(),
     update = [],
-    get_md5 = db_md5.prepare("SELECT md5 FROM scanMd5 WHERE hash = ?"),
     update_mtime = db_mtime.prepare(
       "INSERT OR REPLACE INTO scanMtimeLen(hash,size,mtime)VALUES(?,?,?)",
     );
@@ -23,10 +23,11 @@ export default async (dir, files, existing, limit, db_mtime, db_md5) => {
 
           scanned.add(hash);
 
+          const row = pathMd5(db_md5, hash);
+
           if (!val) {
             update.push(rel_path);
           } else if (!u8eq(val, vbE([size, mtime]))) {
-            const row = get_md5.get(hash);
             if (row) {
               const file_content = await readFile(join(dir, rel_path)),
                 cur_md5 = bufmd5(file_content);

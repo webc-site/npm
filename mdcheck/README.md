@@ -3,6 +3,7 @@
 ---
 
 <a id="en"></a>
+
 # mdcheck : Validate Mermaid syntax in Markdown files without browsers
 
 - [mdcheck : Validate Mermaid syntax in Markdown files without browsers](#mdcheck-validate-mermaid-syntax-in-markdown-files-without-browsers)
@@ -83,17 +84,16 @@ Since Mermaid depends on browser layout engines to calculate text dimensions, th
 
 Developers bypassed browser engine initialization by mocking global objects like `window`, `document`, and `DOMParser` in headless JS runtimes. This technique enables execution of the core compiler directly inside terminal environments, completing validation checks in milliseconds.
 
-
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
-
 ---
 
 <a id="zh"></a>
+
 # mdcheck : 无需浏览器校验 Markdown 中的 Mermaid 语法
 
 - [mdcheck : 无需浏览器校验 Markdown 中的 Mermaid 语法](#mdcheck-无需浏览器校验-markdown-中的-mermaid-语法)
@@ -174,10 +174,8 @@ Knut Sveidqvist 于 2014 年发起 Mermaid 项目，通过类似 Markdown 文本
 
 为突破此限制，社区探索 DOM 模拟方案。通过在 Node.js 或 Bun 全局注入 `window`、`document`、`DOMParser` 等桩对象，绕过浏览器渲染引擎初始化。Mermaid 解析器借此于终端环境实现毫秒级解析。本项目采用该方案，实现轻量化离线校验。
 
-
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
-

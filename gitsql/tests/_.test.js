@@ -187,7 +187,7 @@ test("gitsql 缓存（mtime + size）优化测试", async () => {
     res_dump1 = spawnSync("bun", ["run", cli_path, "dump"], { stdio: "inherit", cwd: TMP_DIR });
   expect(res_dump1.status).toBe(0);
   expect(existsSync(join(dir_path, "kv.csv"))).toBe(true);
-  expect(existsSync(scan_db_path)).toBe(true);
+  expect(existsSync(scan_db_path + ".mtime.sqlite")).toBe(true);
 
   // 修改 csv 内容，测试第二次 dump 是否跳过
   const csv_file = join(dir_path, "kv.csv");

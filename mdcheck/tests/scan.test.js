@@ -2,9 +2,10 @@ import { test, expect } from "bun:test";
 import { join } from "node:path";
 import scan from "../src/scan.js";
 
+const dir = join(import.meta.dirname, "md");
+
 test("扫描目录", async () => {
-  const dir = join(import.meta.dirname, "md"),
-    err_li = await scan(dir),
+  const err_li = await scan(dir),
     err_map = new Map(err_li);
 
   expect(err_map.size).toBe(2);
@@ -18,9 +19,8 @@ test("扫描目录", async () => {
   });
 });
 
-test("扫描目录并过滤", async () => {
-  const dir = join(import.meta.dirname, "md"),
-    filter = (abs_path) => abs_path.includes("multiple"),
+test("过滤扫描", async () => {
+  const filter = (abs_path) => abs_path.includes("multiple"),
     err_li = await scan(dir, filter),
     err_map = new Map(err_li);
 

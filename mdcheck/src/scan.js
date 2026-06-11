@@ -8,7 +8,7 @@ export default async (dir, filter) => {
   await walkRelIgnore(dir, async (kind, rel_path) => {
     if (kind === FILE && rel_path.endsWith(".md")) {
       const abs_path = join(dir, rel_path);
-      if (filter && filter(abs_path)) {
+      if (filter?.(abs_path)) {
         return;
       }
       const err = await fileValidate(abs_path);

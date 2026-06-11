@@ -2,7 +2,12 @@
   "name": "@1-/mdcheck",
   "version": "0.1.7",
   "description": "Validate Mermaid syntax in Markdown files without browsers / 无需浏览器校验 Markdown 中的 Mermaid 语法",
-  "keywords": ["linter", "markdown", "mermaid", "validate"],
+  "keywords": [
+    "linter",
+    "markdown",
+    "mermaid",
+    "validate"
+  ],
   "homepage": "https://github.com/webc-site/npm/tree/main/mdcheck",
   "license": "MulanPSL-2.0",
   "author": "x-at-01@googlegroups.com",
@@ -13,7 +18,9 @@
   "bin": {
     "mdcheck": "./src/mdcheck.js"
   },
-  "files": ["./*"],
+  "files": [
+    "./*"
+  ],
   "type": "module",
   "exports": {
     "./*": "./src/*"
