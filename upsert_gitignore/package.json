@@ -1,6 +1,6 @@
 {
   "name": "@1-/upsert_gitignore",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Safely and idempotently update .gitignore / 安全幂等地更新 .gitignore",
   "keywords": [
     "config",
