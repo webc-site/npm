@@ -3,6 +3,7 @@
 ---
 
 <a id="en"></a>
+
 # @1-/upsert_gitignore : Safely and idempotently update .gitignore rules
 
 - [@1-/upsert_gitignore : Safely and idempotently update .gitignore rules](#1-upsert_gitignore-safely-and-idempotently-update-gitignore-rules)
@@ -74,17 +75,16 @@ Naive append commands like `echo "node_modules" >> .gitignore` caused duplicate 
 
 This library provides a safe, idempotent API to solve automation configuration issues.
 
-
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
-
 ---
 
 <a id="zh"></a>
+
 # @1-/upsert_gitignore : 安全幂等更新 .gitignore 规则
 
 - [@1-/upsert_gitignore : 安全幂等更新 .gitignore 规则](#1-upsert_gitignore-安全幂等更新-gitignore-规则)
@@ -156,10 +156,8 @@ Git 于 2005 年诞生。早期开发者需手动或编写 shell 脚本管理忽
 
 本库提供安全幂等的 API，解决自动化工具链配置忽略规则的痛点。
 
-
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
-

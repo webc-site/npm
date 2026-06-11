@@ -1,16 +1,14 @@
 # @1-/upsert_gitignore : Safely and idempotently update .gitignore rules
 
-1. Features
+## Functionality
 
-Safely and idempotently append ignore rules to target files (e.g., `.gitignore`).
+Safely append ignore rules to target files with idempotent behavior.
 
-Avoid duplicate entries if the rule already exists.
+Prevent duplicate entries by checking existence before appending.
 
-Trim whitespace and filter out empty lines.
+Handle edge cases: create parent directories, trim whitespace, filter empty lines.
 
-Create parent directories for the target file.
-
-2. Usage
+## Usage demonstration
 
 ```javascript
 import upsertGitignore from "@1-/upsert_gitignore";
@@ -22,46 +20,49 @@ upsertGitignore(filePath, "node_modules");
 
 // Idempotent: does nothing since "node_modules" already exists
 upsertGitignore(filePath, "node_modules");
+
+// Supports multiple rules
+upsertGitignore(filePath, ["dist", ".env", "node_modules"]);
 ```
 
-3. Design
+## Design approach
 
 ```mermaid
 graph TD
-    A[Start] --> B{Does file exist?}
-    B -- No --> C[Create parent directories and write rule]
-    C --> D[End]
-    B -- Yes --> E[Read file and split by line]
-    E --> F[Trim whitespace and filter empty lines]
-    F --> G{Rule already exists?}
-    G -- Yes --> D
-    G -- No --> H[Append new rule]
-    H --> I[Join with newline and write to file]
-    I --> D
+    A[Start] --> B{File exists?}
+    B -- No --> C[Create parent directories]
+    C --> D[Write initial rule(s)]
+    D --> E[End]
+    B -- Yes --> F[Read file content]
+    F --> G[Split into lines]
+    G --> H[Trim whitespace, filter empty lines]
+    H --> I{Rule(s) exist?}
+    I -- Yes --> E
+    I -- No --> J[Append new rule(s)]
+    J --> K[Join with newlines]
+    K --> L[Write updated content]
+    L --> E
 ```
 
-4. Tech Stack
+## Technology stack
 
 - Runtime: Bun / Node.js
-- Dependency: `@3-/txt_li`
-- Dependency: `@3-/write`
-- Dependency: `@3-/read`
+- Core dependencies: `@3-/txt_li`, `@3-/write`, `@3-/read`
+- License: MulanPSL-2.0
 
-5. Code Structure
+## Code structure
 
 ```
 src/
-└── _.js      # Core logic
+└── _.js      # Core implementation
 tests/
 └── _.test.js # Unit tests
 ```
 
-6. History
+## Historical context
 
-Git was released in 2005. Early developers managed ignore rules manually or wrote shell scripts.
+Git introduced `.gitignore` in 2005 to manage version control exclusions. Early workflows relied on manual editing or fragile shell scripts like `echo "node_modules" >> .gitignore`.
 
-With the rise of project scaffolding and build automation, programmatically configuring ignore rules became essential.
+Modern development requires reliable automation. This library emerged from the need for deterministic configuration management in CI/CD pipelines and project scaffolding tools.
 
-Naive append commands like `echo "node_modules" >> .gitignore` caused duplicate rules and formatting issues.
-
-This library provides a safe, idempotent API to solve automation configuration issues.
+The idempotent design pattern ensures consistent state regardless of execution frequency—critical for infrastructure-as-code and declarative configuration systems.

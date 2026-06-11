@@ -12,20 +12,32 @@ import rm from "./rm.js";
 import upsert from "./upsert.js";
 
 export default async (dir, db_path, files) => {
-  if (!existsSync(db_path)) {
-    upsertGitignore(join(dirname(db_path), ".gitignore"), basename(db_path));
+  const mtime_path = db_path + ".mtime.sqlite",
+    md5_path = db_path + ".md5.sqlite";
+
+  if (!existsSync(mtime_path)) {
+    upsertGitignore(join(dirname(mtime_path), ".gitignore"), basename(mtime_path));
   }
-  const db = sqlite(db_path),
-    existing = new BinMap(),
-    db_rows = load(db),
+  if (!existsSync(md5_path)) {
+    upsertGitignore(join(dirname(md5_path), ".gitignore"), basename(md5_path));
+  }
+
+  const db_mtime = sqlite(mtime_path),
+    db_md5 = sqlite(md5_path);
+
+  db_md5.exec("CREATE TABLE IF NOT EXISTS scanMd5(hash PRIMARY KEY,md5 BLOB)");
+
+  const existing = new BinMap(),
+    db_rows = load(db_mtime),
     limit = pLimit(availableParallelism());
 
   db_rows.forEach(({ hash, size, mtime }) => existing.set(hash, vbE([size, mtime])));
 
-  const [scanned, update] = await scan(dir, files, existing, limit),
+  const [scanned, update] = await scan(dir, files, existing, limit, db_mtime, db_md5),
     rm_hashes = db_rows.filter(({ hash }) => !scanned.has(hash)).map(({ hash }) => hash);
 
-  rm(db, rm_hashes);
+  rm(db_mtime, "scanMtimeLen", rm_hashes);
+  rm(db_md5, "scanMd5", rm_hashes);
 
-  return [update, upsert(db, dir)];
+  return [update, upsert(db_mtime, db_md5, dir)];
 };

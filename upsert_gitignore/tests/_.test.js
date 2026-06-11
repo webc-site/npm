@@ -6,24 +6,25 @@ import { existsSync, unlinkSync } from "fs";
 import { join } from "path";
 import upsertGitignore from "../src/_.js";
 
-const FILE_PATH = join(import.meta.dirname, "test.gitignore"),
-  rmFile = () => {
-    if (existsSync(FILE_PATH)) {
-      unlinkSync(FILE_PATH);
+const FP = join(import.meta.dirname, "test.gitignore"),
+  rm = () => {
+    if (existsSync(FP)) {
+      unlinkSync(FP);
     }
   };
 
-test("更新 gitignore", () => {
-  rmFile();
+test("更新", () => {
+  rm();
 
   [
-    ["node_modules", "node_modules\n"],
-    [".env", "node_modules\n.env\n"],
-    ["node_modules", "node_modules\n.env\n"],
+    [["node_modules"], "node_modules\n"],
+    [[".env"], "node_modules\n.env\n"],
+    [["node_modules"], "node_modules\n.env\n"],
+    [[".env", "dist", "node_modules"], "node_modules\n.env\ndist\n"],
   ].forEach(([input, expected]) => {
-    upsertGitignore(FILE_PATH, input);
-    expect(read(FILE_PATH)).toBe(expected);
+    upsertGitignore(FP, input);
+    expect(read(FP)).toBe(expected);
   });
 
-  rmFile();
+  rm();
 });

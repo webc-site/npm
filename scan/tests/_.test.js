@@ -3,7 +3,7 @@
 import readFile from "@1-/read";
 import { test, expect } from "bun:test";
 import { Database } from "bun:sqlite";
-import { mkdir, writeFile as fsWrite, rm as fsRm } from "node:fs/promises";
+import { mkdir, writeFile as fsWrite, rm as fsRm, utimes } from "node:fs/promises";
 import { join } from "node:path";
 import scan from "../src/_.js";
 
@@ -31,7 +31,7 @@ const TMP_DIR = join(import.meta.dirname, "tmp_scan_dir"),
   },
   clean = () => fsRm(TMP_DIR, { recursive: true, force: true }),
   read = () => {
-    const db = new Database(DB_PATH),
+    const db = new Database(DB_PATH + ".mtime.sqlite"),
       rows = db.prepare("SELECT * FROM scanMtimeLen ORDER BY size").all();
     db.close();
     return rows;
@@ -84,6 +84,16 @@ const TMP_DIR = join(import.meta.dirname, "tmp_scan_dir"),
       pre: () => write(FILES[2], "modified_xyz"),
       files: [FILES[2]],
       expect_res: [FILES[2]],
+      upsert: true,
+    },
+    {
+      name: "只修改 mtime 但内容不改",
+      pre: async () => {
+        const path = join(TMP_DIR, FILES[2]);
+        await utimes(path, new Date(), new Date());
+      },
+      files: [FILES[2]],
+      expect_res: [],
     },
   ];
 
@@ -100,7 +110,7 @@ test("扫描目录记录", async () => {
       }
     }
     const gitignore_content = await readFile(join(DB_DIR, ".gitignore"));
-    expect(gitignore_content).toBe("test.db\n");
+    expect(gitignore_content).toBe("test.db.mtime.sqlite\ntest.db.md5.sqlite\n");
   } finally {
     await clean();
   }
