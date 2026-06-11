@@ -18,11 +18,11 @@ Incrementally scans directory files, compares file sizes and modification times 
 import scan from "@1-/scan";
 
 const dir = "./data";
-const db_path = "./scan_record.db";
+const db_dir = "./db";
 const files = ["file1.txt", "file2.txt"];
 
 // Scan file list, sync metadata to SQLite, return changed relative paths and upsert function
-const [updated_paths, upsert] = await scan(dir, db_path, files);
+const [updated_paths, upsert] = await scan(dir, db_dir, files);
 
 // Close database automatically when exiting scope
 using _ = upsert;

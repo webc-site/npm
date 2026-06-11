@@ -18,11 +18,11 @@
 import scan from "@1-/scan";
 
 const dir = "./data";
-const db_path = "./scan_record.db";
+const db_dir = "./db";
 const files = ["file1.txt", "file2.txt"];
 
 // 扫描文件列表并同步至 SQLite，返回已变更的相对路径列表与更新函数
-const [updated_paths, upsert] = await scan(dir, db_path, files);
+const [updated_paths, upsert] = await scan(dir, db_dir, files);
 
 // 退出作用域自动关闭数据库
 using _ = upsert;

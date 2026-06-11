@@ -9,7 +9,6 @@ import scan from "../src/_.js";
 
 const TMP_DIR = join(import.meta.dirname, "tmp_scan_dir"),
   DB_DIR = join(TMP_DIR, "db"),
-  DB_PATH = join(DB_DIR, "test.db"),
   FILES = [
     "file1.txt",
     "file2.txt",
@@ -31,13 +30,13 @@ const TMP_DIR = join(import.meta.dirname, "tmp_scan_dir"),
   },
   clean = () => fsRm(TMP_DIR, { recursive: true, force: true }),
   read = () => {
-    const db = new Database(DB_PATH + ".mtime.sqlite"),
+    const db = new Database(join(DB_DIR, "mtime.sqlite")),
       rows = db.prepare("SELECT * FROM scanMtimeLen ORDER BY size").all();
     db.close();
     return rows;
   },
   run = async (files, expect_res, is_upsert) => {
-    const [res, upsert] = await scan(TMP_DIR, DB_PATH, files);
+    const [res, upsert] = await scan(TMP_DIR, DB_DIR, files);
     using _ = upsert;
     if (expect_res) {
       expect(res.sort()).toEqual(expect_res.slice().sort());
@@ -110,7 +109,7 @@ test("扫描目录记录", async () => {
       }
     }
     const gitignore_content = await readFile(join(DB_DIR, ".gitignore"));
-    expect(gitignore_content).toBe("test.db.mtime.sqlite\ntest.db.md5.sqlite\n");
+    expect(gitignore_content).toBe("mtime.sqlite\nmd5.sqlite\n");
   } finally {
     await clean();
   }

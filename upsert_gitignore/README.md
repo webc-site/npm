@@ -45,14 +45,14 @@ upsertGitignore(filePath, ["dist", ".env", "node_modules"]);
 graph TD
     A[Start] --> B{File exists?}
     B -- No --> C[Create parent directories]
-    C --> D[Write initial rule(s)]
+    C --> D["Write initial rule(s)"]
     D --> E[End]
     B -- Yes --> F[Read file content]
     F --> G[Split into lines]
     G --> H[Trim whitespace, filter empty lines]
-    H --> I{Rule(s) exist?}
+    H --> I{"Rule(s) exist?"}
     I -- Yes --> E
-    I -- No --> J[Append new rule(s)]
+    I -- No --> J["Append new rule(s)"]
     J --> K[Join with newlines]
     K --> L[Write updated content]
     L --> E
