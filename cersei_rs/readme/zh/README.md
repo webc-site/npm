@@ -19,12 +19,41 @@ npm install cersei_rs
 - `MSG_TXT` (3): 文本内容流式输出事件。
 - `MSG_THINK` (4): 思考过程流式输出事件。
 
-### chat (默认导出)
+### logChat (默认导出)
+
+包装函数，能自动向 `stdout` 打印智能体执行日志（包含思考过程、工具调用和文本输出），并返回 Promise 解析为最终累积的文本响应。
+
+```javascript
+import logChat from "cersei_rs";
+
+const agent = logChat(baseUrl, apiKey, model);
+const response = await agent("在 tmp.md 中写一个程序员的笑话", "./gen");
+console.log("\n响应:", response);
+```
+
+### logSession
+
+包装函数，能自动向 `stdout` 打印维护对话历史的智能体执行日志，并返回 Promise 解析为最终累积的文本响应。
+
+```javascript
+import logSession from "cersei_rs/logSession";
+
+const history = [
+  { role: "user", content: "记住我的名字叫 Cersei" },
+  { role: "assistant", content: "好的，我已经记住了，您的名字是 Cersei。" },
+];
+
+const chatSession = logSession(baseUrl, apiKey, model, "./gen", history);
+const response = await chatSession("我的名字叫什么？");
+console.log("\n响应:", response);
+```
+
+### chat
 
 创建一个无状态的智能体执行函数，返回一个流式事件的异步生成器。
 
 ```javascript
-import chat from "cersei_rs";
+import chat from "cersei_rs/chat";
 import { MSG_TXT, MSG_TOOL } from "cersei_rs/MSG";
 
 const agent = chat(baseUrl, apiKey, model);
@@ -33,13 +62,13 @@ const agent = chat(baseUrl, apiKey, model);
 const prompt = "在 tmp.md 中写一个程序员的笑话";
 const workingDir = "./gen";
 
-for await (const [type, content] of agent(prompt, workingDir)) {
+for await (const [type, content, args] of agent(prompt, workingDir)) {
   switch (type) {
     case MSG_TXT:
       process.stdout.write(content);
       break;
     case MSG_TOOL:
-      console.log(`\n[工具]: ${content}`);
+      console.log(`\n[工具]: ${content} ${args || ""}`);
       break;
   }
 }
@@ -65,35 +94,6 @@ for await (const [type, content] of chatSession("我的名字叫什么？")) {
     process.stdout.write(content);
   }
 }
-```
-
-### logChat & logSession
-
-包装函数，能自动向 `stdout` 打印智能体执行日志（包含思考过程、工具调用和文本输出），并返回 Promise 解析为最终累积的文本响应。
-
-#### logChat
-
-```javascript
-import logChat from "cersei_rs/logChat";
-
-const agent = logChat(baseUrl, apiKey, model);
-const response = await agent("在 tmp.md 中写一个程序员的笑话", "./gen");
-console.log("\n响应:", response);
-```
-
-#### logSession
-
-```javascript
-import logSession from "cersei_rs/logSession";
-
-const history = [
-  { role: "user", content: "记住我的名字叫 Cersei" },
-  { role: "assistant", content: "好的，我已经记住了，您的名字是 Cersei。" },
-];
-
-const chatSession = logSession(baseUrl, apiKey, model, "./gen", history);
-const response = await chatSession("我的名字叫什么？");
-console.log("\n响应:", response);
 ```
 
 ## 开源协议

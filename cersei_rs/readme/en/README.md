@@ -19,12 +19,41 @@ Import constants from `"cersei_rs/MSG"` to identify event types in the stream:
 - `MSG_TXT` (3): Streaming text content.
 - `MSG_THINK` (4): Streaming thinking process.
 
-### chat (Default Export)
+### logChat (Default Export)
+
+Wrapper function that automatically logs agent execution (thinking process, tool calls, and output text) to `stdout` and returns a Promise resolving to the final accumulated text response.
+
+```javascript
+import logChat from "cersei_rs";
+
+const agent = logChat(baseUrl, apiKey, model);
+const response = await agent("Write a programmer joke in tmp.md", "./gen");
+console.log("\nResponse:", response);
+```
+
+### logSession
+
+Wrapper function that automatically logs agent execution for a session maintaining chat history, returning a function that yields a Promise resolving to the final accumulated text response.
+
+```javascript
+import logSession from "cersei_rs/logSession";
+
+const history = [
+  { role: "user", content: "Remember my name is Cersei" },
+  { role: "assistant", content: "Got it, I'll remember that your name is Cersei." },
+];
+
+const chatSession = logSession(baseUrl, apiKey, model, "./gen", history);
+const response = await chatSession("What is my name?");
+console.log("\nResponse:", response);
+```
+
+### chat
 
 Creates a stateless agent function that returns an async generator streaming events.
 
 ```javascript
-import chat from "cersei_rs";
+import chat from "cersei_rs/chat";
 import { MSG_TXT, MSG_TOOL } from "cersei_rs/MSG";
 
 const agent = chat(baseUrl, apiKey, model);
@@ -33,13 +62,13 @@ const agent = chat(baseUrl, apiKey, model);
 const prompt = "Write a programmer joke in tmp.md";
 const workingDir = "./gen";
 
-for await (const [type, content] of agent(prompt, workingDir)) {
+for await (const [type, content, args] of agent(prompt, workingDir)) {
   switch (type) {
     case MSG_TXT:
       process.stdout.write(content);
       break;
     case MSG_TOOL:
-      console.log(`\n[Tool]: ${content}`);
+      console.log(`\n[Tool]: ${content} ${args || ""}`);
       break;
   }
 }
@@ -65,35 +94,6 @@ for await (const [type, content] of chatSession("What is my name?")) {
     process.stdout.write(content);
   }
 }
-```
-
-### logChat & logSession
-
-Wrapper functions that automatically log agent execution (thinking process, tool calls, and output text) to `stdout` and return a Promise resolving to the final accumulated text response.
-
-#### logChat
-
-```javascript
-import logChat from "cersei_rs/logChat";
-
-const agent = logChat(baseUrl, apiKey, model);
-const response = await agent("Write a programmer joke in tmp.md", "./gen");
-console.log("\nResponse:", response);
-```
-
-#### logSession
-
-```javascript
-import logSession from "cersei_rs/logSession";
-
-const history = [
-  { role: "user", content: "Remember my name is Cersei" },
-  { role: "assistant", content: "Got it, I'll remember that your name is Cersei." },
-];
-
-const chatSession = logSession(baseUrl, apiKey, model, "./gen", history);
-const response = await chatSession("What is my name?");
-console.log("\nResponse:", response);
 ```
 
 ## License

@@ -1,40 +1,40 @@
-# @1-/dist : Minimalist monorepo package publishing and git sync tool
+# @1-/dist : Minimalist monorepo package publishing and git synchronization tool
 
-## Features
+## Functionality
 
-- **Static Analysis & Risk Control**
-  Runs Knip static analysis before publishing to detect unused code, missing declarations, and redundant dependencies.
+- **Static analysis and risk control**
+  Execute Knip static analysis before publishing to detect unused exports, missing declarations, and redundant dependencies.
 
-- **Metadata & Documentation Auto-Completion**
-  Detects missing `description` or `keywords` in `package.json`.
-  Invokes `opencode` LLM service to complete metadata and generate or update `README.md`.
+- **Metadata and documentation automation**
+  Detect missing `description` or `keywords` in `package.json`.
+  Invoke `opencode` LLM service to complete metadata and generate or update `README.md`.
 
-- **Automatic Workspace Commit**
-  Inspects Git working tree status.
-  Automatically commits unstaged modifications via `gci` prior to publishing.
+- **Workspace automatic commit**
+  Inspect Git working tree status.
+  Automatically commit unstaged modifications via `gci` before publishing.
 
-- **Publish Directory Sandbox Restructuring**
-  Creates temporary directory under OS temp path.
-  Copies only `src` source files.
-  Strips development metadata (`devDependencies`, `scripts`, `files`, `lint-staged`) from `package.json`.
-  Rewrites relative paths in fields like `exports`, `bin`, `main`, `module`, and `types`.
+- **Publish directory sandbox restructuring**
+  Create temporary directory under OS temp path.
+  Copy only `src` source files.
+  Strip development metadata (`devDependencies`, `scripts`, `files`, `lint-staged`) from `package.json`.
+  Rewrite relative paths in fields like `exports`, `bin`, `main`, `module`, and `types`.
 
-- **Mermaid Diagram SVG Rendering & CDN Hosting**
-  Extracts Mermaid diagrams from `README.mdt`.
-  Renders diagrams to SVG, uploads assets to S3 storage, and replaces diagram blocks with CDN URLs.
-  Generates standard `README.md` locally and HTML-compatible Markdown with embedded SVG URLs in release directory.
+- **Mermaid diagram SVG rendering and CDN hosting**
+  Extract Mermaid diagrams from `README.mdt`.
+  Render diagrams to SVG, upload assets to S3 storage, and replace diagram blocks with CDN URLs.
+  Generate standard `README.md` locally and HTML-compatible Markdown with embedded SVG URLs in release directory.
 
-- **Automated npm Publishing & Browser Preview**
-  Executes public package publishing.
-  Increments local patch version upon successful release.
-  Automatically opens package release page in default browser.
+- **Automated npm publishing and browser preview**
+  Execute public package publishing.
+  Increment local patch version upon successful release.
+  Automatically open package release page in default browser.
 
-- **Safe Multi-Branch Git Synchronization**
-  Commits and pushes changes to `dev` branch.
-  Clones local repository to a temporary path via `git clone --shared`.
-  Merges branch safely to `main` and pushes updates to remote.
+- **Safe multi-branch git synchronization**
+  Commit and push changes to `dev` branch.
+  Clone local repository to a temporary path via `git clone --shared`.
+  Merge branch safely to `main` and push updates to remote.
 
-## Usage
+## Usage demo
 
 Specify target package folder name under monorepo:
 
@@ -48,7 +48,7 @@ Example:
 dist walk
 ```
 
-## Design
+## Design rationale
 
 ```mermaid
 graph TD
@@ -65,7 +65,7 @@ graph TD
     MergeMain --> End([End])
 ```
 
-## Tech Stack
+## Tech stack
 
 - **Bun**: JS runtime and package manager
 - **Simple Git**: Git command executor
@@ -73,7 +73,7 @@ graph TD
 - **Yargs**: Command-line parser
 - **AWS S3 SDK**: Cloud storage client
 
-## Code Structure
+## Code structure
 
 ```text
 src/
@@ -93,9 +93,9 @@ src/
 └── svg.js           # SVG renderer and uploader
 ```
 
-## History
+## Historical story
 
-In the early ecosystem of Node.js, `npm publish` packaged and uploaded the entire directory by default. This frequently caused accidental leaks of configuration files like `.env`, local credentials, private test files, and redundant build cache. Although features like `.npmignore` and the `files` array in `package.json` were introduced, configuring them remains manual, tedious, and error-prone.
+Early Node.js ecosystem published entire directories by default with `npm publish`. This frequently caused accidental leaks of configuration files like `.env`, local credentials, private test files, and redundant build cache. Although features like `.npmignore` and the `files` array in `package.json` were introduced, configuring them remains manual, tedious, and error-prone.
 
 Regarding version control, managing multi-branch synchronization in monorepos typically requires developers to manually run checkout, pull, merge, and push operations. Active development tasks with uncommitted local changes further complicate these commands, increasing risk of merge conflicts and dirty commits.
 

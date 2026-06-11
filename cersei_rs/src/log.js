@@ -18,6 +18,9 @@ export default async (stream) => {
       }
     }
     if (type == MSG_TOOL) {
+      if (lastType == MSG_TXT && !lastTxt.endsWith("\n")) {
+        stdout.write(" ");
+      }
       stdout.write("\x1b[32m" + content + "\x1b[0m \x1b[90m" + args + "\x1b[0m\n");
     } else {
       if (type !== lastType) {
