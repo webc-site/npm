@@ -1,7 +1,7 @@
 import sqlite from "@1-/sqlite";
 import upsertGitignore from "@1-/upsert_gitignore";
 import { existsSync } from "node:fs";
-import { join, dirname, basename } from "node:path";
+import { join, basename } from "node:path";
 
 /*
 初始化/打开修改时间和 md5 的 sqlite 数据库，并将数据库文件加入 gitignore
