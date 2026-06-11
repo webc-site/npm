@@ -12,7 +12,7 @@ export default async (dir) => {
       ".tmp",
       "git-sync-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8),
     );
-  upsertGitignore(gitignore, "/.tmp/");
+  upsertGitignore(gitignore, ["/.tmp/"]);
 
   try {
     exec('git clone --shared "' + gitdir + '" "' + tmp + '"', gitdir);

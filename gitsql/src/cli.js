@@ -27,7 +27,7 @@ const DUMP = "dump",
       cache_dir = dirname(scan_db_path),
       gitignore_path = join(cache_dir, ".gitignore");
     mkdirSync(cache_dir, { recursive: true });
-    upsertGitignore(gitignore_path, "/scan");
+    upsertGitignore(gitignore_path, ["/scan"]);
 
     const [to_update_set, upsert] = await scan(base_dir, scan_db_path, db_list);
 

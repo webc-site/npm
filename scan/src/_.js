@@ -16,10 +16,10 @@ export default async (dir, db_path, files) => {
     md5_path = db_path + ".md5.sqlite";
 
   if (!existsSync(mtime_path)) {
-    upsertGitignore(join(dirname(mtime_path), ".gitignore"), basename(mtime_path));
+    upsertGitignore(join(dirname(mtime_path), ".gitignore"), [basename(mtime_path)]);
   }
   if (!existsSync(md5_path)) {
-    upsertGitignore(join(dirname(md5_path), ".gitignore"), basename(md5_path));
+    upsertGitignore(join(dirname(md5_path), ".gitignore"), [basename(md5_path)]);
   }
 
   const db_mtime = sqlite(mtime_path),

@@ -2,7 +2,7 @@
 
 ## Functionality
 
-Safely append ignore rules to target files with idempotent behavior.
+Append ignore rules to target files with idempotent behavior.
 
 Prevent duplicate entries by checking existence before appending.
 
@@ -15,17 +15,17 @@ import upsertGitignore from "@1-/upsert_gitignore";
 
 const filePath = "./.gitignore";
 
-// Appends "node_modules" if not present
+// Append "node_modules" if not present
 upsertGitignore(filePath, "node_modules");
 
-// Idempotent: does nothing since "node_modules" already exists
+// Idempotent: no operation since "node_modules" already exists
 upsertGitignore(filePath, "node_modules");
 
-// Supports multiple rules
+// Support multiple rules
 upsertGitignore(filePath, ["dist", ".env", "node_modules"]);
 ```
 
-## Design approach
+## Design思路
 
 ```mermaid
 graph TD
@@ -61,8 +61,8 @@ tests/
 
 ## Historical context
 
-Git introduced `.gitignore` in 2005 to manage version control exclusions. Early workflows relied on manual editing or fragile shell scripts like `echo "node_modules" >> .gitignore`.
+Git introduced `.gitignore` in 2005 as part of its initial release. Early workflows used manual editing or fragile shell scripts like `echo "node_modules" >> .gitignore`.
 
-Modern development requires reliable automation. This library emerged from the need for deterministic configuration management in CI/CD pipelines and project scaffolding tools.
+The rise of CI/CD pipelines and project scaffolding tools created demand for deterministic configuration management. This library implements the idempotent pattern to ensure consistent state regardless of execution frequency.
 
-The idempotent design pattern ensures consistent state regardless of execution frequency—critical for infrastructure-as-code and declarative configuration systems.
+Idempotence is essential for infrastructure-as-code systems where configuration must converge to desired state without side effects from repeated application.
