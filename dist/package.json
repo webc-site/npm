@@ -1,6 +1,6 @@
 {
   "name": "@1-/dist",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "Minimalist monorepo package publishing and git sync tool / 极简高效的 Monorepo 包发布与 Git 同步工具",
   "keywords": [
     "git-sync",
