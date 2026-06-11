@@ -2,38 +2,38 @@
 
 ## Functionality
 
-- **Static analysis**
-  Execute Knip before publishing to detect unused exports, missing declarations, and redundant dependencies.
+- **Knip static analysis**
+  Execute Knip before publishing to detect unused exports, missing declarations, redundant dependencies, and other issues across 23 issue categories including `files`, `dependencies`, `exports`, `types`, and `duplicates`.
 
-- **Metadata automation**
+- **LLM-powered metadata generation**
   Detect missing `description` or `keywords` in `package.json`.
-  Generate or update `README.md` using LLM services.
+  Use Cersei LLM service with OpenAI-compatible API configuration to generate documentation and complete metadata.
+  Load prompts from `src/prompt/readme.md` and `src/prompt/package.md`.
 
 - **Git working tree management**
-  Inspect repository status.
-  Commit unstaged modifications automatically before publishing.
+  Use `simple-git` to inspect repository status.
+  Automatically commit unstaged modifications via `gci` before publishing.
 
-- **Sandboxed publishing**
-  Create temporary directory under OS temp path.
-  Copy only `src` source files.
-  Strip development metadata from `package.json`.
-  Rewrite relative paths in `exports`, `bin`, `main`, `module`, and `types` fields.
+- **Sandboxed publishing environment**
+  Create isolated temporary directory using `os.tmpdir()` with cryptographically random name.
+  Copy only `src` directory contents recursively.
+  Clean `package.json` by removing `devDependencies`, `scripts`, `files`, and `lint-staged` fields.
+  Rewrite relative paths in `exports`, `bin`, `main`, `module`, and `types` fields using `srcReplace`.
 
 - **Mermaid diagram processing**
-  Extract Mermaid diagrams from `README.mdt`.
-  Render diagrams to SVG and upload to S3 storage.
-  Replace diagram blocks with CDN URLs.
-  Generate standard `README.md` and HTML-compatible Markdown with embedded SVG URLs.
+  Extract Mermaid diagrams from `README.mdt` files.
+  Render diagrams to SVG format and upload to S3 storage.
+  Replace diagram blocks with CDN URLs in generated Markdown.
 
-- **Automated publishing**
-  Execute public npm package publishing.
-  Increment local patch version upon successful release.
-  Open package release page in default browser.
+- **Automated npm publishing**
+  Execute `npm publish --access public` in temporary directory.
+  Increment patch version (e.g., `1.2.3` → `1.2.4`) upon successful release.
+  Open npm package page in default browser using platform-appropriate commands (`open`, `cmd.exe`, or `xdg-open`).
 
 - **Multi-branch Git synchronization**
-  Commit and push changes to `dev` branch.
-  Use `git clone --shared` for safe merging.
-  Merge to `main` and push updates to remote.
+  Commit and push changes to `dev` branch with version commit message `"v1.2.4"`.
+  Use `git clone --shared` for efficient, safe merging.
+  Clone local repository to temporary path, checkout `main`, pull latest, merge `dev`, then push to remote.
 
 ## Usage demo
 
@@ -48,6 +48,8 @@ Example:
 ```bash
 dist walk
 ```
+
+The CLI uses yargs for argument parsing and requires exactly one positional argument specifying the package directory name.
 
 ## Design rationale
 
@@ -66,33 +68,37 @@ graph TD
     Main --> End([End])
 ```
 
+The workflow follows strict sequential execution with error handling at each stage. Knip failures cause immediate process exit with detailed error reporting. All temporary directories are cleaned up in `finally` blocks.
+
 ## Tech stack
 
-- **Bun**: Runtime and package manager
-- **Git CLI**: Version control operations
-- **Knip**: Static analysis tool
+- **Bun**: Runtime and package manager (replaces Node.js)
+- **Simple Git**: Git operations library
+- **Knip**: Static analysis tool for JavaScript/TypeScript projects
 - **Yargs**: Command-line argument parsing
-- **AWS S3 SDK**: Cloud storage integration
-- **Mermaid**: Diagram rendering
+- **AWS S3 SDK**: Cloud storage integration for diagram hosting
+- **Mermaid**: Diagram rendering engine
+- **Cersei**: LLM service wrapper for OpenAI-compatible APIs
+- **Simple Git**: Git operations library
 
 ## Code structure
 
 ```text
 src/
-├── dist.js          # CLI entry point
-├── exec.js          # Subprocess command executor
-├── gci.js           # Git working tree inspector and committer
-├── gitMerge.js      # Shared clone git merger
+├── dist.js          # CLI entry point with yargs parsing
+├── exec.js          # Subprocess command executor for shell commands
+├── gci.js           # Git working tree inspector using simple-git
+├── gitMerge.js      # Shared clone git merger with .tmp directory isolation
 ├── gitSync.js       # Git branch synchronization controller
-├── knip.js          # Knip static analysis controller
+├── knip.js          # Knip static analysis controller with 23 issue category detection
 ├── pkgJsonClean.js  # Cleans package.json and rewrites export paths
-├── prep.js          # Sandboxed folder preprocessor
-├── publish.js       # npm publisher and browser opener
+├── prep.js          # Sandboxed folder preprocessor with crypto.randomUUID()
+├── publish.js       # npm publisher with cross-platform browser opening
 ├── readme.js        # Markdown renderer and Mermaid processor
-├── readmeGen.js     # LLM documentation and metadata generator
+├── readmeGen.js     # LLM documentation generator with Cersei integration
 ├── run.js           # Release process main controller
-├── srcReplace.js    # Relative path rewriter
-└── svg.js           # SVG renderer and uploader
+├── srcReplace.js    # Relative path rewriter for package.json fields
+└── svg.js           # SVG renderer and uploader for Mermaid diagrams
 ```
 
 ## Historical story
@@ -101,4 +107,4 @@ Early Node.js package publishing relied on `npm publish` uploading entire direct
 
 Monorepo Git workflows required developers to manually manage multi-branch synchronization with `git checkout`, `pull`, `merge`, and `push` commands. Uncommitted local changes complicated these operations, increasing merge conflict risks and introducing dirty commits.
 
-This tool addresses both challenges through Git shared clones (`git clone --shared`) and sandboxed publishing. Temporary directory isolation prevents accidental file inclusion, while automated Git synchronization ensures consistent, zero-configuration releases.
+This tool addresses both challenges through Git shared clones (`git clone --shared`) and sandboxed publishing. Temporary directory isolation prevents accidental file inclusion, while automated Git synchronization ensures consistent, zero-configuration releases. The architecture evolved from simple shell script wrappers to a modular Bun-based system with dedicated modules for each concern, enabling reliable monorepo publishing at scale.
