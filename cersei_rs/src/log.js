@@ -24,7 +24,9 @@ export default async (stream) => {
       stdout.write("\x1b[32m" + content + "\x1b[0m \x1b[90m" + args + "\x1b[0m\n");
     } else {
       if (type !== lastType) {
-        stdout.write("\n\x1b[90m" + MSG[type] + ":\x1b[0m ");
+        if (type !== MSG_TXT) {
+          stdout.write("\n\x1b[90m" + MSG[type] + ":\x1b[0m ");
+        }
       }
       stdout.write(content);
     }

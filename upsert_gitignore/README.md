@@ -45,14 +45,14 @@ upsertGitignore(filePath, ["dist", ".env", "node_modules"]);
 graph TD
     A[Start] --> B{File exists?}
     B -- No --> C[Create parent directories]
-    C --> D["Write initial rule(s)"]
+    C --> D[Write initial rules]
     D --> E[End]
     B -- Yes --> F[Read file content]
     F --> G[Split into lines]
     G --> H[Trim whitespace, filter empty lines]
-    H --> I{"Rule(s) exist?"}
+    H --> I{Rules exist?
     I -- Yes --> E
-    I -- No --> J["Append new rule(s)"]
+    I -- No --> J[Append new rules]
     J --> K[Join with newlines]
     K --> L[Write updated content]
     L --> E
@@ -79,7 +79,7 @@ Git introduced `.gitignore` in 2005 as part of its initial release. Early workfl
 
 The rise of CI/CD pipelines and project scaffolding tools created demand for deterministic configuration management. This library implements the idempotent pattern to ensure consistent state regardless of execution frequency.
 
-Idempotence is essential for infrastructure-as-code systems where configuration must converge to desired state without side effects from repeated application.
+Idempotence is essential for infrastructure-as-code systems where configuration must converge to desired state without side effects from repeated application..
 
 ## About
 
