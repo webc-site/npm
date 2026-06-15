@@ -1,6 +1,6 @@
 import int from "@3-/int";
 import { Presets, SingleBar } from "cli-progress";
-import { myIps, pingProxy, KIND_TO_NAME } from "./ping.js";
+import { myIps, pingProxy } from "./ping.js";
 
 const LIMIT_MAX = 3000000,
   LIMIT_BATCH = 500,
@@ -25,26 +25,10 @@ const LIMIT_MAX = 3000000,
   },
   verifyAll = async (to_verify, my_ips) => {
     const verified = [],
-      groups = [[], [], []];
-
-    for (const item of to_verify) {
-      groups[item[1]].push(item);
-    }
-
-    const { shades_classic } = Presets;
-
-    for (let kind = 0; kind < groups.length; ++kind) {
-      const list = groups[kind];
-      if (list.length === 0) {
-        continue;
-      }
-
-      const bar = new SingleBar(
+      { shades_classic } = Presets,
+      bar = new SingleBar(
         {
-          format:
-            "验证" +
-            KIND_TO_NAME[kind] +
-            "代理 | {bar} | {percentage}% | {value}/{total} | 成功: {success}",
+          format: "验证代理 | {bar} | {percentage}% | {value}/{total} | 成功: {success}",
           barCompleteChar: "\u2588",
           barIncompleteChar: "\u2591",
           hideCursor: true,
@@ -52,49 +36,34 @@ const LIMIT_MAX = 3000000,
         shades_classic,
       );
 
-      bar.start(list.length, 0, { success: 0 });
+    bar.start(to_verify.length, 0, { success: 0 });
 
-      let success_count = 0;
-      for (let i = 0; i < list.length; i += LIMIT_VERIFY_CONCURRENT) {
-        const batch = list.slice(i, i + LIMIT_VERIFY_CONCURRENT),
-          batch_verified = await verifyBatch(batch, my_ips);
+    let success_count = 0;
+    for (let i = 0; i < to_verify.length; i += LIMIT_VERIFY_CONCURRENT) {
+      const batch = to_verify.slice(i, i + LIMIT_VERIFY_CONCURRENT),
+        batch_verified = await verifyBatch(batch, my_ips);
 
-        verified.push(...batch_verified);
-        success_count += batch_verified.length;
-        bar.increment(batch.length, { success: success_count });
-      }
-
-      bar.stop();
+      verified.push(...batch_verified);
+      success_count += batch_verified.length;
+      bar.increment(batch.length, { success: success_count });
     }
 
+    bar.stop();
     return verified;
   },
   insert = async (db, verified) => {
     if (verified.length === 0) {
       return;
     }
-    const args_insert = [],
-      new_li = [];
-    for (const [u32, kind, port] of verified) {
-      args_insert.push(u32, port, kind);
-      new_li.push("(?,?,?)");
-    }
-    await db.unsafe("INSERT INTO proxy(ipv4,port,kind)VALUES" + new_li.join(","), args_insert);
-  },
-  save = async (db, chunk, my_ips) => {
-    const u32_list = chunk.map(([u32]) => u32),
-      exists = await existSet(db, u32_list),
-      to_verify = [];
-
-    for (const [u32, [kind, port]] of chunk) {
-      if (!exists.has(u32)) {
-        to_verify.push([u32, kind, port]);
+    for (let i = 0; i < verified.length; i += LIMIT_BATCH) {
+      const chunk = verified.slice(i, i + LIMIT_BATCH),
+        args_insert = [],
+        new_li = [];
+      for (const [u32, kind, port] of chunk) {
+        args_insert.push(u32, port, kind);
+        new_li.push("(?,?,?)");
       }
-    }
-
-    if (to_verify.length > 0) {
-      const verified = await verifyAll(to_verify, my_ips);
-      await insert(db, verified);
+      await db.unsafe("INSERT INTO proxy(ipv4,port,kind)VALUES" + new_li.join(","), args_insert);
     }
   };
 
@@ -103,10 +72,30 @@ const LIMIT_MAX = 3000000,
 ip_li: [[u32, [kind, port]], ...]
 */
 export default async (db, ip_li) => {
-  const my_ips = await myIps();
+  const my_ips = await myIps(),
+    to_verify = [];
+
   for (let i = 0; i < ip_li.length; i += LIMIT_BATCH) {
-    await save(db, ip_li.slice(i, i + LIMIT_BATCH), my_ips);
+    const chunk = ip_li.slice(i, i + LIMIT_BATCH),
+      u32_list = chunk.map(([u32]) => u32),
+      exists = await existSet(db, u32_list);
+
+    for (const [u32, [kind, port]] of chunk) {
+      if (!exists.has(u32)) {
+        to_verify.push([u32, kind, port]);
+      }
+    }
   }
+
+  let verified_len = 0;
+  if (to_verify.length > 0) {
+    const verified = await verifyAll(to_verify, my_ips);
+    verified_len = verified.length;
+    await insert(db, verified);
+  }
+
+  const failed_len = to_verify.length - verified_len;
+  console.log("有效代理: " + verified_len + " | 失效代理: " + failed_len);
 
   const [{ count }] = await db.unsafe("SELECT COUNT(1) AS count FROM proxy"),
     over = int(count) - LIMIT_MAX;
