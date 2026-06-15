@@ -3,7 +3,6 @@
 ---
 
 <a id="en"></a>
-
 # proxy_fetch : Fetch, rank, and store high-anonymity proxies
 
 - [proxy_fetch : Fetch, rank, and store high-anonymity proxies](#proxy_fetch-fetch-rank-and-store-high-anonymity-proxies)
@@ -17,7 +16,7 @@
 
 ## Functionality
 
-Fetches elite and anonymous proxy servers from the proxyscrape.com API, deduplicates by IPv4 address (preserving protocol preference SOCKS5 > SOCKS4 > HTTP and highest port for same IPs), ranks using a time-decayed success-rate algorithm, and stores in TiDB Serverless database with automatic pruning of entries beyond the 10,000-item limit.
+Fetches elite and anonymous proxy servers from the proxyscrape.com API, deduplicates by IPv4 address (preserving protocol preference SOCKS5 > SOCKS4 > HTTP and highest port for same IPs), ranks using a time-decayed success-rate algorithm, and stores in TiDB Serverless database with automatic pruning of entries beyond the 3,000,000-item limit.
 
 ## Usage demonstration
 
@@ -44,7 +43,7 @@ bun ./src/run.js your-database-url
 
 ## Design rationale
 
-The system prioritizes proxy reliability and recency. IPv4-based deduplication ensures efficient storage while preserving protocol preference (SOCKS5 > SOCKS4 > HTTP) and selecting the highest available port for each IP. The database automatically maintains exactly 10,000 highest-scoring proxy entries.
+The system prioritizes proxy reliability and recency. IPv4-based deduplication ensures efficient storage while preserving protocol preference (SOCKS5 > SOCKS4 > HTTP) and selecting the highest available port for each IP. The database automatically maintains exactly 3,000,000 highest-scoring proxy entries.
 
 ```mermaid
 graph TD
@@ -52,7 +51,7 @@ graph TD
     B --> C[Deduplicate by IPv4 with protocol/port optimization]
     C --> D[Rank using time-decayed success rate]
     D --> E[Store in TiDB database]
-    E --> F[Prune entries beyond 10,000-item limit]
+    E --> F[Prune entries beyond 3,000,000-item limit]
 ```
 
 ## Technology stack
@@ -81,10 +80,10 @@ This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # proxy_fetch : 获取、排序和存储高匿名代理服务器
 
 - [proxy_fetch : 获取、排序和存储高匿名代理服务器](#proxy_fetch-获取排序和存储高匿名代理服务器)
@@ -98,7 +97,7 @@ This library is developed by [WebC.site](https://webc.site).
 
 ## 功能介绍
 
-从 proxyscrape.com API 获取精英级和匿名代理服务器，按 IPv4 地址去重（同 IP 保留协议优先级 SOCKS5 > SOCKS4 > HTTP 且端口最大者），依据成功率与时间衰减的算法计算排名分数，并存储于 TiDB Serverless 数据库中，自动清理超出 10,000 条限制的低分条目。
+从 proxyscrape.com API 获取精英级和匿名代理服务器，按 IPv4 地址去重（同 IP 保留协议优先级 SOCKS5 > SOCKS4 > HTTP 且端口最大者），依据成功率与时间衰减的算法计算排名分数，并存储于 TiDB Serverless 数据库中，自动清理超出 3,000,000 条限制的低分条目。
 
 ## 使用演示
 
@@ -125,7 +124,7 @@ bun ./src/run.js your-database-url
 
 ## 设计思路
 
-系统在代理可靠性与时效性之间取得平衡。基于 IPv4 地址的去重机制确保存储效率，同时保留协议优先级（SOCKS5 > SOCKS4 > HTTP）和最高可用端口。数据库自动维护最多 10,000 条最高分代理记录。
+系统在代理可靠性与时效性之间取得平衡。基于 IPv4 地址的去重机制确保存储效率，同时保留协议优先级（SOCKS5 > SOCKS4 > HTTP）和最高可用端口。数据库自动维护最多 3,000,000 条最高分代理记录。
 
 ```mermaid
 graph TD
@@ -133,7 +132,7 @@ graph TD
     B --> C[按IPv4去重并优选协议与端口]
     C --> D[按时间衰减的成功率算法计算排名]
     D --> E[存入TiDB数据库]
-    E --> F[清理超出10,000条限制的低分记录]
+    E --> F[清理超出3,000,000条限制的低分记录]
 ```
 
 ## 技术栈
@@ -161,3 +160,4 @@ src/
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+
