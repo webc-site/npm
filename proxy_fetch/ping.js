@@ -7,7 +7,7 @@ import { Presets, SingleBar } from "cli-progress";
 import { SocksProxyAgent } from "socks-proxy-agent";
 import { HttpProxyAgent } from "http-proxy-agent";
 import u32ToIp from "@1-/ipv4/u32_ipv4.js";
-import tidb from "../../conf/TIDB.serverless.js";
+import tidb from "../../conf/TIDB.js";
 import dump from "./src/dump.js";
 
 const BASE_RANK = 10000n,
@@ -16,7 +16,7 @@ const BASE_RANK = 10000n,
   IP_REG = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/,
   HTTP = 2,
   KIND_TO_NAME = ["socks5", "socks4", "http"],
-  DB = new SQL(tidb("webc") + "?sslmode=require"),
+  DB = new SQL(tidb("webc")),
   ping = (agent) => {
     return new Promise((resolve) => {
       const start = Date.now(),

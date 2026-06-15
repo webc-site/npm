@@ -3,11 +3,11 @@ import { expect, test } from "bun:test";
 import { join } from "node:path";
 import { SQL } from "bun";
 import { unlink } from "node:fs/promises";
-import tidb from "../../conf/TIDB.serverless.js";
+import tidb from "../../conf/TIDB.js";
 import dump from "../src/dump.js";
 import save from "../src/save.js";
 
-const DB = new SQL(tidb("webc") + "?sslmode=require");
+const DB = new SQL(tidb("webc"));
 
 test("导出表结构", async () => {
   const sql_path = join(import.meta.dirname, "test.sql");
