@@ -2,7 +2,7 @@
 
 ## Functionality
 
-Fetches elite and anonymous proxy servers from the proxyscrape.com API, deduplicates by IPv4 address (preserving protocol preference SOCKS5 > SOCKS4 > HTTP and highest port for same IPs), ranks using a time-decayed success-rate algorithm, and stores in TiDB Serverless database with automatic pruning of entries beyond the 10,000-item limit.
+Fetches elite and anonymous proxy servers from the proxyscrape.com API, deduplicates by IPv4 address (preserving protocol preference SOCKS5 > SOCKS4 > HTTP and highest port for same IPs), ranks using a time-decayed success-rate algorithm, and stores in TiDB Serverless database with automatic pruning of entries beyond the 3,000,000-item limit.
 
 ## Usage demonstration
 
@@ -29,7 +29,7 @@ bun ./src/run.js your-database-url
 
 ## Design rationale
 
-The system prioritizes proxy reliability and recency. IPv4-based deduplication ensures efficient storage while preserving protocol preference (SOCKS5 > SOCKS4 > HTTP) and selecting the highest available port for each IP. The database automatically maintains exactly 10,000 highest-scoring proxy entries.
+The system prioritizes proxy reliability and recency. IPv4-based deduplication ensures efficient storage while preserving protocol preference (SOCKS5 > SOCKS4 > HTTP) and selecting the highest available port for each IP. The database automatically maintains exactly 3,000,000 highest-scoring proxy entries.
 
 ```mermaid
 graph TD
@@ -37,7 +37,7 @@ graph TD
     B --> C[Deduplicate by IPv4 with protocol/port optimization]
     C --> D[Rank using time-decayed success rate]
     D --> E[Store in TiDB database]
-    E --> F[Prune entries beyond 10,000-item limit]
+    E --> F[Prune entries beyond 3,000,000-item limit]
 ```
 
 ## Technology stack

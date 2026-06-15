@@ -78,11 +78,12 @@
     ],
     "ignore": [
       "src/npmOrg.js",
-      "src/log.d.ts"
+      "src/log.d.ts",
+      "src/index.js",
+      "src/index.d.ts"
     ],
     "ignoreDependencies": [
-      "@3-/log",
-      "@napi-rs/cli"
+      "@3-/log"
     ]
   }
 }
