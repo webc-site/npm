@@ -16,7 +16,8 @@ const BASE_RANK = 10000n,
   IP_REG = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/,
   HTTP = 2,
   KIND_TO_NAME = ["socks5", "socks4", "http"],
-  DB = new SQL(tidb("webc")),
+  url = tidb("webc"),
+  DB = new SQL(url + (url.includes("?") ? "&" : "?") + "sslmode=require"),
   ping = (agent) => {
     return new Promise((resolve) => {
       const start = Date.now(),

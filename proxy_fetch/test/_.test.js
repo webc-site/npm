@@ -7,7 +7,8 @@ import tidb from "../../conf/TIDB.js";
 import dump from "../src/dump.js";
 import save from "../src/save.js";
 
-const DB = new SQL(tidb("webc"));
+const url = tidb("webc"),
+  DB = new SQL(url + (url.includes("?") ? "&" : "?") + "sslmode=require");
 
 test("导出表结构", async () => {
   const sql_path = join(import.meta.dirname, "test.sql");
