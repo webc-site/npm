@@ -6,7 +6,17 @@ import { unlink } from "node:fs/promises";
 import ipToU32 from "@1-/ipv4/ipv4_u32.js";
 import tidb from "../../conf/TIDB.js";
 import dump from "../src/dump.js";
-import save from "../src/save.js";
+
+mock.module("../src/ping.js", () => {
+  return {
+    HTTP: 2,
+    KIND_TO_NAME: ["socks5", "socks4", "http"],
+    agentByProxy: () => null,
+    myIps: async () => new Set(["127.0.0.1"]),
+    ping: async () => [true, "1.2.3.4", 10, "US"],
+    pingProxy: async () => [true, "1.2.3.4", 10, "US"],
+  };
+});
 
 let mock_proxies = [];
 mock.module("@3-/req/reqJson.js", () => {
@@ -21,6 +31,7 @@ mock.module("@3-/req/reqJson.js", () => {
   };
 });
 
+import save from "../src/save.js";
 import ipFetch from "../src/ipFetch.js";
 
 const url = tidb("webc"),

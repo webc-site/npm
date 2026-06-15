@@ -27,13 +27,13 @@
     "@1-/ipv4": "^0.1.0",
     "@3-/int": "^0.1.1",
     "@3-/req": "^0.1.18",
-    "@3-/split": "^0.1.4"
-  },
-  "devDependencies": {
-    "@1-/read": "^0.1.1",
+    "@3-/split": "^0.1.4",
     "cli-progress": "^3.12.0",
     "http-proxy-agent": "^9.1.0",
     "socks-proxy-agent": "^10.1.0"
+  },
+  "devDependencies": {
+    "@1-/read": "^0.1.1"
   },
   "description_zh": "获取、排序和存储高匿名代理服务器"
 }
