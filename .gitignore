@@ -1,0 +1,12 @@
+.cursor/
+.codegraph/
+/.tmp/
+target/
+*.node
+node_modules/
+.DS_Store
+*.log
+.env
+.env.*
+.cache
+bun.lock
