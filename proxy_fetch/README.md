@@ -51,7 +51,7 @@ graph TD
     B --> C[Deduplicate by IPv4 with protocol/port optimization]
     C --> D[Rank using time-decayed success rate]
     D --> E[Store in TiDB database]
-    E --> F[Prune entries beyond 1000000-item limit]
+    E --> F[Prune entries beyond 10,000-item limit]
 ```
 
 ## Technology stack
@@ -132,7 +132,7 @@ graph TD
     B --> C[按IPv4去重并优选协议与端口]
     C --> D[按时间衰减的成功率算法计算排名]
     D --> E[存入TiDB数据库]
-    E --> F[清理超出1000000条限制的低分代理]
+    E --> F[清理超出10,000条限制的低分记录]
 ```
 
 ## 技术栈
