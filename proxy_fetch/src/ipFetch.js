@@ -4,6 +4,7 @@ import split from "@3-/split";
 import ipToU32 from "@1-/ipv4/ipv4_u32.js";
 
 const PROXY_TYPE = ["socks5", "socks4", "http"],
+  PRIORITY = [1, 2, 0], // 优先级：http(0) > socks5(1) > socks4(2)
   URL =
     "https://api.proxyscrape.com/v4/free-proxy-list/get?request=display_proxies&proxy_format=protocolipport&format=json";
 
@@ -31,7 +32,7 @@ export default async () => {
           pre = ip_map.get(u32);
 
         /* 优先保留协议更优的代理 */
-        if (pre && pre[0] <= proxy_type) {
+        if (pre && PRIORITY[pre[0]] <= PRIORITY[proxy_type]) {
           continue;
         }
         ip_map.set(u32, [proxy_type, port]);
