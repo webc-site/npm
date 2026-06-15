@@ -68,7 +68,7 @@ const BASE_RANK = 10000n,
   rank = (ok, fail) => {
     const ok_big = BigInt(ok),
       fail_big = BigInt(fail);
-    return ((ok_big * 2n + 1n) * BASE_RANK) / (fail_big + 1n);
+    return Number(((ok_big * 2n + 1n) * BASE_RANK) / (fail_big + 1n));
   },
   run = async () => {
     const [ip, geo] = await new Promise((resolve) => {
