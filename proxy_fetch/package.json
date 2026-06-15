@@ -1,6 +1,6 @@
 {
   "name": "@1-/proxy_fetch",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Fetch, rank, and store high-anonymity proxies",
   "keywords": [
     "anonymity",
