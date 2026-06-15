@@ -1,0 +1,58 @@
+{
+  "name": "@1-/dist",
+  "version": "0.1.19",
+  "description": "Minimalist monorepo package publishing and git sync tool / 极简高效的 Monorepo 包发布与 Git 同步工具",
+  "keywords": [
+    "git-sync",
+    "monorepo",
+    "npm",
+    "publish",
+    "release"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/dist",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "bin": {
+    "dist": "./src/dist.js"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@1-/findgit": "^0.1.2",
+    "@1-/github_cdn": "^0.1.0",
+    "@1-/mdcheck": "^0.1.9",
+    "@1-/mdimg2cdn": "^0.1.1",
+    "@1-/mdt": "^0.1.9",
+    "@1-/upsert_gitignore": "^0.1.7",
+    "@1-/walk": "^0.1.1",
+    "@3-/gci": "^0.1.16",
+    "@3-/log": "^0.1.9",
+    "@3-/read": "^0.1.4",
+    "@napi_rs/cersei_rs-darwin-arm64": "^1.0.28",
+    "cersei_rs": "^1.0.28",
+    "eta": "^4.6.0",
+    "knip": "^6.16.1",
+    "simple-git": "^3.36.0",
+    "yargs": "^18.0.0"
+  },
+  "devDependencies": {
+    "@1-/read": "^0.1.1"
+  },
+  "knip": {
+    "entry": [
+      "test/*.js"
+    ],
+    "ignoreDependencies": [
+      "@napi_rs/cersei_rs-darwin-arm64"
+    ]
+  }
+}

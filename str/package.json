@@ -1,0 +1,35 @@
+{
+  "name": "@1-/str",
+  "version": "0.1.0",
+  "description": "Minimalist high-performance indented text list parser / 极简高效的带缩进文本列表解析工具",
+  "keywords": [
+    "indent",
+    "list",
+    "parser",
+    "string",
+    "trim"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/str",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    "./*": "./src/*"
+  },
+  "devDependencies": {
+    "mitata": "^1.0.34"
+  },
+  "knip": {
+    "entry": [
+      "test/*.js",
+      "bench/*.js"
+    ]
+  }
+}

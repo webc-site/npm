@@ -1,0 +1,34 @@
+{
+  "name": "@1-/csv",
+  "version": "0.1.5",
+  "description": "A minimalist and ultra-fast CSV encoder and decoder package. 极简、极速的 CSV 编码与解码工具包。",
+  "keywords": [
+    "csv",
+    "decoder",
+    "encoder",
+    "performance",
+    "rfc4180"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/csv",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    "./*": "./src/*"
+  },
+  "devDependencies": {
+    "csv-string": "^4.1.1",
+    "mitata": "^1.0.34",
+    "papaparse": "^5.5.3"
+  },
+  "dependencies": {
+    "@1-/read": "^0.1.1"
+  }
+}

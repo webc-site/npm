@@ -1,0 +1,38 @@
+{
+  "name": "@1-/mdimg2cdn",
+  "version": "0.1.2",
+  "description": "Convert local image references in Markdown documents to CDN URLs. 将 Markdown 文档中的本地图片引用转换为 CDN 链接。",
+  "keywords": [
+    "cdn",
+    "images",
+    "markdown",
+    "static",
+    "upload"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/mdimg2cdn",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "bin": {
+    "mdimg2cdn": "./src/cli.js"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/_.js",
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@1-/findgit": "^0.1.2",
+    "@1-/github_cdn": "^0.1.0",
+    "@1-/md": "^0.1.5",
+    "@1-/mdmermaid": "^0.1.5",
+    "@1-/read": "^0.1.1",
+    "yargs": "^18.0.0"
+  }
+}
