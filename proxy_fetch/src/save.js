@@ -25,18 +25,22 @@ const LIMIT_MAX = 3000000,
   },
   verifyAll = async (to_verify, my_ips) => {
     const verified = [],
-      { shades_classic } = Presets,
-      bar = new SingleBar(
-        {
-          format: "验证代理 | {bar} | {percentage}% | {value}/{total} | 成功: {success}",
-          barCompleteChar: "\u2588",
-          barIncompleteChar: "\u2591",
-          hideCursor: true,
-        },
-        shades_classic,
-      );
+      is_tty = process.stdout.isTTY,
+      bar = is_tty
+        ? new SingleBar(
+            {
+              format: "验证代理 | {bar} | {percentage}% | {value}/{total} | 成功: {success}",
+              barCompleteChar: "\u2588",
+              barIncompleteChar: "\u2591",
+              hideCursor: true,
+            },
+            Presets.shades_classic,
+          )
+        : null;
 
-    bar.start(to_verify.length, 0, { success: 0 });
+    if (bar) {
+      bar.start(to_verify.length, 0, { success: 0 });
+    }
 
     let success_count = 0;
     for (let i = 0; i < to_verify.length; i += LIMIT_VERIFY_CONCURRENT) {
@@ -45,10 +49,14 @@ const LIMIT_MAX = 3000000,
 
       verified.push(...batch_verified);
       success_count += batch_verified.length;
-      bar.increment(batch.length, { success: success_count });
+      if (bar) {
+        bar.increment(batch.length, { success: success_count });
+      }
     }
 
-    bar.stop();
+    if (bar) {
+      bar.stop();
+    }
     return verified;
   },
   insert = async (db, verified) => {
