@@ -16,8 +16,9 @@ export default async () => {
   let total = 0;
 
   for (;;) {
-    const r = await reqJson(URL + (total ? "&skip=" + total : "")),
-      { proxies, shown_records, nextpage } = r;
+    const { proxies, shown_records, nextpage } = await reqJson(
+      URL + (total ? "&skip=" + total : ""),
+    );
     total += shown_records;
     for (const { proxy, anonymity } of proxies) {
       /* 只保留 elite 和 anonymous 高匿名代理 */

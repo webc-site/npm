@@ -26,11 +26,9 @@ const LIMIT_MAX = 3000000,
 
 /*
 保存代理数据至数据库
-db: 数据库连接
-ip_li: 代理数据列表 [[u32, [kind, port]], ...]
+ip_li: [[u32, [kind, port]], ...]
 */
 export default async (db, ip_li) => {
-  /* 分批批量写入 */
   for (let i = 0; i < ip_li.length; i += LIMIT_BATCH) {
     await save(db, ip_li.slice(i, i + LIMIT_BATCH));
   }

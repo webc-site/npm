@@ -5,6 +5,5 @@ import ipFetch from "./ipFetch.js";
 import save from "./save.js";
 
 export default async (url) => {
-  const db = new SQL(url + "?sslmode=require");
-  await save(db, await ipFetch());
+  await save(new SQL(url + "?sslmode=require"), await ipFetch());
 };

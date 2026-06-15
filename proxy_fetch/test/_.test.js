@@ -7,39 +7,40 @@ import tidb from "../../conf/TIDB.serverless.js";
 import dump from "../src/dump.js";
 import save from "../src/save.js";
 
-const db = new SQL(tidb("webc") + "?sslmode=require");
+const DB = new SQL(tidb("webc") + "?sslmode=require");
 
 test("导出表结构", async () => {
-  const sql_path = join(import.meta.dirname, "test.sql"),
-    rm = async () => {
-      try {
-        await unlink(sql_path);
-      } catch {}
-    };
-
-  await rm();
-  await dump(db, sql_path);
-  expect(await read(sql_path)).toContain("CREATE TABLE `proxy`");
-  await rm();
+  const sql_path = join(import.meta.dirname, "test.sql");
+  try {
+    await dump(DB, sql_path);
+    expect(await read(sql_path)).toContain("CREATE TABLE `proxy`");
+  } finally {
+    try {
+      await unlink(sql_path);
+    } catch {}
+  }
 }, 20000);
 
 test("保存逻辑", async () => {
   const test_ip = 2130706433,
-    rm = () => db.unsafe("DELETE FROM proxy WHERE ipv4 = ?", [test_ip]),
-    check = async (item) => {
-      await save(db, [[test_ip, item]]);
-      const [{ count }] = await db.unsafe("SELECT COUNT(1) AS count FROM proxy WHERE ipv4 = ?", [
+    rm = () => DB.unsafe("DELETE FROM proxy WHERE ipv4 = ?", [test_ip]);
+  try {
+    await rm();
+    const check = async (item) => {
+      await save(DB, [[test_ip, item]]);
+      const [{ count }] = await DB.unsafe("SELECT COUNT(1) AS count FROM proxy WHERE ipv4 = ?", [
         test_ip,
       ]);
       expect(Number(count)).toBe(1);
     };
 
-  await rm();
-  for (const item of [
-    [0, 80],
-    [1, 8080],
-  ]) {
-    await check(item);
+    for (const item of [
+      [0, 80],
+      [1, 8080],
+    ]) {
+      await check(item);
+    }
+  } finally {
+    await rm();
   }
-  await rm();
 }, 20000);

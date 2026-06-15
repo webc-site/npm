@@ -16,34 +16,7 @@ const BASE_RANK = 10000n,
   IP_REG = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/,
   HTTP = 2,
   KIND_TO_NAME = ["socks5", "socks4", "http"],
-  db = new SQL(tidb("webc") + "?sslmode=require"),
-  localIp = () => {
-    return new Promise((resolve) => {
-      const req = get("http://ip-api.com/json?lang=zh-CN", { timeout: TIMEOUT_MS }, (res) => {
-        if (res.statusCode !== 200) {
-          resolve(["", ""]);
-          return;
-        }
-        let data = "";
-        res.on("data", (chunk) => {
-          data += chunk;
-        });
-        res.on("end", () => {
-          try {
-            const { query, country, regionName, city } = JSON.parse(data);
-            resolve([query, country + " " + regionName + " " + city]);
-          } catch {
-            resolve(["", ""]);
-          }
-        });
-      });
-      req.on("error", () => resolve(["", ""]));
-      req.on("timeout", () => {
-        req.destroy();
-        resolve(["", ""]);
-      });
-    });
-  },
+  DB = new SQL(tidb("webc") + "?sslmode=require"),
   ping = (agent) => {
     return new Promise((resolve) => {
       const start = Date.now(),
@@ -97,10 +70,34 @@ const BASE_RANK = 10000n,
     return ((ok_big * 2n + 1n) * BASE_RANK) / (fail_big + 1n);
   },
   run = async () => {
-    const [ip, geo] = await localIp();
+    const [ip, geo] = await new Promise((resolve) => {
+      const req = get("http://ip-api.com/json?lang=zh-CN", { timeout: TIMEOUT_MS }, (res) => {
+        if (res.statusCode !== 200) {
+          resolve(["", ""]);
+          return;
+        }
+        let data = "";
+        res.on("data", (chunk) => {
+          data += chunk;
+        });
+        res.on("end", () => {
+          try {
+            const { query, country, regionName, city } = JSON.parse(data);
+            resolve([query, country + " " + regionName + " " + city]);
+          } catch {
+            resolve(["", ""]);
+          }
+        });
+      });
+      req.on("error", () => resolve(["", ""]));
+      req.on("timeout", () => {
+        req.destroy();
+        resolve(["", ""]);
+      });
+    });
     console.log("当前本地出口 IP: " + ip + " (" + geo + ")");
 
-    const [{ count }] = await db.unsafe("SELECT COUNT(1) AS count FROM proxy"),
+    const [{ count }] = await DB.unsafe("SELECT COUNT(1) AS count FROM proxy"),
       total = Number(count);
     console.log("待 Ping 的代理总数: " + total);
 
@@ -126,7 +123,7 @@ const BASE_RANK = 10000n,
       fail = 0;
 
     for (;;) {
-      const rows = await db.unsafe(
+      const rows = await DB.unsafe(
         "SELECT id, ipv4, port, kind, oked, failed FROM proxy WHERE id > ? ORDER BY id ASC LIMIT ?",
         [last_id, LIMIT_BATCH],
       );
@@ -218,7 +215,7 @@ const BASE_RANK = 10000n,
       const placeholders = updates.map(() => "(?,?,?,?,?,?,?)").join(","),
         values = updates.flat();
 
-      await db.unsafe(
+      await DB.unsafe(
         "INSERT INTO proxy (id, ipv4, port, kind, oked, failed, `rank`) VALUES " +
           placeholders +
           " ON DUPLICATE KEY UPDATE oked=VALUES(oked), failed=VALUES(failed), `rank`=VALUES(`rank`)",
@@ -232,7 +229,7 @@ const BASE_RANK = 10000n,
     console.log("Ping 任务结束，正在更新 tidb.sql...");
 
     const path = join(import.meta.dirname, "tidb.sql");
-    await dump(db, path);
+    await dump(DB, path);
     console.log("tidb.sql 更新成功。");
   };
 
