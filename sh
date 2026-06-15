@@ -1,1 +1,0 @@
-/Users/z/.local/share/cargo_sh
