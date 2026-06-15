@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["cersei_rs", "xdb"]
+members = ["cersei_rs", "rank", "xdb"]
 
 [profile.release]
 lto = true
