@@ -3,6 +3,7 @@
 ---
 
 <a id="en"></a>
+
 # proxy_fetch : Fetch, rank, and store high-anonymity proxies
 
 - [proxy_fetch : Fetch, rank, and store high-anonymity proxies](#proxy_fetch-fetch-rank-and-store-high-anonymity-proxies)
@@ -80,10 +81,10 @@ This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
-
 ---
 
 <a id="zh"></a>
+
 # proxy_fetch : 获取、排序和存储高匿名代理服务器
 
 - [proxy_fetch : 获取、排序和存储高匿名代理服务器](#proxy_fetch-获取排序和存储高匿名代理服务器)
@@ -160,4 +161,3 @@ src/
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
-
