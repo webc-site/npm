@@ -3,11 +3,11 @@ import int from "@3-/int";
 const LIMIT_MAX = 3000000,
   LIMIT_BATCH = 500,
   save = async (db, chunk) => {
-    const rows = await db.execute(
+    const rows = await db.unsafe(
         "SELECT ipv4 FROM proxy WHERE ipv4 IN(" + chunk.map(() => "?").join(",") + ")",
         chunk.map(([u32]) => u32),
       ),
-      exist_set = new Set(rows.map(([ipv4]) => ipv4)),
+      exist_set = new Set(rows.map(({ ipv4 }) => ipv4)),
       args_insert = [],
       new_li = [];
 
@@ -20,7 +20,7 @@ const LIMIT_MAX = 3000000,
     }
 
     if (new_li.length) {
-      await db.execute("INSERT INTO proxy(ipv4,port,kind)VALUES" + new_li.join(","), args_insert);
+      await db.unsafe("INSERT INTO proxy(ipv4,port,kind)VALUES" + new_li.join(","), args_insert);
     }
   };
 
@@ -35,9 +35,9 @@ export default async (db, ip_li) => {
     await save(db, ip_li.slice(i, i + LIMIT_BATCH));
   }
 
-  const [[count]] = await db.execute("SELECT COUNT(1) FROM proxy"),
+  const [{ count }] = await db.unsafe("SELECT COUNT(1) AS count FROM proxy"),
     over = int(count) - LIMIT_MAX;
   if (over > 0) {
-    await db.execute("DELETE FROM proxy ORDER BY `rank` ASC LIMIT ?", [over]);
+    await db.unsafe("DELETE FROM proxy ORDER BY `rank` ASC LIMIT ?", [over]);
   }
 };

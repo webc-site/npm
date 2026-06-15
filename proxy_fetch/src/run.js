@@ -1,10 +1,10 @@
 #!/usr/bin/env bun
 
-import { connect } from "@tidbcloud/serverless";
+import { SQL } from "bun";
 import ipFetch from "./ipFetch.js";
 import save from "./save.js";
 
 export default async (url) => {
-  const db = connect({ url, arrayMode: true });
+  const db = new SQL(url + "?sslmode=require");
   await save(db, await ipFetch());
 };

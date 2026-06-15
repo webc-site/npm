@@ -2,7 +2,7 @@
 
 import { get } from "node:http";
 import { join } from "node:path";
-import { connect } from "@tidbcloud/serverless";
+import { SQL } from "bun";
 import { Presets, SingleBar } from "cli-progress";
 import { SocksProxyAgent } from "socks-proxy-agent";
 import { HttpProxyAgent } from "http-proxy-agent";
@@ -16,7 +16,7 @@ const BASE_RANK = 10000n,
   IP_REG = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/,
   HTTP = 2,
   KIND_TO_NAME = ["socks5", "socks4", "http"],
-  db = connect({ url: tidb("webc"), arrayMode: true }),
+  db = new SQL(tidb("webc") + "?sslmode=require"),
   localIp = () => {
     return new Promise((resolve) => {
       const req = get("http://ip-api.com/json?lang=zh-CN", { timeout: TIMEOUT_MS }, (res) => {
@@ -100,8 +100,8 @@ const BASE_RANK = 10000n,
     const [ip, geo] = await localIp();
     console.log("当前本地出口 IP: " + ip + " (" + geo + ")");
 
-    const [[count_str]] = await db.execute("SELECT COUNT(1) FROM proxy"),
-      total = Number(count_str);
+    const [{ count }] = await db.unsafe("SELECT COUNT(1) AS count FROM proxy"),
+      total = Number(count);
     console.log("待 Ping 的代理总数: " + total);
 
     if (total === 0) {
@@ -126,7 +126,7 @@ const BASE_RANK = 10000n,
       fail = 0;
 
     for (;;) {
-      const rows = await db.execute(
+      const rows = await db.unsafe(
         "SELECT id, ipv4, port, kind, oked, failed FROM proxy WHERE id > ? ORDER BY id ASC LIMIT ?",
         [last_id, LIMIT_BATCH],
       );
@@ -135,12 +135,11 @@ const BASE_RANK = 10000n,
         break;
       }
 
-      last_id = Number(rows[rows.length - 1][0]);
+      last_id = Number(rows[rows.length - 1].id);
 
       const results = await Promise.allSettled(
-          rows.map(async (row) => {
-            const [id, ipv4, port, kind, oked, failed] = row.map(Number),
-              ip_str = u32ToIp(ipv4),
+          rows.map(async ({ id, ipv4, port, kind, oked, failed }) => {
+            const ip_str = u32ToIp(ipv4),
               scheme = KIND_TO_NAME[kind],
               url = scheme + "://" + ip_str + ":" + port,
               agent = kind === HTTP ? new HttpProxyAgent(url) : new SocksProxyAgent(url),
@@ -219,7 +218,7 @@ const BASE_RANK = 10000n,
       const placeholders = updates.map(() => "(?,?,?,?,?,?,?)").join(","),
         values = updates.flat();
 
-      await db.execute(
+      await db.unsafe(
         "INSERT INTO proxy (id, ipv4, port, kind, oked, failed, `rank`) VALUES " +
           placeholders +
           " ON DUPLICATE KEY UPDATE oked=VALUES(oked), failed=VALUES(failed), `rank`=VALUES(`rank`)",

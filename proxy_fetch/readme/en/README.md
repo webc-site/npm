@@ -44,7 +44,7 @@ graph TD
 
 - Runtime: Bun
 - Database: TiDB Serverless
-- Dependencies: @1-/ipv4, @3-/int, @3-/req, @3-/split, @tidbcloud/serverless
+- Dependencies: @1-/ipv4, @3-/int, @3-/req, @3-/split
 
 ## Code structure
 
