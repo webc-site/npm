@@ -31,13 +31,16 @@ await minifyTo("./src/index.js", "./dist/bundle.js");
 await minifyTo(["./src/a.js", "./src/b.js"], ["./dist/a.js", "./dist/b.js"]);
 
 // Support for multiple files (object mapping form)
-await minifyTo({
-  "main": "./src/main.js",
-  "utils": "./src/utils.js"
-}, {
-  "main": "./dist/main.js",
-  "utils": "./dist/utils.js"
-});
+await minifyTo(
+  {
+    main: "./src/main.js",
+    utils: "./src/utils.js",
+  },
+  {
+    main: "./dist/main.js",
+    utils: "./dist/utils.js",
+  },
+);
 ```
 
 ## Design rationale

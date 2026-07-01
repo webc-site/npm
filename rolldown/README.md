@@ -3,6 +3,7 @@
 ---
 
 <a id="en"></a>
+
 # @1-/rolldown : High-performance JavaScript bundler with iterative DCE optimization
 
 - [@1-/rolldown : High-performance JavaScript bundler with iterative DCE optimization](#1-rolldown-high-performance-javascript-bundler-with-iterative-dce-optimization)
@@ -45,13 +46,16 @@ await minifyTo("./src/index.js", "./dist/bundle.js");
 await minifyTo(["./src/a.js", "./src/b.js"], ["./dist/a.js", "./dist/b.js"]);
 
 // Support for multiple files (object mapping form)
-await minifyTo({
-  "main": "./src/main.js",
-  "utils": "./src/utils.js"
-}, {
-  "main": "./dist/main.js",
-  "utils": "./dist/utils.js"
-});
+await minifyTo(
+  {
+    main: "./src/main.js",
+    utils: "./src/utils.js",
+  },
+  {
+    main: "./dist/main.js",
+    utils: "./dist/utils.js",
+  },
+);
 ```
 
 ## Design rationale
@@ -93,10 +97,10 @@ This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
-
 ---
 
 <a id="zh"></a>
+
 # @1-/rolldown : 高性能 JavaScript 打包器与迭代 DCE 优化工具
 
 - [@1-/rolldown : 高性能 JavaScript 打包器与迭代 DCE 优化工具](#1-rolldown-高性能-javascript-打包器与迭代-dce-优化工具)
@@ -139,13 +143,16 @@ await minifyTo("./src/index.js", "./dist/bundle.js");
 await minifyTo(["./src/a.js", "./src/b.js"], ["./dist/a.js", "./dist/b.js"]);
 
 // 支持多文件打包（对象映射形式）
-await minifyTo({
-  "main": "./src/main.js",
-  "utils": "./src/utils.js"
-}, {
-  "main": "./dist/main.js",
-  "utils": "./dist/utils.js"
-});
+await minifyTo(
+  {
+    main: "./src/main.js",
+    utils: "./src/utils.js",
+  },
+  {
+    main: "./dist/main.js",
+    utils: "./dist/utils.js",
+  },
+);
 ```
 
 ## 设计思路
@@ -186,4 +193,3 @@ JavaScript 打包工具从 Browserify 的简单连接演变为 Webpack 和 Rollu
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
-

@@ -31,13 +31,16 @@ await minifyTo("./src/index.js", "./dist/bundle.js");
 await minifyTo(["./src/a.js", "./src/b.js"], ["./dist/a.js", "./dist/b.js"]);
 
 // 支持多文件打包（对象映射形式）
-await minifyTo({
-  "main": "./src/main.js",
-  "utils": "./src/utils.js"
-}, {
-  "main": "./dist/main.js",
-  "utils": "./dist/utils.js"
-});
+await minifyTo(
+  {
+    main: "./src/main.js",
+    utils: "./src/utils.js",
+  },
+  {
+    main: "./dist/main.js",
+    utils: "./dist/utils.js",
+  },
+);
 ```
 
 ## 设计思路
