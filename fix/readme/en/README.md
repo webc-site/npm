@@ -1,4 +1,4 @@
-# @1-/fix : Git hook for automatic JavaScript code optimization and formatting
+# @1-/fix : CLI tool for automatic JavaScript code optimization and formatting
 
 ## 1. Features
 

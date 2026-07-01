@@ -4,10 +4,10 @@
 
 Evaluates JavaScript library size under modern network transmission environments supporting Brotli. For all `.js` files in the specified directory, performs:
 
-- Syntax-aware minification using `oxc-minify` (Rust implementation)
-- UTF-8 encoding of the minified code
+- Bundling using `@1-/rolldown` (supporting syntax-aware code minification)
+- UTF-8 encoding of the bundled code
 - Brotli compression via Node.js built-in `node:zlib.brotliCompress` to compute final byte length
-- Aggregation of per-file sizes and calculation of total bundled compressed size
+- Aggregation of per-bundle sizes and calculation of total bundled compressed size
 
 ## 2. Usage Demo
 
@@ -32,9 +32,9 @@ minify_size ./src
 Example output:
 
 ```
-_.js                400
-file.js             250
-Total bundled size  650
+index.js              400
+utils.js              250
+Total bundled size    650
 ```
 
 ## 3. Design Concept
@@ -44,24 +44,24 @@ Execution flow (vertical Mermaid diagram):
 ```mermaid
 graph TD
     A[CLI directory input] --> B[Traverse all .js files using @1-/walk]
-    B --> C[Concurrently process each file]
-    C --> D[Syntax-aware minification with oxc-minify]
+    B --> C[Filter out test files and non-JS files]
+    C --> D[Bundle all JS files using @1-/rolldown]
     D --> E[UTF-8 encoding via @3-/utf8]
     E --> F[Brotli compression via node:zlib.brotliCompress]
-    F --> G[Calculate compressed byte length]
-    G --> H[Aggregate per-file sizes and compute total bundled size]
+    F --> G[Calculate compressed byte length for each bundle]
+    G --> H[Aggregate per-bundle sizes and compute total bundled size]
     H --> I[Formatted output using cli-table3]
 ```
 
 ## 4. Tech Stack
 
 - **Runtime**: Node.js / Bun
-- **JS Minifier**: `oxc-minify` (JavaScript minifier implemented in Rust)
+- **Bundler**: `@1-/rolldown` (Rust-based JavaScript bundler)
 - **Brotli Engine**: Built-in `node:zlib` (Brotli compression)
 - **Arg Parser**: `yargs`
 - **Encoding**: `@3-/utf8` (TextEncoder-based UTF-8 encoding)
 - **Output Formatting**: `cli-table3` (Formatted tabular output)
-- **File Reading**: `@3-/read` (Lightweight file reading utility)
+- **File Walking**: `@1-/walk` (Directory traversal utility)
 - **Dependency Management**: npm
 - **Testing**: bun:test
 
@@ -70,8 +70,7 @@ graph TD
 ```
 src/
 ├── cli.js     # CLI entrypoint, parses directory parameter and invokes main function
-├── _.js       # Directory traversal, concurrent file processing, aggregation and formatted output
-└── file.js    # Single file processing: reading, oxc-minify compression, brotli compression and size calculation
+└── _.js       # Directory traversal, bundling, Brotli compression calculation and formatted output
 ```
 
 ## 6. History

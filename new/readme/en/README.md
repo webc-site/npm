@@ -2,10 +2,10 @@
 
 ## Features
 
-- **Directory Copy**: Recursively copies template directory to destination path.
-- **Name Replacement**: Walks target directory and replaces `tmpl` placeholder in file contents with project name.
-- **Git Integration**: Automatically executes `git add .` in destination directory.
-- **Template Resolution**: Resolves default template directory from Git root or package structure under `_tmpl`. Supports custom template paths.
+- **Directory Copy**: Recursively copies template directory to destination path
+- **Name Replacement**: Walks target directory and replaces `tmpl` placeholder with project name using word-boundary regex `\btmpl\b`
+- **Git Integration**: Executes `git add .` in destination directory
+- **Template Resolution**: Resolves default template directory by first checking Git root `_tmpl`, then falling back to `../../_tmpl` relative to module; supports custom template paths
 
 ## Usage
 
@@ -35,26 +35,28 @@ await newProj(dst, name, tmpl);
 graph TD
     A[Start: CLI / API Call] --> B{Custom template path?}
     B -- Yes --> C[Use specified template path]
-    B -- No --> D[Locate _tmpl in Git root or package directory]
-    C --> E[Copy template directory to destination]
-    D --> E
-    E --> F[Walk through files in destination]
-    F --> G{Is file?}
-    G -- Yes --> H[Read content and replace tmpl placeholder]
-    G -- No --> I[Skip]
-    H --> J[Write modified content back]
-    I --> K[Check if walk complete]
-    J --> K
-    K -- No --> F
-    K -- Yes --> L[Execute git add]
-    L --> M[End]
+    B -- No --> D[Locate _tmpl in Git root]
+    D -- Not found --> E[Locate ../../_tmpl relative to module]
+    C --> F[Copy template directory to destination]
+    D --> F
+    E --> F
+    F --> G[Walk through files in destination]
+    G --> H{Is file?}
+    H -- Yes --> I[Read content and replace \btmpl\b placeholder]
+    H -- No --> J[Skip]
+    I --> K[Write modified content back]
+    J --> L[Check if walk complete]
+    K --> L
+    L -- No --> G
+    L -- Yes --> M[Execute git add .]
+    M --> N[End]
 ```
 
 ## Tech Stack
 
 - Runtime: Bun
-- Dependencies: `@1-/walk`, `@1-/findgit`, `@3-/log`, `yargs`
-- Core APIs: `node:fs/promises`, `node:child_process`
+- Dependencies: `@1-/findgit`, `@1-/read`, `@1-/walk`, `@3-/log`, `yargs`
+- Core APIs: `node:fs/promises`, `node:child_process`, `node:path`
 
 ## Code Structure
 

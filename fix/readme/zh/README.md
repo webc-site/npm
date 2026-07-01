@@ -1,4 +1,4 @@
-# @1-/fix : 自动优化与格式化 JavaScript 代码的工具
+# @1-/fix : 自动优化与格式化 JavaScript 代码的 CLI 工具
 
 ## 1. 功能介绍
 
