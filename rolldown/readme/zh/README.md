@@ -1,8 +1,8 @@
-# @1-/rolldown : 高性能 JavaScript 打包器与迭代压缩工具
+# @1-/rolldown : 高性能 JavaScript 打包器与迭代 DCE 优化工具
 
 ## 功能介绍
 
-此包提供 rolldown 打包器的封装，实现自动迭代 Dead Code Elimination（DCE）优化。通过重复运行打包过程直至输出代码体积稳定，达到最优代码消除效果。基于 rolldown 的原生 DCE 能力，无需手动配置即可移除未使用代码，同时保持 ESM 输出格式。
+此包提供 rolldown 打包器的封装，实现自动迭代 Dead Code Elimination（DCE）优化。通过重复运行打包过程直至输出代码体积稳定，达到最优未使用代码消除效果。基于 rolldown 的原生 `dce-only` minification 模式，无需手动配置即可移除未使用代码，同时保持 ESM 输出格式。
 
 ## 使用演示
 
@@ -17,29 +17,38 @@ npm install @1-/rolldown
 ```javascript
 import rolldown from "@1-/rolldown";
 
-// 基础用法（无压缩）
+// 基础用法（无 DCE 优化）
 const [code, map] = await rolldown("./src/index.js");
 
-// 启用迭代 DCE 压缩
+// 启用迭代 DCE 优化
 const [minifiedCode, minifiedMap] = await rolldown("./src/index.js", {}, true);
 
 // 写入文件
 import { minifyTo } from "@1-/rolldown";
 await minifyTo("./src/index.js", "./dist/bundle.js");
 
-// 支持多文件打包
+// 支持多文件打包（数组形式）
 await minifyTo(["./src/a.js", "./src/b.js"], ["./dist/a.js", "./dist/b.js"]);
+
+// 支持多文件打包（对象映射形式）
+await minifyTo({
+  "main": "./src/main.js",
+  "utils": "./src/utils.js"
+}, {
+  "main": "./dist/main.js",
+  "utils": "./dist/utils.js"
+});
 ```
 
 ## 设计思路
 
-核心设计采用迭代 DCE 机制，通过内存插件将前一次打包输出作为虚拟入口，重复运行打包过程直至代码体积不再减小。该方法利用 rolldown 的原生 DCE 能力，确保在不同代码结构下都能达到最优 Dead Code Elimination 效果。
+核心设计采用迭代 DCE 机制，通过内存插件将前一次打包输出作为虚拟模块，重复运行打包过程直至代码体积不再减小。内存插件支持直接模块 ID 解析和相对路径导入（`.js`, `./`, `../`），确保虚拟模块在不同上下文中正确解析。
 
 ```mermaid
 graph TD
     A[开始] --> B[初始打包]
     B --> C[测量代码体积]
-    C --> D[内存插件加载上一次输出]
+    C --> D[内存插件加载上一次输出作为虚拟模块]
     D --> E[运行 DCE 打包]
     E --> F[比较体积]
     F -->|体积减小| D
@@ -57,7 +66,7 @@ graph TD
 
 ```
 src/
-├── _.js          # 主入口文件，包含迭代 DCE 逻辑与内存插件实现
+├── _.js          # 主入口文件，包含迭代 DCE 逻辑、内存插件实现和打包协调器
 ```
 
 ## 历史故事

@@ -2,12 +2,21 @@ import { rolldown } from "rolldown";
 import write from "@3-/write";
 import merge from "@3-/merge";
 import { resolve, dirname, join } from "node:path";
+import { realpathSync } from "node:fs";
 
 const CONF = {
     treeshake: {
       unknownGlobalSideEffects: false,
       moduleSideEffects: false,
     },
+  },
+  // 安全获取真实物理路径，若路径不存在则回退至 resolve
+  absPath = (p) => {
+    try {
+      return realpathSync(resolve(p));
+    } catch {
+      return resolve(p);
+    }
   },
   // 调用 rolldown 打包，返回所有 chunk [[最终输出绝对路径, code, map], ...]
   build = async (opt, minify, dist_dir, out_map) => {
@@ -66,15 +75,19 @@ const CONF = {
     },
   }),
   /*
-  入参 input 可以为单个文件或多个文件路径数组，opt 额外配置，minify 是否压缩
+  入参 input 可以为文件路径数组或对象，opt 额外配置，minify 是否压缩
   返回 数组的数组 [[文件名/标识符, 打包代码, sourcemap], ...]
   */
   bundle = async (input, opt, minify, dist_dir, out_map) => {
-    const inputs = (Array.isArray(input) ? input : [input]).map((p) => resolve(p)),
+    const is_arr = Array.isArray(input),
+      inputs = is_arr
+        ? input.map((p) => absPath(p))
+        : Object.fromEntries(Object.entries(input).map(([k, v]) => [k, absPath(v)])),
+      first_input = is_arr ? inputs[0] : Object.values(inputs)[0],
       opt_val = merge(
         {
           input: inputs,
-          file: inputs[0],
+          file: is_arr ? first_input : undefined,
         },
         CONF,
         opt || {},
@@ -86,7 +99,7 @@ const CONF = {
       chunks;
 
     const run = async (mini) => {
-      const r = await build(opt_run, mini, dist_dir || dirname(inputs[0]), out_map);
+      const r = await build(opt_run, mini, dist_dir || dirname(first_input), out_map);
       for (const [key, code, map] of r) {
         code_map[key] = { code, map };
       }
@@ -119,17 +132,28 @@ const CONF = {
   };
 
 export const minifyTo = async (input, file, opt = {}) => {
-  const is_arr = Array.isArray(input),
-    inputs = (is_arr ? input : [input]).map((p) => resolve(p)),
-    files = is_arr ? file : [file],
-    dist_dir = dirname(files[0]),
+  const is_arr = Array.isArray(input);
+
+  let inputs, files;
+  if (is_arr) {
+    inputs = input.map((p) => absPath(p));
+    files = file.map((p) => absPath(p));
+  } else {
+    inputs = Object.values(input).map((p) => absPath(p));
+    files = Object.values(file).map((p) => absPath(p));
+  }
+
+  const dist_dir = dirname(files[0]),
     path_to_file = {};
 
   inputs.forEach((inp, idx) => {
     path_to_file[inp] = files[idx];
   });
 
-  const chunks = await bundle(inputs, opt, true, dist_dir, path_to_file);
+  const bundle_input = is_arr
+      ? inputs
+      : Object.fromEntries(Object.entries(input).map(([k, v]) => [k, absPath(v)])),
+    chunks = await bundle(bundle_input, opt, true, dist_dir, path_to_file);
 
   for (const [out_file, code, map] of chunks) {
     if (out_file) {
