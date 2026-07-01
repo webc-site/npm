@@ -4,7 +4,7 @@
 
 Evaluates JavaScript library size under modern network transmission environments supporting Brotli. For all `.js` files in the specified directory, performs:
 
-- Bundling using `@1-/rolldown` (supporting syntax-aware code minification)
+- Bundling using `@1-/rolldown` (Rust-based JavaScript bundler wrapping rolldown v1.1.3)
 - UTF-8 encoding of the bundled code
 - Brotli compression via Node.js built-in `node:zlib.brotliCompress` to compute final byte length
 - Aggregation of per-bundle sizes and calculation of total bundled compressed size
@@ -43,7 +43,7 @@ Execution flow (vertical Mermaid diagram):
 
 ```mermaid
 graph TD
-    A[CLI directory input] --> B[Traverse all .js files using @1-/walk]
+    A[CLI directory input] --> B[Traverse all .js files using @1-/walk/walkRelIgnore]
     B --> C[Filter out test files and non-JS files]
     C --> D[Bundle all JS files using @1-/rolldown]
     D --> E[UTF-8 encoding via @3-/utf8]
@@ -56,12 +56,12 @@ graph TD
 ## 4. Tech Stack
 
 - **Runtime**: Node.js / Bun
-- **Bundler**: `@1-/rolldown` (Rust-based JavaScript bundler)
+- **Bundler**: `@1-/rolldown` v0.1.7 (Rust-based JavaScript bundler wrapping rolldown v1.1.3)
 - **Brotli Engine**: Built-in `node:zlib` (Brotli compression)
-- **Arg Parser**: `yargs`
-- **Encoding**: `@3-/utf8` (TextEncoder-based UTF-8 encoding)
-- **Output Formatting**: `cli-table3` (Formatted tabular output)
-- **File Walking**: `@1-/walk` (Directory traversal utility)
+- **Arg Parser**: `yargs` v18.0.0
+- **Encoding**: `@3-/utf8` v0.1.1 (TextEncoder-based UTF-8 encoding)
+- **Output Formatting**: `cli-table3` v0.6.5 (Formatted tabular output)
+- **File Walking**: `@1-/walk` v0.1.1 (Directory traversal utility with concurrency control)
 - **Dependency Management**: npm
 - **Testing**: bun:test
 
@@ -75,4 +75,4 @@ src/
 
 ## 6. History
 
-Brotli was developed by Jyrki Alakuijala and Zoltán Szabadka at Google in 2013. It was initially designed for compression of web fonts, and was later extended to become a general-purpose compression algorithm optimized for web transmission, becoming an industry standard (RFC 7932).
+Brotli was developed by Jyrki Alakuijala and Zoltán Szabadka at Google in 2013. It was initially designed for compression of web fonts, and was later extended to become a general-purpose compression algorithm optimized for web transmission, becoming an industry standard (RFC 7932). Modern JavaScript bundlers like rolldown leverage Rust's performance to achieve sub-second builds while maintaining compatibility with existing JavaScript tooling ecosystems.

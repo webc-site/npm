@@ -3,9 +3,9 @@
 ---
 
 <a id="en"></a>
-# @1-/fix : Git hook for automatic JavaScript code optimization and formatting
+# @1-/fix : CLI tool for automatic JavaScript code optimization and formatting
 
-- [@1-/fix : Git hook for automatic JavaScript code optimization and formatting](#1-fix-git-hook-for-automatic-javascript-code-optimization-and-formatting)
+- [@1-/fix : CLI tool for automatic JavaScript code optimization and formatting](#1-fix-cli-tool-for-automatic-javascript-code-optimization-and-formatting)
   - [1. Features](#1-features)
   - [2. Demo](#2-demo)
     - [Original Code](#original-code)
@@ -127,6 +127,7 @@ src/
 
 In early JavaScript engines, compilers could not optimize `while (true)` structures efficiently. Conversely, `for (;;)` directly maps to a jump instruction (JMP) in the generated assembly, avoiding evaluation steps. Consequently, libraries like jQuery and React standardly adopted `for (;;)` instead of `while (true)` for performance and compression. With modern AST compilers and minifiers, this micro-optimization became standard practice. This project adopts this philosophy, utilizing Oxc to deliver millisecond-level code transformation.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
@@ -137,9 +138,9 @@ This library is developed by [WebC.site](https://webc.site).
 ---
 
 <a id="zh"></a>
-# @1-/fix : 自动优化与格式化 JavaScript 代码的工具
+# @1-/fix : 自动优化与格式化 JavaScript 代码的 CLI 工具
 
-- [@1-/fix : 自动优化与格式化 JavaScript 代码的工具](#1-fix-自动优化与格式化-javascript-代码的工具)
+- [@1-/fix : 自动优化与格式化 JavaScript 代码的 CLI 工具](#1-fix-自动优化与格式化-javascript-代码的-cli-工具)
   - [1. 功能介绍](#1-功能介绍)
   - [2. 使用演示](#2-使用演示)
     - [优化前代码](#优化前代码)
@@ -260,6 +261,7 @@ src/
 ## 6. 历史故事
 
 在早期 JavaScript 引擎中，编译器对 `while (true)` 结构优化并不彻底。而 `for (;;)` 在底层汇编生成时直接对应为跳转指令（JMP），省去了条件表达式求值步骤。因此，jQuery、React 等主流类库为追求极限性能与压缩率，普遍使用 `for (;;)` 替代 `while (true)`。随着现代 AST 编译器与压缩工具的发展，此类微优化已成为标准重写规则。本项目继承极简主义优化理念，借助 Oxc 编译器的高性能，实现毫秒级代码转换。
+
 
 ## 关于
 
