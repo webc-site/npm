@@ -20,10 +20,10 @@
   Clean `package.json` by removing `devDependencies`, `scripts`, `files`, and `lint-staged` fields.
   Rewrite relative paths in `exports`, `bin`, `files`, `main`, `module`, and `types` fields using `srcReplace`.
 
-- **Mermaid diagram processing**
-  Extract Mermaid diagrams from `README.mdt` files.
-  Render diagrams to SVG format and upload to GitHub CDN using `@1-/github_cdn`.
-  Replace diagram blocks with CDN URLs in generated Markdown.
+- **Markdown template processing**
+  Extract Markdown templates from `README.mdt` files.
+  Render templates to Markdown and convert local image paths to CDN links using `@1-/mdimg2cdn`.
+  Replace image paths with CDN URLs in generated Markdown.
   Update README files in source directory, temporary directory, and `src` directory (if specified).
 
 - **Automated npm publishing**
@@ -74,17 +74,17 @@ The workflow follows strict sequential execution with error handling at each sta
 
 ## Tech stack
 
-- **Bun**: Runtime and package manager (replaces Node.js)
+- **Bun**: Runtime and package manager
 - **Simple Git**: Git operations library
 - **Knip**: Static analysis tool for JavaScript/TypeScript projects
 - **Yargs**: Command-line argument parsing
-- **GitHub CDN**: Cloud storage integration for diagram hosting
-- **Mermaid**: Diagram rendering engine
 - **Eta**: Template engine for LLM prompt generation
-- **@1-/github_cdn**: GitHub CDN upload wrapper
 - **@1-/mdt**: Markdown template renderer
+- **@1-/mdimg2cdn**: Markdown image CDN converter
 - **@3-/log**: Logging utility
 - **@1-/findgit**: Git root directory finder
+- **@1-/github_cdn**: GitHub CDN upload wrapper
+- **cersei_rs/logSession**: LLM session management
 
 ## Code structure
 
@@ -99,11 +99,12 @@ src/
 ├── pkgJsonClean.js  # Cleans package.json and rewrites export paths
 ├── prep.js          # Sandboxed folder preprocessor with crypto.randomUUID()
 ├── publish.js       # npm publisher with cross-platform browser opening
-├── readme.js        # Markdown renderer and Mermaid processor
+├── readme.js        # Markdown renderer and resource processor
 ├── readmeGen.js     # LLM documentation generator with LLM configuration integration
 ├── run.js           # Release process main controller
 ├── srcReplace.js    # Relative path rewriter for package.json fields
-└── svg.js           # SVG renderer and uploader for Mermaid diagrams
+└── prompt/          # LLM prompt template directory
+    └── readme.eta   # README generation prompt template
 ```
 
 ## Historical story

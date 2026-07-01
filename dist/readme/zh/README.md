@@ -20,10 +20,10 @@
   清理 `package.json`，移除 `devDependencies`、`scripts`、`files`、`lint-staged` 字段。
   使用 `srcReplace` 重写 `exports`、`bin`、`files`、`main`、`module`、`types` 字段中的相对路径。
 
-- **Mermaid 图表处理**
-  解析 `README.mdt` 文件中的 Mermaid 图表。
-  渲染为 SVG 格式并上传至 GitHub CDN 使用 `@1-/github_cdn`。
-  在生成的 Markdown 中替换图表块为 CDN 链接。
+- **Markdown 模板处理**
+  解析 `README.mdt` 文件中的 Markdown 模板。
+  渲染为 Markdown 并转换本地图片路径为 CDN 链接使用 `@1-/mdimg2cdn`。
+  在生成的 Markdown 中替换图片路径为 CDN 链接。
   同时更新源目录、临时目录及 `src` 目录（如指定）的 README 文件。
 
 - **自动化 npm 发布**
@@ -74,17 +74,17 @@ graph TD
 
 ## 技术栈
 
-- **Bun**: 运行时与包管理器（替代 Node.js）
+- **Bun**: 运行时与包管理器
 - **Simple Git**: Git 操作库
 - **Knip**: JavaScript/TypeScript 项目静态分析工具
 - **Yargs**: 命令行参数解析
-- **GitHub CDN**: 云存储集成，用于图表托管
-- **Mermaid**: 图表渲染引擎
 - **Eta**: 模板引擎，用于 LLM 提示生成
-- **@1-/github_cdn**: GitHub CDN 上传封装
-- **@1-/mdt**: Markdown template renderer
+- **@1-/mdt**: Markdown 模板渲染器
+- **@1-/mdimg2cdn**: Markdown 图片 CDN 转换器
 - **@3-/log**: 日志记录工具
 - **@1-/findgit**: Git root directory finder
+- **@1-/github_cdn**: GitHub CDN 上传封装
+- **cersei_rs/logSession**: LLM 会话管理
 
 ## 代码结构
 
@@ -99,11 +99,12 @@ src/
 ├── pkgJsonClean.js  # 清理 package.json 并重写导出路径
 ├── prep.js          # 沙箱目录预处理器，使用 crypto.randomUUID()
 ├── publish.js       # npm 发布器，支持跨平台浏览器打开
-├── readme.js        # Markdown 渲染器与 Mermaid 处理器
+├── readme.js        # Markdown 渲染器与资源处理
 ├── readmeGen.js     # 大语言模型文档生成器，集成 LLM 配置
 ├── run.js           # 发布流程主控制器
 ├── srcReplace.js    # 相对路径重写器，用于 package.json 字段
-└── svg.js           # SVG 渲染器与上传器，用于 Mermaid 图表
+└── prompt/          # LLM 提示模板目录
+    └── readme.eta   # README 生成提示模板
 ```
 
 ## 历史故事
