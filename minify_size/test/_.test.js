@@ -26,40 +26,15 @@ const tmp = async (prefix, onRun) => {
       await rm(tmp_dir, { recursive: true, force: true });
     }
   },
-  /* 捕获 console.log 输出 */
-  captureLog = async (func) => {
-    const log = [],
-      org = console.log;
-    console.log = (...args) => log.push(args.join(" "));
-    try {
-      await func();
-    } finally {
-      console.log = org;
-    }
-    return log.join("\n");
-  },
   /* 校验输出内容 */
-  check = (out) =>
-    [/test\.js.*\d+/, /sub\/sub\.js.*\d+/, /整体打包压缩后大小.*\d+/].forEach((reg) =>
-      expect(out).toMatch(reg),
-    ),
+  check = (out) => expect(out.trim()).toMatch(/^\d+$/),
   /* 运行命令行工具 */
   cli = (args) =>
     spawnSync("bun", [join(import.meta.dirname, "../src/cli.js"), ...args], { encoding: "utf8" });
 
-test("压缩并输出大小", () =>
-  tmp("minify_size_test_", async (tmp_dir) => {
-    const out = await captureLog(() => minify(tmp_dir));
-    check(out);
-  }));
+[
+  ["压缩大小", "test_", async (tmp_dir) => check(String(await minify(tmp_dir)))],
+  ["命令行运行", "cli_", (tmp_dir) => check(cli([tmp_dir]).stdout)],
+].forEach(([desc, prefix, fn]) => test(desc, () => tmp("minify_size_" + prefix, fn)));
 
-test("CLI 运行正常", () =>
-  tmp("minify_size_cli_", (tmp_dir) => {
-    const { stdout } = cli([tmp_dir]);
-    check(stdout);
-  }));
-
-test("CLI 缺少参数报错", () => {
-  const { status } = cli([]);
-  expect(status).not.toBe(0);
-});
+test("命令行缺参", () => expect(cli([]).status).not.toBe(0));

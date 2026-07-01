@@ -1,50 +1,19 @@
-import { relative, join, isAbsolute } from "node:path";
+import { join, isAbsolute } from "node:path";
 import { realpathSync } from "node:fs";
 import { promisify } from "node:util";
 import { brotliCompress } from "node:zlib";
-import Table from "cli-table3";
 import { FILE } from "@1-/walk";
 import walkRelIgnore from "@1-/walk/walkRelIgnore.js";
 import utf8e from "@3-/utf8";
 import bundle from "@1-/rolldown";
 
 const BROTLI = promisify(brotliCompress),
-  TABLE_STYLE = { "padding-left": 0, "padding-right": 0 },
-  NO_BORDER = {
-    top: "",
-    "top-mid": "",
-    "top-left": "",
-    "top-right": "",
-    bottom: "",
-    "bottom-mid": "",
-    "bottom-left": "",
-    "bottom-right": "",
-    left: "",
-    "left-mid": "",
-    mid: "",
-    "mid-mid": "",
-    right: "",
-    "right-mid": "",
-    middle: " ",
-  },
   /*
   获取字符串 brotli 压缩后大小
   参数: str 待压缩字符串
   返回值: 字节数
   */
-  br = async (str) => (await BROTLI(utf8e(str))).length,
-  /*
-  输出打包大小表格
-  参数:
-  list 包含 [相对路径, 大小] 的数组
-  total 整体压缩后大小
-  */
-  show = (list, total) => {
-    const table = new Table({ chars: NO_BORDER, style: TABLE_STYLE });
-    list.forEach(([rel_path, size]) => table.push([rel_path, size]));
-    table.push(["整体打包压缩后大小", total]);
-    console.log(table.toString());
-  };
+  br = async (str) => (await BROTLI(utf8e(str))).length;
 
 /*
 打包并计算指定目录下 JS 文件压缩后大小
@@ -64,7 +33,6 @@ export default async (dir) => {
   });
 
   if (!files.length) {
-    show([], 0);
     return 0;
   }
 
@@ -74,18 +42,16 @@ export default async (dir) => {
     out_map[abs] = abs;
   });
 
-  const chunks = await bundle(input, {}, true, undefined, out_map),
-    sizes = (
-      await Promise.all(
-        chunks.map(async ([abs_out_path, code]) => [
-          relative(real_dir, abs_out_path),
-          await br(code),
-          code,
-        ]),
-      )
-    ).sort((a, b) => a[0].localeCompare(b[0])),
-    total_size = await br(sizes.map(([, , code]) => code).join(""));
-  show(sizes, total_size);
+  const chunks = await bundle(
+      input,
+      {
+        external: (id) => !id.startsWith(".") && !isAbsolute(id),
+      },
+      true,
+      undefined,
+      out_map,
+    ),
+    total_size = await br(chunks.map(([, code]) => code).join(""));
 
   return total_size;
 };

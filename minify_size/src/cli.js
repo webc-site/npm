@@ -16,4 +16,4 @@ const { dir } = yargs(hideBin(process.argv))
   .help()
   .alias("h", "help").argv;
 
-await minify(dir);
+console.log(await minify(dir));

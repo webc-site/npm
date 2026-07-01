@@ -4,10 +4,10 @@
 
 Evaluates JavaScript library size under modern network transmission environments supporting Brotli. For all `.js` files in the specified directory, performs:
 
-- Bundling using `@1-/rolldown` (Rust-based JavaScript bundler wrapping rolldown v1.1.3)
+- Bundling using `@1-/rolldown` (Rust-based JavaScript bundler)
 - UTF-8 encoding of the bundled code
 - Brotli compression via Node.js built-in `node:zlib.brotliCompress` to compute final byte length
-- Aggregation of per-bundle sizes and calculation of total bundled compressed size
+- Returns total bundled compressed size (bytes)
 
 ## 2. Usage Demo
 
@@ -32,9 +32,7 @@ minify_size ./src
 Example output:
 
 ```
-index.js              400
-utils.js              250
-Total bundled size    650
+650
 ```
 
 ## 3. Design Concept
@@ -48,20 +46,18 @@ graph TD
     C --> D[Bundle all JS files using @1-/rolldown]
     D --> E[UTF-8 encoding via @3-/utf8]
     E --> F[Brotli compression via node:zlib.brotliCompress]
-    F --> G[Calculate compressed byte length for each bundle]
-    G --> H[Aggregate per-bundle sizes and compute total bundled size]
-    H --> I[Formatted output using cli-table3]
+    F --> G[Calculate total bundled compressed byte length]
+    G --> H[Return compressed size]
 ```
 
 ## 4. Tech Stack
 
 - **Runtime**: Node.js / Bun
-- **Bundler**: `@1-/rolldown` v0.1.7 (Rust-based JavaScript bundler wrapping rolldown v1.1.3)
+- **Bundler**: `@1-/rolldown` v0.1.7 (Rust-based JavaScript bundler)
 - **Brotli Engine**: Built-in `node:zlib` (Brotli compression)
 - **Arg Parser**: `yargs` v18.0.0
 - **Encoding**: `@3-/utf8` v0.1.1 (TextEncoder-based UTF-8 encoding)
-- **Output Formatting**: `cli-table3` v0.6.5 (Formatted tabular output)
-- **File Walking**: `@1-/walk` v0.1.1 (Directory traversal utility with concurrency control)
+- **File Walking**: `@1-/walk` v0.1.2 (Directory traversal utility)
 - **Dependency Management**: npm
 - **Testing**: bun:test
 
@@ -70,7 +66,7 @@ graph TD
 ```
 src/
 ├── cli.js     # CLI entrypoint, parses directory parameter and invokes main function
-└── _.js       # Directory traversal, bundling, Brotli compression calculation and formatted output
+└── _.js       # Directory traversal, bundling, Brotli compression calculation
 ```
 
 ## 6. History

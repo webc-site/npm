@@ -4,10 +4,10 @@
 
 评估 JavaScript 库在支持 Brotli 的网络传输环境下的实际传输体积。对指定目录中所有 `.js` 文件执行以下操作：
 
-- 使用 `@1-/rolldown`（Rust 实现的 JavaScript 打包器）进行打包和语法感知压缩
+- 使用 `@1-/rolldown`（Rust 实现的 JavaScript 打包器）进行打包
 - 将打包后代码编码为 UTF-8 字节流
 - 使用 Node.js 内置 `node:zlib.brotliCompress` 计算 Brotli 压缩后字节长度
-- 汇总各打包产物大小，并计算整体打包压缩后大小
+- 返回整体打包压缩后大小（字节）
 
 ## 2. 使用演示
 
@@ -32,9 +32,7 @@ minify_size ./src
 输出示例：
 
 ```
-index.js              400
-utils.js              250
-整体打包压缩后大小    650
+650
 ```
 
 ## 3. 设计思路
@@ -48,20 +46,18 @@ graph TD
     C --> D[使用 @1-/rolldown 打包所有 JS 文件]
     D --> E[使用 @3-/utf8 编码为 UTF-8 字节流]
     E --> F[调用 node:zlib.brotliCompress]
-    F --> G[计算各打包产物压缩后字节长度]
-    G --> H[汇总各产物大小并计算整体打包压缩后大小]
-    H --> I[使用 cli-table3 格式化输出]
+    F --> G[计算整体打包产物压缩后字节长度]
+    G --> H[返回压缩后大小]
 ```
 
 ## 4. 技术栈
 
 - **Runtime**: Node.js / Bun
-- **Bundler**: `@1-/rolldown` v0.1.7 (Rust-based JavaScript bundler wrapping rolldown v1.1.3)
-- **Brotli Engine**: 内置 `node:zlib` (Brotli 压缩)
+- **Bundler**: `@1-/rolldown` v0.1.7 (Rust-based JavaScript bundler)
+- **Brotli Engine**: 内置 `node:zlib` (Brotli compression)
 - **Arg Parser**: `yargs` v18.0.0
 - **Encoding**: `@3-/utf8` v0.1.1 (TextEncoder-based UTF-8 encoding)
-- **Output Formatting**: `cli-table3` v0.6.5 (Formatted tabular output)
-- **File Walking**: `@1-/walk` v0.1.1 (Directory traversal utility with concurrency control)
+- **File Walking**: `@1-/walk` v0.1.2 (Directory traversal utility)
 - **Dependency Management**: npm
 - **Testing**: bun:test
 
@@ -70,7 +66,7 @@ graph TD
 ```
 src/
 ├── cli.js     # CLI 命令行入口，解析目录参数并调用主函数
-└── _.js       # 目录遍历、打包处理、Brotli压缩计算及格式化输出
+└── _.js       # 目录遍历、打包处理、Brotli压缩计算
 ```
 
 ## 6. 历史故事
