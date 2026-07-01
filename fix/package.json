@@ -1,6 +1,6 @@
 {
   "name": "@1-/fix",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Git hook for automatic JavaScript code optimization and formatting / 自动优化与格式化 JavaScript 代码的 Git 钩子",
   "keywords": [
     "ast",

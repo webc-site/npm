@@ -3,9 +3,9 @@
 ---
 
 <a id="en"></a>
-# @1-/fix : CLI tool for automatic JavaScript code optimization and formatting
+# @1-/fix : Git hook for automatic JavaScript code optimization and formatting
 
-- [@1-/fix : CLI tool for automatic JavaScript code optimization and formatting](#1-fix-cli-tool-for-automatic-javascript-code-optimization-and-formatting)
+- [@1-/fix : Git hook for automatic JavaScript code optimization and formatting](#1-fix-git-hook-for-automatic-javascript-code-optimization-and-formatting)
   - [1. Features](#1-features)
   - [2. Demo](#2-demo)
     - [Original Code](#original-code)
@@ -27,7 +27,7 @@ Optimization rules:
 - Replaces `new Promise(resolve => setTimeout(resolve, delay))` with `sleep(delay)` and imports `@3-/sleep`.
 - Replaces `while (true)` with `for (;;)`.
 - Replaces `new TextEncoder().encode(str)` with `utf8e(str)` and imports `@3-/utf8/utf8e.js`.
-- Replaces `process.env` with imported `env` and imports `node:process`.
+- Replaces `process.env` with `env` and imports `{ env }` from `node:process`.
 - Merges contiguous `const` and `export const` declarations into comma-separated format.
 
 ## 2. Demo
@@ -58,6 +58,7 @@ const run = async () => {
 ### Optimized Code
 
 ```javascript
+import { env } from "node:process";
 import utf8e from "@3-/utf8/utf8e.js";
 import sleep from "@3-/sleep";
 import read from "@3-/read";
