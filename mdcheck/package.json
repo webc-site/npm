@@ -1,6 +1,6 @@
 {
   "name": "@1-/mdcheck",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Check Mermaid syntax in Markdown files without browsers / 无需浏览器校验 Markdown 中的 Mermaid 语法",
   "keywords": [
     "check",
