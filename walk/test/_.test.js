@@ -130,6 +130,23 @@ test("walkRel", async () => {
   );
   expect(max_active).toBe(1);
 
+  // 测试 '.' 作为目录路径
+  const visited_dot = [];
+  const orig_cwd = process.cwd();
+  process.chdir(TMP_DIR);
+  await walkRel(".", async (kind, rel_path) => {
+    visited_dot.push([kind, rel_path]);
+  });
+  process.chdir(orig_cwd);
+
+  [
+    [DIR, "a"],
+    [DIR, "b"],
+    [FILE, "file3.txt"],
+    [FILE, "a/file1.txt"],
+    [FILE, "b/file2.txt"],
+  ].forEach((item) => expect(visited_dot).toContainEqual(item));
+
   await cleanup();
 });
 
