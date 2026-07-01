@@ -1,6 +1,6 @@
 {
   "name": "@1-/rolldown",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Fast JavaScript bundler with iterative minification",
   "keywords": [
     "bundler",

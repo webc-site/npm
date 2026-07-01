@@ -3,7 +3,6 @@
 ---
 
 <a id="en"></a>
-
 # @1-/rolldown : High-performance JavaScript bundler with iterative DCE optimization
 
 - [@1-/rolldown : High-performance JavaScript bundler with iterative DCE optimization](#1-rolldown-high-performance-javascript-bundler-with-iterative-dce-optimization)
@@ -17,7 +16,7 @@
 
 ## Functionality
 
-This package provides a wrapper around the rolldown bundler that implements automatic iterative Dead Code Elimination (DCE). It repeatedly runs the bundling process until output code size stabilizes, achieving optimal DCE without manual configuration. Leveraging rolldown's native DCE capabilities, it delivers maximum dead code removal efficiency out of the box while preserving ESM output format.
+This package provides a wrapper around the rolldown bundler that implements automatic iterative Dead Code Elimination (DCE). It repeatedly runs the bundling process until output code size stabilizes, achieving optimal dead code removal without manual configuration. Leveraging rolldown's native `dce-only` minification mode, it delivers maximum dead code elimination efficiency out of the box while preserving ESM output format.
 
 ## Usage demonstration
 
@@ -32,7 +31,7 @@ Use in JavaScript:
 ```javascript
 import rolldown from "@1-/rolldown";
 
-// Basic usage (no DCE)
+// Basic usage (no DCE optimization)
 const [code, map] = await rolldown("./src/index.js");
 
 // With iterative DCE optimization
@@ -42,19 +41,28 @@ const [minifiedCode, minifiedMap] = await rolldown("./src/index.js", {}, true);
 import { minifyTo } from "@1-/rolldown";
 await minifyTo("./src/index.js", "./dist/bundle.js");
 
-// Support for multiple files
+// Support for multiple files (array form)
 await minifyTo(["./src/a.js", "./src/b.js"], ["./dist/a.js", "./dist/b.js"]);
+
+// Support for multiple files (object mapping form)
+await minifyTo({
+  "main": "./src/main.js",
+  "utils": "./src/utils.js"
+}, {
+  "main": "./dist/main.js",
+  "utils": "./dist/utils.js"
+});
 ```
 
 ## Design rationale
 
-The core design implements iterative DCE using a memory plugin that loads the previous bundle output as a virtual entry point. The bundler runs repeatedly until code size no longer decreases. This approach leverages rolldown's native DCE capabilities to ensure optimal dead code elimination across different code structures.
+The core design implements iterative DCE using a memory plugin that loads previous bundle outputs as virtual modules. The memory plugin supports both direct module ID resolution and relative path imports (`.js`, `./`, `../`), ensuring virtual modules resolve correctly in different contexts. The bundler runs repeatedly until code size no longer decreases.
 
 ```mermaid
 graph TD
     A[Start] --> B[Initial bundle]
     B --> C[Measure code size]
-    C --> D[Memory plugin loads previous output]
+    C --> D[Memory plugin loads previous output as virtual module]
     D --> E[Run DCE bundle]
     E --> F[Compare size]
     F -->|Size decreased| D
@@ -72,7 +80,7 @@ graph TD
 
 ```
 src/
-├── _.js          # Main entry point with iterative DCE logic and memory plugin implementation
+├── _.js          # Main entry point with iterative DCE logic, memory plugin implementation, and bundling coordinator
 ```
 
 ## Historical context
@@ -85,13 +93,13 @@ This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
+# @1-/rolldown : 高性能 JavaScript 打包器与迭代 DCE 优化工具
 
-# @1-/rolldown : 高性能 JavaScript 打包器与迭代压缩工具
-
-- [@1-/rolldown : 高性能 JavaScript 打包器与迭代压缩工具](#1-rolldown-高性能-javascript-打包器与迭代压缩工具)
+- [@1-/rolldown : 高性能 JavaScript 打包器与迭代 DCE 优化工具](#1-rolldown-高性能-javascript-打包器与迭代-dce-优化工具)
   - [功能介绍](#功能介绍)
   - [使用演示](#使用演示)
   - [设计思路](#设计思路)
@@ -102,7 +110,7 @@ This library is developed by [WebC.site](https://webc.site).
 
 ## 功能介绍
 
-此包提供 rolldown 打包器的封装，实现自动迭代 Dead Code Elimination（DCE）优化。通过重复运行打包过程直至输出代码体积稳定，达到最优代码消除效果。基于 rolldown 的原生 DCE 能力，无需手动配置即可移除未使用代码，同时保持 ESM 输出格式。
+此包提供 rolldown 打包器的封装，实现自动迭代 Dead Code Elimination（DCE）优化。通过重复运行打包过程直至输出代码体积稳定，达到最优未使用代码消除效果。基于 rolldown 的原生 `dce-only` minification 模式，无需手动配置即可移除未使用代码，同时保持 ESM 输出格式。
 
 ## 使用演示
 
@@ -117,29 +125,38 @@ npm install @1-/rolldown
 ```javascript
 import rolldown from "@1-/rolldown";
 
-// 基础用法（无压缩）
+// 基础用法（无 DCE 优化）
 const [code, map] = await rolldown("./src/index.js");
 
-// 启用迭代 DCE 压缩
+// 启用迭代 DCE 优化
 const [minifiedCode, minifiedMap] = await rolldown("./src/index.js", {}, true);
 
 // 写入文件
 import { minifyTo } from "@1-/rolldown";
 await minifyTo("./src/index.js", "./dist/bundle.js");
 
-// 支持多文件打包
+// 支持多文件打包（数组形式）
 await minifyTo(["./src/a.js", "./src/b.js"], ["./dist/a.js", "./dist/b.js"]);
+
+// 支持多文件打包（对象映射形式）
+await minifyTo({
+  "main": "./src/main.js",
+  "utils": "./src/utils.js"
+}, {
+  "main": "./dist/main.js",
+  "utils": "./dist/utils.js"
+});
 ```
 
 ## 设计思路
 
-核心设计采用迭代 DCE 机制，通过内存插件将前一次打包输出作为虚拟入口，重复运行打包过程直至代码体积不再减小。该方法利用 rolldown 的原生 DCE 能力，确保在不同代码结构下都能达到最优 Dead Code Elimination 效果。
+核心设计采用迭代 DCE 机制，通过内存插件将前一次打包输出作为虚拟模块，重复运行打包过程直至代码体积不再减小。内存插件支持直接模块 ID 解析和相对路径导入（`.js`, `./`, `../`），确保虚拟模块在不同上下文中正确解析。
 
 ```mermaid
 graph TD
     A[开始] --> B[初始打包]
     B --> C[测量代码体积]
-    C --> D[内存插件加载上一次输出]
+    C --> D[内存插件加载上一次输出作为虚拟模块]
     D --> E[运行 DCE 打包]
     E --> F[比较体积]
     F -->|体积减小| D
@@ -157,7 +174,7 @@ graph TD
 
 ```
 src/
-├── _.js          # 主入口文件，包含迭代 DCE 逻辑与内存插件实现
+├── _.js          # 主入口文件，包含迭代 DCE 逻辑、内存插件实现和打包协调器
 ```
 
 ## 历史故事
@@ -169,3 +186,4 @@ JavaScript 打包工具从 Browserify 的简单连接演变为 Webpack 和 Rollu
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+
