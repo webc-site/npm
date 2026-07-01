@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "devDependencies": {
+    "@3-/read": "^0.1.4"
+  }
+}

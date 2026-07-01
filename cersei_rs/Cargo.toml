@@ -1,0 +1,37 @@
+[package]
+name = "cersei_rs"
+version = "0.1.1"
+edition = "2024"
+license = "MulanPSL-2.0"
+repository = "https://github.com/webc-site/npm.git"
+homepage = "https://github.com/webc-site/npm/tree/main/cersei_rs"
+description = "cersei_rs"
+keywords = []
+categories = []
+readme = "README.md"
+
+[features]
+default = []
+
+[lib]
+crate-type = ["cdylib"]
+
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
+
+[dependencies]
+anyhow = "1.0.102"
+cersei = "0.1.9"
+futures = "0.3.32"
+napi = { version = "3.9.3", features = ["async", "tokio_rt"] }
+napi-derive = "3.5.6"
+thiserror = "2.0.18"
+tokio = { version = "1.52.3", features = ["rt", "sync"] }
+
+[dev-dependencies]
+aok = "0.1.18"
+log = "0.4.32"
+log_init = "0.1.38"
+static_init = "1.0.4"

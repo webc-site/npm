@@ -1,0 +1,22 @@
+simple:
+  num: 1
+  str: "hello"
+  bool_t: true
+  bool_f: false
+  nil: null
+nested:
+  from: zh
+  to_li: "*"
+  dir:
+    - doc
+    - i18n
+multiline: |
+  line1
+  line2
+
+  line3
+list_of_obj:
+  - name: alice
+    age: 20
+  - name: bob
+    age: 25

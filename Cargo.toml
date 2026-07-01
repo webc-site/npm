@@ -1,0 +1,75 @@
+[workspace]
+resolver = "3"
+members = [
+  "ireq",
+  "cersei_rs",
+  "rank",
+  "xdb",
+  "xbin",
+  "b255",
+  "xhash",
+  "trim_li",
+  "upload",
+  "mail_forward",
+  "mail_struct",
+  "smtp_recv",
+  "smtp_send",
+  "smtp_srv",
+  "xmail",
+  "auth_trait",
+  "graceful_restart",
+  "sk_dkim",
+  "self_cmd",
+  "listen_signal",
+  "expire_cache",
+  "dns_parse",
+  "idns",
+  "socket_port",
+  "sendptr",
+  "sys_notify",
+  "race",
+  "citer",
+  "log_init",
+  "ts_",
+  "ip_set",
+  "pick_fast",
+  "kill_port",
+  "ssl_trait",
+  "cert_by_host",
+  "expire_set",
+  "auth_env",
+  "password_",
+  "xboot",
+  "ext_mime",
+  "blake3_cipher",
+  "strjoin",
+  "kvid",
+  "xkv",
+  "xkv/tests",
+  "autozstd",
+  "axum_graceful_restart",
+  "axum_cors",
+  "axum_graceful_restart/tests",
+  "hash_tag_id",
+  "yargs",
+]
+
+[profile.release]
+lto = true
+opt-level = 3
+incremental = true
+codegen-units = 1
+overflow-checks = false
+debug-assertions = false
+# panic = 'abort'
+# strip = false
+
+[profile.dev]
+split-debuginfo = "unpacked"
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3
+
+[profile.bench]
+opt-level = 3

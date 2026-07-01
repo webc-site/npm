@@ -1,0 +1,53 @@
+[package]
+name = "expire_cache"
+version = "0.1.26"
+edition = "2024"
+license = "MulanPSL-2.0"
+repository = "https://github.com/webc-site/npm.git"
+homepage = "https://github.com/webc-site/npm/tree/main/expire_cache"
+description = "High-performance generational cache for Rust / 高性能分代缓存"
+keywords = [ "cache", "expire", "generational", "async", "concurrent" ]
+categories = [
+"caching",
+"data-structures",
+"concurrency",
+"asynchronous",
+"development-tools"
+]
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = [ "--cfg", "docsrs" ]
+
+[features]
+default = [ ]
+hashmap = [ "dep:papaya" ]
+hashset = [ "dep:papaya" ]
+get_or_init_async = [ ]
+get_or_init = [ ]
+
+[dependencies]
+boxleak = "0.1.2"
+parking_lot = "0.12"
+
+[dependencies.papaya]
+version = "0.2.4"
+optional = true
+
+[dependencies.sendptr]
+version = "0.1.3"
+path = "../sendptr"
+
+[dependencies.tokio]
+version = "1.52.3"
+features = [ "macros", "rt", "rt-multi-thread", "time", "sync" ]
+
+[dev-dependencies]
+aok = "0.1.18"
+log = "0.4.32"
+log_init = "0.1.38"
+papaya = "0.2.4"
+
+[dev-dependencies.static_init]
+version = "1.0.4"
+features = [ "parking_lot" ]

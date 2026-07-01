@@ -1,0 +1,40 @@
+{
+  "name": "@1-/z85",
+  "version": "0.1.3",
+  "description": "A blazing fast, ultra-lightweight, and zero-dependency Z85 (ZeroMQ Base-85) encoder/decoder library.",
+  "keywords": [
+    "base85",
+    "decoding",
+    "encoding",
+    "z85",
+    "zeromq"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/z85",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    "./*": "./src/*"
+  },
+  "scripts": {
+    "test": "./test.sh",
+    "bench": "bun run bench/run.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@3-/utf8": "^0.1.1",
+    "@lapo/z85": "^1.0.0",
+    "base85": "^3.2.0",
+    "cli-table3": "^0.6.5",
+    "mitata": "^1.0.34",
+    "z85-codec": "^0.1.0"
+  },
+  "description:zh": "极速、超轻量、无依赖的 Z85 (ZeroMQ Base-85) 编解码库。"
+}

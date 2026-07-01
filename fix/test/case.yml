@@ -1,0 +1,201 @@
+- name: sleep 替换
+  code: |-
+    const run = async () => {
+      await new Promise(resolve => setTimeout(resolve, 100));
+    };
+  include:
+    - 'import sleep from "@3-/sleep";'
+    - "sleep(100)"
+
+- name: sleep 替换且已有 import
+  code: |-
+    import sleep from "@3-/sleep";
+    const run = async () => {
+      await new Promise(resolve => setTimeout(resolve, 100));
+    };
+  include:
+    - "sleep(100)"
+  match:
+    - "import sleep"
+    - 1
+
+- name: read 替换
+  code: |-
+    import { readFileSync } from "fs";
+    const data = readFileSync("a.txt", "utf8");
+  include:
+    - 'import read from "@3-/read";'
+    - 'read("a.txt")'
+  exclude:
+    - 'import { readFileSync } from "fs";'
+
+- name: read 替换且已有 import
+  code: |-
+    import { readFileSync } from "fs";
+    import read from "@3-/read";
+    const data = readFileSync("a.txt", "utf8");
+  include:
+    - 'read("a.txt")'
+  exclude:
+    - "readFileSync"
+  match:
+    - "import read"
+    - 1
+
+- name: readAsync 替换
+  code: |-
+    import { readFile } from "fs/promises";
+    const data = await readFile("a.txt", "utf8");
+  include:
+    - 'import read from "@1-/read";'
+    - 'read("a.txt")'
+  exclude:
+    - 'import { readFile } from "fs/promises";'
+
+- name: readAsync 属性调用替换
+  code: |-
+    import fs from "node:fs";
+    const data = await fs.readFile(path, "utf8");
+  include:
+    - 'import read from "@1-/read";'
+    - "read(path)"
+    - 'import fs from "node:fs";'
+
+- name: readAsync 参数嵌套替换
+  code: |-
+    import { readFile } from "fs";
+    const data = await readFile(join(dst, "a.txt"), "utf8");
+  include:
+    - 'import read from "@1-/read";'
+    - 'read(join(dst, "a.txt"))'
+  exclude:
+    - 'import { readFile } from "fs";'
+
+- name: readAsync 替换且已有 import
+  code: |-
+    import { readFile } from "fs/promises";
+    import read from "@1-/read";
+    const data = await readFile("a.txt", "utf8");
+  include:
+    - 'read("a.txt")'
+  exclude:
+    - "readFile"
+  match:
+    - "import read"
+    - 1
+
+- name: while 替换
+  code: |-
+    const run = () => {
+      while (true) {
+        console.log(1);
+      }
+    };
+  include:
+    - "for (;;)"
+  exclude:
+    - "while (true)"
+
+- name: utf8e 替换
+  code: |-
+    const run = () => {
+      const encoded = new TextEncoder().encode(key);
+    };
+  include:
+    - 'import utf8e from "@3-/utf8/utf8e.js";'
+    - "utf8e(key)"
+  exclude:
+    - "new TextEncoder().encode(key)"
+
+- name: utf8e 替换且已有 import
+  code: |-
+    import utf8e from "@3-/utf8/utf8e.js";
+    const run = () => {
+      const encoded = new TextEncoder().encode(key);
+    };
+  include:
+    - "utf8e(key)"
+  match:
+    - "import utf8e"
+    - 1
+
+- name: 合并带注释的 const
+  code: |-
+    const a = 1;
+    // hello
+    const b = 2;
+  include:
+    - |-
+      const a = 1,
+      // hello
+      b = 2;
+
+- name: 合并带块注释的 const
+  code: |-
+    const a = 1;
+    /* block */
+    const b = 2;
+  include:
+    - |-
+      const a = 1,
+      /* block */
+      b = 2;
+
+- name: 合并带注释的 export const
+  code: |-
+    export const a = 1;
+    // hello
+    export const b = 2;
+  include:
+    - |-
+      export const a = 1,
+      // hello
+      b = 2;
+
+- name: 合并多行注释的 const
+  code: |-
+    const a = 1;
+    // line 1
+    // line 2
+    const b = 2;
+  include:
+    - |-
+      const a = 1,
+      // line 1
+      // line 2
+      b = 2;
+
+- name: process.env 替换
+  code: |-
+    const port = process.env.PORT || 8080;
+  include:
+    - 'import { env } from "node:process";'
+    - "const port = env.PORT || 8080;"
+
+- name: process.env 替换且已有 import
+  code: |-
+    import { env } from "node:process";
+    const port = process.env.PORT || 8080;
+  include:
+    - "const port = env.PORT || 8080;"
+  match:
+    - 'import { env } from "node:process";'
+    - 1
+
+- name: 相邻的 export const 合并
+  code: |-
+    export const T_DOC = 1;
+    export const parseLinkLabel = (text, p, len) => 3;
+  include:
+    - |-
+      export const T_DOC = 1,
+      parseLinkLabel = (text, p, len) => 3;
+
+- name: 夹着普通 const 的 export const 不合并
+  code: |-
+    export const T_DOC = 1;
+    const hasPipe = 2;
+    export const parseLinkLabel = 3;
+  match:
+    - "export const "
+    - 2

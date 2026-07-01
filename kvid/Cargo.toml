@@ -1,0 +1,66 @@
+[package]
+name = "kvid"
+version = "0.1.7"
+edition = "2024"
+license = "MulanPSL-2.0"
+repository = "https://github.com/webc-site/npm.git"
+homepage = "https://github.com/webc-site/npm/tree/main/kvid"
+description = "Distributed ID generator with dual-segment preloading and lock-free fast path / 双号段预加载、无锁快速路径的分布式 ID 生成器"
+keywords = [
+"id-generator",
+"distributed",
+"redis",
+"lock-free",
+"segment"
+]
+categories = [
+"data-structures",
+"concurrency",
+"algorithms",
+"development-tools",
+"no-std"
+]
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = [ "--cfg", "docsrs" ]
+
+[features]
+default = [ ]
+
+[dependencies]
+fred = "10.1.0"
+parking_lot = "0.12.5"
+hipstr = "0.8"
+thiserror = "2.0.18"
+xboot = "0.1.39"
+
+[dependencies.static_init]
+version = "1.0.4"
+features = [ "parking_lot" ]
+
+[dependencies.tokio]
+version = "1.52.3"
+features = [ "sync" ]
+
+[dependencies.ts_]
+version = "0.1.4"
+path = "../ts_"
+features = [ "sec" ]
+
+[dependencies.xkv]
+version = "0.1.59"
+features = [ "r" ]
+
+[dev-dependencies]
+aok = "0.1.18"
+log = "0.4.32"
+log_init = "0.1.38"
+
+[dev-dependencies.static_init]
+version = "1.0.4"
+features = [ "parking_lot" ]
+
+[dev-dependencies.tokio]
+version = "1.52.3"
+features = [ "macros", "rt", "rt-multi-thread", "time", "sync" ]

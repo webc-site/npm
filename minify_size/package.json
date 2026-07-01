@@ -1,0 +1,38 @@
+{
+  "name": "@1-/minify_size",
+  "version": "0.1.4",
+  "description": "Minify JS and output brotli compressed size | 压缩 JS 并输出 brotli 压缩后大小",
+  "keywords": [
+    "br",
+    "brotli",
+    "compression",
+    "minify",
+    "size"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/minify_size",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "bin": {
+    "minify_size": "./src/cli.js"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/_.js",
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@1-/walk": "^0.1.1",
+    "@3-/read": "^0.1.4",
+    "@3-/utf8": "^0.1.1",
+    "cli-table3": "^0.6.5",
+    "oxc-minify": "^0.138.0",
+    "yargs": "^18.0.0"
+  }
+}

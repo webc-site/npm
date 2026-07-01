@@ -1,0 +1,32 @@
+{
+  "name": "@1-/redis",
+  "version": "0.1.2",
+  "description": "Redis and Cluster client wrapper with environmental configuration support / 支持环境变量配置的 Redis 与 Cluster 客户端封装",
+  "keywords": [
+    "cluster",
+    "ioredis",
+    "lifecycle",
+    "redis",
+    "sentinel"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/redis",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/_.js",
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@3-/int": "^0.1.1",
+    "@3-/read": "^0.1.4",
+    "ioredis": "^5.11.1"
+  }
+}

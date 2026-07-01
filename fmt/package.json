@@ -1,0 +1,23 @@
+{
+  "name": "@1-/fmt",
+  "version": "0.1.2",
+  "description": "",
+  "keywords": [],
+  "homepage": "https://github.com/webc-site/npm/tree/main/fmt",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/_.js",
+    "./*": "./src/*"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

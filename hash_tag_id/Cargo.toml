@@ -1,0 +1,30 @@
+[package]
+name = "hash_tag_id"
+version = "0.1.1"
+edition = "2024"
+license = "MulanPSL-2.0"
+repository = "https://github.com/webc-site/npm.git"
+homepage = "https://github.com/webc-site/npm/tree/main/hash_tag_id"
+description = "Redis hash tag generator for ID routing / 生成 Redis hash tag 将相同 ID 数据路由至同节点"
+keywords = [ "redis", "hash-tag", "cluster", "sharding", "allocator" ]
+categories = [
+"caching",
+"database",
+"data-structures",
+"network-programming",
+"algorithms"
+]
+readme = "README.md"
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = [ "--cfg", "docsrs" ]
+
+[features]
+default = [ ]
+
+[dev-dependencies]
+aok = "0.1.18"
+log = "0.4.32"
+log_init = "0.1.38"
+static_init = "1.0.4"

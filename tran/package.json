@@ -1,0 +1,40 @@
+{
+  "name": "@1-/tran",
+  "version": "0.1.6",
+  "description": "Command-line translation tool for i18n. Automates extraction, API translation, and cache management for Markdown and YAML files.",
+  "keywords": [
+    "cli",
+    "i18n",
+    "l10n",
+    "localization",
+    "translation"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/tran",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "bin": {
+    "tran": "./src/cli.js"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/_.js",
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@1-/i18n_scan": "^0.1.8",
+    "@3-/lang": "^0.2.15",
+    "@3-/log": "^0.1.9",
+    "@3-/read": "^0.1.4",
+    "@3-/req": "^0.1.18",
+    "js-yaml": "^5.2.0",
+    "yargs": "^18.0.0"
+  },
+  "description_zh": "命令行国际化翻译工具。自动化提取、API 翻译与 Markdown 和 YAML 文件的缓存管理。"
+}

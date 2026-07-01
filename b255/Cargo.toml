@@ -1,0 +1,31 @@
+[package]
+name = "b255"
+version = "0.1.12"
+edition = "2024"
+license = "MulanPSL-2.0"
+repository = "https://github.com/webc-site/npm.git"
+homepage = "https://github.com/webc-site/npm/tree/main/b255"
+description = "b255 encoding prevents forbidden colon bytes in redis keys / b255编码规避redis键中禁止的冒号字节"
+keywords = ["base255", "encoding", "redis", "key", "no-colon"]
+categories = ["encoding", "database", "data-structures", "algorithms", "development-tools"]
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = [ "--cfg", "docsrs" ]
+
+[features]
+default = [ ]
+encode = [ ]
+decode = [ ]
+
+[dependencies]
+thiserror = "2.0.18"
+
+[dev-dependencies]
+aok = "0.1.18"
+log = "0.4.32"
+static_init = "1.0.4"
+
+[dev-dependencies.log_init]
+
+version = "0.1.38"

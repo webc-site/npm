@@ -1,0 +1,24 @@
+[package]
+name = "axum_graceful_restart_tests"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+axum = "0.8.9"
+libc = "0.2.186"
+reqwest = "0.13.4"
+
+[dependencies.kill_port]
+version = "0.1.10"
+path = "../../kill_port"
+
+[dependencies.axum_graceful_restart]
+version = "0.1.9"
+path = ".."
+
+[dependencies.loginit]
+version = "0.1.18"
+
+[dependencies.tokio]
+version = "1.52.3"
+features = [ "rt", "macros", "rt-multi-thread", "signal" ]
