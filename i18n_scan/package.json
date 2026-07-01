@@ -1,6 +1,6 @@
 {
   "name": "@1-/i18n_scan",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Incremental document translation scanner & synchronizer / 增量式文档翻译状态扫描与同步工具",
   "keywords": [
     "i18n",
