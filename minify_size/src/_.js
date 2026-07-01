@@ -1,4 +1,4 @@
-import { relative, join } from "node:path";
+import { relative, join, isAbsolute } from "node:path";
 import { realpathSync } from "node:fs";
 import { promisify } from "node:util";
 import { brotliCompress } from "node:zlib";

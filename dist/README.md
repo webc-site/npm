@@ -34,10 +34,10 @@
   Clean `package.json` by removing `devDependencies`, `scripts`, `files`, and `lint-staged` fields.
   Rewrite relative paths in `exports`, `bin`, `files`, `main`, `module`, and `types` fields using `srcReplace`.
 
-- **Mermaid diagram processing**
-  Extract Mermaid diagrams from `README.mdt` files.
-  Render diagrams to SVG format and upload to GitHub CDN using `@1-/github_cdn`.
-  Replace diagram blocks with CDN URLs in generated Markdown.
+- **Markdown template processing**
+  Extract Markdown templates from `README.mdt` files.
+  Render templates to Markdown and convert local image paths to CDN links using `@1-/mdimg2cdn`.
+  Replace image paths with CDN URLs in generated Markdown.
   Update README files in source directory, temporary directory, and `src` directory (if specified).
 
 - **Automated npm publishing**
@@ -88,17 +88,17 @@ The workflow follows strict sequential execution with error handling at each sta
 
 ## Tech stack
 
-- **Bun**: Runtime and package manager (replaces Node.js)
+- **Bun**: Runtime and package manager
 - **Simple Git**: Git operations library
 - **Knip**: Static analysis tool for JavaScript/TypeScript projects
 - **Yargs**: Command-line argument parsing
-- **GitHub CDN**: Cloud storage integration for diagram hosting
-- **Mermaid**: Diagram rendering engine
 - **Eta**: Template engine for LLM prompt generation
-- **@1-/github_cdn**: GitHub CDN upload wrapper
 - **@1-/mdt**: Markdown template renderer
+- **@1-/mdimg2cdn**: Markdown image CDN converter
 - **@3-/log**: Logging utility
 - **@1-/findgit**: Git root directory finder
+- **@1-/github_cdn**: GitHub CDN upload wrapper
+- **cersei_rs/logSession**: LLM session management
 
 ## Code structure
 
@@ -113,11 +113,12 @@ src/
 ├── pkgJsonClean.js  # Cleans package.json and rewrites export paths
 ├── prep.js          # Sandboxed folder preprocessor with crypto.randomUUID()
 ├── publish.js       # npm publisher with cross-platform browser opening
-├── readme.js        # Markdown renderer and Mermaid processor
+├── readme.js        # Markdown renderer and resource processor
 ├── readmeGen.js     # LLM documentation generator with LLM configuration integration
 ├── run.js           # Release process main controller
 ├── srcReplace.js    # Relative path rewriter for package.json fields
-└── svg.js           # SVG renderer and uploader for Mermaid diagrams
+└── prompt/          # LLM prompt template directory
+    └── readme.eta   # README generation prompt template
 ```
 
 ## Historical story
@@ -127,7 +128,6 @@ Early Node.js package publishing relied on `npm publish` uploading entire direct
 Monorepo Git workflows required developers to manually manage multi-branch synchronization with `git checkout`, `pull`, `merge`, and `push` commands. Uncommitted local changes complicated these operations, increasing merge conflict risks and introducing dirty commits.
 
 This tool addresses both challenges through Git shared clones (`git clone --shared`) and sandboxed publishing. Temporary directory isolation prevents accidental file inclusion, while automated Git synchronization ensures consistent, zero-configuration releases. The architecture evolved from simple shell script wrappers to a modular Bun-based system with dedicated modules for each concern, enabling reliable monorepo publishing at scale.
-
 
 ## About
 
@@ -170,10 +170,10 @@ This library is developed by [WebC.site](https://webc.site).
   清理 `package.json`，移除 `devDependencies`、`scripts`、`files`、`lint-staged` 字段。
   使用 `srcReplace` 重写 `exports`、`bin`、`files`、`main`、`module`、`types` 字段中的相对路径。
 
-- **Mermaid 图表处理**
-  解析 `README.mdt` 文件中的 Mermaid 图表。
-  渲染为 SVG 格式并上传至 GitHub CDN 使用 `@1-/github_cdn`。
-  在生成的 Markdown 中替换图表块为 CDN 链接。
+- **Markdown 模板处理**
+  解析 `README.mdt` 文件中的 Markdown 模板。
+  渲染为 Markdown 并转换本地图片路径为 CDN 链接使用 `@1-/mdimg2cdn`。
+  在生成的 Markdown 中替换图片路径为 CDN 链接。
   同时更新源目录、临时目录及 `src` 目录（如指定）的 README 文件。
 
 - **自动化 npm 发布**
@@ -224,17 +224,17 @@ graph TD
 
 ## 技术栈
 
-- **Bun**: 运行时与包管理器（替代 Node.js）
+- **Bun**: 运行时与包管理器
 - **Simple Git**: Git 操作库
 - **Knip**: JavaScript/TypeScript 项目静态分析工具
 - **Yargs**: 命令行参数解析
-- **GitHub CDN**: 云存储集成，用于图表托管
-- **Mermaid**: 图表渲染引擎
 - **Eta**: 模板引擎，用于 LLM 提示生成
-- **@1-/github_cdn**: GitHub CDN 上传封装
-- **@1-/mdt**: Markdown template renderer
+- **@1-/mdt**: Markdown 模板渲染器
+- **@1-/mdimg2cdn**: Markdown 图片 CDN 转换器
 - **@3-/log**: 日志记录工具
 - **@1-/findgit**: Git root directory finder
+- **@1-/github_cdn**: GitHub CDN 上传封装
+- **cersei_rs/logSession**: LLM 会话管理
 
 ## 代码结构
 
@@ -249,11 +249,12 @@ src/
 ├── pkgJsonClean.js  # 清理 package.json 并重写导出路径
 ├── prep.js          # 沙箱目录预处理器，使用 crypto.randomUUID()
 ├── publish.js       # npm 发布器，支持跨平台浏览器打开
-├── readme.js        # Markdown 渲染器与 Mermaid 处理器
+├── readme.js        # Markdown 渲染器与资源处理
 ├── readmeGen.js     # 大语言模型文档生成器，集成 LLM 配置
 ├── run.js           # 发布流程主控制器
 ├── srcReplace.js    # 相对路径重写器，用于 package.json 字段
-└── svg.js           # SVG 渲染器与上传器，用于 Mermaid 图表
+└── prompt/          # LLM 提示模板目录
+    └── readme.eta   # README 生成提示模板
 ```
 
 ## 历史故事
@@ -263,7 +264,6 @@ src/
 Monorepo 架构下的 Git 工作流要求开发者手动管理多分支同步，包括 `git checkout`、`pull`、`merge` 和 `push` 等命令。未提交的本地修改使这些操作更加复杂，增加了合并冲突风险和污染提交历史的可能性。
 
 本工具通过 Git 共享克隆（`git clone --shared`）与沙箱化发布解决上述挑战。临时目录隔离从根本上杜绝了意外文件包含，而自动化的 Git 同步流水线确保了零配置的安全发布体验。架构从简单的 Shell 脚本包装器演变为模块化的 Bun 系统，各关注点分离，支持大规模 Monorepo 的可靠发布。
-
 
 ## 关于
 
