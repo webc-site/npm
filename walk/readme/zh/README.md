@@ -4,12 +4,20 @@
 
 ## 功能介绍
 
-- **并发控制**：限制文件系统并发操作数，防止资源耗尽。
-- **目录跳过**：回调函数返回 `false` 时跳过子目录递归。
+- **并发控制**：限制文件系统并发操作数，防止资源耗尽。默认并发数为系统可用并行度（`availableParallelism()`）。
+- **目录跳过**：回调函数返回 `false` 时跳过子目录递归遍历。
 - **相对路径**：支持解析并输出相对于起始目录的相对路径。
-- **内置忽略**：自动排除 `node_modules` 及以 `.` 开头的隐藏文件与目录。
+- **预设忽略**：`walkRelIgnore` 提供预设过滤，自动排除 `node_modules` 目录及以 `.` 开头的隐藏文件与目录（基于 basename 判断）。
 
 ## 使用演示
+
+### 安装
+
+```bash
+npm install @1-/walk
+# 或
+bun add @1-/walk
+```
 
 ### 绝对路径遍历 (`walk`)
 
@@ -24,7 +32,7 @@ await walk(
     }
     console.log(kind === FILE ? "File:" : "Dir:", path);
   },
-  4,
+  4, // 可选：并发限制，默认为 availableParallelism()
 ); // 并发限制为 4
 ```
 
@@ -35,19 +43,19 @@ import walkRel from "@1-/walk/walkRel.js";
 
 await walkRel("/path/to/dir", async (kind, relPath) => {
   console.log(relPath);
-});
+}, 4); // 可选：并发限制
 ```
 
-### 忽略预设遍历 (`walkRelIgnore`)
+### 预设忽略遍历 (`walkRelIgnore`)
 
-自动过滤 `node_modules` 文件夹与隐藏文件。
+自动过滤 `node_modules` 目录与隐藏文件（以 `.` 开头）。
 
 ```javascript
 import walkRelIgnore from "@1-/walk/walkRelIgnore.js";
 
 await walkRelIgnore("/path/to/dir", async (kind, relPath) => {
   console.log(relPath);
-});
+}, 4); // 可选：并发限制
 ```
 
 ## 设计思路
@@ -56,11 +64,11 @@ await walkRelIgnore("/path/to/dir", async (kind, relPath) => {
 
 ```mermaid
 graph TD
-    A[walkRelIgnore] -->|调用| B[walkRel]
+    A[walkRelIgnore] -->|调用并过滤| B[walkRel]
     B -->|转换路径为相对路径| C[walk]
     C -->|读取文件系统| D[readdir]
     C -->|并发队列限制| E[pLimit 队列]
-    E -->|回调执行| F{返回 false?}
+    E -->|执行回调| F{回调返回 false?}
     F -->|是| G[跳过子目录递归]
     F -->|否| H[递归遍历子目录]
 ```
@@ -69,6 +77,7 @@ graph TD
 
 - 运行时：Node.js / Bun
 - 核心依赖：`@3-/plimit`
+- 标准库：`node:fs/promises`, `node:path`, `node:os`
 
 ## 代码结构
 
@@ -77,7 +86,7 @@ graph TD
 ├── src/
 │   ├── _.js               # 核心 walk 实现
 │   ├── walkRel.js         # 相对路径封装
-│   └── walkRelIgnore.js   # 忽略预设封装
+│   └── walkRelIgnore.js   # 预设忽略封装
 ├── test/
 │   └── _.test.js          # 单元测试
 └── package.json

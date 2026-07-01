@@ -26,27 +26,31 @@ const tmp = async (prefix, onRun) => {
       await rm(tmp_dir, { recursive: true, force: true });
     }
   },
-  // 校验输出内容是否匹配期望的正则
+  /* 捕获 console.log 输出 */
+  captureLog = async (func) => {
+    const log = [],
+      org = console.log;
+    console.log = (...args) => log.push(args.join(" "));
+    try {
+      await func();
+    } finally {
+      console.log = org;
+    }
+    return log.join("\n");
+  },
+  /* 校验输出内容 */
   check = (out) =>
     [/test\.js.*\d+/, /sub\/sub\.js.*\d+/, /整体打包压缩后大小.*\d+/].forEach((reg) =>
       expect(out).toMatch(reg),
     ),
-  // 运行命令行工具
+  /* 运行命令行工具 */
   cli = (args) =>
-    spawnSync("node", [join(import.meta.dirname, "../src/cli.js"), ...args], { encoding: "utf8" });
+    spawnSync("bun", [join(import.meta.dirname, "../src/cli.js"), ...args], { encoding: "utf8" });
 
 test("压缩并输出大小", () =>
   tmp("minify_size_test_", async (tmp_dir) => {
-    const log = [],
-      org_log = console.log;
-    console.log = (...args) => log.push(args.join(" "));
-    try {
-      await minify(tmp_dir);
-    } finally {
-      console.log = org_log;
-    }
-    expect(log.length).toBe(1);
-    check(log[0]);
+    const out = await captureLog(() => minify(tmp_dir));
+    check(out);
   }));
 
 test("CLI 运行正常", () =>

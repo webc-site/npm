@@ -3,6 +3,7 @@
 ---
 
 <a id="en"></a>
+
 # @1-/minify_size : Minify JavaScript and report Brotli-compressed size
 
 - [@1-/minify_size : Minify JavaScript and report Brotli-compressed size](#1-minify_size-minify-javascript-and-report-brotli-compressed-size)
@@ -92,17 +93,16 @@ src/
 
 Brotli was developed by Jyrki Alakuijala and Zoltán Szabadka at Google in 2013. It was initially designed for compression of web fonts, and was later extended to become a general-purpose compression algorithm optimized for web transmission, becoming an industry standard (RFC 7932).
 
-
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
-
 ---
 
 <a id="zh"></a>
+
 # @1-/minify_size : Minify JavaScript and report Brotli-compressed size
 
 - [@1-/minify_size : Minify JavaScript and report Brotli-compressed size](#1-minify_size-minify-javascript-and-report-brotli-compressed-size)
@@ -192,10 +192,8 @@ src/
 
 Brotli 由 Google 的 Jyrki Alakuijala 和 Zoltán Szabadka 于 2013 年开发。它最初被设计用于压缩网页字体，后来发展为通用压缩算法，用于优化网页传输，并成为行业标准（RFC 7932）。
 
-
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
-
