@@ -1,64 +1,66 @@
 # @1-/minify_size : Minify JavaScript and report Brotli-compressed size
 
-## 1. Introduction
+## 1. Functionality
 
-Evaluates JavaScript library size under modern network transmission environments supporting Brotli. For all `.js` files in the specified directory, performs:
+Measure JavaScript library transmission size under Brotli-enabled network environments. Processes all `.js` files in a specified directory by:
 
-- Bundling using `@1-/rolldown` (Rust-based JavaScript bundler)
-- UTF-8 encoding of the bundled code
-- Brotli compression via Node.js built-in `node:zlib.brotliCompress` to compute final byte length
-- Returns total bundled compressed size (bytes)
+- Bundling with `@1-/rolldown` (Rust-based JavaScript bundler)
+- UTF-8 encoding using `@3-/utf8` TextEncoder
+- Brotli compression via Node.js built-in `node:zlib.brotliCompress`
+- Returning total compressed byte count of bundled output
 
-## 2. Usage Demo
+Excludes test files matching `/^(|\/)tests?(\/|$)/` and `node_modules` directories.
 
-Install dependency:
+## 2. Usage
+
+Install locally:
 
 ```bash
 npm install @1-/minify_size
 ```
 
-or install globally:
+Install globally:
 
 ```bash
 npm install -g @1-/minify_size
 ```
 
-Run command (specify the directory to analyze):
+Execute with target directory:
 
 ```bash
 minify_size ./src
 ```
 
-Example output:
+Output example:
 
 ```
 650
 ```
 
-## 3. Design Concept
+## 3. Design
 
 Execution flow (vertical Mermaid diagram):
 
 ```mermaid
 graph TD
-    A[CLI directory input] --> B[Traverse all .js files using @1-/walk/walkRelIgnore]
-    B --> C[Filter out test files and non-JS files]
-    C --> D[Bundle all JS files using @1-/rolldown]
-    D --> E[UTF-8 encoding via @3-/utf8]
-    E --> F[Brotli compression via node:zlib.brotliCompress]
-    F --> G[Calculate total bundled compressed byte length]
+    A[CLI directory input] --> B[Traverse .js files using @1-/walk/walkRelIgnore]
+    B --> C[Filter test files and non-JS files]
+    C --> D[Bundle JS files with @1-/rolldown]
+    D --> E[UTF-8 encode with @3-/utf8]
+    E --> F[Brotli compress with node:zlib.brotliCompress]
+    F --> G[Calculate total compressed byte length]
     G --> H[Return compressed size]
 ```
 
-## 4. Tech Stack
+## 4. Technology Stack
 
-- **Runtime**: Node.js / Bun
+- **Runtime**: Bun / Node.js
 - **Bundler**: `@1-/rolldown` v0.1.7 (Rust-based JavaScript bundler)
-- **Brotli Engine**: Built-in `node:zlib` (Brotli compression)
-- **Arg Parser**: `yargs` v18.0.0
-- **Encoding**: `@3-/utf8` v0.1.1 (TextEncoder-based UTF-8 encoding)
-- **File Walking**: `@1-/walk` v0.1.2 (Directory traversal utility)
-- **Dependency Management**: npm
+- **Compression**: `node:zlib.brotliCompress` (built-in Brotli)
+- **Argument parsing**: `yargs` v18.0.0
+- **Encoding**: `@3-/utf8` v0.1.1 (TextEncoder-based UTF-8)
+- **File traversal**: `@1-/walk` v0.1.2 (directory traversal utility)
+- **Package management**: npm
 - **Testing**: bun:test
 
 ## 5. Code Structure
@@ -71,4 +73,4 @@ src/
 
 ## 6. History
 
-Brotli was developed by Jyrki Alakuijala and Zoltán Szabadka at Google in 2013. It was initially designed for compression of web fonts, and was later extended to become a general-purpose compression algorithm optimized for web transmission, becoming an industry standard (RFC 7932). Modern JavaScript bundlers like rolldown leverage Rust's performance to achieve sub-second builds while maintaining compatibility with existing JavaScript tooling ecosystems.
+Brotli was developed by Jyrki Alakuijala and Zoltán Szabadka at Google in 2013. Initially designed for web font compression, it evolved into a general-purpose algorithm optimized for web transmission and became an industry standard (RFC 7932). Modern JavaScript bundlers like rolldown leverage Rust's performance for sub-second builds while maintaining compatibility with existing JavaScript tooling ecosystems.

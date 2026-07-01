@@ -48,7 +48,7 @@ export default async (dir) => {
         external: (id) => !id.startsWith(".") && !isAbsolute(id),
       },
       true,
-      undefined,
+      real_dir,
       out_map,
     ),
     total_size = await br(chunks.map(([, code]) => code).join(""));

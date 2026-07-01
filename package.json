@@ -4,10 +4,10 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@1-/dist": "^0.1.18",
+    "@1-/dist": "^0.1.19",
     "@1-/fix": "^0.1.7",
     "@1-/mdcheck": "^0.1.10",
-    "@1-/minify_size": "^0.1.4",
+    "@1-/minify_size": "^0.1.5",
     "@1-/new": "^0.1.2",
     "@1-/read": "^0.1.1",
     "@1-/url_exist": "^0.1.1",
