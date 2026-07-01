@@ -32,7 +32,7 @@ const BROTLI = promisify(brotliCompress),
   参数: str 待压缩字符串
   返回值: 字节数
   */
-  brSize = async (str) => (await BROTLI(utf8e(str))).length,
+  br = async (str) => (await BROTLI(utf8e(str))).length,
   /*
   输出打包大小表格
   参数:
@@ -79,12 +79,12 @@ export default async (dir) => {
       await Promise.all(
         chunks.map(async ([abs_out_path, code]) => [
           relative(real_dir, abs_out_path),
-          await brSize(code),
+          await br(code),
           code,
         ]),
       )
     ).sort((a, b) => a[0].localeCompare(b[0])),
-    total_size = await brSize(sizes.map(([, , code]) => code).join(""));
+    total_size = await br(sizes.map(([, , code]) => code).join(""));
   show(sizes, total_size);
 
   return total_size;

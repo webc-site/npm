@@ -2,19 +2,19 @@
 
 ## 1. 功能介绍
 
-- 使用优化的 `@1-/walk` 工具递归扫描目录查找 Markdown 文件
-- 使用 `@1-/md` 精确提取 `mermaid` 代码块并保持原始行号信息
-- 模拟最小化浏览器 DOM 环境，包含 `window`、`document`、`DOMParser` 及必要 DOM 类
-- 直接在 Bun 运行时中执行 Mermaid 官方 `parse()` 方法
-- 报告验证错误时准确映射至原始文件行号，通过精确行号映射实现
-- 支持分层配置，通过向上搜索目录树中的 `.mdcheck.js` 文件实现
+- 递归扫描目录查找 Markdown 文件，使用 `@1-/walk` 工具实现高效遍历
+- 提取 `mermaid` 代码块并保持原始行号信息，使用 `@1-/md` 工具实现精确定位
+- 模拟最小化浏览器 DOM 环境，仅注入 `window`、`document`、`DOMParser` 及必需 DOM 类
+- 直接在 Bun 运行时中执行 Mermaid 官方 `parse()` 方法进行语法验证
+- 报告错误时准确映射至原始文件行号，支持精确定位问题位置
+- 支持分层配置，通过向上搜索目录树中的 `.mdcheck.js` 文件实现灵活过滤
 
 ## 2. 使用演示
 
 ### 命令行执行
 
 ```bash
-bun x mdcheck [目录路径]
+bunx mdcheck [目录路径]
 ```
 
 省略 `目录路径` 参数时，默认校验当前工作目录。
@@ -47,18 +47,18 @@ graph TD
 
 ## 4. 技术栈
 
-- **Bun**: 支持原生 ES 模块的运行环境
-- **Mermaid v11.15.0**: 官方图表语法解析引擎
+- **Bun**: 原生 ES 模块支持的运行环境
+- **Mermaid v11.16.0**: 官方图表语法解析引擎
 - **Yargs v18.0.0**: 命令行参数解析工具
-- **@1-/walk v0.1.1**: 支持忽略模式的优化目录遍历工具
-- **@1-/md v0.1.3**: 支持行号追踪的 Markdown 代码块提取工具
+- **@1-/walk v0.1.2**: 优化的目录遍历工具
+- **@1-/md v0.1.5**: Markdown 代码块提取工具
 - **@1-/read v0.1.1**: 文件读取工具
 - **@3-/log v0.1.9**: 彩色终端日志输出工具
 
 ## 5. 代码结构
 
 - `src/cli.js`: 命令行入口，配置加载器，支持向上搜索 `.mdcheck.js` 文件
-- `src/scan.js`: 使用 `@1-/walk/walkRelIgnore` 的目录扫描器，支持 ignore 模式
+- `src/scan.js`: 目录扫描器，使用 `@1-/walk/walkRelIgnore` 实现忽略模式支持
 - `src/pathCheck.js`: 文件读取器，委托给 Markdown 校验器处理
 - `src/mdCheck.js`: Markdown 处理器，提取 mermaid 代码块并映射错误至原始行号
 - `src/mermaidCheck.js`: DOM 模拟注入器，提供 Mermaid `parse()` 所需的最小化浏览器环境
