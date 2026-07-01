@@ -1,6 +1,6 @@
 {
   "name": "@1-/minify_size",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Minify JS and output brotli compressed size | 压缩 JS 并输出 brotli 压缩后大小",
   "keywords": [
     "br",
