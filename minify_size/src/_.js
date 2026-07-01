@@ -1,12 +1,15 @@
 import { relative, join } from "node:path";
 import { realpathSync } from "node:fs";
+import { promisify } from "node:util";
+import { brotliCompress } from "node:zlib";
 import Table from "cli-table3";
 import { FILE } from "@1-/walk";
 import walkRelIgnore from "@1-/walk/walkRelIgnore.js";
 import utf8e from "@3-/utf8";
 import bundle from "@1-/rolldown";
 
-const TABLE_STYLE = { "padding-left": 0, "padding-right": 0 },
+const BROTLI = promisify(brotliCompress),
+  TABLE_STYLE = { "padding-left": 0, "padding-right": 0 },
   NO_BORDER = {
     top: "",
     "top-mid": "",
@@ -25,11 +28,11 @@ const TABLE_STYLE = { "padding-left": 0, "padding-right": 0 },
     middle: " ",
   },
   /*
-  获取字符串 zstd 压缩后大小
+  获取字符串 brotli 压缩后大小
   参数: str 待压缩字符串
   返回值: 字节数
   */
-  zstd = async (str) => (await Bun.zstdCompress(utf8e(str), { level: 3 })).byteLength,
+  brSize = async (str) => (await BROTLI(utf8e(str))).length,
   /*
   输出打包大小表格
   参数:
@@ -76,13 +79,12 @@ export default async (dir) => {
       await Promise.all(
         chunks.map(async ([abs_out_path, code]) => [
           relative(real_dir, abs_out_path),
-          await zstd(code),
+          await brSize(code),
           code,
         ]),
       )
-    ).sort((a, b) => a[0].localeCompare(b[0]));
-
-  const total_size = await zstd(sizes.map(([, , code]) => code).join(""));
+    ).sort((a, b) => a[0].localeCompare(b[0])),
+    total_size = await brSize(sizes.map(([, , code]) => code).join(""));
   show(sizes, total_size);
 
   return total_size;

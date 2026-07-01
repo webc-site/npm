@@ -1,6 +1,6 @@
 {
   "name": "@1-/walk",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Fast directory walker with concurrency limit and directory skipping | 并发受控且支持目录跳过的快速文件遍历工具",
   "keywords": [
     "concurrency-limit",
