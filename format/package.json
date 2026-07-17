@@ -1,8 +1,14 @@
 {
   "name": "@1-/format",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lightweight modular code formatter for JavaScript, Stylus, and SVG with language-specific processors",
-  "keywords": ["formatter", "code-formatting", "javascript", "stylus", "svg"],
+  "keywords": [
+    "formatter",
+    "code-formatting",
+    "javascript",
+    "stylus",
+    "svg"
+  ],
   "homepage": "https://github.com/webc-site/npm/tree/main/format",
   "license": "MulanPSL-2.0",
   "author": "x-at-01@googlegroups.com",
