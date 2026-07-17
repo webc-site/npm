@@ -1,0 +1,33 @@
+{
+  "name": "@1-/format",
+  "version": "0.1.0",
+  "description": "",
+  "keywords": ["formatter", "code-formatting", "javascript", "stylus", "svg"],
+  "homepage": "https://github.com/webc-site/npm/tree/main/format",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "bin": {
+    "format": "./src/bin.js"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/_.js",
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@1-/fix": "^0.1.8",
+    "@1-/stylus": "^0.1.12",
+    "@3-/ext": "^0.0.2",
+    "@3-/log": "^0.1.9",
+    "@3-/svgo": "^0.1.4",
+    "@3-/write": "^0.1.2",
+    "yargs": "^18.0.0"
+  }
+}

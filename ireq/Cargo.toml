@@ -1,0 +1,36 @@
+[package]
+name = "ireq"
+version = "0.1.37"
+edition = "2024"
+license = "MulanPSL-2.0"
+repository = "https://github.com/webc-site/npm.git"
+homepage = "https://github.com/webc-site/npm/tree/main/ireq"
+description = "Effortless HTTP client wrapper for Rust / Rust 极简 HTTP 请求库"
+keywords = ["http", "client", "request", "reqwest", "retry"]
+categories = [
+  "web-programming",
+  "network-programming",
+  "asynchronous",
+  "api-bindings",
+  "development-tools"
+]
+
+[dependencies]
+bytes = "1.12.0"
+static_init = { version = "1.0.4", features = ["parking_lot"] }
+thiserror = "2.0.18"
+tokio = { version = "1", features = ["time"] }
+
+[dependencies.reqwest]
+version = "0.13.4"
+default-features = false
+features = ["zstd", "stream", "gzip", "brotli"]
+
+[features]
+default = []
+proxy = ["reqwest/socks"]
+retry = []
+
+
+[dev-dependencies]
+tokio = { version = "1.52", features = ["full"] }

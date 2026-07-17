@@ -1,0 +1,32 @@
+[package]
+name = "citer"
+license = "MulanPSL-2.0"
+repository = "https://github.com/webc-site/npm.git"
+homepage = "https://github.com/webc-site/npm/tree/main/citer"
+description = "citer"
+categories = ["data-structures", "algorithms", "development-tools", "no-std", "rust-patterns"]
+edition = "2024"
+version = "0.1.42"
+
+[package.metadata.docs.rs]
+all-features = true
+
+[dev-dependencies]
+aok = "0.1.18"
+log = "0.4.33"
+
+[dev-dependencies.static_init]
+version = "1.0.4"
+features = ["parking_lot"]
+
+[dev-dependencies.log_init]
+path = "../log_init"
+version = "0.1.38"
+
+[features]
+default = []
+rand = ["dep:fastrand"]
+
+[dependencies.fastrand]
+version = "2.4.1"
+optional = true

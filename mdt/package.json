@@ -1,0 +1,27 @@
+{
+  "name": "@1-/mdt",
+  "version": "0.1.10",
+  "description": "Render markdown template and generate hierarchical TOC / 渲染 Markdown 模板并生成有层级的 TOC 目录",
+  "keywords": [
+    "generator",
+    "markdown",
+    "render",
+    "template",
+    "toc"
+  ],
+  "bin": {
+    "mdt": "./src/mdt.js"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./src/_.js",
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@1-/md": "^0.1.5",
+    "@1-/read": "^0.1.1",
+    "@1-/walk": "^0.1.2",
+    "@3-/log": "^0.1.9",
+    "yargs": "^18.0.0"
+  }
+}

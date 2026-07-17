@@ -1,0 +1,54 @@
+[package]
+name = "graceful_restart"
+version = "0.1.8"
+edition = "2024"
+license = "MulanPSL-2.0"
+repository = "https://github.com/webc-site/npm.git"
+homepage = "https://github.com/webc-site/npm/tree/main/graceful_restart"
+description = "Zero-downtime process restart library with signal handling / 零停机进程重启库，支持信号处理"
+keywords = ["restart", "signal", "graceful", "process", "sighup"]
+categories = ["os", "os::unix-apis", "development-tools", "asynchronous", "concurrency"]
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
+
+[package.metadata.cargo-machete]
+ignored = ["linkme"]
+
+[features]
+default = []
+
+[dev-dependencies]
+aok = "0.1.18"
+log = "0.4.33"
+log_init = "0.1.38"
+
+[dev-dependencies.static_init]
+version = "1.0.4"
+features = ["parking_lot"]
+
+[dev-dependencies.tokio]
+version = "1.52.3"
+features = ["macros", "rt", "rt-multi-thread", "time", "sync"]
+
+[dependencies]
+futures = "0.3.32"
+linkme = "0.3.36"
+log = "0.4.33"
+thiserror = "2.0.18"
+tokio-util = "0.7.18"
+xboot = "0.1.39"
+
+[dependencies.listen_signal]
+version = "0.1.16"
+path = "../listen_signal"
+
+[dependencies.tokio]
+version = "1.52.3"
+features = ["macros", "process", "rt", "signal", "time"]
+
+[target."cfg(unix)".dependencies]
+nix = { version = "0.31.3", features = ["process", "signal"] }
+self_cmd = { version = "0.1.11", path = "../self_cmd" }
+sys_notify = { version = "0.1.6", path = "../sys_notify" }

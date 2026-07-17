@@ -1,0 +1,7 @@
+{
+  "description": "Fast and efficient file extension to MIME-Type mapping",
+  "type": "module",
+  "devDependencies": {
+    "@3-/read": "^0.1.4"
+  }
+}
