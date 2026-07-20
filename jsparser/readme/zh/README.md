@@ -32,7 +32,7 @@ const [静态导入, 动态导入, 模板导入] = importLi(`
 
 // 分析文件中的导出（仅接受文件路径）
 const 导出名称列表 = exportLi('./src/module.js');
-// 注意：不支持直接传入代码字符串；如需分析字符串，请先写入临时文件
+// 若文件不存在，返回 undefined
 ```
 
 ## 设计思路
@@ -52,7 +52,7 @@ graph TD
 
 ## 技术栈
 
-- yuku-parser：JavaScript/TypeScript AST 解析器
+- yuku-parser：JavaScript/TypeScript AST 解析器（无构建配置或类型定义）
 - @3-/is_obj：对象类型检查工具
 - @3-/read：文件读取工具
 - Node.js 内置模块
@@ -64,6 +64,8 @@ src/
 ├── importLi.js    # 导入分析：返回 [静态导入, 动态导入, 模板导入] 三元组
 └── exportLi.js    # 导出分析：接收文件路径，返回导出名称数组（含 'default'）或 undefined
 ```
+
+本库由两个纯 JavaScript 文件构成，无抽象层、无额外依赖、无类型声明。
 
 ## 历史故事
 

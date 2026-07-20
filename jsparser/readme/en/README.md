@@ -32,7 +32,7 @@ const [staticImports, dynamicImports, templateImports] = importLi(`
 
 // Analyze exports in a file (path-only)
 const exportNames = exportLi('./src/module.js');
-// Note: Does not accept code strings directly; for string analysis, write to a temporary file first
+// Returns undefined if file does not exist
 ```
 
 ## Design approach
@@ -52,7 +52,7 @@ graph TD
 
 ## Technology stack
 
-- yuku-parser: JavaScript/TypeScript AST parser
+- yuku-parser: JavaScript/TypeScript AST parser (no build config or type definitions)
 - @3-/is_obj: Object type checking utility
 - @3-/read: File reading utility
 - Node.js built-in modules
@@ -64,6 +64,8 @@ src/
 ├── importLi.js    # Import analysis: returns [static, dynamic, template] triple
 └── exportLi.js    # Export analysis: accepts file path, returns export name array (including 'default') or undefined
 ```
+
+This library consists of exactly two plain JavaScript files — no abstractions, no extra dependencies, no type declarations.
 
 ## Historical background
 
