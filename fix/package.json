@@ -35,7 +35,7 @@
     "@3-/write": "^0.1.2",
     "oxfmt": "^0.59.0",
     "yargs": "^18.0.0",
-    "yuku-parser": "^0.6.5"
+    "yuku-parser": "^0.7.0"
   },
   "devDependencies": {
     "js-yaml": "^5.2.1"
