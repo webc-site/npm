@@ -1,12 +1,12 @@
-# @1-/jsparser : JavaScript module dependency analyzer
+# @1-/jsparser : JavaScript Module Dependency Static Analyzer
 
 ## Functionality
 
-Static analysis of JavaScript modules to precisely identify import and export declarations. Uses AST parsing technology to support static imports, dynamic imports (including template literals), default exports, named exports, destructuring exports, and namespace exports without executing code.
+Precisely identifies import and export declarations in JavaScript modules without code execution. Supports static imports, dynamic imports (including interpolation-free template literals), interpolated dynamic template imports, default exports, named exports, destructuring exports, renamed exports, and namespace exports (`export * as ns`).
 
 ## Usage demonstration
 
-Install as npm package:
+Install as an npm package:
 
 ```bash
 npm install @1-/jsparser
@@ -18,7 +18,7 @@ Use in JavaScript:
 import importLi from '@1-/jsparser/importLi.js';
 import exportLi from '@1-/jsparser/exportLi.js';
 
-// Analyze imports in code string
+// Analyze imports in a code string
 const [staticImports, dynamicImports, templateImports] = importLi(`
   import a from 'a-module';
   import { b } from 'b-module';
@@ -30,52 +30,41 @@ const [staticImports, dynamicImports, templateImports] = importLi(`
 `);
 // Returns: [['a-module', 'b-module', 'c-module', 'd-module'], ['e-module', 'f-module'], [['g-module-', '']]]
 
-// Analyze exports in file or code string
+// Analyze exports in a file (path-only)
 const exportNames = exportLi('./src/module.js');
-// Or analyze code string directly
-const exportNames2 = exportLi(`
-  export default 123;
-  export const a = 1, [b, c] = x;
-  export const { d, e: f } = y;
-  export function func() {}
-  export class Cls {}
-  export { u, v as w };
-  export * as ns from 'mod';
-  export * from 'mod2';
-`);
-// Returns: ['default', 'a', 'b', 'c', 'd', 'f', 'func', 'Cls', 'u', 'w', 'ns']
+// Note: Does not accept code strings directly; for string analysis, write to a temporary file first
 ```
 
 ## Design approach
 
-The library implements recursive AST traversal based on yuku-parser's output. The `importLi` function identifies `ImportDeclaration`, `ExportNamedDeclaration`, `ExportAllDeclaration`, and `ImportExpression` nodes, extracting module names from literals and simple template literals. The `exportLi` function recursively parses AST nodes to extract identifiers from `ExportDefaultDeclaration`, `ExportNamedDeclaration`, and `ExportAllDeclaration`, supporting destructuring, renamed exports, and namespace exports.
+Performs deep AST traversal using `yuku-parser`. `importLi` extracts module specifiers from `ImportDeclaration` (static imports), `ExportNamedDeclaration` and `ExportAllDeclaration` (static re-exports), and `ImportExpression` (dynamic imports); for template literals, interpolation-free ones go to `dynamicImports`, while interpolated ones go to `templateImports` as arrays of cooked quasis. `exportLi` traverses `ExportDefaultDeclaration` (`default`), `ExportNamedDeclaration` (identifiers from declarations and renamed specifiers), and `ExportAllDeclaration` (namespace name).
 
 ```mermaid
 graph TD
     A[Input JavaScript Code] --> B[yuku-parser AST]
-    B --> C[importLi Analysis]
-    B --> D[exportLi Analysis]
-    C --> E[Static Imports Array]
-    C --> F[Dynamic Imports Array]
-    C --> G[Template Imports Array]
-    D --> H[Export Names Array]
+    B --> C[importLi]
+    B --> D[exportLi]
+    C --> E[Static Import Module Names]
+    C --> F[Dynamic Import Module Names]
+    C --> G[Template Import Quasis Arrays]
+    D --> H[Export Name Array]
 ```
 
 ## Technology stack
 
-- yuku-parser: High-performance JavaScript/TypeScript AST parser (native bindings)
-- @3-/is_obj: Lightweight object type checking
-- @3-/read: Simple file reading utility
-- Node.js built-in filesystem APIs
+- yuku-parser: JavaScript/TypeScript AST parser
+- @3-/is_obj: Object type checking utility
+- @3-/read: File reading utility
+- Node.js built-in modules
 
 ## Code structure
 
 ```
 src/
-├── importLi.js    # AST-based import analysis, returns static, dynamic and template import module name arrays
-├── exportLi.js    # AST-based export analysis, returns export names array (including 'default')
+├── importLi.js    # Import analysis: returns [static, dynamic, template] triple
+└── exportLi.js    # Export analysis: accepts file path, returns export name array (including 'default') or undefined
 ```
 
 ## Historical background
 
-Module dependency analysis emerged with ES6 modules in 2015. Early tools like webpack needed accurate dependency graphs for bundling. Modern parsers like acorn and babel evolved to support this analysis, enabling sophisticated build tools and static analysis utilities. This library represents a lightweight, focused approach to dependency analysis using modern parser technology, with special optimization for complex export patterns.
+The ES6 module standard was finalized in 2015, creating a strong demand for static dependency graphs. Build tools like webpack rely on precise import relationships for code splitting and tree-shaking. Modern parsers continue to evolve to support increasingly complex syntax, and this library adopts a lightweight design focused on reliably extracting inter-module references.
