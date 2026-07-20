@@ -2,7 +2,13 @@
   "name": "@1-/jsparser",
   "version": "0.1.3",
   "description": "JavaScript module dependency analyzer that identifies imports and exports using AST parsing.",
-  "keywords": ["analysis", "ast", "dependency", "module", "parser"],
+  "keywords": [
+    "analysis",
+    "ast",
+    "dependency",
+    "module",
+    "parser"
+  ],
   "homepage": "https://github.com/webc-site/npm/tree/main/jsparser",
   "license": "MulanPSL-2.0",
   "author": "x-at-01@googlegroups.com",
@@ -10,7 +16,9 @@
     "type": "git",
     "url": "git+https://github.com/webc-site/npm.git"
   },
-  "files": ["./*"],
+  "files": [
+    "./*"
+  ],
   "type": "module",
   "exports": {
     "./*": "./src/*"
