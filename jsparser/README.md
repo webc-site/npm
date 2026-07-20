@@ -94,6 +94,7 @@ src/
 
 Module dependency analysis emerged with ES6 modules in 2015. Early tools like webpack needed accurate dependency graphs for bundling. Modern parsers like acorn and babel evolved to support this analysis, enabling sophisticated build tools and static analysis utilities. This library represents a lightweight, focused approach to dependency analysis using modern parser technology, with special optimization for complex export patterns.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
@@ -194,6 +195,7 @@ src/
 ## 历史故事
 
 模块依赖分析随着 ES6 模块标准在 2015 年推出而兴起。早期构建工具如 webpack 需要精确的依赖图进行打包。现代解析器如 acorn 和 babel 不断演进以支持此类分析，推动了高级构建工具和静态分析工具的发展。本库代表了一种轻量级、专注的依赖分析方法，采用现代解析器技术，特别优化了对复杂导出模式的支持。
+
 
 ## 关于
 
