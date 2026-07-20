@@ -16,70 +16,76 @@
 
 ## Functionality
 
-Transforms JavaScript code by applying automated refactorings to modernize syntax and improve readability. Converts legacy patterns to cleaner, more maintainable equivalents without changing program behavior.
+Automatically refactors JavaScript source code by safely converting common legacy patterns into modern equivalents. All transformations operate on the AST to guarantee semantic preservation, improving readability and maintainability.
 
 ## Usage demonstration
 
 Install as a development dependency:
 
 ```bash
-npm install --save-dev @3-/fix
+npm install --save-dev @1-/fix
 ```
 
 Run on current directory:
 
 ```bash
-npx @3-/fix
+npx @1-/fix
 ```
 
 Run on specific files:
 
 ```bash
-npx @3-/fix src/index.js src/utils.js
+npx @1-/fix src/index.js src/utils.js
 ```
 
 ## Design approach
 
-The tool follows a pipeline architecture where each transformation rule operates on the AST representation of the code. Rules are applied sequentially until no further changes occur.
+The tool uses a single-pass, multi-rule AST pipeline architecture. Each rule receives the current code and AST, and returns modified code. If a change occurs, the AST is reparsed and subsequent rules are applied — continuing until no further changes occur or all rules are exhausted.
 
 ```mermaid
 graph TD
 A[Input JavaScript Code] --> B[Parse to AST]
-B --> C[Apply Transformation Rules]
-C --> D[Format Output]
-D --> E[Write Modified Code]
+B --> C[Rule 1: read.js]
+C --> D[Rule 2: readAsync.js]
+D --> E[Rule 3: sleep.js]
+E --> F[...]
+F --> G[Format Output]
+G --> H[Write to File]
 ```
 
 ## Technology stack
 
-- JavaScript runtime (Bun or Node.js)
-- yuku-parser for AST parsing
-- oxfmt for code formatting
-- Custom transformation rules implemented in JavaScript
+- Runtime: Node.js or Bun
+- AST parser: `yuku-parser`
+- Code formatter: `oxfmt`
+- Core utilities: `@3-/log`, `@3-/read`, `@3-/write`, `@1-/walk`
 
 ## Code structure
 
 ```
 src/
-├── fix.js          # Command-line entry point
-├── run.js          # Core processing logic
-├── rule.js         # Rule orchestration
-├── lib/            # Utility functions
+├── fix.js          # CLI entry point; handles args and file discovery
+├── run.js          # Main loop for batch file processing
+├── rule.js         # Rule orchestrator; applies all transforms in sequence
+├── lib/            # Generic AST utility functions
 │   ├── TYPE.js     # AST node type constants
-│   ├── applyEdits.js # Apply text replacements
-│   └── ...         # Other utilities
-└── replace/        # Individual transformation rules
-    ├── sleep.js    # setTimeout → sleep conversion
-    ├── read.js     # fs.readFileSync → read conversion
-    ├── readAsync.js # fs.readFile → readAsync conversion
-    ├── constMerge.js # Merge consecutive const declarations
-    └── ...         # Other transformation rules
+│   ├── walk.js     # Depth-first AST walker
+│   ├── applyEdits.js # Position-based text replacement
+│   ├── importAdd.js # Smart import statement injection
+│   └── createReplace.js # Rule template: detect + replace + import management
+└── replace/        # Concrete transformation implementations
+    ├── read.js        # fs.readFileSync → read
+    ├── readAsync.js   # fs.readFile → readAsync
+    ├── sleep.js       # Promise + setTimeout → sleep
+    ├── constMerge.js  # Merge consecutive const declarations
+    ├── env.js         # process.env → env
+    ├── utf8e.js       # new TextEncoder().encode() → utf8e()
+    └── while.js       # while(true) → for(;;)
 ```
 
 ## Historical context
 
-Code transformation tools trace their origins to early compiler optimizations in the 1960s. Modern JavaScript codemods evolved from Facebook's jscodeshift in 2015, enabling large-scale refactoring across codebases. This tool continues that tradition by providing focused, safe transformations for common JavaScript patterns.
-
+The concept of codemod traces back to Program Transformation Systems of the 1970s (e.g., ELI, DMS). Facebook’s jscodeshift, released in 2015, brought AST-driven JavaScript refactoring into mainstream developer workflows. This tool continues that tradition, focusing on lightweight, precise, zero-configuration optimizations for everyday use.
 
 ## About
 
@@ -104,70 +110,76 @@ This library is developed by [WebC.site](https://webc.site).
 
 ## 功能介绍
 
-自动重构 JavaScript 代码，将传统语法模式转换为更简洁、可维护的现代等效形式。在不改变程序行为的前提下提升代码可读性与可维护性。
+自动重构 JavaScript 源码，将常见遗留模式安全转换为现代等效形式。所有转换均基于 AST 分析，确保语义不变，提升可读性与可维护性。
 
 ## 使用演示
 
 作为开发依赖安装：
 
 ```bash
-npm install --save-dev @3-/fix
+npm install --save-dev @1-/fix
 ```
 
 在当前目录运行：
 
 ```bash
-npx @3-/fix
+npx @1-/fix
 ```
 
 指定文件运行：
 
 ```bash
-npx @3-/fix src/index.js src/utils.js
+npx @1-/fix src/index.js src/utils.js
 ```
 
 ## 设计思路
 
-工具采用管道式架构，每个转换规则基于代码抽象语法树（AST）进行操作。规则按顺序应用，直至代码不再发生变化。
+工具采用单次遍历、多规则串联的 AST 管道架构。每个规则接收原始代码与 AST，返回修改后代码；若发生变更，则重新解析 AST 并继续后续规则，直至无变化或规则耗尽。
 
 ```mermaid
 graph TD
 A[输入 JavaScript 代码] --> B[解析为 AST]
-B --> C[应用转换规则]
-C --> D[格式化输出]
-D --> E[写入修改后代码]
+B --> C[规则 1：read.js]
+C --> D[规则 2：readAsync.js]
+D --> E[规则 3：sleep.js]
+E --> F[...]
+F --> G[格式化输出]
+G --> H[写入文件]
 ```
 
 ## 技术栈
 
-- JavaScript 运行时（Bun 或 Node.js）
-- yuku-parser 进行 AST 解析
-- oxfmt 进行代码格式化
-- 使用 JavaScript 实现的自定义转换规则
+- 运行时：Node.js 或 Bun
+- AST 解析器：`yuku-parser`
+- 代码格式化：`oxfmt`
+- 核心工具库：`@3-/log`、`@3-/read`、`@3-/write`、`@1-/walk`
 
 ## 代码结构
 
 ```
 src/
-├── fix.js          # 命令行入口文件
-├── run.js          # 核心处理逻辑
-├── rule.js         # 规则协调器
-├── lib/            # 工具函数
+├── fix.js          # CLI 入口，处理命令行参数与文件发现
+├── run.js          # 批量文件处理主循环
+├── rule.js         # 规则调度器，按序应用全部转换规则
+├── lib/            # 通用 AST 工具函数
 │   ├── TYPE.js     # AST 节点类型常量
-│   ├── applyEdits.js # 应用文本替换
-│   └── ...         # 其他工具函数
-└── replace/        # 独立转换规则
-    ├── sleep.js    # setTimeout → sleep 转换
-    ├── read.js     # fs.readFileSync → read 转换
-    ├── readAsync.js # fs.readFile → readAsync 转换
-    ├── constMerge.js # 合并连续 const 声明
-    └── ...         # 其他转换规则
+│   ├── walk.js     # 深度优先 AST 遍历器
+│   ├── applyEdits.js # 基于位置的文本替换
+│   ├── importAdd.js # 智能导入语句注入
+│   └── createReplace.js # 规则模板：检测 + 替换 + 导入管理
+└── replace/        # 具体转换规则实现
+    ├── read.js        # fs.readFileSync → read
+    ├── readAsync.js   # fs.readFile → readAsync
+    ├── sleep.js       # Promise + setTimeout → sleep
+    ├── constMerge.js  # 合并连续 const 声明
+    ├── env.js         # process.env → env
+    ├── utf8e.js       # new TextEncoder().encode() → utf8e()
+    └── while.js       # while(true) → for(;;)
 ```
 
 ## 历史故事
 
-代码转换工具起源于 20 世纪 60 年代早期编译器优化技术。现代 JavaScript codemod 工具始于 Facebook 2015 年推出的 jscodeshift，支持大规模代码库重构。本工具延续这一传统，专注于常见 JavaScript 模式的精准、安全转换。
-
+现代 codemod 概念可追溯至 1970 年代的 Program Transformation Systems（如 ELI、DMS）。2015 年 Facebook 推出 jscodeshift，首次将 AST 驱动的 JavaScript 重构带入主流开发流程。本工具延续该范式，聚焦轻量、精准、零配置的日常优化场景。
 
 ## 关于
 

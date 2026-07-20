@@ -2,7 +2,13 @@
   "name": "@1-/fix",
   "version": "0.1.9",
   "description": "Git hook for automatic JavaScript code optimization and formatting / 自动优化与格式化 JavaScript 代码的 Git 钩子",
-  "keywords": ["ast", "formatter", "git-hook", "javascript", "optimization"],
+  "keywords": [
+    "ast",
+    "formatter",
+    "git-hook",
+    "javascript",
+    "optimization"
+  ],
   "homepage": "https://github.com/webc-site/npm/tree/main/fix",
   "license": "MulanPSL-2.0",
   "author": "x-at-01@googlegroups.com",
@@ -13,7 +19,9 @@
   "bin": {
     "fix": "./src/fix.js"
   },
-  "files": ["./*"],
+  "files": [
+    "./*"
+  ],
   "type": "module",
   "exports": {
     ".": "./src/_.js",
