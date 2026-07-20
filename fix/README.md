@@ -3,7 +3,6 @@
 ---
 
 <a id="en"></a>
-
 # fix : JavaScript code transformation tool
 
 - [fix : JavaScript code transformation tool](#fix-javascript-code-transformation-tool)
@@ -81,16 +80,17 @@ src/
 
 Code transformation tools trace their origins to early compiler optimizations in the 1960s. Modern JavaScript codemods evolved from Facebook's jscodeshift in 2015, enabling large-scale refactoring across codebases. This tool continues that tradition by providing focused, safe transformations for common JavaScript patterns.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # fix : JavaScript 代码转换工具
 
 - [fix : JavaScript 代码转换工具](#fix-javascript-代码转换工具)
@@ -168,8 +168,10 @@ src/
 
 代码转换工具起源于 20 世纪 60 年代早期编译器优化技术。现代 JavaScript codemod 工具始于 Facebook 2015 年推出的 jscodeshift，支持大规模代码库重构。本工具延续这一传统，专注于常见 JavaScript 模式的精准、安全转换。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+
