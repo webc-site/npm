@@ -5,8 +5,9 @@ pub const R_CAPTCHA: &[u8] = b"captcha:";
 #[inline]
 pub fn captcha_key(id_bytes: &[u8; 16]) -> [u8; 24] {
   let mut key = [0u8; 24];
-  key[..8].copy_from_slice(R_CAPTCHA);
-  key[8..24].copy_from_slice(id_bytes);
+  let prefix_len = R_CAPTCHA.len();
+  key[..prefix_len].copy_from_slice(R_CAPTCHA);
+  key[prefix_len..].copy_from_slice(id_bytes);
   key
 }
 
