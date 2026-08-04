@@ -1,10 +1,5 @@
-use std::result::Result as StdResult;
-
 use axum::{body::Bytes, response::IntoResponse};
-use xkv::{
-  R,
-  fred::interfaces::KeysInterface,
-};
+use xkv::{R, fred::interfaces::KeysInterface};
 
 use super::{CAPTCHA_NUM, ERR, OK};
 use crate::{Result, captcha_key};
@@ -31,13 +26,13 @@ pub async fn post(body: Bytes) -> Result<impl IntoResponse> {
 
   let pos_bytes: Option<Vec<u8>> = R.getdel(&key[..]).await.ok().flatten();
 
-  if let Some(bytes) = pos_bytes {
-    if let Ok(positions) = bitcode::decode::<Vec<(i32, i32, u32)>>(&bytes)
-      && svg_captcha::verify(&clicks, &positions)
-    {
-      return OK;
-    }
+  if let Some(bytes) = pos_bytes
+    && let Ok(positions) = bitcode::decode::<Vec<(i32, i32, u32)>>(&bytes)
+    && svg_captcha::verify(&clicks, &positions)
+  {
+    return OK;
   }
+
 
   ERR
 }
