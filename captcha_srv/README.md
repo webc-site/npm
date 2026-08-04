@@ -1,0 +1,305 @@
+[English](#en) | [中文](#zh)
+
+---
+
+<a id="en"></a>
+# captcha_srv : High Performance Axum CAPTCHA Service
+
+- [captcha_srv : High Performance Axum CAPTCHA Service](#captcha_srv-high-performance-axum-captcha-service)
+  - [Overview](#overview)
+  - [Usage](#usage)
+    - [Server Initialization](#server-initialization)
+    - [Binary Encoding & Key Generation](#binary-encoding-key-generation)
+  - [Features](#features)
+  - [Design](#design)
+  - [Tech Stack](#tech-stack)
+  - [Directory Structure](#directory-structure)
+  - [API Reference](#api-reference)
+    - [Constants](#constants)
+    - [Data Structures & Types](#data-structures-types)
+    - [Functions](#functions)
+  - [Historical Background](#historical-background)
+  - [About](#about)
+
+Behavioral CAPTCHA service built with Axum framework and Redis/kvrocks. Features target icon click verification, WebP image rendering, zero-copy binary encoding, and graceful restart support.
+
+## Overview
+
+- Image Generation: Renders WebP background images alongside target icon characters.
+- Coordinate Storage: Serializes target coordinates using bitcode into Redis/kvrocks with 300-second expiration.
+- Behavior Verification: Validates click coordinates and deletes Redis keys upon read to prevent replay attacks.
+- High-Performance Encoding: Utilizes custom Varint encoding and binary payloads to eliminate JSON overhead.
+- Graceful Restart: Integrates axum_graceful_restart for seamless zero-downtime service reloads.
+- Shuttle Support: Supports deployment to Shuttle cloud platform via `shuttle` feature flag.
+
+## Usage
+
+### Server Initialization
+
+```rust
+use captcha_srv::run;
+
+#[tokio::main]
+async fn main() -> captcha_srv::Result<()> {
+  run().await?;
+  Ok(())
+}
+```
+
+### Binary Encoding & Key Generation
+
+```rust
+use captcha_srv::{R_CAPTCHA, captcha_key};
+
+fn demo() {
+  let mut buf = Vec::new();
+  vb::e(300, &mut buf);
+  assert_eq!(buf, vec![172, 2]);
+
+  let id = [1u8; 16];
+  let key = captcha_key(&id);
+  assert_eq!(&key[..8], R_CAPTCHA);
+  assert_eq!(&key[8..24], &id);
+}
+```
+
+## Features
+
+- Zero-Copy Design: Optimizes buffer creation by removing WebP memory reallocations.
+- Stack Memory Allocation: Employs fixed-size stack arrays for click verification to bypass heap allocations.
+- Early Rejection: Rejects invalid click lengths before querying Redis to reduce I/O load.
+- Zero-Cost Abstractions: Leverages Rust type systems and compile-time optimizations.
+
+## Design
+
+```mermaid
+graph TD
+  A[Client GET /] --> B[Generate WebP & Icons]
+  B --> C[Store Positions to Redis/kvrocks]
+  C --> D[Return Binary Buffer]
+  E[Client POST /] --> F[Parse UUID & Clicks]
+  F --> G{Click Count == CAPTCHA_NUM?}
+  G -- No --> H[Return "0"]
+  G -- Yes --> I[Fetch & Delete Positions from Redis]
+  I --> J{Verify Coordinates}
+  J -- Valid --> K[Return "1"]
+  J -- Invalid --> H
+```
+
+## Tech Stack
+
+- Web Framework: Axum
+- Async Runtime: Tokio
+- Cache & Storage: Redis / kvrocks (xkv / fred)
+- Serialization: bitcode
+- Captcha Rendering: svg_captcha
+- Variable Byte Encoding: vb
+- Memory Allocator: mimalloc
+- Logging: log / loginit
+
+## Directory Structure
+
+```text
+captcha_srv/
+├── Cargo.toml
+├── src/
+│   ├── error.rs    Error types and Axum IntoResponse implementation
+│   ├── init.rs     Unified initialization for logging and xboot
+│   ├── lib.rs      Public API re-exports and constants
+│   ├── main.rs     Application entrypoint
+│   ├── r.rs        Redis key construction
+│   ├── run.rs      Router configuration and server runner
+│   └── url/
+│       ├── consts.rs  CAPTCHA constants
+│       ├── get.rs     GET request handler
+│       ├── mod.rs     url module re-exports
+│       └── post.rs    POST request handler
+└── tests/
+    └── main.rs     Unit tests
+```
+
+## API Reference
+
+### Constants
+
+- `R_CAPTCHA`: Key prefix slice (`b"captcha:"`).
+- `EXPIRE_S`: Redis expiration timeout in seconds (300).
+- `CAPTCHA_W`: Default image width in pixels (350).
+- `CAPTCHA_H`: Default image height in pixels (350).
+- `CAPTCHA_NUM`: Number of target click icons (3).
+
+### Data Structures & Types
+
+- `Error`: Centralized error enum wrapping `AxumGracefulRestart`, `Redis`, `SvgCaptcha`, `Io`, `AddrParse`, and `Anyhow` errors with `IntoResponse` implementation.
+- `Result<T>`: Type alias for `std::result::Result<T, Error>`.
+
+### Functions
+
+- `init() -> Result<()>`: Initializes logging and xboot runtime components.
+- `run() -> Result<Router>`: Initializes service and returns the configured Axum Router instance.
+- `get() -> Result<impl IntoResponse>`: Generates CAPTCHA image, stores positions in Redis, and returns binary payload.
+- `post(body: Bytes) -> Result<impl IntoResponse>`: Verifies click coordinates and cleans up Redis storage.
+- `captcha_key(id_bytes: &[u8; 16]) -> [u8; 24]`: Constructs 24-byte Redis key without heap allocation.
+
+## Historical Background
+
+CAPTCHA stands for "Completely Automated Public Turing test to tell Computers and Humans Apart". Developed in 2000 by Luis von Ahn and collaborators at Carnegie Mellon University, early CAPTCHAs prevented spam and automated registrations. Von Ahn later created reCAPTCHA, leveraging user validation inputs to digitize physical archives such as historical editions of The New York Times. Modern behavioral and click-based CAPTCHAs remain fundamental security defenses across web services.
+
+## About
+
+This library is developed by [WebC.site](https://webc.site).
+
+[WebC.site](https://webc.site): A new paradigm of web development for AI
+
+
+---
+
+<a id="zh"></a>
+# captcha_srv : 高性能 Axum 验证码服务
+
+- [captcha_srv : 高性能 Axum 验证码服务](#captcha_srv-高性能-axum-验证码服务)
+  - [项目功能介绍](#项目功能介绍)
+  - [使用演示](#使用演示)
+    - [启动服务](#启动服务)
+    - [编码与键生成](#编码与键生成)
+  - [特性介绍](#特性介绍)
+  - [设计思路](#设计思路)
+  - [技术堆栈](#技术堆栈)
+  - [目录结构](#目录结构)
+  - [API 说明](#api-说明)
+    - [常量](#常量)
+    - [数据结构与类型](#数据结构与类型)
+    - [函数](#函数)
+  - [历史小故事](#历史小故事)
+  - [关于](#关于)
+
+基于 Axum 框架与 Redis/kvrocks 的行为验证码服务端。支持图形点选、WebP 图像生成、零拷贝二进制协议传输与无缝优雅重启。
+
+## 项目功能介绍
+
+- 验证码生成：随机生成 WebP 图形与目标字符图标。
+- 坐标存储：使用 bitcode 序列化坐标数据并存入 Redis/kvrocks，设 300 秒过期时间。
+- 行为校验：校验点选坐标，一次性读取并主动销毁 Key，防止重放攻击。
+- 高性能传输：自定义 Varint 变长编码与二进制协议，避免 JSON 转换开销。
+- 优雅重启：集成 axum_graceful_restart，无缝重启保障服务高可用。
+- Shuttle 部署支持：支持通过 `shuttle` 特性一键部署至 Shuttle 云平台。
+
+## 使用演示
+
+### 启动服务
+
+```rust
+use captcha_srv::run;
+
+#[tokio::main]
+async fn main() -> captcha_srv::Result<()> {
+  run().await?;
+  Ok(())
+}
+```
+
+### 编码与键生成
+
+```rust
+use captcha_srv::{R_CAPTCHA, captcha_key};
+
+fn demo() {
+  let mut buf = Vec::new();
+  vb::e(300, &mut buf);
+  assert_eq!(buf, vec![172, 2]);
+
+  let id = [1u8; 16];
+  let key = captcha_key(&id);
+  assert_eq!(&key[..8], R_CAPTCHA);
+  assert_eq!(&key[8..24], &id);
+}
+```
+
+## 特性介绍
+
+- 零拷贝设计：优化响应构建过程，消除 WebP 内存二次分配。
+- 栈内存解析：校验逻辑采用定长栈数组替代堆内存分配，极小化内存开销。
+- 早期拦截：坐标数量不匹配时在 Redis 查询前直接拦截退回，节省 IO 资源。
+- 零成本抽象：充分利用 Rust 静态类型与编译期优化。
+
+## 设计思路
+
+```mermaid
+graph TD
+  A[客户端 GET /] --> B[生成 WebP 图形与图标]
+  B --> C[坐标 bitcode 序列化存入 Redis]
+  C --> D[构建二进制 Buffer 返回客户端]
+  E[客户端 POST /] --> F[解析 UUID 与点击坐标]
+  F --> G{坐标数量等于 CAPTCHA_NUM?}
+  G -- 否 --> H[直接返回 "0"]
+  G -- 是 --> I[从 Redis 查询并立即删除坐标]
+  I --> J{校验点击坐标容差}
+  J -- 通过 --> K[返回 "1"]
+  J -- 未通过 --> H
+```
+
+## 技术堆栈
+
+- Web 框架：Axum
+- 异步运行时：Tokio
+- 缓存与存储：Redis / kvrocks (xkv / fred)
+- 序列化：bitcode
+- 验证码渲染：svg_captcha
+- 变长编码：vb
+- 内存分配器：mimalloc
+- 日志系统：log / loginit
+
+## 目录结构
+
+```text
+captcha_srv/
+├── Cargo.toml
+├── src/
+│   ├── error.rs    错误定义与 Axum 响应转换
+│   ├── init.rs     日志与 xboot 统一初始化逻辑
+│   ├── lib.rs      导出公共接口与常量
+│   ├── main.rs     服务入口
+│   ├── r.rs        Redis 键构造逻辑
+│   ├── run.rs      服务路由与启动逻辑
+│   └── url/
+│       ├── consts.rs  验证码常量定义
+│       ├── get.rs     GET 处理函数
+│       ├── mod.rs     url 模块导出
+│       └── post.rs    POST 处理函数
+└── tests/
+    └── main.rs     单元测试
+```
+
+## API 说明
+
+### 常量
+
+- `R_CAPTCHA`: Redis 键前缀字节数组 (`b"captcha:"`)。
+- `EXPIRE_S`: 验证码 Redis 过期时间（300 秒）。
+- `CAPTCHA_W`: 图像默认宽度（350 像素）。
+- `CAPTCHA_H`: 图像默认高度（350 像素）。
+- `CAPTCHA_NUM`: 目标点选图标数量（3 个）。
+
+### 数据结构与类型
+
+- `Error`: 统一错误枚举，支持 `AxumGracefulRestart`, `Redis`, `SvgCaptcha`, `Io`, `AddrParse`, `Anyhow` 透明转发，并实现 `IntoResponse`。
+- `Result<T>`: `std::result::Result<T, Error>` 类型别名。
+
+### 函数
+
+- `init() -> Result<()>`: 初始化日志配置与 xboot 组件。
+- `run() -> Result<Router>`: 统一初始化服务，普通模式绑定端口与优雅重启，返回 Axum 路由实例。
+- `get() -> Result<impl IntoResponse>`: 生成验证码图像并存储坐标至 Redis，返回二进制数据。
+- `post(body: Bytes) -> Result<impl IntoResponse>`: 校验点击坐标并清理 Redis 缓存。
+- `captcha_key(id_bytes: &[u8; 16]) -> [u8; 24]`: 零堆分配构造 24 字节 Redis 键。
+
+## 历史小故事
+
+验证码（CAPTCHA）全称“区分计算机和人类的全自动公共图灵测试”（Completely Automated Public Turing test to tell Computers and Humans Apart）。该概念于 2000 年由卡内基梅隆大学的 Luis von Ahn 等人提出。早期的验证码仅用于防止垃圾邮件与恶意注册。随后 Luis von Ahn 创办 reCAPTCHA，将文字识别难题与纸质古籍、纽约时报历史报纸扫描件的数字化工作结合，利用全球网民填写的验证码成功协助完成了海量纸质文献的电子化。如今点选与行为验证码已演变为互联网安全防御体系的核心组件。
+
+## 关于
+
+本库由 [WebC.site](https://webc.site) 开发。
+
+[WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+
