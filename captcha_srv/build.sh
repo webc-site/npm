@@ -10,11 +10,11 @@ CPU="${CPU:-amd64}"
 case "$CPU" in
   amd64|x86_64)
     CPU="amd64"
-    TARGET="x86_64-unknown-linux-musl"
+    ARCH="x86_64"
     ;;
   arm64|aarch64)
     CPU="arm64"
-    TARGET="aarch64-unknown-linux-musl"
+    ARCH="aarch64"
     ;;
   *)
     echo "Unsupported CPU: $CPU"
@@ -22,6 +22,7 @@ case "$CPU" in
     ;;
 esac
 
+TARGET="${ARCH}-unknown-linux-musl"
 PLATFORM="linux/$CPU"
 OUT_DIR="bin/$TARGET"
 mkdir -p "$OUT_DIR"
