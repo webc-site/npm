@@ -18,4 +18,3 @@ pub async fn run() -> Result<Router> {
 
   Ok(app)
 }
-

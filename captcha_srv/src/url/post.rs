@@ -15,7 +15,7 @@ pub async fn post(body: Bytes) -> Result<impl IntoResponse> {
   }
 
   let mut clicks = [(0i32, 0i32); CAPTCHA_NUM];
-  for (i, chunk) in clicks_buf.chunks_exact(4).enumerate() {
+  for (i, chunk) in clicks_buf.as_chunks::<4>().0.iter().enumerate() {
     clicks[i] = (
       u16::from_le_bytes([chunk[0], chunk[1]]) as i32,
       u16::from_le_bytes([chunk[2], chunk[3]]) as i32,
@@ -33,7 +33,5 @@ pub async fn post(body: Bytes) -> Result<impl IntoResponse> {
     return OK;
   }
 
-
   ERR
 }
-

@@ -57,4 +57,3 @@ pub async fn get() -> Result<impl IntoResponse> {
 
   Ok(([(CONTENT_TYPE, "application/octet-stream")], buf))
 }
-
