@@ -7,9 +7,8 @@ Behavioral CAPTCHA service built with Axum framework and Redis/kvrocks. Features
 - Image Generation: Renders WebP background images alongside target icon characters.
 - Coordinate Storage: Serializes target coordinates using bitcode into Redis/kvrocks with 300-second expiration.
 - Behavior Verification: Validates click coordinates and deletes Redis keys upon read to prevent replay attacks.
-- High-Performance Encoding: Utilizes custom Varint encoding and binary payloads to eliminate JSON overhead.
+- High Performance Encoding: Utilizes custom Varint encoding and binary payloads to eliminate JSON serialization overhead.
 - Graceful Restart: Integrates axum_graceful_restart for seamless zero-downtime service reloads.
-- Shuttle Support: Supports deployment to Shuttle cloud platform via `shuttle` feature flag.
 
 ## Usage
 
@@ -25,7 +24,7 @@ async fn main() -> captcha_srv::Result<()> {
 }
 ```
 
-### Binary Encoding & Key Generation
+### Variable Byte Encoding & Key Generation
 
 ```rust
 use captcha_srv::{R_CAPTCHA, captcha_key};
@@ -51,17 +50,35 @@ fn demo() {
 
 ## Design
 
+### GET & POST Binary Protocols
+
+GET Binary Response Format (Content-Type: application/octet-stream):
+- 0..16 bytes: 16-byte UUID identifier.
+- Varint Encoded Section: CAPTCHA_NUM target icon lengths encoded via Varint (vb::e).
+- Icon Characters Section: UTF-8 bytes of target icons.
+- Image Data Section: WebP background image binary payload.
+
+POST Binary Request Format (Content-Type: application/octet-stream):
+- 0..16 bytes: 16-byte UUID identifier.
+- 16..28 bytes: CAPTCHA_NUM * 4 bytes click coordinate data, containing CAPTCHA_NUM coordinate pairs (x: u16, y: u16) in little-endian byte order.
+
+POST Response Format (Content-Type: text/json):
+- "1": Verification succeeded (HTTP 200 OK).
+- "0": Verification failed or invalid payload (HTTP 200 OK).
+
+### Workflow Diagram
+
 ```mermaid
 graph TD
-  A[Client GET /] --> B[Generate WebP & Icons]
+  A[GET /] --> B[Generate WebP & Icons]
   B --> C[Store Positions to Redis/kvrocks]
-  C --> D[Return Binary Buffer]
-  E[Client POST /] --> F[Parse UUID & Clicks]
+  C --> D[Return Binary Payload]
+  E[POST /] --> F[Parse UUID & Clicks]
   F --> G{Click Count == CAPTCHA_NUM?}
-  G -- No --> H[Return "0"]
+  G -- No --> H[Return 0]
   G -- Yes --> I[Fetch & Delete Positions from Redis]
   I --> J{Verify Coordinates}
-  J -- Valid --> K[Return "1"]
+  J -- Valid --> K[Return 1]
   J -- Invalid --> H
 ```
 
@@ -70,9 +87,8 @@ graph TD
 - Web Framework: Axum
 - Async Runtime: Tokio
 - Cache & Storage: Redis / kvrocks (xkv / fred)
-- Serialization: bitcode
+- Serialization & Encoding: bitcode / vb / uuid
 - Captcha Rendering: svg_captcha
-- Variable Byte Encoding: vb
 - Memory Allocator: mimalloc
 - Logging: log / loginit
 
@@ -101,24 +117,27 @@ captcha_srv/
 
 ### Constants
 
-- `R_CAPTCHA`: Key prefix slice (`b"captcha:"`).
-- `EXPIRE_S`: Redis expiration timeout in seconds (300).
-- `CAPTCHA_W`: Default image width in pixels (350).
-- `CAPTCHA_H`: Default image height in pixels (350).
-- `CAPTCHA_NUM`: Number of target click icons (3).
+- R_CAPTCHA: Key prefix slice (b"captcha:").
+- EXPIRE_S: Redis expiration timeout in seconds (300).
+- CAPTCHA_W: Default image width in pixels (350).
+- CAPTCHA_H: Default image height in pixels (350).
+- CAPTCHA_NUM: Number of target click icons (3).
+- JSON_H: Response header array for JSON endpoints ([(CONTENT_TYPE, "text/json")]).
+- OK: Successful response Result<([(HeaderName, &'static str); 1], &'static str)>.
+- ERR: Failed response Result<([(HeaderName, &'static str); 1], &'static str)>.
 
 ### Data Structures & Types
 
-- `Error`: Centralized error enum wrapping `AxumGracefulRestart`, `Redis`, `SvgCaptcha`, `Io`, `AddrParse`, and `Anyhow` errors with `IntoResponse` implementation.
-- `Result<T>`: Type alias for `std::result::Result<T, Error>`.
+- Error: Centralized error enum wrapping AxumGracefulRestart, Redis, SvgCaptcha, Io, and Anyhow errors with IntoResponse implementation.
+- Result<T>: Type alias for std::result::Result<T, Error>.
 
 ### Functions
 
-- `init() -> Result<()>`: Initializes logging and xboot runtime components.
-- `run() -> Result<Router>`: Initializes service and returns the configured Axum Router instance.
-- `get() -> Result<impl IntoResponse>`: Generates CAPTCHA image, stores positions in Redis, and returns binary payload.
-- `post(body: Bytes) -> Result<impl IntoResponse>`: Verifies click coordinates and cleans up Redis storage.
-- `captcha_key(id_bytes: &[u8; 16]) -> [u8; 24]`: Constructs 24-byte Redis key without heap allocation.
+- init() -> Result<()>: Initializes logging and xboot runtime components.
+- run() -> Result<Router>: Initializes service, binds listening port, configures graceful restart, and returns Axum Router instance.
+- get() -> Result<impl IntoResponse>: Generates CAPTCHA image, stores positions in Redis, and returns binary payload.
+- post(body: Bytes) -> Result<impl IntoResponse>: Verifies click coordinates and cleans up Redis storage.
+- captcha_key(id_bytes: &[u8; 16]) -> [u8; 24]: Constructs 24-byte Redis key without heap allocation.
 
 ## Historical Background
 

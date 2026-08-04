@@ -5,11 +5,10 @@
 ## 项目功能介绍
 
 - 验证码生成：随机生成 WebP 图形与目标字符图标。
-- 坐标存储：使用 bitcode 序列化坐标数据并存入 Redis/kvrocks，设 300 秒过期时间。
-- 行为校验：校验点选坐标，一次性读取并主动销毁 Key，防止重放攻击。
-- 高性能传输：自定义 Varint 变长编码与二进制协议，避免 JSON 转换开销。
+- 坐标存储：使用 bitcode 序列化坐标数据存入 Redis/kvrocks，设置 300 秒过期时间。
+- 行为校验：校验点选坐标，读取并主动销毁 Key，防止重放攻击。
+- 高性能传输：自定义 Varint 变长编码与二进制协议，消除 JSON 序列化开销。
 - 优雅重启：集成 axum_graceful_restart，无缝重启保障服务高可用。
-- Shuttle 部署支持：支持通过 `shuttle` 特性一键部署至 Shuttle 云平台。
 
 ## 使用演示
 
@@ -25,7 +24,7 @@ async fn main() -> captcha_srv::Result<()> {
 }
 ```
 
-### 编码与键生成
+### 变长编码与键构造
 
 ```rust
 use captcha_srv::{R_CAPTCHA, captcha_key};
@@ -45,23 +44,41 @@ fn demo() {
 ## 特性介绍
 
 - 零拷贝设计：优化响应构建过程，消除 WebP 内存二次分配。
-- 栈内存解析：校验逻辑采用定长栈数组替代堆内存分配，极小化内存开销。
+- 栈内存解析：校验逻辑采用定长栈数组解析坐标，避免堆内存分配开销。
 - 早期拦截：坐标数量不匹配时在 Redis 查询前直接拦截退回，节省 IO 资源。
-- 零成本抽象：充分利用 Rust 静态类型与编译期优化。
+- 零成本抽象：利用 Rust 静态类型与编译期优化。
 
 ## 设计思路
 
+### GET 与 POST 二进制协议
+
+GET 请求二进制响应结构（Content-Type: application/octet-stream）：
+- 0..16 字节：16 字节 UUID 验证码标识符。
+- 变长编码区：CAPTCHA_NUM 目标图标长度，采用 Varint (vb::e) 变长编码。
+- 图标字符区：目标图标 UTF-8 字符字节。
+- 图像数据区：WebP 格式验证码背景图二进制数据。
+
+POST 请求二进制请求结构（Content-Type: application/octet-stream）：
+- 0..16 字节：16 字节 UUID 验证码标识符。
+- 16..28 字节：CAPTCHA_NUM * 4 字节点击坐标数据，包含 CAPTCHA_NUM 坐标 (x: u16, y: u16)，以小端序字节存储。
+
+POST 响应结构（Content-Type: text/json）：
+- "1"：校验成功（HTTP 200 OK）。
+- "0"：校验失败或请求非法（HTTP 200 OK）。
+
+### 业务流程图
+
 ```mermaid
 graph TD
-  A[客户端 GET /] --> B[生成 WebP 图形与图标]
+  A[GET /] --> B[生成 WebP 图形与图标]
   B --> C[坐标 bitcode 序列化存入 Redis]
-  C --> D[构建二进制 Buffer 返回客户端]
-  E[客户端 POST /] --> F[解析 UUID 与点击坐标]
+  C --> D[构建二进制 Buffer 返回]
+  E[POST /] --> F[解析 UUID 与点击坐标]
   F --> G{坐标数量等于 CAPTCHA_NUM?}
-  G -- 否 --> H[直接返回 "0"]
-  G -- 是 --> I[从 Redis 查询并立即删除坐标]
-  I --> J{校验点击坐标容差}
-  J -- 通过 --> K[返回 "1"]
+  G -- 否 --> H[返回 0]
+  G -- 是 --> I[从 Redis 查询并删除坐标]
+  I --> J{校验点击坐标}
+  J -- 通过 --> K[返回 1]
   J -- 未通过 --> H
 ```
 
@@ -70,9 +87,8 @@ graph TD
 - Web 框架：Axum
 - 异步运行时：Tokio
 - 缓存与存储：Redis / kvrocks (xkv / fred)
-- 序列化：bitcode
+- 序列化与编码：bitcode / vb / uuid
 - 验证码渲染：svg_captcha
-- 变长编码：vb
 - 内存分配器：mimalloc
 - 日志系统：log / loginit
 
@@ -101,25 +117,28 @@ captcha_srv/
 
 ### 常量
 
-- `R_CAPTCHA`: Redis 键前缀字节数组 (`b"captcha:"`)。
-- `EXPIRE_S`: 验证码 Redis 过期时间（300 秒）。
-- `CAPTCHA_W`: 图像默认宽度（350 像素）。
-- `CAPTCHA_H`: 图像默认高度（350 像素）。
-- `CAPTCHA_NUM`: 目标点选图标数量（3 个）。
+- R_CAPTCHA: Redis 键前缀字节数组 (b"captcha:")。
+- EXPIRE_S: 验证码 Redis 过期时间（300 秒）。
+- CAPTCHA_W: 图像默认宽度（350 像素）。
+- CAPTCHA_H: 图像默认高度（350 像素）。
+- CAPTCHA_NUM: 目标点选图标数量（3）。
+- JSON_H: JSON 响应 Header 数组 ([(CONTENT_TYPE, "text/json")])。
+- OK: 成功响应 Result<([(HeaderName, &'static str); 1], &'static str)>。
+- ERR: 失败响应 Result<([(HeaderName, &'static str); 1], &'static str)>。
 
 ### 数据结构与类型
 
-- `Error`: 统一错误枚举，支持 `AxumGracefulRestart`, `Redis`, `SvgCaptcha`, `Io`, `AddrParse`, `Anyhow` 透明转发，并实现 `IntoResponse`。
-- `Result<T>`: `std::result::Result<T, Error>` 类型别名。
+- Error: 统一错误枚举，支持 AxumGracefulRestart, Redis, SvgCaptcha, Io, Anyhow 透明转发，并实现 IntoResponse。
+- Result<T>: std::result::Result<T, Error> 类型别名。
 
 ### 函数
 
-- `init() -> Result<()>`: 初始化日志配置与 xboot 组件。
-- `run() -> Result<Router>`: 统一初始化服务，普通模式绑定端口与优雅重启，返回 Axum 路由实例。
-- `get() -> Result<impl IntoResponse>`: 生成验证码图像并存储坐标至 Redis，返回二进制数据。
-- `post(body: Bytes) -> Result<impl IntoResponse>`: 校验点击坐标并清理 Redis 缓存。
-- `captcha_key(id_bytes: &[u8; 16]) -> [u8; 24]`: 零堆分配构造 24 字节 Redis 键。
+- init() -> Result<()>: 初始化日志配置与 xboot 组件。
+- run() -> Result<Router>: 初始化服务并启动端口监听与优雅重启，返回 Axum 路由实例。
+- get() -> Result<impl IntoResponse>: 处理 GET 请求，生成验证码图像存入 Redis，返回二进制 Payload。
+- post(body: Bytes) -> Result<impl IntoResponse>: 处理 POST 请求，校验点击坐标并清理 Redis 缓存。
+- captcha_key(id_bytes: &[u8; 16]) -> [u8; 24]: 零堆分配构造 24 字节 Redis 键。
 
 ## 历史小故事
 
-验证码（CAPTCHA）全称“区分计算机和人类的全自动公共图灵测试”（Completely Automated Public Turing test to tell Computers and Humans Apart）。该概念于 2000 年由卡内基梅隆大学的 Luis von Ahn 等人提出。早期的验证码仅用于防止垃圾邮件与恶意注册。随后 Luis von Ahn 创办 reCAPTCHA，将文字识别难题与纸质古籍、纽约时报历史报纸扫描件的数字化工作结合，利用全球网民填写的验证码成功协助完成了海量纸质文献的电子化。如今点选与行为验证码已演变为互联网安全防御体系的核心组件。
+验证码（CAPTCHA）全称“区分计算机和人类的全自动公共图灵测试”（Completely Automated Public Turing test to tell Computers and Humans Apart）。概念于 2000 年由卡内基梅隆大学 Luis von Ahn 等人提出。早期的验证码用于防止垃圾邮件与恶意注册。随后 Luis von Ahn 创办 reCAPTCHA，将文字识别难题与古籍及历史报纸扫描件的数字化工作结合，利用全球网民填写的验证码协助完成海量纸质文献电子化。如今点选与行为验证码已演变为互联网安全防御体系核心组件。
