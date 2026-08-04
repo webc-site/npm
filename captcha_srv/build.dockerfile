@@ -1,4 +1,4 @@
-FROM rust:latest
+FROM --platform=linux/amd64 rust:latest
 
 RUN rustup target add x86_64-unknown-linux-musl \
  && apt-get update \

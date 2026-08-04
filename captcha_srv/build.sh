@@ -10,13 +10,13 @@ OUT_DIR="bin/$TARGET"
 mkdir -p "$OUT_DIR"
 
 IMAGE="captcha_srv_builder:latest"
-docker build -t "$IMAGE" -f build.dockerfile .
+docker build --platform linux/amd64 -t "$IMAGE" -f build.dockerfile .
 
 ROOT_DIR=$(realpath $DIR/../../..)
 CACHE_DIR="/tmp/captcha_srv_build"
 mkdir -p "$CACHE_DIR/cargo" "$CACHE_DIR/target"
 
-docker run --rm \
+docker run --platform linux/amd64 --rm \
   -v "$ROOT_DIR:/workspace" \
   -v "$CACHE_DIR/cargo:/usr/local/cargo/registry" \
   -v "$CACHE_DIR/target:/tmp/target" \
