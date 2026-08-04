@@ -3,9 +3,17 @@ pub const R_CAPTCHA: &[u8] = b"captcha:";
 
 /// Generates Redis key from UUID bytes without heap allocation.
 #[inline]
-pub fn captcha_key(id_bytes: &[u8; 16]) -> [u8; 24] {
+pub const fn captcha_key(id_bytes: &[u8; 16]) -> [u8; 24] {
   let mut key = [0u8; 24];
-  key[..8].copy_from_slice(R_CAPTCHA);
-  key[8..24].copy_from_slice(id_bytes);
+  let mut i = 0;
+  while i < 8 {
+    key[i] = R_CAPTCHA[i];
+    i += 1;
+  }
+  while i < 16 {
+    key[i + 8] = id_bytes[i];
+    i += 1;
+  }
   key
 }
+
