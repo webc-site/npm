@@ -8,6 +8,16 @@ use xkv::{
 use super::{CAPTCHA_H, CAPTCHA_NUM, CAPTCHA_W, EXPIRE_S};
 use crate::{Result, captcha_key};
 
+#[inline]
+const fn vb_len(mut v: u64) -> usize {
+  let mut len = 1;
+  while v >= 0x80 {
+    len += 1;
+    v >>= 7;
+  }
+  len
+}
+
 /// Generates a CAPTCHA image and stores positions to Redis/kvrocks.
 pub async fn get() -> Result<impl IntoResponse> {
   let id = Uuid::new_v4();
@@ -28,7 +38,12 @@ pub async fn get() -> Result<impl IntoResponse> {
     )
     .await?;
 
-  let mut buf = Vec::with_capacity(16 + 16 + cap.webp.len());
+  let icons_len: usize = cap
+    .icons
+    .iter()
+    .map(|icon| vb_len(icon.len() as u64) + icon.len())
+    .sum();
+  let mut buf = Vec::with_capacity(16 + icons_len + cap.webp.len());
   buf.extend_from_slice(&id_bytes);
 
   for icon in &cap.icons {
@@ -42,3 +57,4 @@ pub async fn get() -> Result<impl IntoResponse> {
 
   Ok(([(CONTENT_TYPE, "application/octet-stream")], buf))
 }
+
