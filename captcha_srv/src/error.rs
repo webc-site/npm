@@ -1,4 +1,4 @@
-use std::{io, result};
+use std::{io, net::AddrParseError, result};
 
 use axum::{
   http::StatusCode,
@@ -10,7 +10,7 @@ use xkv::fred::error::Error as RedisError;
 #[derive(Error, Debug)]
 pub enum Error {
   #[error(transparent)]
-  AddrParse(#[from] std::net::AddrParseError),
+  AddrParse(#[from] AddrParseError),
 
   #[error(transparent)]
   Anyhow(#[from] anyhow::Error),

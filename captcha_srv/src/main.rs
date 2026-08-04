@@ -1,3 +1,6 @@
+#[cfg(feature = "shuttle")]
+use std::io::Error as IoError;
+
 #[cfg(not(feature = "shuttle"))]
 use captcha_srv::{Result, run};
 use mimalloc::MiMalloc;
@@ -8,7 +11,7 @@ static GLOBAL: MiMalloc = MiMalloc;
 #[cfg(not(feature = "shuttle"))]
 #[tokio::main]
 async fn main() -> Result<()> {
-  run().await?;
+  let _ = run().await?;
   Ok(())
 }
 
@@ -17,7 +20,7 @@ async fn main() -> Result<()> {
 async fn shuttle_main() -> shuttle_axum::ShuttleAxum {
   let router = captcha_srv::run()
     .await
-    .map_err(|e| shuttle_runtime::CustomError::new(std::io::Error::other(e)))?;
+    .map_err(|e| shuttle_runtime::CustomError::new(IoError::other(e)))?;
 
   Ok(router.into())
 }
