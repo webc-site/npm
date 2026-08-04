@@ -1,0 +1,40 @@
+[package]
+name = "kill_port"
+version = "0.1.10"
+edition = "2024"
+license = "MulanPSL-2.0"
+repository = "https://github.com/webc-site/npm.git"
+homepage = "https://github.com/webc-site/npm/tree/main/kill_port"
+description = "Terminate processes by port cross-platform. 跨平台高效终止端口进程工具。"
+keywords = ["kill", "port", "process", "network", "utility"]
+categories = [
+  "command-line-utilities",
+  "development-tools",
+  "os",
+  "asynchronous",
+  "network-programming"
+]
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
+
+[features]
+default = []
+
+[dev-dependencies]
+aok = "0.1.18"
+log = "0.4.33"
+log_init = "0.1.38"
+static_init = { version = "1.0.4", features = ["parking_lot"] }
+
+[dependencies]
+listeners = "0.6.0"
+log = "0.4.33"
+
+[target.'cfg(unix)'.dependencies.nix]
+version = "0.31.3"
+features = ["signal"]
+
+[target."cfg(windows)".dependencies]
+kill_tree = "0.2.4"

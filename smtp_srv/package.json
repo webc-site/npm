@@ -1,0 +1,13 @@
+{
+  "description": "High-Performance SMTPS Server with Auto-Refreshing Certificates",
+  "type": "module",
+  "dependencies": {
+    "@3-/ioredis": "^0.1.6",
+    "@3-/utf8": "^0.1.1",
+    "@node-rs/argon2": "^2.0.2",
+    "cloudflare": "^6.5.0",
+    "nodemailer": "^9.0.3",
+    "yargs": "^18.0.0"
+  },
+  "devDependencies": {}
+}

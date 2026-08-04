@@ -1,0 +1,15 @@
+add: Tambah komponen
+dev: Mulakan pelayan pembangunan dan penyahpepijatan
+new: Komponen baharu
+npm: Bina pakej dist/npm
+npmPublish: Terbitkan pakej npm
+npmRelease: Tolak cawangan semasa ke cawangan keluaran (cetuskan proses pelepasan tindakan github)
+readme: Hasilkan direktori akar README.md dan tambah navigasi berbilang bahasa pada permulaan
+redirect2html: Salin halaman berdasarkan _redirects
+site: Bina pratonton tapak statik ke dist/tapak
+dist: Bina tapak statik dan terbitkan ke dist/dist
+siteSrv: Bina pratonton tapak statik dan mulakan pelayan pratonton
+distSrv: Bina tapak statik untuk penerbitan dan mulakan pelayan pratonton
+jsDoc: Sahkan dokumen src/js dan bekerjasama dengan kecerdasan buatan untuk merealisasikan penyiapan dokumen automatik
+tran: menterjemah
+init: Mulakan perpustakaan komponen

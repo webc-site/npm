@@ -1,0 +1,15 @@
+add: 구성 요소 추가
+dev: 개발 및 디버깅 서버 시작
+new: 새로운 구성요소
+npm: dist/npm 패키지 빌드
+npmPublish: npm 패키지 게시
+npmRelease: 현재 브랜치를 릴리스 브랜치로 푸시합니다(github 작업 릴리스 프로세스 트리거).
+readme: 루트 디렉터리 README.md를 생성하고 시작 부분에 다국어 탐색 추가
+redirect2html: _redirects를 기반으로 페이지 복사
+site: dist/site에 정적 사이트 미리보기 구축
+dist: 정적 사이트를 구축하고 dist/dist에 게시
+siteSrv: 정적 사이트 미리보기 빌드 및 미리보기 서버 시작
+distSrv: 게시용 정적 사이트 구축 및 미리 보기 서버 시작
+jsDoc: src/js 문서를 검증하고 인공지능과 협력하여 자동 문서 완성을 구현합니다.
+tran: 번역하다
+init: 구성요소 라이브러리 초기화

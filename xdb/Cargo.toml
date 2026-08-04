@@ -1,0 +1,34 @@
+[package]
+name = "xdb"
+version = "0.1.2"
+edition = "2024"
+license = "MulanPSL-2.0"
+repository = "https://github.com/webc-site/npm.git"
+homepage = "https://github.com/webc-site/npm/tree/main/xdb"
+description = "Fast, environment-driven asynchronous MySQL connection pool / 快速且由环境驱动的异步 MySQL 连接池"
+keywords = ["mysql", "pool", "async", "database", "xboot"]
+categories = ["database", "asynchronous", "config", "network-programming", "web-programming"]
+readme = "README.md"
+
+[features]
+default = ["xboot"]
+xboot = ["dep:xboot"]
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
+
+[dependencies]
+genv = "0.1.18"
+linkme = "0.3.36"
+mysql_async = { version = "0.37.0", features = ["ring", "rustls-tls"] }
+rustls = { version = "0.23.41", default-features = false, features = ["ring"] }
+static_init = "1.0.4"
+xboot = { version = "0.1.39", optional = true }
+
+[dev-dependencies]
+aok = "0.1.18"
+log = "0.4.33"
+log_init = "0.1.38"
+static_init = "1.0.4"
+tokio = { version = "1.52.3", features = ["full"] }

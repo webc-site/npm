@@ -1,0 +1,40 @@
+[package]
+name = "captcha_srv"
+version = "0.1.0"
+edition = "2024"
+license = "MulanPSL-2.0"
+repository = "https://github.com/webc-site/npm.git"
+homepage = "https://github.com/webc-site/npm/tree/main/captcha_srv"
+description = "High performance Axum CAPTCHA service / 高性能 Axum 验证码服务"
+keywords = ["captcha", "axum", "webp", "redis", "verification"]
+categories = ["web-programming::http-server", "authentication", "network-programming", "asynchronous", "web-programming"]
+readme = "README.md"
+
+[features]
+default = []
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
+
+[dependencies]
+anyhow = "1.0.104"
+axum = "0.8.9"
+axum_graceful_restart = { version = "0.1.9", path = "../axum_graceful_restart" }
+bitcode = "0.6.9"
+genv = "0.1.18"
+log = "0.4.33"
+loginit = "0.1.18"
+mimalloc = "0.1.52"
+svg_captcha = { version = "0.1.24", features = ["verify"], path = "../../../i/napi/svg_captcha" }
+thiserror = "2.0.18"
+tokio = { version = "1.53.1", features = ["macros", "net", "rt-multi-thread"] }
+uuid = { version = "1.24.0", features = ["v4"] }
+vb = "0.2.7"
+xkv = { version = "0.1.59", path = "../xkv", features = ["r"] }
+
+[dev-dependencies]
+aok = "0.1.18"
+log = "0.4.33"
+log_init = "0.1.38"
+static_init = "1.0.4"

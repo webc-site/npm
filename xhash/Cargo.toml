@@ -1,0 +1,39 @@
+[package]
+name = "xhash"
+version = "0.1.38"
+edition = "2024"
+license = "MulanPSL-2.0"
+description = "Fast and simple xxHash wrapper for Rust / 快速、简洁的 Rust xxHash 封装"
+repository = "https://github.com/webc-site/npm.git"
+homepage = "https://github.com/webc-site/npm/tree/main/xhash"
+keywords = ["hash", "xxhash", "xxh3", "hasher", "checksum"]
+categories = ["algorithms", "cryptography", "data-structures", "encoding", "filesystem"]
+
+
+[package.metadata.docs.rs]
+all-features = true
+rustc-args = ["-C", "target-feature=+aes"]
+
+[dependencies]
+base64 = { version = "0.22.1", optional = true }
+hipstr = { version = "0.8.0", optional = true }
+
+[dependencies.xxhash-rust]
+version = "0.8.16"
+features = ["const_xxh3", "xxh3"]
+
+[features]
+default = ["xhash"]
+xhash = []
+hash_li = ["xhash"]
+fs = []
+hasher = []
+b64 = ["dep:base64", "dep:hipstr", "xhash"]
+
+[dev-dependencies.aok]
+version = "0.1.18"
+
+[dev-dependencies.ifs]
+features = ["fs"]
+version = "0.1.47"
+

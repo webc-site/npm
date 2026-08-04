@@ -1,0 +1,45 @@
+[package]
+name = "xkv"
+version = "0.1.59"
+edition = "2024"
+license = "MulanPSL-2.0"
+repository = "https://github.com/webc-site/npm.git"
+homepage = "https://github.com/webc-site/npm/tree/main/xkv"
+description = "Static global Redis client manager for Fred and Kvrocks / 全局静态 Redis 客户端管理器，基于 Fred 与 Kvrocks 构建"
+keywords = ["fred", "redis", "kvrocks", "nosql", "static"]
+categories = ["database", "asynchronous", "concurrency", "development-tools", "caching"]
+
+[package.metadata.cargo-machete]
+ignored = ["linkme"]
+
+[features]
+r = ["macro"]
+macro = ["dep:log", "dep:xboot"]
+
+[dependencies]
+aok = "0.1.18"
+linkme = "0.3.36"
+
+[dependencies.err_exit]
+version = "0.1.6"
+
+[dependencies.xboot]
+version = "0.1.39"
+path = "../xboot"
+optional = true
+
+[dependencies.log]
+version = "0.4"
+optional = true
+
+[dependencies.fred]
+version = "10.1.0"
+features = ["replicas", "rustls", "sha-1", "sentinel-auth", "unix-sockets", "i-scripts"]
+
+[dependencies.tokio]
+version = "1"
+features = ["time"]
+
+[dev-dependencies.tokio]
+version = "1"
+features = ["full"]

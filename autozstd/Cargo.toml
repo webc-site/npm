@@ -1,0 +1,28 @@
+[package]
+name = "autozstd"
+version = "0.1.2"
+edition = "2024"
+license = "MulanPSL-2.0"
+repository = "https://github.com/webc-site/npm.git"
+homepage = "https://github.com/webc-site/npm/tree/main/autozstd"
+description = "High performance Zstd envelope compression with fallback / 基于信封模式与回退机制的高性能 Zstd 压缩"
+keywords = ["zstd", "compression", "envelope", "fallback", "magicless"]
+categories = ["compression", "algorithms", "encoding", "data-structures", "parser-implementations"]
+readme = "README.md"
+
+[features]
+default = []
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
+
+[dependencies]
+thiserror = "2.0.18"
+zstd = { version = "0.13.3", features = ["experimental"] }
+
+[dev-dependencies]
+aok = "0.1.18"
+log = "0.4.33"
+log_init = "0.1.38"
+static_init = "1.0.4"

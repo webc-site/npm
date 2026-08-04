@@ -1,0 +1,222 @@
+- name: 编译嵌套规则和变量
+  files:
+    nested.styl: |
+      base_color = #f00
+      body
+        background base_color
+        h1
+          color #000
+        th:last-child
+          border-right none
+        c-md:hover
+          opacity 0.8
+        align-items flex-start
+        --custom-prop value
+  entry: nested.styl
+  includes:
+    - "body {\n  background: #f00;\n  align-items: flex-start;\n  --custom-prop: value;"
+    - "  h1 {\n    color: #000;\n  }"
+    - "  th:last-child {\n    border-right: none;\n  }"
+    - "  c-md:hover {\n    opacity: 0.8;\n  }"
+
+- name: 编译普通引入并解析变量
+  files:
+    dep.styl: |
+      border_val = 1px solid #ccc
+      .card
+        border border_val
+    normal.styl: |
+      @import "dep"
+      div
+        display flex
+  entry: normal.styl
+  includes:
+    - ".card {\n  border: 1px solid #ccc;\n}"
+    - "div {\n  display: flex;\n}"
+
+- name: 处理循环引入并打破循环
+  files:
+    circular_a.styl: |
+      @import "circular_b"
+      body
+        margin 0
+    circular_b.styl: |
+      @import "circular_a"
+      h1
+        padding 10px
+  entry: circular_a.styl
+  includes:
+    - "h1 {\n  padding: 10px;\n}"
+    - "body {\n  margin: 0;\n}"
+
+- name: 处理缺失引入并抛出ERR_NOT_FOUND
+  files:
+    missing_import.styl: |
+      @import "non_existent"
+      body
+        color #fff
+  entry: missing_import.styl
+  error:
+    - ERR_NOT_FOUND
+    - non_existent
+
+- name: 正常编译重复引入(DAG)
+  files:
+    dag_main.styl: |
+      @import "dag_b"
+      @import "dag_c"
+      body
+        background #000
+    dag_b.styl: |
+      @import "dag_c"
+      div
+        color #fff
+    dag_c.styl: |
+      h1
+        margin 0
+  entry: dag_main.styl
+  includes:
+    - "h1 {\n  margin: 0;\n}"
+    - "div {\n  color: #fff;\n}"
+    - "body {\n  background: #000;\n}"
+  assert: assertH1Count
+
+- name: 处理require循环引入并打破循环
+  files:
+    req_circular_a.styl: |
+      @require "req_circular_b"
+      body
+        margin 0
+    req_circular_b.styl: |
+      @require "req_circular_a"
+      h1
+        padding 10px
+  entry: req_circular_a.styl
+  includes:
+    - "h1 {\n  padding: 10px;\n}"
+    - "body {\n  margin: 0;\n}"
+
+- name: 正常编译重复require(DAG)
+  files:
+    req_dag_main.styl: |
+      @require "req_dag_b"
+      @require "req_dag_c"
+      body
+        background #000
+    req_dag_b.styl: |
+      @require "req_dag_c"
+      div
+        color #fff
+    req_dag_c.styl: |
+      h1
+        margin 0
+  entry: req_dag_main.styl
+  includes:
+    - "h1 {\n  margin: 0;\n}"
+    - "div {\n  color: #fff;\n}"
+    - "body {\n  background: #000;\n}"
+  assert: assertH1Count
+
+- name: 正确处理未加引号的URL和注释
+  files:
+    comment_url.styl: |
+      body
+        background url(http://example.com/logo.png)
+        background-image url(//example.com/logo.png)
+        color #fff // white color
+        /* multi
+           line */
+        margin 0
+  entry: comment_url.styl
+  includes:
+    - "background: url(http://example.com/logo.png);"
+    - "background-image: url(//example.com/logo.png);"
+    - "color: #fff;"
+    - "margin: 0;"
+
+- name: 编译多行以逗号结尾的选择器
+  files:
+    multiline.styl: |
+      input
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus,
+        &:autofill,
+        &:autofill:hover,
+        &:autofill:focus
+          -webkit-text-fill-color #000 !important
+          transition background-color 9999s
+  entry: multiline.styl
+  includes:
+    - "input {\n  &:-webkit-autofill, &:-webkit-autofill:hover, &:-webkit-autofill:focus, &:autofill, &:autofill:hover, &:autofill:focus {\n    -webkit-text-fill-color: #000 !important;\n    transition: background-color 9999s;\n  }\n}"
+
+- name: 编译多行不以逗号结尾的连续选择器
+  files:
+    comma_free_multiline.styl: |
+      body
+        &:not([active="demo"]) > #demo
+        &:not([active="use"]) > #use
+        &:not([active="doc"]) > #doc
+          display none
+  entry: comma_free_multiline.styl
+  includes:
+    - "body {\n  &:not([active=\"demo\"]) > #demo, &:not([active=\"use\"]) > #use, &:not([active=\"doc\"]) > #doc {\n    display: none;\n  }\n}"
+
+- name: 不完整 URL 导入应抛出 ERR_NOT_FOUND 错误
+  files:
+    entry.styl: |
+      @import "url("
+  entry: entry.styl
+  error: ["ERR_NOT_FOUND", "url("]
+
+- name: Lg 组件编译
+  files:
+    lg.styl: |
+      $gap = 24px
+      $gap-mobile = 16px
+
+      .Lg, .Btn, .BtnC, .Input
+        display flex
+        position relative
+        z-index 1
+
+        &::before
+          backdrop-filter blur(2px) saturate(150%)
+          border 1px solid #00000014
+          border-radius inherit
+          box-shadow inset 0 1px 0 #ffffff99
+          box-sizing border-box
+          content ''
+          inset 0
+          position absolute
+          transition background 0.3s cubic-bezier(0.4, 0, 0.2, 1), backdrop-filter 0.3s cubic-bezier(0.4, 0, 0.2, 1)
+          z-index -1
+
+        &:hover::before
+          backdrop-filter saturate(150%) url('./svg/glass.svg#h')
+
+      .Lg, .Input
+        &::before
+          background linear-gradient(180deg, #ffffffec, #f5f5f7b0)
+
+      main.Lg
+        border-radius 24px
+        margin $gap
+        padding $gap
+        text-align center
+
+        @media (max-width 800px)
+          margin $gap-mobile
+          padding $gap-mobile
+  entry: lg.styl
+  includes:
+    - ".Lg, .Btn, .BtnC, .Input {\n  display: flex;\n  position: relative;\n  z-index: 1;"
+    - "  &::before {\n    backdrop-filter: blur(2px) saturate(150%);"
+    - "  &:hover::before {\n    backdrop-filter: saturate(150%) url('./svg/glass.svg#h');\n  }"
+    - ".Lg, .Input {\n  &::before {\n    background: linear-gradient(180deg, #ffffffec, #f5f5f7b0);\n  }\n}"
+    - "main.Lg {"
+    - "margin: 24px;"
+    - "padding: 24px;"
+    - "@media (max-width: 800px) {"
+    - "margin: 16px;"
+    - "padding: 16px;"

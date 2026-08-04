@@ -1,0 +1,31 @@
+{
+  "name": "@1-/mdmermaid",
+  "version": "0.1.6",
+  "description": "Render Mermaid code blocks to SVG in Markdown / 将 Markdown 中的 Mermaid 代码块渲染为 SVG",
+  "keywords": [
+    "markdown",
+    "mermaid",
+    "render",
+    "svg"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/mdmermaid",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/_.js",
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@1-/md": "^0.1.5",
+    "beautiful-mermaid": "^1.1.3",
+    "svgo": "^4.0.1"
+  }
+}

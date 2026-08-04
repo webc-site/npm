@@ -1,0 +1,39 @@
+[package]
+name = "xboot"
+version = "0.1.39"
+edition = "2024"
+autotests = false
+license = "MulanPSL-2.0"
+repository = "https://github.com/webc-site/npm.git"
+homepage = "https://github.com/webc-site/npm/tree/main/xboot"
+description = "Async static variable initialization with priority support before program startup / 主程序运行前支持优先级的异步静态变量初始化"
+keywords = ["async", "static", "initialization", "priority", "tokio"]
+categories = [
+  "asynchronous",
+  "concurrency",
+  "development-tools",
+  "rust-patterns",
+  "data-structures"
+]
+
+[package.metadata.docs.rs]
+all-features = true
+
+[features]
+default = []
+
+[dependencies]
+aok = "0.1.18"
+async_wrap = "0.1.10"
+gensym = "0.1.1"
+linkme = "0.3.36"
+log = "0.4.33"
+paste = "1.0.15"
+
+[dependencies.log_init]
+version = "0.1.38"
+path = "../log_init"
+
+[dependencies.tokio]
+version = "1.52.3"
+features = ["rt", "sync"]
