@@ -1,16 +1,12 @@
-
 use mimalloc::MiMalloc;
 
 #[global_allocator]
 static GLOBAL: MiMalloc = MiMalloc;
 
 #[cfg(not(feature = "shuttle"))]
-use captcha_srv::{Result, run};
-
-#[cfg(not(feature = "shuttle"))]
 #[tokio::main]
-async fn main() -> Result<()> {
-  let _ = run().await?;
+async fn main() -> captcha_srv::Result<()> {
+  let _ = captcha_srv::run().await?;
   Ok(())
 }
 
