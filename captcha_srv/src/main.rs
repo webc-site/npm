@@ -1,9 +1,11 @@
 
-use captcha_srv::{Result, run};
 use mimalloc::MiMalloc;
 
 #[global_allocator]
 static GLOBAL: MiMalloc = MiMalloc;
+
+#[cfg(not(feature = "shuttle"))]
+use captcha_srv::{Result, run};
 
 #[cfg(not(feature = "shuttle"))]
 #[tokio::main]
