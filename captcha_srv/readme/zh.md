@@ -9,6 +9,7 @@
 - 行为校验：校验点选坐标，一次性读取并主动销毁 Key，防止重放攻击。
 - 高性能传输：自定义 Varint 变长编码与二进制协议，避免 JSON 转换开销。
 - 优雅重启：集成 axum_graceful_restart，无缝重启保障服务高可用。
+- Shuttle 部署支持：支持通过 `shuttle` 特性一键部署至 Shuttle 云平台。
 
 ## 使用演示
 
@@ -19,8 +20,8 @@ use captcha_srv::run;
 
 #[tokio::main]
 async fn main() -> captcha_srv::Result<()> {
-  loginit::init();
-  run().await
+  run().await?;
+  Ok(())
 }
 ```
 
@@ -82,6 +83,7 @@ captcha_srv/
 ├── Cargo.toml
 ├── src/
 │   ├── error.rs    错误定义与 Axum 响应转换
+│   ├── init.rs     日志与 xboot 统一初始化逻辑
 │   ├── lib.rs      导出公共接口与常量
 │   ├── main.rs     服务入口
 │   ├── r.rs        Redis 键构造逻辑
@@ -112,7 +114,8 @@ captcha_srv/
 
 ### 函数
 
-- `run() -> Result<()>`: 读取环境变量 `PORT`，初始化配置并启动优雅重启 HTTP 服务。
+- `init() -> Result<()>`: 初始化日志配置与 xboot 组件。
+- `run() -> Result<Router>`: 统一初始化服务，普通模式绑定端口与优雅重启，返回 Axum 路由实例。
 - `get() -> Result<impl IntoResponse>`: 生成验证码图像并存储坐标至 Redis，返回二进制数据。
 - `post(body: Bytes) -> Result<impl IntoResponse>`: 校验点击坐标并清理 Redis 缓存。
 - `captcha_key(id_bytes: &[u8; 16]) -> [u8; 24]`: 零堆分配构造 24 字节 Redis 键。

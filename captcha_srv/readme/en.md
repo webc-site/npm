@@ -9,6 +9,7 @@ Behavioral CAPTCHA service built with Axum framework and Redis/kvrocks. Features
 - Behavior Verification: Validates click coordinates and deletes Redis keys upon read to prevent replay attacks.
 - High-Performance Encoding: Utilizes custom Varint encoding and binary payloads to eliminate JSON overhead.
 - Graceful Restart: Integrates axum_graceful_restart for seamless zero-downtime service reloads.
+- Shuttle Support: Supports deployment to Shuttle cloud platform via `shuttle` feature flag.
 
 ## Usage
 
@@ -19,8 +20,8 @@ use captcha_srv::run;
 
 #[tokio::main]
 async fn main() -> captcha_srv::Result<()> {
-  loginit::init();
-  run().await
+  run().await?;
+  Ok(())
 }
 ```
 
@@ -82,6 +83,7 @@ captcha_srv/
 ├── Cargo.toml
 ├── src/
 │   ├── error.rs    Error types and Axum IntoResponse implementation
+│   ├── init.rs     Unified initialization for logging and xboot
 │   ├── lib.rs      Public API re-exports and constants
 │   ├── main.rs     Application entrypoint
 │   ├── r.rs        Redis key construction
@@ -112,7 +114,8 @@ captcha_srv/
 
 ### Functions
 
-- `run() -> Result<()>`: Reads `PORT` environment variable, sets up HTTP router, and starts server with graceful restart.
+- `init() -> Result<()>`: Initializes logging and xboot runtime components.
+- `run() -> Result<Router>`: Initializes service and returns the configured Axum Router instance.
 - `get() -> Result<impl IntoResponse>`: Generates CAPTCHA image, stores positions in Redis, and returns binary payload.
 - `post(body: Bytes) -> Result<impl IntoResponse>`: Verifies click coordinates and cleans up Redis storage.
 - `captcha_key(id_bytes: &[u8; 16]) -> [u8; 24]`: Constructs 24-byte Redis key without heap allocation.

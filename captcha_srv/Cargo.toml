@@ -12,6 +12,7 @@ readme = "README.md"
 
 [features]
 default = []
+shuttle = ["dep:shuttle-runtime", "dep:shuttle-axum"]
 
 [package.metadata.docs.rs]
 all-features = true
@@ -26,6 +27,8 @@ genv = "0.1.18"
 log = "0.4.33"
 loginit = "0.1.18"
 mimalloc = "0.1.52"
+shuttle-axum = { version = "0.57.0", optional = true }
+shuttle-runtime = { version = "0.57.0", optional = true }
 svg_captcha = { version = "0.1.24", features = ["verify"], path = "../../../i/napi/svg_captcha" }
 thiserror = "2.0.18"
 tokio = { version = "1.53.1", features = ["macros", "net", "rt-multi-thread"] }

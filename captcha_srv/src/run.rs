@@ -1,20 +1,23 @@
-use std::net::SocketAddr;
-
 use axum::{Router, routing::get as axum_get};
-use xkv::xboot;
 
-use crate::{Result, get, post};
+use crate::{Result, get, init, post};
 
-/// Runs the CAPTCHA HTTP service using Axum on the PORT specified by genv.
-pub async fn run() -> Result<()> {
-  xboot::init().await?;
-
-  let port: u16 = genv::get_or_default("PORT", 8080);
-  let addr: SocketAddr = format!("0.0.0.0:{port}").parse()?;
+/// Runs the CAPTCHA HTTP service using Axum.
+pub async fn run() -> Result<Router> {
+  init().await?;
 
   let app = Router::new().route("/", axum_get(get).post(post));
 
-  axum_graceful_restart::serve(addr, app).await?;
+  #[cfg(not(feature = "shuttle"))]
+  {
+    use std::net::SocketAddr;
 
-  Ok(())
+    let port: u16 = genv::get_or_default("PORT", 8080);
+    let addr: SocketAddr = format!("0.0.0.0:{port}").parse()?;
+
+    log::info!("captcha_srv {addr}");
+    axum_graceful_restart::serve(addr, app.clone()).await?;
+  }
+
+  Ok(app)
 }
