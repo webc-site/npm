@@ -10,10 +10,13 @@ pub const fn captcha_key(id_bytes: &[u8; 16]) -> [u8; 24] {
     key[i] = R_CAPTCHA[i];
     i += 1;
   }
-  while i < 16 {
-    key[i + 8] = id_bytes[i];
+  let mut j = 0;
+  while j < 16 {
+    key[i] = id_bytes[j];
     i += 1;
+    j += 1;
   }
   key
 }
+
 
