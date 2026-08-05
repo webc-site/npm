@@ -6,7 +6,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@1-/dist": "^0.1.25",
+    "@1-/dist": "^0.1.26",
     "@1-/fix": "^0.1.10",
     "@1-/mdcheck": "^0.1.10",
     "@1-/minify_size": "^0.1.7",
