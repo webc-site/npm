@@ -55,5 +55,5 @@ pub async fn get() -> Result<impl IntoResponse> {
 
   buf.extend_from_slice(&cap.webp);
 
-  Ok(([(CONTENT_TYPE, "application/octet-stream")], buf))
+  Ok(([(CONTENT_TYPE, "text/js")], buf))
 }
