@@ -4,4 +4,5 @@ mod post;
 
 pub use consts::{CAPTCHA_H, CAPTCHA_NUM, CAPTCHA_W, EXPIRE_S};
 pub use get::get;
-pub use post::{ERR, JSON_H, OK, post};
+pub use post::{ERR, JSON_H, OCTET_H, OK, post, verify};
+

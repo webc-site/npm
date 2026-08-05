@@ -1,14 +1,19 @@
 use std::net::{Ipv4Addr, SocketAddr};
 
-use axum::{Router, routing::get as axum_get};
+use axum::{
+  Router,
+  routing::{get as axum_get, post as axum_post},
+};
 
-use crate::{Result, get, init, post};
+use crate::{Result, get, init, post, verify};
 
 /// Runs the CAPTCHA HTTP service using Axum.
 pub async fn run() -> Result<Router> {
   init().await?;
 
-  let app = Router::new().route("/", axum_get(get).post(post));
+  let app = Router::new()
+    .route("/", axum_get(get).post(post))
+    .route("/verify", axum_post(verify));
 
   let port: u16 = genv::get_or_default("PORT", 8080);
   let addr = SocketAddr::from((Ipv4Addr::UNSPECIFIED, port));
@@ -18,3 +23,4 @@ pub async fn run() -> Result<Router> {
 
   Ok(app)
 }
+

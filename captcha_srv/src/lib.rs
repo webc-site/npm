@@ -10,4 +10,7 @@ pub use error::{Error, Result};
 pub use init::init;
 pub use r::{R_CAPTCHA, captcha_key};
 pub use run::run;
-pub use url::{CAPTCHA_H, CAPTCHA_NUM, CAPTCHA_W, ERR, EXPIRE_S, JSON_H, OK, get, post};
+pub use url::{
+  CAPTCHA_H, CAPTCHA_NUM, CAPTCHA_W, ERR, EXPIRE_S, JSON_H, OCTET_H, OK, get, post, verify,
+};
+
