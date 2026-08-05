@@ -31,3 +31,16 @@ fn test_captcha_key() -> Void {
   info!("captcha_key test passed");
   OK
 }
+
+#[test]
+fn test_verify_token_b64() -> Void {
+  use base64::{Engine as _, engine::general_purpose::URL_SAFE_NO_PAD};
+  let id = [1u8; 16];
+  let b64_str = URL_SAFE_NO_PAD.encode(id);
+  let decoded = URL_SAFE_NO_PAD.decode(&b64_str).unwrap();
+  assert_eq!(decoded, id);
+  info!("base64url encode/decode test passed");
+  OK
+}
+
+

@@ -41,7 +41,6 @@ pub async fn post(body: Bytes) -> Result<impl IntoResponse> {
     )
   });
 
-
   let key = captcha_key(id_bytes);
 
   let pos_bytes: Option<Vec<u8>> = R.get(&key[..]).await.ok().flatten();
