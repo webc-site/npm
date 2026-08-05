@@ -3,7 +3,7 @@
 ## 功能介绍
 
 - **Knip 静态分析**
-  发布前执行 Knip 检查，覆盖 `files`、`dependencies`、`devDependencies`、`optionalPeerDependencies`、`unlisted`、`binaries`、`unresolved`、`exports`、`nsExports`、`types`、`nsTypes`、`enumMembers`、`namespaceMembers`、`duplicates`、`catalog` 等 15 类问题，确保代码健康度。
+  发布前执行 Knip 检查，覆盖 `files`、`dependencies`、`devDependencies`、`optionalPeerDependencies`、`unlisted`、`binaries`、`unresolved`、`exports`、`nsExports`、`types`、`nsTypes`、`enumMembers`、`namespaceMembers`、`duplicates`、`catalog` 等 15 类问题。
 
 - **大语言模型元数据生成**
   自动检测 `package.json` 中缺失的 `description` 与 `keywords` 字段。
