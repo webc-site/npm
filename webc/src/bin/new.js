@@ -19,16 +19,15 @@ export const getArgv = (meta = import.meta) =>
       })
   ).argv;
 
-const newCmd = (root, options = {}) => {
-  const type = options.type || options._?.[0],
-    raw_name = options.name || options._?.[1];
+const newCmd = (root) => {
+  let [type, name] = getArgv()._;
 
-  if (!type || !raw_name) {
+  if (!type || !name) {
     ERR("usage: new <type> <name>");
     return 1;
   }
 
-  const name = raw_name.charAt(0).toUpperCase() + raw_name.slice(1);
+  name = name.charAt(0).toUpperCase() + name.slice(1);
 
   if (!/^[A-Z0-9]/.test(name)) {
     ERR("component name must start with a letter or a digit");
