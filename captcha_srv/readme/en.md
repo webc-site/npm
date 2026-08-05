@@ -6,7 +6,9 @@ Behavioral CAPTCHA service built with Axum framework and Redis/kvrocks. Features
 
 - Image Generation: Renders WebP background images alongside target icon characters.
 - Coordinate Storage: Serializes target coordinates using bitcode into Redis/kvrocks with 300-second expiration.
-- Behavior Verification: Validates click coordinates and deletes Redis keys upon read to prevent replay attacks.
+- Behavior Verification: Validates click coordinates, clears key value, and refreshes TTL to 300s on success, returning "1".
+- Server Verification: Provides a /verify endpoint for backend servers to validate and consume tokens.
+
 - High Performance Encoding: Utilizes custom Varint encoding and binary payloads to eliminate JSON serialization overhead.
 - Graceful Restart: Integrates axum_graceful_restart for seamless zero-downtime service reloads.
 
@@ -45,26 +47,33 @@ fn demo() {
 
 - Zero-Copy Design: Optimizes buffer creation by removing WebP memory reallocations.
 - Stack Memory Allocation: Employs fixed-size stack arrays for click verification to bypass heap allocations.
-- Early Rejection: Rejects invalid click lengths before querying Redis to reduce I/O load.
+- Early Rejection: Rejects invalid click lengths or empty token buffers before querying Redis / decoding to reduce I/O and CPU load.
 - Zero-Cost Abstractions: Leverages Rust type systems and compile-time optimizations.
 
 ## Design
 
-### GET & POST Binary Protocols
+### GET, POST & /verify Binary Protocols
 
-GET Binary Response Format (Content-Type: application/octet-stream):
+GET `/` Binary Response Format (Content-Type: application/octet-stream):
 - 0..16 bytes: 16-byte UUID identifier.
 - Varint Encoded Section: CAPTCHA_NUM target icon lengths encoded via Varint (vb::e).
 - Icon Characters Section: UTF-8 bytes of target icons.
 - Image Data Section: WebP background image binary payload.
 
-POST Binary Request Format (Content-Type: application/octet-stream):
+POST `/` Binary Request Format (Content-Type: application/octet-stream):
 - 0..16 bytes: 16-byte UUID identifier.
 - 16..28 bytes: CAPTCHA_NUM * 4 bytes click coordinate data, containing CAPTCHA_NUM coordinate pairs (x: u16, y: u16) in little-endian byte order.
 
-POST Response Format (Content-Type: text/json):
-- "1": Verification succeeded (HTTP 200 OK).
-- "0": Verification failed or invalid payload (HTTP 200 OK).
+POST `/` Response Format (Content-Type: text/json):
+- "1": Verification succeeded, clears Redis value and refreshes TTL to 300s.
+- "0": Verification failed or invalid payload.
+
+POST `/verify` Binary Request Format (Content-Type: application/octet-stream):
+- 0..16 bytes: 16-byte binary token.
+
+POST `/verify` Response Format (Content-Type: text/json):
+- "1": Token exists and is valid (deleted upon consumption).
+- "0": Token invalid or expired.
 
 ### Workflow Diagram
 
@@ -76,11 +85,19 @@ graph TD
   E[POST /] --> F[Parse UUID & Clicks]
   F --> G{Click Count == CAPTCHA_NUM?}
   G -- No --> H[Return 0]
-  G -- Yes --> I[Fetch & Delete Positions from Redis]
-  I --> J{Verify Coordinates}
-  J -- Valid --> K[Return 1]
-  J -- Invalid --> H
+  G -- Yes --> I[Fetch Positions from Redis]
+  I --> J{Value Exists & Non-Empty?}
+  J -- No --> H
+  J -- Yes --> K{Verify Coordinates}
+  K -- Valid --> L[Clear Value & Refresh TTL & Return 1]
+  K -- Invalid --> H
+  M[POST /verify] --> N[Parse 16-byte Token]
+  N --> O[getdel Token from Redis]
+  O --> P{Value Exists & Empty?}
+  P -- Yes --> Q[Return 1]
+  P -- No --> H
 ```
+
 
 ## Tech Stack
 
@@ -108,7 +125,7 @@ captcha_srv/
 │       ├── consts.rs  CAPTCHA constants
 │       ├── get.rs     GET request handler
 │       ├── mod.rs     url module re-exports
-│       └── post.rs    POST request handler
+│       └── post.rs    POST & /verify request handler
 └── tests/
     └── main.rs     Unit tests
 ```
@@ -122,6 +139,7 @@ captcha_srv/
 - CAPTCHA_W: Default image width in pixels (350).
 - CAPTCHA_H: Default image height in pixels (350).
 - CAPTCHA_NUM: Number of target click icons (3).
+- OCTET_H: Response header array for binary endpoints ([(CONTENT_TYPE, "application/octet-stream")]).
 - JSON_H: Response header array for JSON endpoints ([(CONTENT_TYPE, "text/json")]).
 - OK: Successful response Result<([(HeaderName, &'static str); 1], &'static str)>.
 - ERR: Failed response Result<([(HeaderName, &'static str); 1], &'static str)>.
@@ -136,9 +154,12 @@ captcha_srv/
 - init() -> Result<()>: Initializes logging and xboot runtime components.
 - run() -> Result<Router>: Initializes service, binds listening port, configures graceful restart, and returns Axum Router instance.
 - get() -> Result<impl IntoResponse>: Generates CAPTCHA image, stores positions in Redis, and returns binary payload.
-- post(body: Bytes) -> Result<impl IntoResponse>: Verifies click coordinates and cleans up Redis storage.
+- post(body: Bytes) -> Result<impl IntoResponse>: Verifies click coordinates, clears Redis value, refreshes TTL to 300s, and returns "1".
+
+- verify(body: Bytes) -> Result<impl IntoResponse>: Validates token existence and empty status for backend servers, deleting the token on success.
 - captcha_key(id_bytes: &[u8; 16]) -> [u8; 24]: Constructs 24-byte Redis key without heap allocation.
 
 ## Historical Background
+
 
 CAPTCHA stands for "Completely Automated Public Turing test to tell Computers and Humans Apart". Developed in 2000 by Luis von Ahn and collaborators at Carnegie Mellon University, early CAPTCHAs prevented spam and automated registrations. Von Ahn later created reCAPTCHA, leveraging user validation inputs to digitize physical archives such as historical editions of The New York Times. Modern behavioral and click-based CAPTCHAs remain fundamental security defenses across web services.

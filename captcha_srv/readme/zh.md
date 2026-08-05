@@ -6,8 +6,9 @@
 
 - 验证码生成：随机生成 WebP 图形与目标字符图标。
 - 坐标存储：使用 bitcode 序列化坐标数据存入 Redis/kvrocks，设置 300 秒过期时间。
-- 行为校验：校验点选坐标，校验成功后清空 value 并重置 300 秒 TTL，返回 16 字节 token。
+- 行为校验：校验点选坐标，校验成功后清空 value 并重置 300 秒 TTL，返回 `"1"`（前端复用 GET 获取的验证码 Token）。
 - 二次验证：提供 /verify 接口供后台校验 token 有效性并一次性销毁。
+
 - 高性能传输：自定义 Varint 变长编码与二进制协议，消除 JSON 序列化开销。
 - 优雅重启：集成 axum_graceful_restart，无缝重启保障服务高可用。
 
@@ -63,9 +64,9 @@ POST `/` 二进制请求结构（Content-Type: application/octet-stream）：
 - 0..16 字节：16 字节 UUID 验证码标识符。
 - 16..28 字节：CAPTCHA_NUM * 4 字节点击坐标数据，包含 CAPTCHA_NUM 坐标 (x: u16, y: u16)，以小端序字节存储。
 
-POST `/` 响应结构：
-- 校验成功（Content-Type: application/octet-stream）：返回 16 字节二进制 token（复用验证码 UUID）。
-- 校验失败（Content-Type: text/json）：返回 `"0"`。
+POST `/` 响应结构（Content-Type: text/json）：
+- `"1"`：校验成功，清空 Value 并重置 300 秒 TTL。
+- `"0"`：校验失败或请求非法。
 
 POST `/verify` 请求结构（Content-Type: application/octet-stream）：
 - 0..16 字节：16 字节二进制 token。
@@ -88,7 +89,7 @@ graph TD
   I --> J{Value 存在且非空?}
   J -- 否 --> H
   J -- 是 --> K{校验点击坐标}
-  K -- 通过 --> L[清空 Value & 延长 TTL & 返回 16 字节 token]
+  K -- 通过 --> L[清空 Value & 延长 TTL & 返回 1]
   K -- 未通过 --> H
   M[POST /verify] --> N[解析 16 字节 Token]
   N --> O[从 Redis getdel 查询]
@@ -96,6 +97,7 @@ graph TD
   P -- 是 --> Q[返回 1]
   P -- 否 --> H
 ```
+
 
 ## 技术堆栈
 
@@ -152,7 +154,8 @@ captcha_srv/
 - init() -> Result<()>: 初始化日志配置与 xboot 组件。
 - run() -> Result<Router>: 初始化服务并启动端口监听与优雅重启，返回 Axum 路由实例。
 - get() -> Result<impl IntoResponse>: 处理 GET 请求，生成验证码图像存入 Redis，返回二进制 Payload。
-- post(body: Bytes) -> Result<impl IntoResponse>: 处理 POST 请求，校验点击坐标，成功则清空 value 延长 TTL 并返回 16 字节 token。
+- post(body: Bytes) -> Result<impl IntoResponse>: 处理 POST 请求，校验点击坐标，成功则清空 value 延长 TTL 并返回 "1"。
+
 - verify(body: Bytes) -> Result<impl IntoResponse>: 处理 POST /verify 请求，给网站后台校验 token 存在且为空并销毁。
 - captcha_key(id_bytes: &[u8; 16]) -> [u8; 24]: 零堆分配构造 24 字节 Redis 键。
 

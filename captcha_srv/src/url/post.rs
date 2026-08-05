@@ -11,9 +11,6 @@ use xkv::{
 use super::{CAPTCHA_NUM, EXPIRE_S};
 use crate::{Result, captcha_key};
 
-/// Response header for binary responses.
-pub const OCTET_H: [(HeaderName, &'static str); 1] = [(CONTENT_TYPE, "application/octet-stream")];
-
 /// Response header for JSON responses.
 pub const JSON_H: [(HeaderName, &'static str); 1] = [(CONTENT_TYPE, "text/json")];
 
@@ -23,19 +20,15 @@ pub const OK: Result<([(HeaderName, &'static str); 1], &'static str)> = Ok((JSON
 /// Failed verification response.
 pub const ERR: Result<([(HeaderName, &'static str); 1], &'static str)> = Ok((JSON_H, "0"));
 
-/// Failed verification response with Bytes body for post handler.
-const ERR_BYTES: Result<([(HeaderName, &'static str); 1], Bytes)> =
-  Ok((JSON_H, Bytes::from_static(b"0")));
-
 /// Verifies clicked positions against stored CAPTCHA coordinates.
-/// On success, clears Redis value, refreshes TTL, and returns 16-byte token payload.
+/// On success, clears Redis value, refreshes TTL, and returns OK ("1").
 pub async fn post(body: Bytes) -> Result<impl IntoResponse> {
   let Some((id_bytes, clicks_buf)) = body.split_first_chunk::<16>() else {
-    return ERR_BYTES;
+    return ERR;
   };
 
   if clicks_buf.len() != CAPTCHA_NUM * 4 {
-    return ERR_BYTES;
+    return ERR;
   }
 
   let (chunks, _) = clicks_buf.as_chunks::<4>();
@@ -62,10 +55,10 @@ pub async fn post(body: Bytes) -> Result<impl IntoResponse> {
         false,
       )
       .await?;
-    return Ok((OCTET_H, Bytes::copy_from_slice(id_bytes)));
+    return OK;
   }
 
-  ERR_BYTES
+  ERR
 }
 
 /// Verifies token for backend servers, deletes key if valid.
@@ -86,4 +79,5 @@ pub async fn verify(body: Bytes) -> Result<impl IntoResponse> {
 
   ERR
 }
+
 

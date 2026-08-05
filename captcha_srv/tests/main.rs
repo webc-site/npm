@@ -31,3 +31,4 @@ fn test_captcha_key() -> Void {
   info!("captcha_key test passed");
   OK
 }
+
