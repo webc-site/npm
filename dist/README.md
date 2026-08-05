@@ -21,7 +21,7 @@
 
 - **LLM-powered metadata generation**
   Detect missing `description` or `keywords` in `package.json`.
-  Use locally configured LLM service (via `~/.config/OPENAI.js`) to generate bilingual README and perform Markdown Mermaid syntax validation with automatic correction loop.
+  Use locally configured LLM service (via `~/.config/OPENAI.js`, must export `[base_url, api_key, model]`) to generate bilingual README and perform Markdown Mermaid syntax validation with automatic correction loop.
 
 - **Git working tree management**
   Use `simple-git` to inspect repository status and automatically commit unstaged modifications for release consistency.
@@ -42,9 +42,9 @@
   Open npm package page in default browser using platform-appropriate commands (`open`, `cmd.exe`, or `xdg-open`).
 
 - **Multi-branch Git synchronization**
-  Automatically commit and push changes to `dev` branch with version commit message `"v1.2.4"`.
+  Automatically commit and push changes to `dev` branch with version commit message `v1.2.4`.
   Use `git clone --shared` for efficient, safe merging of `dev` into `main`, then push to remote.
-  Automatically maintain `.gitignore` by adding `/tmp/` entry to prevent accidental commits.
+  Automatically maintain `.gitignore` by adding `/.tmp/` entry to prevent accidental commits.
 
 ## Usage demo
 
@@ -60,7 +60,7 @@ Publish a package:
 dist walk
 ```
 
-The CLI uses yargs and requires exactly one positional argument specifying the package directory name.
+The CLI uses yargs and requires exactly one positional argument specifying the package directory name (e.g., `walk`).
 
 ## Design rationale
 
@@ -96,6 +96,8 @@ The workflow follows strict sequential execution with error handling at each sta
 - **cersei_rs/logSession**: LLM session management
 - **@1-/npmver**: npm version checking utility
 - **@1-/vernext**: Semantic version incrementing utility
+- **@1-/upsert_gitignore**: .gitignore maintenance tool
+- **@1-/package_clean**: package.json cleaning utility
 
 ## Code structure
 
@@ -112,7 +114,6 @@ src/
 ├── readme.js        # Markdown renderer and resource processor
 ├── readmeGen.js     # LLM documentation generator
 ├── run.js           # Release process main controller
-├── srcReplace.js    # Relative path rewriter (embedded in prep.js)
 └── prompt/
     └── readme.eta   # README generation prompt template
 ```
@@ -124,7 +125,6 @@ Early Node.js package publishing relied on `npm publish` uploading entire direct
 Monorepo Git workflows required developers to manually manage multi-branch synchronization with `git checkout`, `pull`, `merge`, and `push` commands. Uncommitted local changes complicated these operations, increasing merge conflict risks and introducing dirty commits.
 
 This tool addresses both challenges through Git shared clones (`git clone --shared`) and sandboxed publishing. Temporary directory isolation prevents accidental file inclusion, while automated Git synchronization ensures consistent, zero-configuration releases. The architecture evolved from simple shell script wrappers to a modular Bun-based system with dedicated modules for each concern, enabling reliable monorepo publishing at scale.
-
 
 ## About
 
@@ -150,11 +150,11 @@ This library is developed by [WebC.site](https://webc.site).
 ## 功能介绍
 
 - **Knip 静态分析**
-  发布前执行 Knip 检查，覆盖 `files`、`dependencies`、`devDependencies`、`optionalPeerDependencies`、`unlisted`、`binaries`、`unresolved`、`exports`、`nsExports`、`types`、`nsTypes`、`enumMembers`、`namespaceMembers`、`duplicates`、`catalog` 等 15 类问题，确保代码健康度。
+  发布前执行 Knip 检查，覆盖 `files`、`dependencies`、`devDependencies`、`optionalPeerDependencies`、`unlisted`、`binaries`、`unresolved`、`exports`、`nsExports`、`types`、`nsTypes`、`enumMembers`、`namespaceMembers`、`duplicates`、`catalog` 等 15 类问题。
 
 - **大语言模型元数据生成**
   自动检测 `package.json` 中缺失的 `description` 与 `keywords` 字段。
-  通过本地配置的 LLM（`~/.config/OPENAI.js`）生成双语 README，并执行 Mermaid 语法校验与自动修复循环。
+  通过本地配置的 LLM（`~/.config/OPENAI.js`，必须导出 `[base_url, api_key, model]`）生成双语 README，并执行 Mermaid 语法校验与自动修复循环。
 
 - **Git 工作区管理**
   使用 `simple-git` 检测未暂存修改，自动提交以保障发布一致性。
@@ -175,9 +175,9 @@ This library is developed by [WebC.site](https://webc.site).
   跨平台打开 npm 包页面（`open` / `cmd.exe` / `xdg-open`）。
 
 - **多分支 Git 同步**
-  自动提交变更至 `dev` 分支（消息为 `"v1.2.4"`），并推送。
+  自动提交变更至 `dev` 分支（消息为 `v1.2.4`），并推送。
   使用 `git clone --shared` 安全高效地合并 `dev` 到 `main`，推送至远程。
-  自动维护 `.gitignore`，添加 `/tmp/` 条目防止意外提交。
+  自动维护 `.gitignore`，添加 `/.tmp/` 条目防止意外提交。
 
 ## 使用演示
 
@@ -193,7 +193,7 @@ bun add @1-/dist -D
 dist walk
 ```
 
-CLI 使用 yargs，仅接受一个位置参数，指定包目录名称。
+CLI 使用 yargs，仅接受一个位置参数，指定包目录名称（例如 `walk`）。
 
 ## 设计思路
 
@@ -229,6 +229,8 @@ graph TD
 - **cersei_rs/logSession**: LLM 会话管理
 - **@1-/npmver**: npm 版本检查工具
 - **@1-/vernext**: 语义化版本递增工具
+- **@1-/upsert_gitignore**: .gitignore 维护工具
+- **@1-/package_clean**: package.json 清理工具
 
 ## 代码结构
 
@@ -245,7 +247,6 @@ src/
 ├── readme.js        # Markdown 渲染与资源处理
 ├── readmeGen.js     # LLM 文档生成器
 ├── run.js           # 发布流程主控制器
-├── srcReplace.js    # 相对路径重写器（内嵌于 prep.js）
 └── prompt/
     └── readme.eta   # README 生成提示模板
 ```
@@ -257,7 +258,6 @@ src/
 Monorepo 架构下的 Git 工作流要求开发者手动管理多分支同步，包括 `git checkout`、`pull`、`merge` 和 `push` 等命令。未提交的本地修改使这些操作更加复杂，增加了合并冲突风险和污染提交历史的可能性。
 
 本工具通过 Git 共享克隆（`git clone --shared`）与沙箱化发布解决上述挑战。临时目录隔离从根本上杜绝了意外文件包含，而自动化的 Git 同步流水线确保了零配置的安全发布体验。架构从简单的 Shell 脚本包装器演变为模块化的 Bun 系统，各关注点分离，支持大规模 Monorepo 的可靠发布。
-
 
 ## 关于
 
