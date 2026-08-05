@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 declare const _default: (
   token: string,
   org_repo: string

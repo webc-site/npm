@@ -28,9 +28,9 @@
   Open npm package page in default browser using platform-appropriate commands (`open`, `cmd.exe`, or `xdg-open`).
 
 - **Multi-branch Git synchronization**
-  Automatically commit and push changes to `dev` branch with version commit message `"v1.2.4"`.
+  Automatically commit and push changes to `dev` branch with version commit message `v1.2.4`.
   Use `git clone --shared` for efficient, safe merging of `dev` into `main`, then push to remote.
-  Automatically maintain `.gitignore` by adding `/tmp/` entry to prevent accidental commits.
+  Automatically maintain `.gitignore` by adding `/.tmp/` entry to prevent accidental commits.
 
 ## Usage demo
 
@@ -82,6 +82,8 @@ The workflow follows strict sequential execution with error handling at each sta
 - **cersei_rs/logSession**: LLM session management
 - **@1-/npmver**: npm version checking utility
 - **@1-/vernext**: Semantic version incrementing utility
+- **@1-/upsert_gitignore**: .gitignore maintenance tool
+- **@1-/package_clean**: package.json cleaning utility
 
 ## Code structure
 
@@ -98,7 +100,6 @@ src/
 ├── readme.js        # Markdown renderer and resource processor
 ├── readmeGen.js     # LLM documentation generator
 ├── run.js           # Release process main controller
-├── srcReplace.js    # Relative path rewriter (embedded in prep.js)
 └── prompt/
     └── readme.eta   # README generation prompt template
 ```

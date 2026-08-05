@@ -38,7 +38,7 @@ export default async (
       open(url);
     }
 
-    // 发布成功，更新源目录下的 package.json 版本号
+    // 发布成功后更新本地 package.json 版本号
     pkg_json.version = next_version;
     await writeFile(pkg_json_path, JSON.stringify(pkg_json, null, 2) + "\n");
     log("成功更新本地 package.json 版本号为: " + next_version);

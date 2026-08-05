@@ -28,9 +28,9 @@
   跨平台打开 npm 包页面（`open` / `cmd.exe` / `xdg-open`）。
 
 - **多分支 Git 同步**
-  自动提交变更至 `dev` 分支（消息为 `"v1.2.4"`），并推送。
+  自动提交变更至 `dev` 分支（消息为 `v1.2.4`），并推送。
   使用 `git clone --shared` 安全高效地合并 `dev` 到 `main`，推送至远程。
-  自动维护 `.gitignore`，添加 `/tmp/` 条目防止意外提交。
+  自动维护 `.gitignore`，添加 `/.tmp/` 条目防止意外提交。
 
 ## 使用演示
 
@@ -82,6 +82,8 @@ graph TD
 - **cersei_rs/logSession**: LLM 会话管理
 - **@1-/npmver**: npm 版本检查工具
 - **@1-/vernext**: 语义化版本递增工具
+- **@1-/upsert_gitignore**: .gitignore 维护工具
+- **@1-/package_clean**: package.json 清理工具
 
 ## 代码结构
 
@@ -98,7 +100,6 @@ src/
 ├── readme.js        # Markdown 渲染与资源处理
 ├── readmeGen.js     # LLM 文档生成器
 ├── run.js           # 发布流程主控制器
-├── srcReplace.js    # 相对路径重写器（内嵌于 prep.js）
 └── prompt/
     └── readme.eta   # README 生成提示模板
 ```
