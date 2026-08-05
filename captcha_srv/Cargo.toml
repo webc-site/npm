@@ -28,6 +28,7 @@ rustdoc-args = ["--cfg", "docsrs"]
 anyhow = "1.0.104"
 axum = "0.8.9"
 axum_graceful_restart = { version = "0.1.9" }
+b64 = "0.4.0"
 bitcode = "0.6.9"
 genv = "0.1.18"
 log = "0.4.33"

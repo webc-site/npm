@@ -1,5 +1,3 @@
-
-
 /// Captcha expiration time in seconds.
 pub const EXPIRE_S: i64 = 300;
 
@@ -11,4 +9,3 @@ pub const CAPTCHA_H: u32 = 350;
 
 /// Default icon count.
 pub const CAPTCHA_NUM: usize = 3;
-

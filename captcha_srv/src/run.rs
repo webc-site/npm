@@ -13,7 +13,7 @@ pub async fn run() -> Result<Router> {
 
   let app = Router::new()
     .route("/", axum_get(get).post(post))
-    .route("/verify", axum_post(verify));
+    .route("/verify/{token}", axum_get(verify));
 
   let port: u16 = genv::get_or_default("PORT", 8080);
   let addr = SocketAddr::from((Ipv4Addr::UNSPECIFIED, port));
@@ -23,4 +23,3 @@ pub async fn run() -> Result<Router> {
 
   Ok(app)
 }
-

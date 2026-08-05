@@ -5,24 +5,6 @@
 <a id="en"></a>
 # captcha_srv : High Performance Axum CAPTCHA Service
 
-- [captcha_srv : High Performance Axum CAPTCHA Service](#captcha_srv-high-performance-axum-captcha-service)
-  - [Overview](#overview)
-  - [Usage](#usage)
-    - [Server Initialization](#server-initialization)
-    - [Variable Byte Encoding & Key Generation](#variable-byte-encoding-key-generation)
-  - [Features](#features)
-  - [Design](#design)
-    - [GET, POST & /verify Binary Protocols](#get-post-verify-binary-protocols)
-    - [Workflow Diagram](#workflow-diagram)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [API Reference](#api-reference)
-    - [Constants](#constants)
-    - [Data Structures & Types](#data-structures-types)
-    - [Functions](#functions)
-  - [Historical Background](#historical-background)
-  - [About](#about)
-
 Behavioral CAPTCHA service built with Axum framework and Redis/kvrocks. Features target icon click verification, WebP image rendering, zero-copy binary encoding, and graceful restart support.
 
 ## Overview
@@ -30,8 +12,7 @@ Behavioral CAPTCHA service built with Axum framework and Redis/kvrocks. Features
 - Image Generation: Renders WebP background images alongside target icon characters.
 - Coordinate Storage: Serializes target coordinates using bitcode into Redis/kvrocks with 300-second expiration.
 - Behavior Verification: Validates click coordinates, clears key value, and refreshes TTL to 300s on success, returning "1".
-- Server Verification: Provides a /verify endpoint for backend servers to validate and consume tokens.
-
+- Server Verification: Provides a /verify/{token} endpoint for backend servers to validate and consume Base64URL tokens.
 - High Performance Encoding: Utilizes custom Varint encoding and binary payloads to eliminate JSON serialization overhead.
 - Graceful Restart: Integrates axum_graceful_restart for seamless zero-downtime service reloads.
 
@@ -91,10 +72,10 @@ POST `/` Response Format (Content-Type: text/json):
 - "1": Verification succeeded, clears Redis value and refreshes TTL to 300s.
 - "0": Verification failed or invalid payload.
 
-POST `/verify` Binary Request Format (Content-Type: application/octet-stream):
-- 0..16 bytes: 16-byte binary token.
+GET `/verify/{token}` Request:
+- Path parameter `{token}`: Base64URL encoded string of 16-byte ID.
 
-POST `/verify` Response Format (Content-Type: text/json):
+GET `/verify/{token}` Response Format (Content-Type: text/json):
 - "1": Token exists and is valid (deleted upon consumption).
 - "0": Token invalid or expired.
 
@@ -114,13 +95,12 @@ graph TD
   J -- Yes --> K{Verify Coordinates}
   K -- Valid --> L[Clear Value & Refresh TTL & Return 1]
   K -- Invalid --> H
-  M[POST /verify] --> N[Parse 16-byte Token]
+  M[GET /verify/{token}] --> N[Base64URL Decode 16-byte Token]
   N --> O[getdel Token from Redis]
   O --> P{Value Exists & Empty?}
   P -- Yes --> Q[Return 1]
   P -- No --> H
 ```
-
 
 ## Tech Stack
 
@@ -148,7 +128,8 @@ captcha_srv/
 │       ├── consts.rs  CAPTCHA constants
 │       ├── get.rs     GET request handler
 │       ├── mod.rs     url module re-exports
-│       └── post.rs    POST & /verify request handler
+│       ├── post.rs    POST request handler
+│       └── verify.rs  GET /verify/{token} request handler
 └── tests/
     └── main.rs     Unit tests
 ```
@@ -162,7 +143,6 @@ captcha_srv/
 - CAPTCHA_W: Default image width in pixels (350).
 - CAPTCHA_H: Default image height in pixels (350).
 - CAPTCHA_NUM: Number of target click icons (3).
-- OCTET_H: Response header array for binary endpoints ([(CONTENT_TYPE, "application/octet-stream")]).
 - JSON_H: Response header array for JSON endpoints ([(CONTENT_TYPE, "text/json")]).
 - OK: Successful response Result<([(HeaderName, &'static str); 1], &'static str)>.
 - ERR: Failed response Result<([(HeaderName, &'static str); 1], &'static str)>.
@@ -178,44 +158,17 @@ captcha_srv/
 - run() -> Result<Router>: Initializes service, binds listening port, configures graceful restart, and returns Axum Router instance.
 - get() -> Result<impl IntoResponse>: Generates CAPTCHA image, stores positions in Redis, and returns binary payload.
 - post(body: Bytes) -> Result<impl IntoResponse>: Verifies click coordinates, clears Redis value, refreshes TTL to 300s, and returns "1".
-
-- verify(body: Bytes) -> Result<impl IntoResponse>: Validates token existence and empty status for backend servers, deleting the token on success.
+- verify(token: Path<String>) -> Result<impl IntoResponse>: Validates token existence and empty status for backend servers via GET /verify/{token}, deleting the token on success.
 - captcha_key(id_bytes: &[u8; 16]) -> [u8; 24]: Constructs 24-byte Redis key without heap allocation.
 
 ## Historical Background
 
-
 CAPTCHA stands for "Completely Automated Public Turing test to tell Computers and Humans Apart". Developed in 2000 by Luis von Ahn and collaborators at Carnegie Mellon University, early CAPTCHAs prevented spam and automated registrations. Von Ahn later created reCAPTCHA, leveraging user validation inputs to digitize physical archives such as historical editions of The New York Times. Modern behavioral and click-based CAPTCHAs remain fundamental security defenses across web services.
-
-## About
-
-This library is developed by [WebC.site](https://webc.site).
-
-[WebC.site](https://webc.site): A new paradigm of web development for AI
-
 
 ---
 
 <a id="zh"></a>
 # captcha_srv : 高性能 Axum 验证码服务
-
-- [captcha_srv : 高性能 Axum 验证码服务](#captcha_srv-高性能-axum-验证码服务)
-  - [项目功能介绍](#项目功能介绍)
-  - [使用演示](#使用演示)
-    - [启动服务](#启动服务)
-    - [变长编码与键构造](#变长编码与键构造)
-  - [特性介绍](#特性介绍)
-  - [设计思路](#设计思路)
-    - [GET、POST 与 /verify 二进制协议](#getpost-与-verify-二进制协议)
-    - [业务流程图](#业务流程图)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 说明](#api-说明)
-    - [常量](#常量)
-    - [数据结构与类型](#数据结构与类型)
-    - [函数](#函数)
-  - [历史小故事](#历史小故事)
-  - [关于](#关于)
 
 基于 Axum 框架与 Redis/kvrocks 的行为验证码服务端。支持图形点选、WebP 图像生成、零拷贝二进制协议传输与无缝优雅重启。
 
@@ -224,8 +177,7 @@ This library is developed by [WebC.site](https://webc.site).
 - 验证码生成：随机生成 WebP 图形与目标字符图标。
 - 坐标存储：使用 bitcode 序列化坐标数据存入 Redis/kvrocks，设置 300 秒过期时间。
 - 行为校验：校验点选坐标，校验成功后清空 value 并重置 300 秒 TTL，返回 `"1"`（前端复用 GET 获取的验证码 Token）。
-- 二次验证：提供 /verify 接口供后台校验 token 有效性并一次性销毁。
-
+- 二次验证：提供 /verify/{token} 接口供后台校验 Base64URL token 有效性并一次性销毁。
 - 高性能传输：自定义 Varint 变长编码与二进制协议，消除 JSON 序列化开销。
 - 优雅重启：集成 axum_graceful_restart，无缝重启保障服务高可用。
 
@@ -285,10 +237,10 @@ POST `/` 响应结构（Content-Type: text/json）：
 - `"1"`：校验成功，清空 Value 并重置 300 秒 TTL。
 - `"0"`：校验失败或请求非法。
 
-POST `/verify` 请求结构（Content-Type: application/octet-stream）：
-- 0..16 字节：16 字节二进制 token。
+GET `/verify/{token}` 请求：
+- URL 路径参数 `{token}`：16 字节 ID 的 Base64URL 编码字符串。
 
-POST `/verify` 响应结构（Content-Type: text/json）：
+GET `/verify/{token}` 响应结构（Content-Type: text/json）：
 - `"1"`：Token 校验存在且有效（一次性弹出销毁）。
 - `"0"`：Token 无效或已销毁。
 
@@ -308,13 +260,12 @@ graph TD
   J -- 是 --> K{校验点击坐标}
   K -- 通过 --> L[清空 Value & 延长 TTL & 返回 1]
   K -- 未通过 --> H
-  M[POST /verify] --> N[解析 16 字节 Token]
+  M[GET /verify/{token}] --> N[Base64URL 解码 16 字节 Token]
   N --> O[从 Redis getdel 查询]
   O --> P{Value 存在且为空?}
   P -- 是 --> Q[返回 1]
   P -- 否 --> H
 ```
-
 
 ## 技术堆栈
 
@@ -342,7 +293,8 @@ captcha_srv/
 │       ├── consts.rs  验证码常量定义
 │       ├── get.rs     GET 处理函数
 │       ├── mod.rs     url 模块导出
-│       └── post.rs    POST & /verify 处理函数
+│       ├── post.rs    POST 处理函数
+│       └── verify.rs  GET /verify/{token} 处理函数
 └── tests/
     └── main.rs     单元测试
 ```
@@ -356,7 +308,6 @@ captcha_srv/
 - CAPTCHA_W: 图像默认宽度（350 像素）。
 - CAPTCHA_H: 图像默认高度（350 像素）。
 - CAPTCHA_NUM: 目标点选图标数量（3）。
-- OCTET_H: 二进制响应 Header 数组 ([(CONTENT_TYPE, "application/octet-stream")])。
 - JSON_H: JSON 响应 Header 数组 ([(CONTENT_TYPE, "text/json")])。
 - OK: 成功响应 Result<([(HeaderName, &'static str); 1], &'static str)>。
 - ERR: 失败响应 Result<([(HeaderName, &'static str); 1], &'static str)>。
@@ -372,18 +323,9 @@ captcha_srv/
 - run() -> Result<Router>: 初始化服务并启动端口监听与优雅重启，返回 Axum 路由实例。
 - get() -> Result<impl IntoResponse>: 处理 GET 请求，生成验证码图像存入 Redis，返回二进制 Payload。
 - post(body: Bytes) -> Result<impl IntoResponse>: 处理 POST 请求，校验点击坐标，成功则清空 value 延长 TTL 并返回 "1"。
-
-- verify(body: Bytes) -> Result<impl IntoResponse>: 处理 POST /verify 请求，给网站后台校验 token 存在且为空并销毁。
+- verify(token: Path<String>) -> Result<impl IntoResponse>: 处理 GET /verify/{token} 请求，校验 Base64URL 解码后的 token 存在且为空并一次性销毁。
 - captcha_key(id_bytes: &[u8; 16]) -> [u8; 24]: 零堆分配构造 24 字节 Redis 键。
 
 ## 历史小故事
 
-
 验证码（CAPTCHA）全称“区分计算机和人类的全自动公共图灵测试”（Completely Automated Public Turing test to tell Computers and Humans Apart）。概念于 2000 年由卡内基梅隆大学 Luis von Ahn 等人提出。早期的验证码用于防止垃圾邮件与恶意注册。随后 Luis von Ahn 创办 reCAPTCHA，将文字识别难题与古籍及历史报纸扫描件的数字化工作结合，利用全球网民填写的验证码协助完成海量纸质文献电子化。如今点选与行为验证码已演变为互联网安全防御体系核心组件。
-
-## 关于
-
-本库由 [WebC.site](https://webc.site) 开发。
-
-[WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
-

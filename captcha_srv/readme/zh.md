@@ -68,10 +68,10 @@ POST `/` 响应结构（Content-Type: text/json）：
 - `"1"`：校验成功，清空 Value 并重置 300 秒 TTL。
 - `"0"`：校验失败或请求非法。
 
-POST `/verify` 请求结构（Content-Type: application/octet-stream）：
-- 0..16 字节：16 字节二进制 token。
+GET `/verify/{token}` 请求：
+- URL 路径参数 `{token}`：16 字节 ID 的 Base64URL 编码字符串。
 
-POST `/verify` 响应结构（Content-Type: text/json）：
+GET `/verify/{token}` 响应结构（Content-Type: text/json）：
 - `"1"`：Token 校验存在且有效（一次性弹出销毁）。
 - `"0"`：Token 无效或已销毁。
 
@@ -91,12 +91,13 @@ graph TD
   J -- 是 --> K{校验点击坐标}
   K -- 通过 --> L[清空 Value & 延长 TTL & 返回 1]
   K -- 未通过 --> H
-  M[POST /verify] --> N[解析 16 字节 Token]
+  M[GET /verify/{token}] --> N[Base64URL 解码 16 字节 Token]
   N --> O[从 Redis getdel 查询]
   O --> P{Value 存在且为空?}
   P -- 是 --> Q[返回 1]
   P -- 否 --> H
 ```
+
 
 
 ## 技术堆栈
@@ -125,7 +126,9 @@ captcha_srv/
 │       ├── consts.rs  验证码常量定义
 │       ├── get.rs     GET 处理函数
 │       ├── mod.rs     url 模块导出
-│       └── post.rs    POST & /verify 处理函数
+│       ├── post.rs    POST 处理函数
+│       └── verify.rs  GET /verify/{token} 处理函数
+
 └── tests/
     └── main.rs     单元测试
 ```
@@ -156,7 +159,8 @@ captcha_srv/
 - get() -> Result<impl IntoResponse>: 处理 GET 请求，生成验证码图像存入 Redis，返回二进制 Payload。
 - post(body: Bytes) -> Result<impl IntoResponse>: 处理 POST 请求，校验点击坐标，成功则清空 value 延长 TTL 并返回 "1"。
 
-- verify(body: Bytes) -> Result<impl IntoResponse>: 处理 POST /verify 请求，给网站后台校验 token 存在且为空并销毁。
+- verify(token: Path<String>) -> Result<impl IntoResponse>: 处理 GET /verify/{token} 请求，校验 Base64URL 解码后的 token 存在且为空并一次性销毁。
+
 - captcha_key(id_bytes: &[u8; 16]) -> [u8; 24]: 零堆分配构造 24 字节 Redis 键。
 
 ## 历史小故事

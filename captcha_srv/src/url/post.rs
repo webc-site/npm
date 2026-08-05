@@ -32,10 +32,12 @@ pub async fn post(body: Bytes) -> Result<impl IntoResponse> {
   }
 
   let (chunks, _) = clicks_buf.as_chunks::<4>();
-  let clicks: [(i32, i32); CAPTCHA_NUM] = std::array::from_fn(|i| (
-    u16::from_le_bytes([chunks[i][0], chunks[i][1]]) as i32,
-    u16::from_le_bytes([chunks[i][2], chunks[i][3]]) as i32,
-  ));
+  let clicks: [(i32, i32); CAPTCHA_NUM] = std::array::from_fn(|i| {
+    (
+      u16::from_le_bytes([chunks[i][0], chunks[i][1]]) as i32,
+      u16::from_le_bytes([chunks[i][2], chunks[i][3]]) as i32,
+    )
+  });
 
   let key = captcha_key(id_bytes);
 
@@ -60,24 +62,3 @@ pub async fn post(body: Bytes) -> Result<impl IntoResponse> {
 
   ERR
 }
-
-/// Verifies token for backend servers, deletes key if valid.
-pub async fn verify(body: Bytes) -> Result<impl IntoResponse> {
-  if body.len() != 16 {
-    return ERR;
-  }
-  let id_bytes: &[u8; 16] = body[..16].try_into().unwrap();
-  let key = captcha_key(id_bytes);
-
-  let pos_bytes: Option<Vec<u8>> = R.getdel(&key[..]).await.ok().flatten();
-
-  if let Some(bytes) = pos_bytes
-    && bytes.is_empty()
-  {
-    return OK;
-  }
-
-  ERR
-}
-
-

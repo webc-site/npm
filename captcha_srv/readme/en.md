@@ -68,10 +68,10 @@ POST `/` Response Format (Content-Type: text/json):
 - "1": Verification succeeded, clears Redis value and refreshes TTL to 300s.
 - "0": Verification failed or invalid payload.
 
-POST `/verify` Binary Request Format (Content-Type: application/octet-stream):
-- 0..16 bytes: 16-byte binary token.
+GET `/verify/{token}` Request:
+- Path parameter `{token}`: Base64URL encoded string of 16-byte ID.
 
-POST `/verify` Response Format (Content-Type: text/json):
+GET `/verify/{token}` Response Format (Content-Type: text/json):
 - "1": Token exists and is valid (deleted upon consumption).
 - "0": Token invalid or expired.
 
@@ -91,12 +91,13 @@ graph TD
   J -- Yes --> K{Verify Coordinates}
   K -- Valid --> L[Clear Value & Refresh TTL & Return 1]
   K -- Invalid --> H
-  M[POST /verify] --> N[Parse 16-byte Token]
+  M[GET /verify/{token}] --> N[Base64URL Decode 16-byte Token]
   N --> O[getdel Token from Redis]
   O --> P{Value Exists & Empty?}
   P -- Yes --> Q[Return 1]
   P -- No --> H
 ```
+
 
 
 ## Tech Stack
@@ -125,7 +126,9 @@ captcha_srv/
 │       ├── consts.rs  CAPTCHA constants
 │       ├── get.rs     GET request handler
 │       ├── mod.rs     url module re-exports
-│       └── post.rs    POST & /verify request handler
+│       ├── post.rs    POST request handler
+│       └── verify.rs  GET /verify/{token} request handler
+
 └── tests/
     └── main.rs     Unit tests
 ```

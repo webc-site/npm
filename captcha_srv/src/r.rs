@@ -10,4 +10,3 @@ pub fn captcha_key(id_bytes: &[u8; 16]) -> [u8; 24] {
   key[prefix_len..].copy_from_slice(id_bytes);
   key
 }
-
