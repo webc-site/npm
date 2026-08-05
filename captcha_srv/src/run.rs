@@ -1,9 +1,6 @@
 use std::net::{Ipv4Addr, SocketAddr};
 
-use axum::{
-  Router,
-  routing::get as axum_get,
-};
+use axum::{Router, routing::get as axum_get};
 
 use crate::{Result, get, init, post, verify};
 

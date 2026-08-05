@@ -1,3 +1,5 @@
+use std::array::from_fn;
+
 use axum::{
   body::Bytes,
   http::header::{CONTENT_TYPE, HeaderName},
@@ -15,10 +17,10 @@ use crate::{Result, captcha_key};
 pub const JSON_H: [(HeaderName, &str); 1] = [(CONTENT_TYPE, "text/json")];
 
 /// Successful verification response.
-pub const OK: Result<([(HeaderName, &'static str); 1], &'static str)> = Ok((JSON_H, "1"));
+pub const OK: Result<([(HeaderName, &str); 1], &str)> = Ok((JSON_H, "1"));
 
 /// Failed verification response.
-pub const ERR: Result<([(HeaderName, &'static str); 1], &'static str)> = Ok((JSON_H, "0"));
+pub const ERR: Result<([(HeaderName, &str); 1], &str)> = Ok((JSON_H, "0"));
 
 /// Verifies clicked positions against stored CAPTCHA coordinates.
 /// On success, clears Redis value, refreshes TTL, and returns OK ("1").
@@ -32,12 +34,13 @@ pub async fn post(body: Bytes) -> Result<impl IntoResponse> {
   }
 
   let (chunks, _) = clicks_buf.as_chunks::<4>();
-  let clicks: [(i32, i32); CAPTCHA_NUM] = std::array::from_fn(|i| {
+  let clicks: [(i32, i32); CAPTCHA_NUM] = from_fn(|i| {
     (
       u16::from_le_bytes([chunks[i][0], chunks[i][1]]) as i32,
       u16::from_le_bytes([chunks[i][2], chunks[i][3]]) as i32,
     )
   });
+
 
   let key = captcha_key(id_bytes);
 
