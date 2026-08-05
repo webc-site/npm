@@ -12,7 +12,7 @@ use super::{CAPTCHA_NUM, EXPIRE_S};
 use crate::{Result, captcha_key};
 
 /// Response header for JSON responses.
-pub const JSON_H: [(HeaderName, &'static str); 1] = [(CONTENT_TYPE, "text/json")];
+pub const JSON_H: [(HeaderName, &str); 1] = [(CONTENT_TYPE, "text/json")];
 
 /// Successful verification response.
 pub const OK: Result<([(HeaderName, &'static str); 1], &'static str)> = Ok((JSON_H, "1"));
