@@ -7,7 +7,7 @@
 
 - **LLM-powered metadata generation**
   Detect missing `description` or `keywords` in `package.json`.
-  Use locally configured LLM service (via `~/.config/OPENAI.js`) to generate bilingual README and perform Markdown Mermaid syntax validation with automatic correction loop.
+  Use locally configured LLM service (via `~/.config/OPENAI.js`, must export `[base_url, api_key, model]`) to generate bilingual README and perform Markdown Mermaid syntax validation with automatic correction loop.
 
 - **Git working tree management**
   Use `simple-git` to inspect repository status and automatically commit unstaged modifications for release consistency.
@@ -46,7 +46,7 @@ Publish a package:
 dist walk
 ```
 
-The CLI uses yargs and requires exactly one positional argument specifying the package directory name.
+The CLI uses yargs and requires exactly one positional argument specifying the package directory name (e.g., `walk`).
 
 ## Design rationale
 

@@ -7,7 +7,7 @@
 
 - **大语言模型元数据生成**
   自动检测 `package.json` 中缺失的 `description` 与 `keywords` 字段。
-  通过本地配置的 LLM（`~/.config/OPENAI.js`）生成双语 README，并执行 Mermaid 语法校验与自动修复循环。
+  通过本地配置的 LLM（`~/.config/OPENAI.js`，必须导出 `[base_url, api_key, model]`）生成双语 README，并执行 Mermaid 语法校验与自动修复循环。
 
 - **Git 工作区管理**
   使用 `simple-git` 检测未暂存修改，自动提交以保障发布一致性。
@@ -46,7 +46,7 @@ bun add @1-/dist -D
 dist walk
 ```
 
-CLI 使用 yargs，仅接受一个位置参数，指定包目录名称。
+CLI 使用 yargs，仅接受一个位置参数，指定包目录名称（例如 `walk`）。
 
 ## 设计思路
 
