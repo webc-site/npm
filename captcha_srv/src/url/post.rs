@@ -1,8 +1,21 @@
-use axum::{body::Bytes, response::IntoResponse};
+use axum::{
+  body::Bytes,
+  http::header::{CONTENT_TYPE, HeaderName},
+  response::IntoResponse,
+};
 use xkv::{R, fred::interfaces::KeysInterface};
 
-use super::{CAPTCHA_NUM, ERR, OK};
+use super::CAPTCHA_NUM;
 use crate::{Result, captcha_key};
+
+/// Response header for JSON responses.
+pub const JSON_H: [(HeaderName, &'static str); 1] = [(CONTENT_TYPE, "text/json")];
+
+/// Successful verification response.
+pub const OK: Result<([(HeaderName, &'static str); 1], &'static str)> = Ok((JSON_H, "1"));
+
+/// Failed verification response.
+pub const ERR: Result<([(HeaderName, &'static str); 1], &'static str)> = Ok((JSON_H, "0"));
 
 /// Verifies clicked positions against stored CAPTCHA coordinates.
 pub async fn post(body: Bytes) -> Result<impl IntoResponse> {
