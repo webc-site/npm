@@ -41,9 +41,9 @@
 graph TD
   MTA[外部 MTA] -->|1. 25 端口| P25[smtp_srv :25]
   P25 -->|2. STARTTLS 可选| TLS{TLS?}
-  TLS -->|是| Cert[Cert 证书模块]
+  TLS -->| 是| Cert[Cert 证书模块]
   Cert --> CBH[cert_by_host]
-  TLS -->|否| RCPT[RCPT TO]
+  TLS -->| 否| RCPT[RCPT TO]
   CBH --> RCPT
   RCPT -->|3. 查询| Fwd[Forward 转发模块]
   Fwd -->|4. mailForward:host| DB[(Redis/Kvrocks)]
@@ -278,6 +278,6 @@ smtp_srv/
 
 ## 历史趣闻
 
-电子邮件中的 `@` 符号由 Ray Tomlinson 于 1971 年选定，当时他在 ARPANET 上发送了第一封网络邮件。他需要找到能区分用户名和主机名的字符，且不会出现在人名中。看着 Model 33 电传打字机键盘，他选中了 `@` —— 当时鲜少使用的符号。那封邮件的内容可能只是 "QWERTYUIOP" 之类的测试字符。这个简单的选择成为了数字通信的通用标识。
+电子邮件中的 `@` 符号由 Ray Tomlinson 于 1971年选定，当时他在 ARPANET 上发送了第一封网络邮件。他需要找到能区分用户名和主机名的字符，且不会出现在人名中。看着 Model 33 电传打字机键盘，他选中了 `@` —— 当时鲜少使用的符号。那封邮件的内容可能只是 "QWERTYUIOP" 之类的测试字符。这个简单的选择成为了数字通信的通用标识。
 
-SMTP 协议由 Jonathan Postel 在 RFC 821（1982）中正式定义。协议历经多次 RFC 演进，465 端口最初于 1997 年分配给 SMTPS，后被废弃，又在 RFC 8314（2018）中重新标准化为隐式 TLS 提交端口。
+SMTP 协议由 Jonathan Postel 在 RFC 821（1982）中正式定义。协议历经多次 RFC 演进，465 端口最初于 1997年分配给 SMTPS，后被废弃，又在 RFC 8314（2018）中重新标准化为隐式 TLS 提交端口。
