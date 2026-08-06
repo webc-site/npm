@@ -42,5 +42,3 @@ fn test_verify_token_b64() -> Void {
   info!("base64url encode/decode test passed");
   OK
 }
-
-

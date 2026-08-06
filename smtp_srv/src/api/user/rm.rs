@@ -1,5 +1,5 @@
 use axum::extract::Path;
-use fred::interfaces::{KeysInterface, SetsInterface};
+use fred::interfaces::{KeysInterface, SortedSetsInterface};
 use xkv::R;
 
 use crate::{
@@ -25,10 +25,10 @@ pub async fn rm(Path(email): Path<String>) -> Result<()> {
 
   let pipeline = R.pipeline();
   let _ = pipeline.del::<(), _>(&user_key[..]);
-  let _ = pipeline.srem::<(), _, _>(&domain_user_key[..], prefix_bytes);
+  let _ = pipeline.zrem::<(), _, _>(&domain_user_key[..], prefix_bytes);
   let _: () = pipeline.all().await?;
 
-  let count: u64 = R.scard(&domain_user_key[..]).await.unwrap_or(0);
+  let count: u64 = R.zcard(&domain_user_key[..]).await.unwrap_or(0);
   if count == 0 {
     if let Some(id_bytes) = R
       .get::<Option<Vec<u8>>, _>(&domain_key[..])

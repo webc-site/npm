@@ -15,7 +15,6 @@ fn parse_token(token: &str) -> Option<[u8; 16]> {
   None
 }
 
-
 /// Verifies token for backend servers via GET /verify/{token}, deletes key if valid.
 pub async fn verify(Path(token): Path<String>) -> Result<impl IntoResponse> {
   let Some(id_bytes) = parse_token(&token) else {

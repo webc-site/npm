@@ -1,5 +1,5 @@
 use fred::{
-  interfaces::{KeysInterface, SetsInterface},
+  interfaces::{KeysInterface, SortedSetsInterface},
   types::SetOptions,
 };
 use intbin::to_bin;
@@ -54,9 +54,18 @@ pub async fn set(email: &str, password: &str) -> Result<()> {
   let user_key = [USER, domain_bytes, b":", prefix_bytes].concat();
   let domain_user_key = [DOMAIN_USER, domain_bytes].concat();
 
+  let now_ts = ts_::sec() as f64;
+
   let pipeline = R.pipeline();
   let _ = pipeline.set::<(), _, _>(&user_key[..], &val[..], None, None, false);
-  let _ = pipeline.sadd::<(), _, _>(&domain_user_key[..], prefix_bytes);
+  let _ = pipeline.zadd::<(), _, _, _>(
+    &domain_user_key[..],
+    None,
+    None,
+    false,
+    false,
+    (now_ts, prefix_bytes),
+  );
   let _: () = pipeline.all().await?;
 
   Ok(())

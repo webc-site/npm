@@ -7,7 +7,7 @@ pub const DOMAIN_HOST: &[u8] = b"smtpDomainHost:";
 // smtpUser:${domain}:${prefix} -> salt(16B) + argon2id_hash(32B) = 48B
 pub const USER: &[u8] = b"smtpUser:";
 
-// smtpDomainUser:${domain} -> Set<prefix> 域名下邮箱前缀集合
+// smtpDomainUser:${domain} -> ZSet<prefix, timestamp> 域名下邮箱前缀有序集合 (Score 为秒级时间戳)
 pub const DOMAIN_USER: &[u8] = b"smtpDomainUser:";
 
 // smtpHostDkim:${host_id_bytes} -> selector 字符串
