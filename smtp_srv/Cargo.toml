@@ -15,7 +15,7 @@ rustdoc-args = ["--cfg", "docsrs"]
 
 [features]
 default = ["api"]
-api = ["dep:axum"]
+api = ["dep:axum", "dep:sk_dkim", "dep:getrandom"]
 kill_port = ["smtp_recv/kill_port"]
 
 [dependencies]
@@ -31,6 +31,8 @@ mail-send = "0.6.1"
 rustls-pki-types = "1.15.1"
 axum = { version = "0.8.9", optional = true }
 base64 = "0.23.1"
+sk_dkim = { version = "0.1.8", path = "../sk_dkim", features = ["pk"], optional = true }
+getrandom = { version = "0.4.3", optional = true }
 
 [dependencies.password_]
 version = "0.1.2"

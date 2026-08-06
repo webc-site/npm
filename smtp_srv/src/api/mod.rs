@@ -1,4 +1,5 @@
 mod auth;
+mod dkim;
 
 use auth::auth;
 use axum::{middleware, routing::get, Router};
@@ -12,6 +13,7 @@ pub async fn run() -> aok::Result<()> {
 
   let app = Router::new()
     .route("/", get(|| async { "OK" }))
+    .route("/dkim/{domain}", get(dkim::get))
     .layer(middleware::from_fn(auth));
 
   let listener = tokio::net::TcpListener::bind(addr).await?;
