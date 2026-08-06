@@ -14,19 +14,21 @@ pub async fn rm(Path(email): Path<String>) -> Result<()> {
     return Err(Error::BadRequest);
   }
 
-  let user_key = [USER, domain.as_bytes(), b":", prefix.as_bytes()].concat();
-  let domain_user_key = [DOMAIN_USER, domain.as_bytes()].concat();
-  let domain_key = [DOMAIN_HOST, domain.as_bytes()].concat();
+  let domain_bytes = domain.as_bytes();
+  let prefix_bytes = prefix.as_bytes();
+
+  let user_key = [USER, domain_bytes, b":", prefix_bytes].concat();
+  let domain_user_key = [DOMAIN_USER, domain_bytes].concat();
+  let domain_key = [DOMAIN_HOST, domain_bytes].concat();
 
   let pipeline = R.pipeline();
   let _ = pipeline.del::<(), _>(&user_key[..]);
-  let _ = pipeline.srem::<(), _, _>(&domain_user_key[..], prefix.as_bytes());
+  let _ = pipeline.srem::<(), _, _>(&domain_user_key[..], prefix_bytes);
   let _: () = pipeline.all().await?;
 
   let count: u64 = R.scard(&domain_user_key[..]).await.unwrap_or(0);
   if count == 0 {
-    let host_id_bytes: Option<Vec<u8>> = R.get(&domain_key[..]).await.ok().flatten();
-    if let Some(id_bytes) = host_id_bytes {
+    if let Some(id_bytes) = R.get::<Option<Vec<u8>>, _>(&domain_key[..]).await.ok().flatten() {
       let host_dkim_key = [HOST_DKIM, &id_bytes[..]].concat();
       let host_dkim_key_key = [HOST_DKIM_KEY, &id_bytes[..]].concat();
       let _: () = R
