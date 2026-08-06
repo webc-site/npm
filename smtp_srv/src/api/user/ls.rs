@@ -8,7 +8,7 @@ use crate::{
   r::DOMAIN_USER,
 };
 
-const PAGE_SIZE: isize = 50;
+const PAGE_SIZE: i64 = 50;
 
 #[derive(Serialize)]
 pub struct UserList {
@@ -27,7 +27,7 @@ pub async fn by_page(Path((host, page)): Path<(String, usize)>) -> Result<Json<U
 
 async fn ls(host: &str, page: usize) -> Result<Json<UserList>> {
   let page = page.max(1);
-  let start = ((page - 1) * (PAGE_SIZE as usize)) as isize;
+  let start = (page - 1) as i64 * PAGE_SIZE;
   let stop = start + PAGE_SIZE - 1;
 
   let domain_user_key = [DOMAIN_USER, host.as_bytes()].concat();
