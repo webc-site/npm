@@ -64,7 +64,7 @@ version = "0.1.8"
 path = "../ip_set"
 
 [dependencies.pick_fast]
-version = "0.1.26"
+version = "0.1.27"
 path = "../pick_fast"
 features = [ "iter" ]
 
