@@ -25,7 +25,6 @@ version = "0.1.6"
 
 [dependencies.xboot]
 version = "0.1.39"
-path = "../xboot"
 optional = true
 
 [dependencies.log]

@@ -26,7 +26,7 @@ intbin = "0.2.4"
 log = "0.4.33"
 rustls = "0.23.43"
 xbin = "0.1.14"
-xboot = { version = "0.1.39", path = "../xboot" }
+xboot = "0.1.39"
 mail-send = "0.6.1"
 rustls-pki-types = "1.15.1"
 axum = { version = "0.8.9", optional = true }

@@ -73,7 +73,3 @@ opt-level = 3
 
 [profile.bench]
 opt-level = 3
-
-[patch.crates-io]
-xboot = { path = "xboot" }
-xkv = { path = "xkv" }
