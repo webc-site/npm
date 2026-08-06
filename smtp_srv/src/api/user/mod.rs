@@ -13,7 +13,6 @@ pub use set::set;
 pub fn router() -> Router {
   Router::new()
     .route("/", post(set))
-    .route("/{email}", delete(rm))
-    .route("/{host}", get(by_host))
+    .route("/{host}", delete(rm).get(by_host))
     .route("/{host}/{page}", get(by_page))
 }
