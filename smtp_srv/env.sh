@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd ~/git/conf/prod/smtp
+cd ../../conf/prod/smtp
 set -a
 . conf.env
 . default.env
