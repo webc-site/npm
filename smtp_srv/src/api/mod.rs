@@ -22,12 +22,12 @@ pub async fn run() -> aok::Result<()> {
   let addr = SocketAddr::from(([0, 0, 0, 0], *SMTP_API_PORT));
 
   let authed = Router::new()
+    .route("/dkim/{domain}", get(dkim::get))
     .nest("/user", user::router())
     .layer(middleware::from_fn(auth));
 
   let app = Router::new()
     .route("/", get(|| async { "OK" }))
-    .route("/dkim/{domain}", get(dkim::get))
     .route("/send", post(send::send))
     .merge(authed);
 
