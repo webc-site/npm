@@ -58,21 +58,15 @@ pub async fn set(Json([email, password]): Json<[String; 2]>) -> Result<()> {
   let now_ts = ts_::sec() as f64;
 
   let pipeline = R.pipeline();
-  #[allow(clippy::let_underscore_future)]
-  let _ = pipeline
-    .set::<(), _, _>(&user_key[..], &val[..], None, None, false)
-    .await;
-  #[allow(clippy::let_underscore_future)]
-  let _ = pipeline
-    .zadd::<(), _, _>(
-      &domain_user_key[..],
-      None,
-      None,
-      false,
-      false,
-      (now_ts, prefix_bytes),
-    )
-    .await;
+  drop(pipeline.set::<(), _, _>(&user_key[..], &val[..], None, None, false));
+  drop(pipeline.zadd::<(), _, _>(
+    &domain_user_key[..],
+    None,
+    None,
+    false,
+    false,
+    (now_ts, prefix_bytes),
+  ));
   let _: () = pipeline.all().await?;
 
   Ok(())
