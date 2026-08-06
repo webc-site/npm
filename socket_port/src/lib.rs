@@ -31,7 +31,7 @@ pub fn listen(port: u16) -> Result<TcpListener> {
   // 创建 IPv6 Socket (Linux 上 IPv6 socket 默认可以兼容 IPv4)
 
   #[cfg(feature = "kill_port")]
-  kill_port::kill_port(port);
+  let _ = kill_port::kill_port(port);
 
   let socket = Socket::new(Domain::IPV6, Type::STREAM, None)?;
 
