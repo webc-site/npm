@@ -1,4 +1,4 @@
-use std::{io, net::SocketAddr, sync::Arc, time::Duration};
+use std::{io, sync::Arc, time::Duration};
 
 mod dns_server;
 use aok::{OK, Void};
@@ -6,7 +6,7 @@ use dns_server::{DNS_SERVER_LI, DnsServer};
 use futures::StreamExt;
 use hickory_resolver::{
   TokioResolver,
-  config::{ConnectionConfig, NameServerConfig, ProtocolConfig, ResolverConfig, ResolverOpts},
+  config::{ConnectionConfig, NameServerConfig, ProtocolConfig, ResolverConfig},
 };
 use pick_fast::PickFast;
 use race::Race;
@@ -26,9 +26,9 @@ fn create_resolver(server: &DnsServer) -> TokioResolver {
   let mut config = ResolverConfig::default();
   config.add_name_server(ns);
 
-  hickory_resolver::Resolver::builder_with_config(config, hickory_resolver::TokioRuntimeProvider::default())
-    .options(ResolverOpts::default())
+  hickory_resolver::Resolver::builder_with_config(config, Default::default())
     .build()
+    .unwrap()
 }
 
 /// Task struct for tracking DNS resolution / DNS 解析任务结构体

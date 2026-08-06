@@ -35,7 +35,7 @@ optional = true
 aok = "0.1.18"
 charts = "0.3.0"
 futures = "0.3"
-hickory-resolver = "0.26.1"
+hickory-resolver = { version = "0.26.0-alpha.1", features = ["tokio"] }
 log_init = "0.1.38"
 plotters = "0.3.7"
 plotters-svg = "0.3.7"

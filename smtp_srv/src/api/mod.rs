@@ -7,10 +7,7 @@ mod user;
 use std::net::SocketAddr;
 
 use auth::auth;
-use axum::{
-  Router, middleware,
-  routing::{delete, get, post},
-};
+use axum::{Router, middleware, routing::get};
 pub use error::{Error, Result};
 use graceful_restart::CANCEL;
 
@@ -22,10 +19,7 @@ pub async fn run() -> aok::Result<()> {
   let app = Router::new()
     .route("/", get(|| async { "OK" }))
     .route("/dkim/{domain}", get(dkim::get))
-    .route("/user/{email}", delete(user::rm))
-    .route("/user", post(user::set))
-    .route("/user/{host}", get(user::by_host))
-    .route("/user/{host}/{page}", get(user::by_page))
+    .nest("/user", user::router())
     .layer(middleware::from_fn(auth));
 
   let listener = tokio::net::TcpListener::bind(addr).await?;
