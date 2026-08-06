@@ -11,7 +11,6 @@
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
-    console.log("!!!", url);
     switch (url.pathname) {
       case "/":
         return new Response("smtp srv api");
