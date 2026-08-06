@@ -4,7 +4,7 @@ use sonic_rs::Serialize;
 use xkv::R;
 
 use crate::{
-  api::{Result, extractor::Host},
+  api::{Error, Result, extractor::Host},
   r::DOMAIN_USER,
 };
 
@@ -33,9 +33,9 @@ async fn ls(host: &str, page: usize) -> Result<Json<UserList>> {
   let domain_user_key = [DOMAIN_USER, host.as_bytes()].concat();
 
   let (total, list): (u64, Vec<String>) = tokio::try_join!(
-    async { Ok(R.zcard(&domain_user_key[..]).await.unwrap_or(0)) },
+    async { Ok::<u64, Error>(R.zcard(&domain_user_key[..]).await.unwrap_or(0)) },
     async {
-      Ok(
+      Ok::<Vec<String>, Error>(
         R.zrevrange(&domain_user_key[..], start, stop, false)
           .await
           .unwrap_or_default(),

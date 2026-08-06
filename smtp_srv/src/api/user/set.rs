@@ -59,7 +59,7 @@ pub async fn set(Json([email, password]): Json<[String; 2]>) -> Result<()> {
 
   let pipeline = R.pipeline();
   let _ = pipeline.set::<(), _, _>(&user_key[..], &val[..], None, None, false);
-  let _ = pipeline.zadd::<(), _, _, _>(
+  let _ = pipeline.zadd::<(), _, _>(
     &domain_user_key[..],
     None,
     None,
