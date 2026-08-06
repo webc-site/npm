@@ -1,10 +1,12 @@
-use axum::extract::Path;
+use axum::{Json, extract::Path};
 use fred::interfaces::SortedSetsInterface;
 use sonic_rs::Serialize;
 use xkv::R;
 
-use crate::api::extractor::Host;
-use crate::{api::Result, r::DOMAIN_USER};
+use crate::{
+  api::{Result, extractor::Host},
+  r::DOMAIN_USER,
+};
 
 const PAGE_SIZE: isize = 50;
 
@@ -15,17 +17,15 @@ pub struct UserList {
   pub list: Vec<String>,
 }
 
-pub async fn by_host(host: Host) -> Result<axum::Json<UserList>> {
-  get_user_list(&host.0, 1).await
+pub async fn by_host(host: Host) -> Result<Json<UserList>> {
+  ls(&host.0, 1).await
 }
 
-pub async fn by_page(
-  Path((host, page)): Path<(String, usize)>,
-) -> Result<axum::Json<UserList>> {
-  get_user_list(&host, page).await
+pub async fn by_page(Path((host, page)): Path<(String, usize)>) -> Result<Json<UserList>> {
+  ls(&host, page).await
 }
 
-async fn get_user_list(host: &str, page: usize) -> Result<axum::Json<UserList>> {
+async fn ls(host: &str, page: usize) -> Result<Json<UserList>> {
   let page = page.max(1);
   let start = ((page - 1) * (PAGE_SIZE as usize)) as isize;
   let stop = start + PAGE_SIZE - 1;
@@ -43,5 +43,5 @@ async fn get_user_list(host: &str, page: usize) -> Result<axum::Json<UserList>> 
     }
   )?;
 
-  Ok(axum::Json(UserList { total, page, list }))
+  Ok(Json(UserList { total, page, list }))
 }

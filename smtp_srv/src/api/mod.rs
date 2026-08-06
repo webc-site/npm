@@ -24,8 +24,8 @@ pub async fn run() -> aok::Result<()> {
     .route("/dkim/{domain}", get(dkim::get))
     .route("/user/{email}", delete(user::rm))
     .route("/user", post(user::set))
-    .route("/user/{host}", get(user::get_by_host))
-    .route("/user/{host}/{page}", get(user::get_by_page))
+    .route("/user/{host}", get(user::by_host))
+    .route("/user/{host}/{page}", get(user::by_page))
     .layer(middleware::from_fn(auth));
 
   let listener = tokio::net::TcpListener::bind(addr).await?;

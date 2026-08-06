@@ -1,5 +1,7 @@
-use axum::extract::{FromRequestParts, Path};
-use axum::http::request::Parts;
+use axum::{
+  extract::{FromRequestParts, Path},
+  http::request::Parts,
+};
 
 use crate::api::Error;
 
