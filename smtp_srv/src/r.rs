@@ -1,3 +1,7 @@
+use fred::{interfaces::KeysInterface, types::SetOptions};
+use intbin::to_bin;
+use xkv::R;
+
 pub const MAIL_FORWARD: &str = "mailForward";
 pub const MAIL_FORWARD_SET: &str = "mailForwardSet";
 
@@ -22,22 +26,67 @@ pub const DKIM_SK: &str = "smtpDkimSk";
 // host_id 自增计数器 (u64)
 pub const HOST_ID: &str = "smtpHostId";
 
+#[inline]
 pub fn domain_key(domain: impl AsRef<[u8]>) -> Vec<u8> {
-  [DOMAIN_HOST, domain.as_ref()].concat()
+  let domain = domain.as_ref();
+  let mut v = Vec::with_capacity(DOMAIN_HOST.len() + domain.len());
+  v.extend_from_slice(DOMAIN_HOST);
+  v.extend_from_slice(domain);
+  v
 }
 
+#[inline]
 pub fn user_key(domain: impl AsRef<[u8]>, prefix: impl AsRef<[u8]>) -> Vec<u8> {
-  [USER, domain.as_ref(), b":", prefix.as_ref()].concat()
+  let domain = domain.as_ref();
+  let prefix = prefix.as_ref();
+  let mut v = Vec::with_capacity(USER.len() + domain.len() + 1 + prefix.len());
+  v.extend_from_slice(USER);
+  v.extend_from_slice(domain);
+  v.push(b':');
+  v.extend_from_slice(prefix);
+  v
 }
 
+#[inline]
 pub fn domain_user_key(domain: impl AsRef<[u8]>) -> Vec<u8> {
-  [DOMAIN_USER, domain.as_ref()].concat()
+  let domain = domain.as_ref();
+  let mut v = Vec::with_capacity(DOMAIN_USER.len() + domain.len());
+  v.extend_from_slice(DOMAIN_USER);
+  v.extend_from_slice(domain);
+  v
 }
 
+#[inline]
 pub fn host_dkim_key(host_id_bytes: &[u8]) -> Vec<u8> {
-  [HOST_DKIM, host_id_bytes].concat()
+  let mut v = Vec::with_capacity(HOST_DKIM.len() + host_id_bytes.len());
+  v.extend_from_slice(HOST_DKIM);
+  v.extend_from_slice(host_id_bytes);
+  v
 }
 
+#[inline]
 pub fn host_dkim_private_key(host_id_bytes: &[u8]) -> Vec<u8> {
-  [HOST_DKIM_KEY, host_id_bytes].concat()
+  let mut v = Vec::with_capacity(HOST_DKIM_KEY.len() + host_id_bytes.len());
+  v.extend_from_slice(HOST_DKIM_KEY);
+  v.extend_from_slice(host_id_bytes);
+  v
+}
+
+pub async fn get_or_alloc_host_id(domain: &str) -> aok::Result<Vec<u8>> {
+  let domain_key = domain_key(domain);
+  if let Some(id) = R.get::<Option<Vec<u8>>, _>(&domain_key[..]).await.ok().flatten() {
+    return Ok(id);
+  }
+  let host_id: u64 = R.incr(HOST_ID).await?;
+  let id_bytes = to_bin(host_id);
+  let _ = R
+    .set::<(), _, _>(
+      &domain_key[..],
+      id_bytes.as_ref(),
+      None,
+      Some(SetOptions::NX),
+      false,
+    )
+    .await;
+  Ok(id_bytes.to_vec())
 }

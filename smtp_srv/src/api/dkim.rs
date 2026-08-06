@@ -1,10 +1,9 @@
 use axum::{Json, extract::Path};
 use fred::{interfaces::KeysInterface, types::SetOptions};
-use intbin::to_bin;
 use xkv::R;
 
 use super::{Error, Result};
-use crate::r::{DKIM_SK, DOMAIN_HOST, HOST_DKIM, HOST_ID};
+use crate::r::{self, DKIM_SK};
 
 const SELECTOR: &str = "webc-site";
 
@@ -32,29 +31,11 @@ pub async fn get(Path(domain): Path<String>) -> Result<Json<[String; 2]>> {
     }
   };
 
-  // 查询或分配域名的 host_id (smtpDomainHost:domain)
-  let domain_key = [DOMAIN_HOST, domain.as_bytes()].concat();
+  // 查询或分配域名的 host_id
+  let host_id_bytes = r::get_or_alloc_host_id(&domain).await?;
 
-  let host_id_bytes: Vec<u8> = match R.get(&domain_key[..]).await.ok().flatten() {
-    Some(id) => id,
-    None => {
-      let host_id: u64 = R.incr(HOST_ID).await?;
-      let id_bytes = to_bin(host_id);
-      let _ = R
-        .set::<(), _, _>(
-          &domain_key[..],
-          id_bytes.as_ref(),
-          None,
-          Some(SetOptions::NX),
-          false,
-        )
-        .await;
-      id_bytes.to_vec()
-    }
-  };
-
-  // 绑定 host_id 的 DKIM selector (smtpHostDkim:host_id) 供发信端调用
-  let host_dkim_key = [HOST_DKIM, &host_id_bytes[..]].concat();
+  // 绑定 host_id 的 DKIM selector 供发信端调用
+  let host_dkim_key = r::host_dkim_key(&host_id_bytes);
   if R
     .get::<Option<Vec<u8>>, _>(&host_dkim_key[..])
     .await

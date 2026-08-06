@@ -1,13 +1,9 @@
-use fred::{
-  interfaces::{KeysInterface, SortedSetsInterface},
-  types::SetOptions,
-};
-use intbin::to_bin;
+use fred::interfaces::{KeysInterface, SortedSetsInterface};
 use xkv::R;
 
 use crate::{
   api::{Error, Result, extractor::Json},
-  r::{self, HOST_ID},
+  r,
 };
 
 pub async fn set(Json([email, password]): Json<[String; 2]>) -> Result<()> {
@@ -23,27 +19,7 @@ pub async fn set(Json([email, password]): Json<[String; 2]>) -> Result<()> {
     return Err(Error::BadRequest);
   }
 
-  let domain_key = r::domain_key(host);
-
-  if R
-    .get::<Option<Vec<u8>>, _>(&domain_key[..])
-    .await
-    .ok()
-    .flatten()
-    .is_none()
-  {
-    let host_id: u64 = R.incr(HOST_ID).await?;
-    let id_bytes = to_bin(host_id);
-    let _ = R
-      .set::<(), _, _>(
-        &domain_key[..],
-        id_bytes.as_ref(),
-        None,
-        Some(SetOptions::NX),
-        false,
-      )
-      .await;
-  }
+  let _ = r::get_or_alloc_host_id(host).await?;
 
   let (salt, hash) = password_::hash(&password);
   let mut val = [0u8; 48];

@@ -5,7 +5,7 @@ use xkv::R;
 
 use crate::{
   api::{Error, Result, extractor::Host},
-  r::DOMAIN_USER,
+  r,
 };
 
 const PAGE_SIZE: i64 = 50;
@@ -30,7 +30,7 @@ async fn ls(host: &str, page: usize) -> Result<Json<UserList>> {
   let start = (page - 1) as i64 * PAGE_SIZE;
   let stop = start + PAGE_SIZE - 1;
 
-  let domain_user_key = [DOMAIN_USER, host.as_bytes()].concat();
+  let domain_user_key = r::domain_user_key(host);
 
   let (total, list): (u64, Vec<String>) = tokio::try_join!(
     async { Ok::<u64, Error>(R.zcard(&domain_user_key[..]).await.unwrap_or(0)) },
