@@ -1,18 +1,17 @@
-mod extractor;
-mod json;
 mod ls;
 mod rm;
 mod set;
 
-pub use extractor::{Email, Host};
-pub use json::Json;
 pub use ls::{get_by_host, get_by_page};
 pub use rm::rm;
 
 use set::set;
 use sonic_rs::Deserialize;
 
-use crate::api::{Error, Result};
+use crate::api::{
+  Error, Result,
+  extractor::{Email, Json},
+};
 
 #[derive(Deserialize)]
 pub struct UserReq {

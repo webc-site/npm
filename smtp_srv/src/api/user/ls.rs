@@ -3,7 +3,7 @@ use fred::interfaces::SortedSetsInterface;
 use sonic_rs::Serialize;
 use xkv::R;
 
-use super::Host;
+use crate::api::extractor::Host;
 use crate::{api::Result, r::DOMAIN_USER};
 
 const PAGE_SIZE: isize = 50;

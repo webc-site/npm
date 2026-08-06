@@ -1,6 +1,7 @@
 mod auth;
 mod dkim;
 mod error;
+pub mod extractor;
 mod user;
 
 use std::net::SocketAddr;
@@ -23,8 +24,8 @@ pub async fn run() -> aok::Result<()> {
     .route("/dkim/{domain}", get(dkim::get))
     .route("/user/{email}", post(user::set_by_path).delete(user::rm))
     .route("/user", post(user::set_by_body))
-    .route("/user/{domain}", get(user::get_by_domain))
-    .route("/user/{domain}/{page}", get(user::get_by_page))
+    .route("/user/{host}", get(user::get_by_host))
+    .route("/user/{host}/{page}", get(user::get_by_page))
     .layer(middleware::from_fn(auth));
 
   let listener = tokio::net::TcpListener::bind(addr).await?;
