@@ -1,7 +1,7 @@
 use fred::interfaces::{KeysInterface, SortedSetsInterface};
 use xkv::R;
 
-use super::Email;
+use crate::api::extractor::Email;
 use crate::{
   api::Result,
   r::{DOMAIN_HOST, DOMAIN_USER, HOST_DKIM, HOST_DKIM_KEY, USER},
