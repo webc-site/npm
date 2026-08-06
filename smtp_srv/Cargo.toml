@@ -23,11 +23,11 @@ fred = "10.1.0"
 genv = "0.1.18"
 intbin = "0.2.4"
 log = "0.4.33"
-rustls = "0.23.41"
+rustls = "0.23.43"
 xbin = "0.1.14"
 xboot = "0.1.39"
-mail-send = "0.6.0"
-rustls-pki-types = "1.15.0"
+mail-send = "0.6.1"
+rustls-pki-types = "1.15.1"
 
 [dependencies.password_]
 version = "0.1.2"
@@ -91,7 +91,7 @@ version = "0.1.4"
 path = "../ssl_trait"
 
 [dependencies.tokio]
-version = "1.52.3"
+version = "1.53.1"
 features = ["rt-multi-thread"]
 
 [dev-dependencies]

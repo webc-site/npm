@@ -29,8 +29,8 @@ log_init = "0.1.38"
 static_init = { version = "1.0.4", features = ["parking_lot"] }
 
 [dev-dependencies.tokio]
-version = "1.52.3"
+version = "1.53.1"
 features = ["macros", "rt", "rt-multi-thread", "time", "sync"]
 
 [dependencies]
-anyhow = "1.0.103"
+anyhow = "1.0.104"

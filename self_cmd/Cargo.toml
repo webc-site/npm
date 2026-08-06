@@ -23,7 +23,7 @@ log_init = "0.1.38"
 static_init = { version = "1.0.4", features = ["parking_lot"] }
 
 [dev-dependencies.tokio]
-version = "1.52.3"
+version = "1.53.1"
 features = ["macros", "rt", "rt-multi-thread", "time", "sync"]
 
 [target.'cfg(target_os = "linux")'.dependencies]
@@ -32,4 +32,4 @@ libc = "0.2"
 
 [dependencies]
 log = "0.4.33"
-thiserror = "2.0.18"
+thiserror = "2.0.19"

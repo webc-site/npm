@@ -23,8 +23,8 @@ all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
 
 [dependencies]
-anyhow = "1.0.103"
-rustls = "0.23.41"
+anyhow = "1.0.104"
+rustls = "0.23.43"
 
 [dev-dependencies]
 aok = "0.1.18"
@@ -33,5 +33,5 @@ log_init = "0.1.38"
 static_init = { version = "1.0.4", features = ["parking_lot"] }
 
 [dev-dependencies.tokio]
-version = "1.52.3"
+version = "1.53.1"
 features = ["macros", "rt", "rt-multi-thread", "time", "sync"]

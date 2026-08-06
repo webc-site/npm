@@ -28,5 +28,5 @@ default = []
 rand = ["dep:fastrand"]
 
 [dependencies.fastrand]
-version = "2.4.1"
+version = "2.5.0"
 optional = true

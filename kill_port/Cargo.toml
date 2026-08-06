@@ -29,7 +29,7 @@ log_init = "0.1.38"
 static_init = { version = "1.0.4", features = ["parking_lot"] }
 
 [dependencies]
-listeners = "0.6.0"
+listeners = "0.6.1"
 log = "0.4.33"
 
 [target.'cfg(unix)'.dependencies.nix]

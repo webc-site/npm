@@ -19,7 +19,7 @@ encode = []
 decode = []
 
 [dependencies]
-thiserror = "2.0.18"
+thiserror = "2.0.19"
 
 [dev-dependencies]
 aok = "0.1.18"

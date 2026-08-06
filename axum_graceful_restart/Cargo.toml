@@ -17,21 +17,21 @@ default = []
 
 [dependencies]
 axum = "0.8.9"
-libc = "0.2.186"
-thiserror = "2.0.18"
+libc = "0.2.189"
+thiserror = "2.0.19"
 tracing = "0.1.44"
 
 [dependencies.tokio]
-version = "1.52.3"
+version = "1.53.1"
 features = ["fs", "io-util", "macros", "process", "rt", "rt-multi-thread", "signal", "time"]
 
 [target."cfg(windows)".dependencies]
 kill_tree = "0.2.4"
-listeners = "0.6.0"
+listeners = "0.6.1"
 
 [dev-dependencies]
 aok = "0.1.18"
-libc = "0.2.186"
+libc = "0.2.189"
 loginit = "0.1.18"
 reqwest = "0.13.4"
 static_init = "1.0.4"
@@ -39,5 +39,5 @@ tracing = "0.1.44"
 
 
 [dev-dependencies.tokio]
-version = "1.52.3"
+version = "1.53.1"
 features = ["macros", "rt", "rt-multi-thread", "sync"]

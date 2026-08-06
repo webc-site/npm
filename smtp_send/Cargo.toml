@@ -19,14 +19,14 @@ default = []
 [dependencies]
 bitcode = "0.6.9"
 genv = "0.1.18"
-jiff = "0.2.31"
+jiff = "0.2.35"
 log = "0.4.33"
 log_init = "0.1.38"
-mail-parser = "0.11.4"
-mail-send = "0.6.0"
+mail-parser = "0.11.5"
+mail-send = "0.6.1"
 papaya = "0.2.4"
 rsa = "0.10.0-rc.18"
-rustls-pki-types = "1.15.0"
+rustls-pki-types = "1.15.1"
 serde_yaml_bw = "2.5.6"
 tar = "0.4"
 tokio-rustls = "0.26.4"
@@ -57,7 +57,7 @@ version = "1.0"
 features = ["derive"]
 
 [dependencies.smtp-proto]
-version = "0.2.1"
+version = "0.2.2"
 features = ["serde"]
 
 [dependencies.sk_dkim]
@@ -70,15 +70,15 @@ path = "../mail_struct"
 features = ["encode", "send"]
 
 [dependencies.tokio]
-version = "1.52.3"
+version = "1.53.1"
 features = ["rt-multi-thread"]
 
 [dev-dependencies]
 aok = "0.1.18"
-jiff = "0.2.31"
+jiff = "0.2.35"
 log = "0.4.33"
 log_init = "0.1.38"
-rustls = "0.23.41"
+rustls = "0.23.43"
 
 [dev-dependencies.static_init]
 version = "1.0.4"
@@ -90,5 +90,5 @@ features = ["pk"]
 version = "0.1.8"
 
 [dev-dependencies.tokio]
-version = "1.52.3"
+version = "1.53.1"
 features = ["macros", "rt", "rt-multi-thread", "time", "sync"]

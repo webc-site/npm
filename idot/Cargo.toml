@@ -24,10 +24,10 @@ default = ["static"]
 static = ["dep:static_init"]
 
 [dependencies]
-bytes = "1.12.0"
+bytes = "1.12.1"
 hipstr = "0.8"
-thiserror = "2.0.18"
-webpki-roots = "1.0.8"
+thiserror = "2.0.19"
+webpki-roots = "1.0.9"
 tokio-rustls = "0.26"
 
 [dependencies.static_init]
@@ -44,11 +44,11 @@ version = "0.2.13"
 path = "../idns"
 
 [dependencies.rustls]
-version = "0.23.41"
+version = "0.23.43"
 features = ["ring"]
 
 [dependencies.tokio]
-version = "1.52.3"
+version = "1.53.1"
 features = ["io-util", "net", "sync", "time"]
 
 [dev-dependencies]
@@ -66,5 +66,5 @@ path = "../idns"
 features = ["mx", "cache"]
 
 [dev-dependencies.tokio]
-version = "1.52.3"
+version = "1.53.1"
 features = ["macros", "rt", "rt-multi-thread", "time", "sync"]

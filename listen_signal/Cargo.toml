@@ -27,6 +27,6 @@ futures = "0.3"
 log = "0.4.33"
 log_init = "0.1.38"
 static_init = { version = "1.0.4", features = ["parking_lot"] }
-tokio = { version = "1.52.3", features = ["rt-multi-thread", "macros", "time"] }
+tokio = { version = "1.53.1", features = ["rt-multi-thread", "macros", "time"] }
 tokio-test = "0.4"
 libc = "0.2"

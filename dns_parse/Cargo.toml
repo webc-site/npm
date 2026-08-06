@@ -17,9 +17,9 @@ rustdoc-args = ["--cfg", "docsrs"]
 default = []
 
 [dependencies]
-bytes = "1.12.0"
+bytes = "1.12.1"
 hex = "0.4.3"
-thiserror = "2.0.18"
+thiserror = "2.0.19"
 
 [dependencies.idns]
 version = "0.2.16"
@@ -32,5 +32,5 @@ log_init = "0.1.38"
 static_init = "1.0.4"
 
 [dev-dependencies.tokio]
-version = "1.52.3"
+version = "1.53.1"
 features = ["macros", "rt", "rt-multi-thread", "time", "sync"]

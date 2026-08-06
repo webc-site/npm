@@ -35,7 +35,7 @@ log = "0.4.33"
 loginit = "0.1.18"
 mimalloc = "0.1.52"
 svg_captcha = { version = "0.1.25", features = ["verify"] }
-thiserror = "2.0.18"
+thiserror = "2.0.19"
 tokio = { version = "1.53.1", features = ["macros", "net", "rt-multi-thread"] }
 uuid = { version = "1.24.0", features = ["v4"] }
 vb = "0.2.7"

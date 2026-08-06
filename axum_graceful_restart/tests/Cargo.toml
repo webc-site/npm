@@ -5,7 +5,7 @@ edition = "2024"
 
 [dependencies]
 axum = "0.8.9"
-libc = "0.2.186"
+libc = "0.2.189"
 reqwest = "0.13.4"
 
 [dependencies.kill_port]
@@ -20,5 +20,5 @@ path = ".."
 version = "0.1.18"
 
 [dependencies.tokio]
-version = "1.52.3"
+version = "1.53.1"
 features = ["rt", "macros", "rt-multi-thread", "signal"]

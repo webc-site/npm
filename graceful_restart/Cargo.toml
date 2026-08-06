@@ -29,15 +29,15 @@ version = "1.0.4"
 features = ["parking_lot"]
 
 [dev-dependencies.tokio]
-version = "1.52.3"
+version = "1.53.1"
 features = ["macros", "rt", "rt-multi-thread", "time", "sync"]
 
 [dependencies]
-futures = "0.3.32"
-linkme = "0.3.36"
+futures = "0.3.33"
+linkme = "0.3.37"
 log = "0.4.33"
-thiserror = "2.0.18"
-tokio-util = "0.7.18"
+thiserror = "2.0.19"
+tokio-util = "0.7.19"
 xboot = "0.1.39"
 
 [dependencies.listen_signal]
@@ -45,7 +45,7 @@ version = "0.1.16"
 path = "../listen_signal"
 
 [dependencies.tokio]
-version = "1.52.3"
+version = "1.53.1"
 features = ["macros", "process", "rt", "signal", "time"]
 
 [target."cfg(unix)".dependencies]

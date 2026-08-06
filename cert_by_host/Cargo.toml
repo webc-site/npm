@@ -20,15 +20,15 @@ ignored = ["linkme"]
 default = []
 
 [dependencies]
-anyhow = "1.0.103"
+anyhow = "1.0.104"
 coarsetime = "0.1.37"
 fred = "10.1.0"
-linkme = "0.3.36"
+linkme = "0.3.37"
 papaya = "0.2.4"
 parking_lot = "0.12.5"
 rustls-pemfile = "2.2.0"
 sonic-rs = "0.5.8"
-thiserror = "2.0.18"
+thiserror = "2.0.19"
 x509-parser = "0.18.1"
 xboot = "0.1.39"
 
@@ -41,7 +41,7 @@ version = "0.1.4"
 path = "../ssl_trait"
 
 [dependencies.tokio]
-version = "1.52.3"
+version = "1.53.1"
 features = ["time"]
 
 [dependencies.expire_set]
@@ -63,5 +63,5 @@ version = "1.0.4"
 features = ["parking_lot"]
 
 [dev-dependencies.tokio]
-version = "1.52.3"
+version = "1.53.1"
 features = ["macros", "rt", "rt-multi-thread", "time", "sync"]

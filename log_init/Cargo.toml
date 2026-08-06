@@ -21,7 +21,7 @@ systemd = ["dep:logforth-append-journald"]
 [dependencies]
 coarsetime = "0.1.37"
 colored = "3.1.1"
-jiff = "0.2.31"
+jiff = "0.2.35"
 static_init = { version = "1.0.4", features = ["parking_lot"] }
 
 [dependencies.log]
