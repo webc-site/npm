@@ -1,3 +1,3 @@
 export default {
-  entry: ["examples/*.js", "test/*.js"]
+  entry: ["api/src/index.js", "examples/*.js", "test/*.js"]
 };
