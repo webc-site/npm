@@ -5,10 +5,8 @@ use axum::{
   response::Response,
 };
 
-genv::s!(
-  SMTP_API_USER: String;
-  SMTP_API_PASSWORD: String
-);
+genv::s!(SMTP_API_USER: String);
+genv::s!(SMTP_API_PASSWORD: String);
 
 pub async fn auth(
   headers: HeaderMap,
