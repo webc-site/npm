@@ -3,20 +3,20 @@ use xkv::R;
 
 use crate::{
   api::{Result, extractor::Email},
-  r::{DOMAIN_HOST, DOMAIN_USER, HOST_DKIM, HOST_DKIM_KEY, USER},
+  r,
 };
 
 pub async fn rm(email: Email) -> Result<()> {
-  let host_bytes = email.host.as_bytes();
-  let prefix_bytes = email.prefix.as_bytes();
+  let host = email.host.as_str();
+  let prefix = email.prefix.as_str();
 
-  let user_key = [USER, host_bytes, b":", prefix_bytes].concat();
-  let domain_user_key = [DOMAIN_USER, host_bytes].concat();
-  let domain_key = [DOMAIN_HOST, host_bytes].concat();
+  let user_key = r::user_key(host, prefix);
+  let domain_user_key = r::domain_user_key(host);
+  let domain_key = r::domain_key(host);
 
   let pipeline = R.pipeline();
   drop(pipeline.del::<(), _>(&user_key[..]));
-  drop(pipeline.zrem::<(), _, _>(&domain_user_key[..], prefix_bytes));
+  drop(pipeline.zrem::<(), _, _>(&domain_user_key[..], prefix));
   let _: () = pipeline.all().await?;
 
   let count: u64 = R.zcard(&domain_user_key[..]).await.unwrap_or(0);
@@ -27,8 +27,8 @@ pub async fn rm(email: Email) -> Result<()> {
       .ok()
       .flatten()
     {
-      let host_dkim_key = [HOST_DKIM, &id_bytes[..]].concat();
-      let host_dkim_key_key = [HOST_DKIM_KEY, &id_bytes[..]].concat();
+      let host_dkim_key = r::host_dkim_key(&id_bytes);
+      let host_dkim_key_key = r::host_dkim_private_key(&id_bytes);
       let _: () = R
         .del((
           &domain_key[..],

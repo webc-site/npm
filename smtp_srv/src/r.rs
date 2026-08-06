@@ -21,3 +21,23 @@ pub const DKIM_SK: &str = "smtpDkimSk";
 
 // host_id 自增计数器 (u64)
 pub const HOST_ID: &str = "smtpHostId";
+
+pub fn domain_key(domain: impl AsRef<[u8]>) -> Vec<u8> {
+  [DOMAIN_HOST, domain.as_ref()].concat()
+}
+
+pub fn user_key(domain: impl AsRef<[u8]>, prefix: impl AsRef<[u8]>) -> Vec<u8> {
+  [USER, domain.as_ref(), b":", prefix.as_ref()].concat()
+}
+
+pub fn domain_user_key(domain: impl AsRef<[u8]>) -> Vec<u8> {
+  [DOMAIN_USER, domain.as_ref()].concat()
+}
+
+pub fn host_dkim_key(host_id_bytes: &[u8]) -> Vec<u8> {
+  [HOST_DKIM, host_id_bytes].concat()
+}
+
+pub fn host_dkim_private_key(host_id_bytes: &[u8]) -> Vec<u8> {
+  [HOST_DKIM_KEY, host_id_bytes].concat()
+}

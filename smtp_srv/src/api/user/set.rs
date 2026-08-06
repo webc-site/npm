@@ -7,7 +7,7 @@ use xkv::R;
 
 use crate::{
   api::{Error, Result, extractor::Json},
-  r::{DOMAIN_HOST, DOMAIN_USER, HOST_ID, USER},
+  r::{self, HOST_ID},
 };
 
 pub async fn set(Json([email, password]): Json<[String; 2]>) -> Result<()> {
@@ -23,8 +23,7 @@ pub async fn set(Json([email, password]): Json<[String; 2]>) -> Result<()> {
     return Err(Error::BadRequest);
   }
 
-  let host_bytes = host.as_bytes();
-  let domain_key = [DOMAIN_HOST, host_bytes].concat();
+  let domain_key = r::domain_key(host);
 
   if R
     .get::<Option<Vec<u8>>, _>(&domain_key[..])
@@ -51,9 +50,8 @@ pub async fn set(Json([email, password]): Json<[String; 2]>) -> Result<()> {
   val[..16].copy_from_slice(&salt);
   val[16..].copy_from_slice(&hash);
 
-  let prefix_bytes = prefix.as_bytes();
-  let user_key = [USER, host_bytes, b":", prefix_bytes].concat();
-  let domain_user_key = [DOMAIN_USER, host_bytes].concat();
+  let user_key = r::user_key(host, prefix);
+  let domain_user_key = r::domain_user_key(host);
 
   let now_ts = ts_::sec() as f64;
 
@@ -65,7 +63,7 @@ pub async fn set(Json([email, password]): Json<[String; 2]>) -> Result<()> {
     None,
     false,
     false,
-    (now_ts, prefix_bytes),
+    (now_ts, prefix.as_bytes()),
   ));
   let _: () = pipeline.all().await?;
 

@@ -12,8 +12,14 @@ pub enum Error {
   #[error("Bad Request")]
   BadRequest,
 
+  #[error("Unauthorized")]
+  Unauthorized,
+
   #[error(transparent)]
   Fred(#[from] FredError),
+
+  #[error(transparent)]
+  Aok(#[from] aok::Error),
 
   #[error(transparent)]
   GetRandom(#[from] getrandom::Error),
@@ -26,6 +32,7 @@ impl IntoResponse for Error {
   fn into_response(self) -> Response {
     match self {
       Error::BadRequest => StatusCode::BAD_REQUEST.into_response(),
+      Error::Unauthorized => StatusCode::UNAUTHORIZED.into_response(),
       _ => StatusCode::INTERNAL_SERVER_ERROR.into_response(),
     }
   }

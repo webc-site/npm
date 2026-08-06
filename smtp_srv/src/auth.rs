@@ -6,7 +6,24 @@ use fred::interfaces::KeysInterface;
 use tokio::time::sleep;
 use xkv::R;
 
-use crate::r::{DOMAIN_HOST, USER};
+use crate::r;
+
+pub async fn verify_user(prefix: &str, domain: &str, password: &str) -> Result<Option<Vec<u8>>> {
+  let domain_key = r::domain_key(domain);
+  let user_key = r::user_key(domain, prefix);
+
+  let data: Vec<Option<Vec<u8>>> = R.mget((&domain_key[..], &user_key[..])).await?;
+  if let [Some(host_id_bytes), Some(pass_bytes)] = &data[..]
+    && pass_bytes.len() == 48
+  {
+    let salt = &pass_bytes[0..16];
+    let hash = &pass_bytes[16..48];
+    if password_::verify(password.as_bytes(), salt, hash) {
+      return Ok(Some(host_id_bytes.clone()));
+    }
+  }
+  Ok(None)
+}
 
 #[derive(Clone)]
 pub struct AuthKvrocks;
@@ -19,19 +36,8 @@ impl Auth for AuthKvrocks {
     let domain = domain.to_lowercase();
     let prefix = prefix.to_lowercase();
 
-    let domain_key = [DOMAIN_HOST, domain.as_bytes()].concat();
-    let user_key = [USER, domain.as_bytes(), b":", prefix.as_bytes()].concat();
-
-    let data: Vec<Option<Vec<u8>>> = R.mget((&domain_key[..], &user_key[..])).await?;
-    if data.len() == 2
-      && let (Some(host_id_bytes), Some(pass_bytes)) = (&data[0], &data[1])
-      && pass_bytes.len() == 48
-    {
-      let salt = &pass_bytes[0..16];
-      let hash = &pass_bytes[16..48];
-      if password_::verify(password.as_bytes(), salt, hash) {
-        return Ok(Some(intbin::bin_u64(host_id_bytes)));
-      }
+    if let Some(host_id_bytes) = verify_user(&prefix, &domain, password).await? {
+      return Ok(Some(intbin::bin_u64(&host_id_bytes)));
     } else {
       sleep(Duration::from_millis(100)).await;
     }

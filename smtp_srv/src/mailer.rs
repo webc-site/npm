@@ -9,7 +9,7 @@ use mail_send::mail_auth::{
 use mail_struct::{Mail, UserMail};
 use smtp_send::{Send, send};
 
-use crate::r::{DOMAIN_HOST, HOST_DKIM, HOST_DKIM_KEY};
+use crate::r;
 
 #[derive(Clone)]
 pub struct Mailer {
@@ -32,9 +32,9 @@ impl Mailer {
   }
 }
 
-async fn sign_and_send(sk: &[u8; 32], host_id_bytes: &[u8], mut mail: Mail) -> Void {
-  let host_dkim_key = [HOST_DKIM, host_id_bytes].concat();
-  let host_dkim_private_key = [HOST_DKIM_KEY, host_id_bytes].concat();
+pub(crate) async fn sign_and_send(sk: &[u8; 32], host_id_bytes: &[u8], mut mail: Mail) -> Void {
+  let host_dkim_key = r::host_dkim_key(host_id_bytes);
+  let host_dkim_private_key = r::host_dkim_private_key(host_id_bytes);
 
   let selector_bytes: Option<Vec<u8>> = xkv::R.get(&host_dkim_key[..]).await.ok().flatten();
   if let Some(selector_bytes) = selector_bytes
@@ -99,7 +99,7 @@ impl smtp_recv::Mailer for Mailer {
   }
 
   async fn forward(&self, mail: Mail) -> Void {
-    let domain_key = [DOMAIN_HOST, mail.sender_host.as_bytes()].concat();
+    let domain_key = r::domain_key(&mail.sender_host);
     let host_id_bytes: Option<Vec<u8>> = xkv::R.get(&domain_key[..]).await.ok().flatten();
     if let Some(sk) = &self.sk
       && let Some(id_bytes) = host_id_bytes
