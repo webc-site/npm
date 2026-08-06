@@ -10,6 +10,7 @@ use auth::auth;
 use axum::{Router, middleware, routing::get};
 pub use error::{Error, Result};
 use graceful_restart::CANCEL;
+use tokio::net::TcpListener;
 
 genv::s!(SMTP_API_PORT: u16);
 
@@ -22,7 +23,7 @@ pub async fn run() -> aok::Result<()> {
     .nest("/user", user::router())
     .layer(middleware::from_fn(auth));
 
-  let listener = tokio::net::TcpListener::bind(addr).await?;
+  let listener = TcpListener::bind(addr).await?;
   log::info!("smtp_srv api listening on {addr}");
 
   axum::serve(listener, app)

@@ -1,7 +1,10 @@
+use std::result::Result as StdResult;
+
 use axum::{
   http::StatusCode,
   response::{IntoResponse, Response},
 };
+use fred::error::Error as FredError;
 use thiserror::Error;
 
 #[derive(Error, Debug)]
@@ -10,7 +13,7 @@ pub enum Error {
   BadRequest,
 
   #[error(transparent)]
-  Fred(#[from] fred::error::Error),
+  Fred(#[from] FredError),
 
   #[error(transparent)]
   GetRandom(#[from] getrandom::Error),
@@ -28,4 +31,4 @@ impl IntoResponse for Error {
   }
 }
 
-pub type Result<T, E = Error> = std::result::Result<T, E>;
+pub type Result<T, E = Error> = StdResult<T, E>;

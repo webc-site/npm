@@ -15,8 +15,12 @@ pub async fn rm(email: Email) -> Result<()> {
   let domain_key = [DOMAIN_HOST, host_bytes].concat();
 
   let pipeline = R.pipeline();
-  let _ = pipeline.del::<(), _>(&user_key[..]);
-  let _ = pipeline.zrem::<(), _, _>(&domain_user_key[..], prefix_bytes);
+  #[allow(clippy::let_underscore_future)]
+  let _ = pipeline.del::<(), _>(&user_key[..]).await;
+  #[allow(clippy::let_underscore_future)]
+  let _ = pipeline
+    .zrem::<(), _, _>(&domain_user_key[..], prefix_bytes)
+    .await;
   let _: () = pipeline.all().await?;
 
   let count: u64 = R.zcard(&domain_user_key[..]).await.unwrap_or(0);

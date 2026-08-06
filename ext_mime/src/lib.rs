@@ -3,6 +3,8 @@
 mod ext_mime;
 mod mime;
 
+use std::str::from_utf8_unchecked;
+
 pub use ext_mime::EXT_MIME;
 pub use mime::*;
 
@@ -26,7 +28,7 @@ pub fn ext(file_name: &str) -> &str {
       if prev == b'/' {
         return "";
       }
-      return unsafe { std::str::from_utf8_unchecked(&bytes[i + 1..]) };
+      return unsafe { from_utf8_unchecked(&bytes[i + 1..]) };
     }
     #[cfg(windows)]
     if b == b'/' || b == b'\\' {
@@ -52,7 +54,7 @@ pub fn mime(file_name: &str) -> &'static str {
     *dest = src.to_ascii_lowercase();
   }
 
-  let ext_lower = unsafe { std::str::from_utf8_unchecked(&buf[..len]) };
+  let ext_lower = unsafe { from_utf8_unchecked(&buf[..len]) };
 
   EXT_MIME
     .get(ext_lower)

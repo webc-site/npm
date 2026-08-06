@@ -1,11 +1,15 @@
 mod error;
 mod r#impl;
 
-use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
+use std::{
+  ops::Deref,
+  sync::atomic::{AtomicBool, AtomicU64, Ordering},
+};
 
 pub use error::{Error, Result};
 use hipstr::HipStr;
 use parking_lot::{Mutex, RawMutex, lock_api::RawMutex as _};
+use tokio::sync::Mutex as AsyncMutex;
 use ts_::sec as ts_sec;
 
 // 预加载时长（秒）/ preload duration in seconds
@@ -51,7 +55,7 @@ impl<T> CachePadded<T> {
   }
 }
 
-impl<T> std::ops::Deref for CachePadded<T> {
+impl<T> Deref for CachePadded<T> {
   type Target = T;
   #[inline]
   fn deref(&self) -> &Self::Target {
@@ -89,7 +93,7 @@ pub struct KvId {
   pub name: HipStr<'static>,
   fast: Fast,
   slow: Mutex<Slow>,
-  fetch_lock: tokio::sync::Mutex<()>,
+  fetch_lock: AsyncMutex<()>,
 }
 
 impl KvId {
@@ -100,7 +104,7 @@ impl KvId {
       // RawMutex::INIT 是初始状态值，非共享实例
       // RawMutex::INIT is init state value, not shared instance
       slow: Mutex::const_new(RawMutex::INIT, Slow::new()),
-      fetch_lock: tokio::sync::Mutex::const_new(()),
+      fetch_lock: AsyncMutex::const_new(()),
     }
   }
 
@@ -109,7 +113,7 @@ impl KvId {
       name: name.into(),
       fast: Fast::new(),
       slow: Mutex::new(Slow::new()),
-      fetch_lock: tokio::sync::Mutex::new(()),
+      fetch_lock: AsyncMutex::new(()),
     }
   }
 
