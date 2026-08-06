@@ -15,11 +15,11 @@ pub struct UserList {
   pub list: Vec<String>,
 }
 
-pub async fn get_by_host(host: Host) -> Result<axum::Json<UserList>> {
+pub async fn by_host(host: Host) -> Result<axum::Json<UserList>> {
   get_user_list(&host.0, 1).await
 }
 
-pub async fn get_by_page(
+pub async fn by_page(
   Path((host, page)): Path<(String, usize)>,
 ) -> Result<axum::Json<UserList>> {
   get_user_list(&host, page).await
