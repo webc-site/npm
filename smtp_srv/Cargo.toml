@@ -14,7 +14,8 @@ all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
 
 [features]
-default = []
+default = ["api"]
+api = ["dep:axum"]
 kill_port = ["smtp_recv/kill_port"]
 
 [dependencies]
@@ -28,6 +29,7 @@ xbin = "0.1.14"
 xboot = "0.1.39"
 mail-send = "0.6.1"
 rustls-pki-types = "1.15.1"
+axum = { version = "0.8.9", optional = true }
 
 [dependencies.password_]
 version = "0.1.2"

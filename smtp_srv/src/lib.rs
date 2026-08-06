@@ -12,8 +12,19 @@ use fred::interfaces::KeysInterface;
 use graceful_restart::CANCEL;
 pub mod r;
 
+#[cfg(feature = "api")]
+mod api;
+
 pub async fn run() {
   log::info!("smtp_srv {}", env!("CARGO_PKG_VERSION"));
+
+  #[cfg(feature = "api")]
+  tokio::spawn(async {
+    if let Err(err) = api::run().await {
+      log::error!("api error: {err}");
+    }
+  });
+
   let sk: Option<Vec<u8>> = xkv::R.get(r::DKIM_SK).await.ok().flatten();
   if sk.is_none() {
     log::warn!(
