@@ -6,19 +6,25 @@ license = "MulanPSL-2.0"
 repository = "https://github.com/webc-site/npm.git"
 homepage = "https://github.com/webc-site/npm/tree/main/smtp_recv"
 description = "Dual-port SMTP server: Secure submission (465) & Inbound forwarding (25) / 双端口 SMTP 服务：安全提交 (465) 与入站转发 (25)"
-exclude = ["conf"]
-keywords = ["smtp", "server", "tls", "forwarding", "email"]
-categories = ["email", "network-programming", "asynchronous", "cryptography", "development-tools"]
+exclude = [ "conf" ]
+keywords = [ "smtp", "server", "tls", "forwarding", "email" ]
+categories = [
+"email",
+"network-programming",
+"asynchronous",
+"cryptography",
+"development-tools"
+]
 
 [package.metadata.docs.rs]
 all-features = true
-rustdoc-args = ["--cfg", "docsrs"]
+rustdoc-args = [ "--cfg", "docsrs" ]
 
 [features]
-default = ["send", "forward"]
-send = ["dep:auth_trait"]
-forward = ["dep:mail_forward"]
-kill_port = ["socket_port/kill_port"]
+default = [ "send", "forward" ]
+send = [ "dep:auth_trait" ]
+forward = [ "dep:mail_forward" ]
+kill_port = [ "socket_port/kill_port" ]
 
 [dependencies]
 anyhow = "1.0.104"
@@ -39,12 +45,12 @@ path = "../xmail"
 [dependencies.idns]
 version = "0.2.16"
 path = "../idns"
-features = ["cache", "spf"]
+features = [ "cache", "spf" ]
 
 [dependencies.idot]
 version = "0.1.3"
 path = "../idot"
-features = ["static"]
+features = [ "static" ]
 
 [dependencies.auth_trait]
 version = "0.1.8"
@@ -65,7 +71,7 @@ version = "0.1.6"
 path = "../sys_notify"
 
 [dependencies.socket_port]
-version = "0.1.32"
+version = "0.1.33"
 path = "../socket_port"
 
 [dependencies.mail_struct]
@@ -78,11 +84,11 @@ path = "../ssl_trait"
 
 [dependencies.rustls]
 version = "0.23.43"
-features = ["ring"]
+features = [ "ring" ]
 
 [dependencies.tokio]
 version = "1.53.1"
-features = ["macros", "rt", "rt-multi-thread", "time", "sync", "full"]
+features = [ "macros", "rt", "rt-multi-thread", "time", "sync", "full" ]
 
 [dev-dependencies]
 mail-parser = "0.11.5"
@@ -94,7 +100,7 @@ rustls-pemfile = "2.2.0"
 
 [dev-dependencies.static_init]
 version = "1.0.4"
-features = ["parking_lot"]
+features = [ "parking_lot" ]
 
 [dev-dependencies.cert_by_host]
 path = "../cert_by_host"
@@ -105,9 +111,15 @@ version = "4"
 
 [dev-dependencies.serde]
 version = "1.0"
-features = ["derive"]
+features = [ "derive" ]
 
 [dev-dependencies.lettre]
 version = "0.11.23"
-features = ["tokio1", "rustls-tls", "builder", "tokio1-rustls-tls", "smtp-transport"]
+features = [
+"tokio1",
+"rustls-tls",
+"builder",
+"tokio1-rustls-tls",
+"smtp-transport"
+]
 default-features = false
