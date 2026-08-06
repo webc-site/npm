@@ -26,7 +26,7 @@ default = []
 aok = "0.1.18"
 async_wrap = "0.1.10"
 gensym = "0.1.1"
-linkme = "0.3.36"
+linkme = "0.3.37"
 log = "0.4.33"
 paste = "1.0.15"
 
@@ -35,5 +35,5 @@ version = "0.1.38"
 path = "../log_init"
 
 [dependencies.tokio]
-version = "1.52.3"
+version = "1.53.1"
 features = ["rt", "sync"]

@@ -14,7 +14,7 @@ categories = [
 ignored = ["linkme"]
 
 [dependencies]
-linkme = "0.3.36"
+linkme = "0.3.37"
 log = "0.4"
 
 [dependencies.xboot]
@@ -22,7 +22,7 @@ version = "0.1.39"
 path = "../../xboot"
 
 [dependencies.tokio]
-version = "1.52.3"
+version = "1.53.1"
 features = ["macros", "rt", "rt-multi-thread", "time"]
 
 [dependencies.xkv]

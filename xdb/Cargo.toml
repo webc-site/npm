@@ -20,9 +20,9 @@ rustdoc-args = ["--cfg", "docsrs"]
 
 [dependencies]
 genv = "0.1.18"
-linkme = "0.3.36"
+linkme = "0.3.37"
 mysql_async = { version = "0.37.0", features = ["ring", "rustls-tls"] }
-rustls = { version = "0.23.41", default-features = false, features = ["ring"] }
+rustls = { version = "0.23.43", default-features = false, features = ["ring"] }
 static_init = "1.0.4"
 xboot = { version = "0.1.39", optional = true }
 
@@ -31,4 +31,4 @@ aok = "0.1.18"
 log = "0.4.33"
 log_init = "0.1.38"
 static_init = "1.0.4"
-tokio = { version = "1.52.3", features = ["full"] }
+tokio = { version = "1.53.1", features = ["full"] }

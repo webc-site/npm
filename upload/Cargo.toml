@@ -19,16 +19,16 @@ default = []
 xhash = ["dep:xhash"]
 
 [dependencies]
-base64 = "0.22.1"
-bytes = "1.12.0"
+base64 = "0.23.1"
+bytes = "1.12.1"
 hex = "0.4.3"
 hipstr = "0.8.0"
 hmac = "0.13.0"
-jiff = "0.2.31"
+jiff = "0.2.35"
 log = "0.4.33"
-memchr = "2.8.2"
+memchr = "2.8.3"
 sha2 = "0.11.0"
-thiserror = "2.0.18"
+thiserror = "2.0.19"
 ts_ = { version = "0.1.4", path = "../ts_", features = ["sec"] }
 
 [dependencies.ext_mime]
@@ -41,7 +41,7 @@ default-features = false
 features = ["rustls"]
 
 [dependencies.tokio]
-version = "1.52.3"
+version = "1.53.1"
 features = ["macros", "rt-multi-thread"]
 
 [dependencies.xhash]
