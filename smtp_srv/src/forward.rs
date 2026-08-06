@@ -9,10 +9,8 @@ use crate::r;
 #[derive(Clone)]
 pub struct Forward;
 
-pub const R_MAIL_FORWARD: &[u8] = b"mailForward:";
-
 async fn forward(user: impl AsRef<str>, host: impl AsRef<str>) -> Result<Option<String>> {
-  let key: Vec<u8> = [R_MAIL_FORWARD, host.as_ref().as_bytes()].concat();
+  let key = r::mail_forward_key(host.as_ref());
   Ok(
     R.fcall_ro(r::MAIL_FORWARD, &key[..], &[user.as_ref()])
       .await?,
@@ -44,7 +42,7 @@ impl mail_forward::Forward for Forward {
           Vec::new()
         }
       } else {
-        let key: Vec<u8> = [R_MAIL_FORWARD, host.as_bytes()].concat();
+        let key = r::mail_forward_key(host);
         R.fcall_ro(
           r::MAIL_FORWARD_SET,
           &key[..],
@@ -55,7 +53,7 @@ impl mail_forward::Forward for Forward {
     } else {
       let p = R.pipeline();
       for (host, mail_li) in host_user_li.iter() {
-        let key: Vec<u8> = [R_MAIL_FORWARD, host.as_bytes()].concat();
+        let key = r::mail_forward_key(host);
         let _: () = p
           .fcall_ro(
             r::MAIL_FORWARD_SET,

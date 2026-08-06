@@ -4,6 +4,7 @@ use xkv::R;
 
 pub const MAIL_FORWARD: &str = "mailForward";
 pub const MAIL_FORWARD_SET: &str = "mailForwardSet";
+pub const R_MAIL_FORWARD: &[u8] = b"mailForward:";
 
 // smtpDomainHost:${domain} -> host_id (varint 编码字节, u64)
 pub const DOMAIN_HOST: &[u8] = b"smtpDomainHost:";
@@ -69,6 +70,15 @@ pub fn host_dkim_private_key(host_id_bytes: &[u8]) -> Vec<u8> {
   let mut v = Vec::with_capacity(HOST_DKIM_KEY.len() + host_id_bytes.len());
   v.extend_from_slice(HOST_DKIM_KEY);
   v.extend_from_slice(host_id_bytes);
+  v
+}
+
+#[inline]
+pub fn mail_forward_key(host: impl AsRef<[u8]>) -> Vec<u8> {
+  let host = host.as_ref();
+  let mut v = Vec::with_capacity(R_MAIL_FORWARD.len() + host.len());
+  v.extend_from_slice(R_MAIL_FORWARD);
+  v.extend_from_slice(host);
   v
 }
 
