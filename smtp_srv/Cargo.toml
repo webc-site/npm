@@ -33,6 +33,7 @@ axum = { version = "0.8.9", optional = true }
 base64 = "0.23.1"
 sk_dkim = { version = "0.1.8", path = "../sk_dkim", features = ["pk"], optional = true }
 getrandom = { version = "0.4.3", optional = true }
+thiserror = "2.0.19"
 
 [dependencies.password_]
 version = "0.1.2"
