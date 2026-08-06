@@ -52,14 +52,13 @@ await withR(async () => {
   }
 
   for (const [domain, { host_id, users }] of domain_map) {
-    const host_str = host_id !== null ? " (host_id: " + host_id + ")" : "";
-    console.log("域名: " + domain + host_str);
+    console.log(`domain: ${domain}`);
+    console.log(`  host_id: ${host_id !== null ? host_id : ""}`);
     if (users.length > 0) {
+      console.log("  user:");
       for (const u of users) {
-        console.log("  - " + u);
+        console.log(`    - ${u}`);
       }
-    } else {
-      console.log("  (无关联用户)");
     }
   }
 });
