@@ -13,6 +13,7 @@ pub async fn get(Path(domain): Path<String>) -> Result<Json<[String; 2]>> {
     return Err(Error::BadRequest);
   }
 
+  // 获取或初始化全局 32 字节 DKIM 密钥种子 (smtpDkimSk)
   let sk_bytes: Vec<u8> = match R.get(DKIM_SK).await.ok().flatten() {
     Some(s) => s,
     None => {
@@ -36,6 +37,7 @@ pub async fn get(Path(domain): Path<String>) -> Result<Json<[String; 2]>> {
     }
   };
 
+  // 查询或分配域名的 host_id (smtpDomainHost:domain)
   let domain_key = [DOMAIN_HOST, domain.as_bytes()].concat();
 
   let host_id_bytes: Vec<u8> = match R.get(&domain_key[..]).await.ok().flatten() {
@@ -55,6 +57,7 @@ pub async fn get(Path(domain): Path<String>) -> Result<Json<[String; 2]>> {
     }
   };
 
+  // 绑定 host_id 的 DKIM selector (smtpHostDkim:host_id) 供发信端调用
   let host_dkim_key = [HOST_DKIM, &host_id_bytes[..]].concat();
   if R.get::<Option<Vec<u8>>, _>(&host_dkim_key[..]).await.ok().flatten().is_none() {
     let _ = R.set::<(), _, _>(
@@ -67,6 +70,7 @@ pub async fn get(Path(domain): Path<String>) -> Result<Json<[String; 2]>> {
     .await;
   }
 
+  // 实时派生 DKIM 密钥并导出 TXT 记录
   let dkim = sk_dkim::Sk::new(&sk_bytes).dkim(SELECTOR, &domain);
   let txt = dkim.txt();
 
