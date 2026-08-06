@@ -17,7 +17,7 @@ pub async fn run() {
   let sk: Option<Vec<u8>> = xkv::R.get(r::DKIM_SK).await.ok().flatten();
   if sk.is_none() {
     log::warn!(
-      "Global DKIM secret key ({}) is not configured in Kvrocks. Outgoing mail signing disabled.",
+      "Global DKIM secret key ({}) is not configured in Kvrocks. Outgoing mail signing disabled",
       r::DKIM_SK
     );
   }
