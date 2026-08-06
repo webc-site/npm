@@ -1,10 +1,13 @@
 mod json;
+mod ls;
 mod rm;
 mod set;
 
 use axum::extract::Path;
 pub use json::Json;
+pub use ls::{get_by_domain, get_by_page};
 pub use rm::rm;
+
 use set::set;
 use sonic_rs::Deserialize;
 
