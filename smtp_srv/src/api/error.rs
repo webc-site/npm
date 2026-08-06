@@ -14,6 +14,9 @@ pub enum Error {
 
   #[error(transparent)]
   GetRandom(#[from] getrandom::Error),
+
+  #[error(transparent)]
+  Sonic(#[from] sonic_rs::Error),
 }
 
 impl IntoResponse for Error {

@@ -1,13 +1,17 @@
 mod auth;
 mod dkim;
 mod error;
+mod user;
 
 pub use error::{Error, Result};
 
 use std::net::SocketAddr;
 
 use auth::auth;
-use axum::{Router, middleware, routing::get};
+use axum::{
+  Router, middleware,
+  routing::{get, post},
+};
 use graceful_restart::CANCEL;
 
 genv::s!(SMTP_API_PORT: u16);
@@ -18,6 +22,8 @@ pub async fn run() -> aok::Result<()> {
   let app = Router::new()
     .route("/", get(|| async { "OK" }))
     .route("/dkim/{domain}", get(dkim::get))
+    .route("/user/{email}", post(user::set_by_path).delete(user::rm))
+    .route("/user", post(user::set_by_body))
     .layer(middleware::from_fn(auth));
 
   let listener = tokio::net::TcpListener::bind(addr).await?;
