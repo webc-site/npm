@@ -3,7 +3,6 @@
 ---
 
 <a id="en"></a>
-
 # socket_port : Zero-downtime hot restart TCP listener
 
 - [socket_port : Zero-downtime hot restart TCP listener](#socket_port-zero-downtime-hot-restart-tcp-listener)
@@ -197,16 +196,17 @@ Socket activation originated with `inetd` (Internet Super-Server) in 1986's 4.3B
 
 While efficient for resources, early `inetd` spawned new processes for every connection, limiting performance. Modern implementations like **systemd** evolved this concept: the service manager creates the listening socket once and passes it to the long-running service daemon. This architecture permits seamless binary updates—the socket remains open in the manager while the service implementation restarts, resulting in zero connection loss.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # socket_port : 零停机热重启 TCP 监听器
 
 - [socket_port : 零停机热重启 TCP 监听器](#socket_port-零停机热重启-tcp-监听器)
@@ -393,8 +393,10 @@ socket_port = { version = "0.1.17", features = ["kill_port"] }
 
 然而，`inetd` 会为**每个**连接启动一个新的进程，这对于高流量服务来说效率较低。现代实现（如 **systemd**）改进了这一点，它将监听的套接字本身传递给服务守护进程。这使得服务能够高效地处理所有后续连接，同时仍然享受按需启动和零停机重启的好处（因为在服务二进制文件更新期间，套接字在主管进程中保持打开状态）。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

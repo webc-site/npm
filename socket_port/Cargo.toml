@@ -1,6 +1,6 @@
 [package]
 name = "socket_port"
-version = "0.1.32"
+version = "0.1.33"
 edition = "2024"
 license = "MulanPSL-2.0"
 repository = "https://github.com/webc-site/npm.git"
