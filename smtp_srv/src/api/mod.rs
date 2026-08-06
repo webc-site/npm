@@ -1,5 +1,8 @@
 mod auth;
 mod dkim;
+mod error;
+
+pub use error::{Error, Result};
 
 use std::net::SocketAddr;
 

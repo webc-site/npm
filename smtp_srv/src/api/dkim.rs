@@ -1,22 +1,23 @@
-use axum::{Json, extract::Path, http::StatusCode};
+use axum::{Json, extract::Path};
 use fred::{interfaces::KeysInterface, types::SetOptions};
 use intbin::to_bin;
 use xkv::R;
 
+use super::{Error, Result};
 use crate::r::{DKIM_SK, DOMAIN_HOST, HOST_DKIM, HOST_ID};
 
 const SELECTOR: &str = "webc-site";
 
-pub async fn get(Path(domain): Path<String>) -> Result<Json<[String; 2]>, StatusCode> {
+pub async fn get(Path(domain): Path<String>) -> Result<Json<[String; 2]>> {
   if domain.is_empty() {
-    return Err(StatusCode::BAD_REQUEST);
+    return Err(Error::BadRequest);
   }
 
   let sk_bytes: Vec<u8> = match R.get(DKIM_SK).await.ok().flatten() {
     Some(s) => s,
     None => {
       let mut arr = [0u8; 32];
-      getrandom::fill(&mut arr).map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+      getrandom::fill(&mut arr)?;
       let set_nx = R.set::<(), _, _>(
         DKIM_SK,
         &arr[..],
@@ -29,9 +30,8 @@ pub async fn get(Path(domain): Path<String>) -> Result<Json<[String; 2]>, Status
         arr.to_vec()
       } else {
         R.get::<Option<Vec<u8>>, _>(DKIM_SK)
-          .await
-          .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?
-          .ok_or(StatusCode::INTERNAL_SERVER_ERROR)?
+          .await?
+          .ok_or(Error::BadRequest)?
       }
     }
   };
@@ -41,7 +41,7 @@ pub async fn get(Path(domain): Path<String>) -> Result<Json<[String; 2]>, Status
   let host_id_bytes: Vec<u8> = match R.get(&domain_key[..]).await.ok().flatten() {
     Some(id) => id,
     None => {
-      let host_id: u64 = R.incr(HOST_ID).await.map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+      let host_id: u64 = R.incr(HOST_ID).await?;
       let id_bytes = to_bin(host_id);
       let _ = R.set::<(), _, _>(
         &domain_key[..],
