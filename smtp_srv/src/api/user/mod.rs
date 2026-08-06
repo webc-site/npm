@@ -1,11 +1,12 @@
+mod extractor;
 mod json;
 mod ls;
 mod rm;
 mod set;
 
-use axum::extract::Path;
+pub use extractor::{Email, Host};
 pub use json::Json;
-pub use ls::{get_by_domain, get_by_page};
+pub use ls::{get_by_host, get_by_page};
 pub use rm::rm;
 
 use set::set;
@@ -19,13 +20,20 @@ pub struct UserReq {
   pub password: String,
 }
 
-pub async fn set_by_path(Path(email): Path<String>, Json(req): Json<UserReq>) -> Result<()> {
-  set(&email, &req.password).await
+pub async fn set_by_path(email: Email, Json(req): Json<UserReq>) -> Result<()> {
+  set(&email.prefix, &email.host, &req.password).await
 }
 
 pub async fn set_by_body(Json(req): Json<UserReq>) -> Result<()> {
-  let Some(email) = &req.email else {
+  let Some(email_str) = &req.email else {
     return Err(Error::BadRequest);
   };
-  set(email, &req.password).await
+  let email_str = email_str.trim().to_lowercase();
+  let Some((prefix, host)) = email_str.split_once('@') else {
+    return Err(Error::BadRequest);
+  };
+  if prefix.is_empty() || host.is_empty() {
+    return Err(Error::BadRequest);
+  }
+  set(prefix, host, &req.password).await
 }

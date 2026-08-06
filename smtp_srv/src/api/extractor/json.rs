@@ -1,7 +1,5 @@
-use axum::{
-  body::Bytes,
-  extract::{FromRequest, Request},
-};
+use axum::body::Bytes;
+use axum::extract::{FromRequest, Request};
 use sonic_rs::Deserialize;
 
 use crate::api::Error;

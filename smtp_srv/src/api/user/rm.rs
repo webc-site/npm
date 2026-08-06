@@ -1,27 +1,19 @@
-use axum::extract::Path;
 use fred::interfaces::{KeysInterface, SortedSetsInterface};
 use xkv::R;
 
+use super::Email;
 use crate::{
-  api::{Error, Result},
+  api::Result,
   r::{DOMAIN_HOST, DOMAIN_USER, HOST_DKIM, HOST_DKIM_KEY, USER},
 };
 
-pub async fn rm(Path(email): Path<String>) -> Result<()> {
-  let email = email.trim().to_lowercase();
-  let Some((prefix, domain)) = email.split_once('@') else {
-    return Err(Error::BadRequest);
-  };
-  if prefix.is_empty() || domain.is_empty() {
-    return Err(Error::BadRequest);
-  }
+pub async fn rm(email: Email) -> Result<()> {
+  let host_bytes = email.host.as_bytes();
+  let prefix_bytes = email.prefix.as_bytes();
 
-  let domain_bytes = domain.as_bytes();
-  let prefix_bytes = prefix.as_bytes();
-
-  let user_key = [USER, domain_bytes, b":", prefix_bytes].concat();
-  let domain_user_key = [DOMAIN_USER, domain_bytes].concat();
-  let domain_key = [DOMAIN_HOST, domain_bytes].concat();
+  let user_key = [USER, host_bytes, b":", prefix_bytes].concat();
+  let domain_user_key = [DOMAIN_USER, host_bytes].concat();
+  let domain_key = [DOMAIN_HOST, host_bytes].concat();
 
   let pipeline = R.pipeline();
   let _ = pipeline.del::<(), _>(&user_key[..]);

@@ -10,20 +10,13 @@ use crate::{
   r::{DOMAIN_HOST, DOMAIN_USER, HOST_ID, USER},
 };
 
-pub async fn set(email: &str, password: &str) -> Result<()> {
+pub async fn set(prefix: &str, host: &str, password: &str) -> Result<()> {
   if password.is_empty() {
     return Err(Error::BadRequest);
   }
-  let email = email.trim().to_lowercase();
-  let Some((prefix, domain)) = email.split_once('@') else {
-    return Err(Error::BadRequest);
-  };
-  if prefix.is_empty() || domain.is_empty() {
-    return Err(Error::BadRequest);
-  }
 
-  let domain_bytes = domain.as_bytes();
-  let domain_key = [DOMAIN_HOST, domain_bytes].concat();
+  let host_bytes = host.as_bytes();
+  let domain_key = [DOMAIN_HOST, host_bytes].concat();
 
   if R
     .get::<Option<Vec<u8>>, _>(&domain_key[..])
@@ -51,8 +44,8 @@ pub async fn set(email: &str, password: &str) -> Result<()> {
   val[16..].copy_from_slice(&hash);
 
   let prefix_bytes = prefix.as_bytes();
-  let user_key = [USER, domain_bytes, b":", prefix_bytes].concat();
-  let domain_user_key = [DOMAIN_USER, domain_bytes].concat();
+  let user_key = [USER, host_bytes, b":", prefix_bytes].concat();
+  let domain_user_key = [DOMAIN_USER, host_bytes].concat();
 
   let now_ts = ts_::sec() as f64;
 
