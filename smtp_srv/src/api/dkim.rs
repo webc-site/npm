@@ -1,8 +1,9 @@
-use axum::{extract::Path, http::StatusCode, Json};
+use axum::{Json, extract::Path, http::StatusCode};
 use fred::interfaces::KeysInterface;
+
 use crate::r::DKIM_SK;
 
-const SELECTOR: &str = "i";
+const SELECTOR: &str = "webc-site";
 
 pub async fn get(Path(domain): Path<String>) -> Result<Json<[String; 2]>, StatusCode> {
   if domain.is_empty() {

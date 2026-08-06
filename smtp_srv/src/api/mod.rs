@@ -1,10 +1,11 @@
 mod auth;
 mod dkim;
 
-use auth::auth;
-use axum::{middleware, routing::get, Router};
-use graceful_restart::CANCEL;
 use std::net::SocketAddr;
+
+use auth::auth;
+use axum::{Router, middleware, routing::get};
+use graceful_restart::CANCEL;
 
 genv::s!(SMTP_API_PORT: u16);
 

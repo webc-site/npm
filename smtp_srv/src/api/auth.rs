@@ -1,19 +1,15 @@
 use axum::{
   extract::Request,
-  http::{header::AUTHORIZATION, HeaderMap, StatusCode},
+  http::{HeaderMap, StatusCode, header::AUTHORIZATION},
   middleware::Next,
   response::Response,
 };
-use base64::{engine::general_purpose::STANDARD, Engine};
+use base64::{Engine, engine::general_purpose::STANDARD};
 
 genv::s!(SMTP_API_USER: String);
 genv::s!(SMTP_API_PASSWORD: String);
 
-pub async fn auth(
-  headers: HeaderMap,
-  req: Request,
-  next: Next,
-) -> Result<Response, StatusCode> {
+pub async fn auth(headers: HeaderMap, req: Request, next: Next) -> Result<Response, StatusCode> {
   if let Some(auth_header) = headers.get(AUTHORIZATION) {
     if let Ok(auth_str) = auth_header.to_str() {
       if let Some(strip) = auth_str.strip_prefix("Basic ") {
