@@ -9,7 +9,7 @@ use std::net::SocketAddr;
 use auth::auth;
 use axum::{
   Router, middleware,
-  routing::{get, post},
+  routing::{delete, get, post},
 };
 pub use error::{Error, Result};
 use graceful_restart::CANCEL;
@@ -22,8 +22,8 @@ pub async fn run() -> aok::Result<()> {
   let app = Router::new()
     .route("/", get(|| async { "OK" }))
     .route("/dkim/{domain}", get(dkim::get))
-    .route("/user/{email}", post(user::set_by_path).delete(user::rm))
-    .route("/user", post(user::set_by_body))
+    .route("/user/{email}", delete(user::rm))
+    .route("/user", post(user::set))
     .route("/user/{host}", get(user::get_by_host))
     .route("/user/{host}/{page}", get(user::get_by_page))
     .layer(middleware::from_fn(auth));

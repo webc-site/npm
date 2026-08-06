@@ -6,12 +6,20 @@ use intbin::to_bin;
 use xkv::R;
 
 use crate::{
-  api::{Error, Result},
+  api::{Error, Result, extractor::Json},
   r::{DOMAIN_HOST, DOMAIN_USER, HOST_ID, USER},
 };
 
-pub async fn set(prefix: &str, host: &str, password: &str) -> Result<()> {
+pub async fn set(Json([email, password]): Json<[String; 2]>) -> Result<()> {
   if password.is_empty() {
+    return Err(Error::BadRequest);
+  }
+
+  let email = email.trim().to_lowercase();
+  let Some((prefix, host)) = email.split_once('@') else {
+    return Err(Error::BadRequest);
+  };
+  if prefix.is_empty() || host.is_empty() {
     return Err(Error::BadRequest);
   }
 
@@ -38,7 +46,7 @@ pub async fn set(prefix: &str, host: &str, password: &str) -> Result<()> {
       .await;
   }
 
-  let (salt, hash) = password_::hash(password);
+  let (salt, hash) = password_::hash(&password);
   let mut val = [0u8; 48];
   val[..16].copy_from_slice(&salt);
   val[16..].copy_from_slice(&hash);
