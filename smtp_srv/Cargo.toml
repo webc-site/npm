@@ -30,6 +30,7 @@ xboot = "0.1.39"
 mail-send = "0.6.1"
 rustls-pki-types = "1.15.1"
 axum = { version = "0.8.9", optional = true }
+base64 = "0.23.1"
 
 [dependencies.password_]
 version = "0.1.2"
