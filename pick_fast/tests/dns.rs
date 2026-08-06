@@ -26,8 +26,9 @@ fn create_resolver(server: &DnsServer) -> TokioResolver {
   let mut config = ResolverConfig::default();
   config.add_name_server(ns);
 
-  let r: TokioResolver = todo!();
-  r.dummy()
+  hickory_resolver::Resolver::builder_with_config(config, hickory_resolver::TokioRuntimeProvider::default())
+    .options(ResolverOpts::default())
+    .build()
 }
 
 /// Task struct for tracking DNS resolution / DNS 解析任务结构体
