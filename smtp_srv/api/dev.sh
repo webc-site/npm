@@ -5,4 +5,4 @@ DIR=$(realpath $0) && DIR=${DIR%/*}
 cd $DIR
 set -x
 
-bun x dev
+bun run dev

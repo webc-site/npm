@@ -7,8 +7,5 @@ compatibility_flags = [
 ]
 upload_source_maps = true
 
-[assets]
-directory = "./public"
-
 [observability]
 enabled = true
