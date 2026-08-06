@@ -3,8 +3,6 @@ mod dkim;
 mod error;
 mod user;
 
-pub use error::{Error, Result};
-
 use std::net::SocketAddr;
 
 use auth::auth;
@@ -12,6 +10,7 @@ use axum::{
   Router, middleware,
   routing::{get, post},
 };
+pub use error::{Error, Result};
 use graceful_restart::CANCEL;
 
 genv::s!(SMTP_API_PORT: u16);

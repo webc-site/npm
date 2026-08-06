@@ -5,7 +5,6 @@ mod set;
 use axum::extract::Path;
 pub use json::Json;
 pub use rm::rm;
-
 use set::set;
 use sonic_rs::Deserialize;
 
@@ -17,10 +16,7 @@ pub struct UserReq {
   pub password: String,
 }
 
-pub async fn set_by_path(
-  Path(email): Path<String>,
-  Json(req): Json<UserReq>,
-) -> Result<()> {
+pub async fn set_by_path(Path(email): Path<String>, Json(req): Json<UserReq>) -> Result<()> {
   set(&email, &req.password).await
 }
 

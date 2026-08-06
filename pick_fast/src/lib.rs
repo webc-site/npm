@@ -175,7 +175,7 @@ impl<T, M: Rank> PickFast<T, M> {
     // EMA: new = (old * 31 + target) / 32
     let _ = self.li[index]
       .weight
-      .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |old| {
+      .try_update(Ordering::Relaxed, Ordering::Relaxed, |old| {
         Some(((old * 31 + target_w) >> 5).max(1))
       })
       .map(|prev| {
@@ -199,7 +199,7 @@ impl<T, M: Rank> PickFast<T, M> {
     // CAS 更新单节点权重，减半但不低于1 / CAS update node weight, halve but not below 1
     let _ = self.li[index]
       .weight
-      .fetch_update(Ordering::Relaxed, Ordering::Relaxed, |old| {
+      .try_update(Ordering::Relaxed, Ordering::Relaxed, |old| {
         Some((old >> 1).max(1))
       })
       .map(|prev| {

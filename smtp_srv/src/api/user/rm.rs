@@ -1,9 +1,11 @@
 use axum::extract::Path;
-use fred::{interfaces::KeysInterface, interfaces::SetsInterface};
+use fred::interfaces::{KeysInterface, SetsInterface};
 use xkv::R;
 
-use crate::api::{Error, Result};
-use crate::r::{DOMAIN_HOST, DOMAIN_USER, HOST_DKIM, HOST_DKIM_KEY, USER};
+use crate::{
+  api::{Error, Result},
+  r::{DOMAIN_HOST, DOMAIN_USER, HOST_DKIM, HOST_DKIM_KEY, USER},
+};
 
 pub async fn rm(Path(email): Path<String>) -> Result<()> {
   let email = email.trim().to_lowercase();
@@ -28,7 +30,12 @@ pub async fn rm(Path(email): Path<String>) -> Result<()> {
 
   let count: u64 = R.scard(&domain_user_key[..]).await.unwrap_or(0);
   if count == 0 {
-    if let Some(id_bytes) = R.get::<Option<Vec<u8>>, _>(&domain_key[..]).await.ok().flatten() {
+    if let Some(id_bytes) = R
+      .get::<Option<Vec<u8>>, _>(&domain_key[..])
+      .await
+      .ok()
+      .flatten()
+    {
       let host_dkim_key = [HOST_DKIM, &id_bytes[..]].concat();
       let host_dkim_key_key = [HOST_DKIM_KEY, &id_bytes[..]].concat();
       let _: () = R

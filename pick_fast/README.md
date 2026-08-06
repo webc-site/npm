@@ -3,7 +3,6 @@
 ---
 
 <a id="en"></a>
-
 # PickFast : Lock-Free Weighted Load Balancer for Low-Latency Selection
 
 - [PickFast : Lock-Free Weighted Load Balancer for Low-Latency Selection](#pickfast-lock-free-weighted-load-balancer-for-low-latency-selection)
@@ -297,16 +296,17 @@ The evolution from WRR to modern weighted random selection represents a paradigm
 
 Interestingly, the Compare-And-Swap primitive used here traces back to IBM System/370 in 1970, making lock-free programming concepts over 50 years old—yet they remain the cornerstone of modern high-performance concurrent systems.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # PickFast : 无锁加权负载均衡，优选低延迟节点
 
 - [PickFast : 无锁加权负载均衡，优选低延迟节点](#pickfast-无锁加权负载均衡优选低延迟节点)
@@ -600,8 +600,10 @@ graph TD
 
 有趣的是，这里使用的 CAS (Compare-And-Swap) 原语可追溯至 1970 年的 IBM System/370，使得无锁编程概念已有 50 余年历史——但它仍是现代高性能并发系统的基石。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

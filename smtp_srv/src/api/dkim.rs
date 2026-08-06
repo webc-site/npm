@@ -19,14 +19,9 @@ pub async fn get(Path(domain): Path<String>) -> Result<Json<[String; 2]>> {
     None => {
       let mut arr = [0u8; 32];
       getrandom::fill(&mut arr)?;
-      let set_nx = R.set::<(), _, _>(
-        DKIM_SK,
-        &arr[..],
-        None,
-        Some(SetOptions::NX),
-        false,
-      )
-      .await;
+      let set_nx = R
+        .set::<(), _, _>(DKIM_SK, &arr[..], None, Some(SetOptions::NX), false)
+        .await;
       if set_nx.is_ok() {
         arr.to_vec()
       } else {
@@ -45,29 +40,37 @@ pub async fn get(Path(domain): Path<String>) -> Result<Json<[String; 2]>> {
     None => {
       let host_id: u64 = R.incr(HOST_ID).await?;
       let id_bytes = to_bin(host_id);
-      let _ = R.set::<(), _, _>(
-        &domain_key[..],
-        id_bytes.as_ref(),
-        None,
-        Some(SetOptions::NX),
-        false,
-      )
-      .await;
+      let _ = R
+        .set::<(), _, _>(
+          &domain_key[..],
+          id_bytes.as_ref(),
+          None,
+          Some(SetOptions::NX),
+          false,
+        )
+        .await;
       id_bytes.to_vec()
     }
   };
 
   // 绑定 host_id 的 DKIM selector (smtpHostDkim:host_id) 供发信端调用
   let host_dkim_key = [HOST_DKIM, &host_id_bytes[..]].concat();
-  if R.get::<Option<Vec<u8>>, _>(&host_dkim_key[..]).await.ok().flatten().is_none() {
-    let _ = R.set::<(), _, _>(
-      &host_dkim_key[..],
-      SELECTOR,
-      None,
-      Some(SetOptions::NX),
-      false,
-    )
-    .await;
+  if R
+    .get::<Option<Vec<u8>>, _>(&host_dkim_key[..])
+    .await
+    .ok()
+    .flatten()
+    .is_none()
+  {
+    let _ = R
+      .set::<(), _, _>(
+        &host_dkim_key[..],
+        SELECTOR,
+        None,
+        Some(SetOptions::NX),
+        false,
+      )
+      .await;
   }
 
   // 实时派生 DKIM 密钥并导出 TXT 记录
