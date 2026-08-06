@@ -6,8 +6,7 @@ use dns_server::{DNS_SERVER_LI, DnsServer};
 use futures::StreamExt;
 use hickory_resolver::{
   Resolver,
-  config::{NameServerConfig, ProtocolConfig, ResolverConfig},
-  name_server::TokioConnectionProvider,
+  config::{NameServerConfig, Protocol, ResolverConfig, ResolverOpts},
 };
 use pick_fast::PickFast;
 use race::Race;
@@ -18,13 +17,12 @@ extern "C" fn _log_init() {
 }
 
 // Create resolver with specific DNS server / 使用指定 DNS 服务器创建解析器
-fn create_resolver(server: &DnsServer) -> Resolver<TokioConnectionProvider> {
-  let ns = NameServerConfig::new(SocketAddr::new(server.ip, 53), ProtocolConfig::Udp);
+fn create_resolver(server: &DnsServer) -> Resolver {
+  let ns = NameServerConfig::new(SocketAddr::new(server.ip, 53), Protocol::Udp);
   let mut config = ResolverConfig::default();
   config.add_name_server(ns);
 
-  let provider = TokioConnectionProvider::default();
-  Resolver::builder_with_config(config, provider).build()
+  Resolver::new(config, ResolverOpts::default()).unwrap()
 }
 
 /// Task struct for tracking DNS resolution / DNS 解析任务结构体
