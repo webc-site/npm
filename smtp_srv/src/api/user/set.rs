@@ -1,33 +1,27 @@
 use fred::interfaces::{KeysInterface, SortedSetsInterface};
 use xkv::R;
 
+use xmail::norm_user_host;
+
 use crate::{
   api::{Error, Result, extractor::Json},
   r,
 };
 
 pub async fn set(Json([email, password]): Json<[String; 2]>) -> Result<()> {
-  if password.is_empty() {
-    return Err(Error::BadRequest);
-  }
-
-  let email = email.trim().to_lowercase();
-  let Some((prefix, host)) = email.split_once('@') else {
+  let Some((prefix, host)) = (!password.is_empty()).then_some(&email).and_then(norm_user_host) else {
     return Err(Error::BadRequest);
   };
-  if prefix.is_empty() || host.is_empty() {
-    return Err(Error::BadRequest);
-  }
 
-  let _ = r::get_or_alloc_host_id(host).await?;
+  let _ = r::get_or_alloc_host_id(&host).await?;
 
   let (salt, hash) = password_::hash(&password);
   let mut val = [0u8; 48];
   val[..16].copy_from_slice(&salt);
   val[16..].copy_from_slice(&hash);
 
-  let user_key = r::user_key(host, prefix);
-  let domain_user_key = r::domain_user_key(host);
+  let user_key = r::user_key(&host, &prefix);
+  let domain_user_key = r::domain_user_key(&host);
 
   let now_ts = ts_::sec() as f64;
 
