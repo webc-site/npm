@@ -3,7 +3,6 @@
 ---
 
 <a id="en"></a>
-
 # smtp_srv : High-Performance SMTPS Server with Auto-Refreshing Certificates
 
 - [smtp_srv : High-Performance SMTPS Server with Auto-Refreshing Certificates](#smtp_srv-high-performance-smtps-server-with-auto-refreshing-certificates)
@@ -312,16 +311,17 @@ The `@` symbol in email addresses was chosen by Ray Tomlinson in 1971 when he se
 
 SMTP itself was formalized in RFC 821 (1982) by Jonathan Postel. The protocol has evolved through multiple RFCs, with port 465 originally assigned for SMTPS in 1997, deprecated, then re-standardized in RFC 8314 (2018) for implicit TLS submission.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # smtp_srv : 高性能自动热更新证书的 SMTPS 服务器
 
 - [smtp_srv : 高性能自动热更新证书的 SMTPS 服务器](#smtp_srv-高性能自动热更新证书的-smtps-服务器)
@@ -345,7 +345,6 @@ This library is developed by [WebC.site](https://webc.site).
     - [模块](#模块)
   - [技术栈](#技术栈)
   - [目录结构](#目录结构)
-  - [历史趣闻](#历史趣闻)
   - [关于](#关于)
 
 ## 目录
@@ -389,9 +388,9 @@ This library is developed by [WebC.site](https://webc.site).
 graph TD
   MTA[外部 MTA] -->|1. 25 端口| P25[smtp_srv :25]
   P25 -->|2. STARTTLS 可选| TLS{TLS?}
-  TLS -->|是| Cert[Cert 证书模块]
+  TLS -->| 是| Cert[Cert 证书模块]
   Cert --> CBH[cert_by_host]
-  TLS -->|否| RCPT[RCPT TO]
+  TLS -->| 否| RCPT[RCPT TO]
   CBH --> RCPT
   RCPT -->|3. 查询| Fwd[Forward 转发模块]
   Fwd -->|4. mailForward:host| DB[(Redis/Kvrocks)]
@@ -624,14 +623,9 @@ smtp_srv/
     └── test_smtp.js     # SMTP 客户端测试
 ```
 
-## 历史趣闻
-
-电子邮件中的 `@` 符号由 Ray Tomlinson 于 1971 年选定，当时他在 ARPANET 上发送了第一封网络邮件。他需要找到能区分用户名和主机名的字符，且不会出现在人名中。看着 Model 33 电传打字机键盘，他选中了 `@` —— 当时鲜少使用的符号。那封邮件的内容可能只是 "QWERTYUIOP" 之类的测试字符。这个简单的选择成为了数字通信的通用标识。
-
-SMTP 协议由 Jonathan Postel 在 RFC 821（1982）中正式定义。协议历经多次 RFC 演进，465 端口最初于 1997 年分配给 SMTPS，后被废弃，又在 RFC 8314（2018）中重新标准化为隐式 TLS 提交端口。
-
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+
