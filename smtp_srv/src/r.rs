@@ -85,7 +85,12 @@ pub fn mail_forward_key(host: impl AsRef<[u8]>) -> Vec<u8> {
 pub async fn get_or_alloc_host_id(domain: impl AsRef<str>) -> aok::Result<Vec<u8>> {
   let domain = domain.as_ref();
   let domain_key = domain_key(domain);
-  if let Some(id) = R.get::<Option<Vec<u8>>, _>(&domain_key[..]).await.ok().flatten() {
+  if let Some(id) = R
+    .get::<Option<Vec<u8>>, _>(&domain_key[..])
+    .await
+    .ok()
+    .flatten()
+  {
     return Ok(id);
   }
   let host_id: u64 = R.incr(HOST_ID).await?;

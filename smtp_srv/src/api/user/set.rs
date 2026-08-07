@@ -1,6 +1,5 @@
 use fred::interfaces::{KeysInterface, SortedSetsInterface};
 use xkv::R;
-
 use xmail::norm_user_host;
 
 use crate::{
@@ -9,7 +8,10 @@ use crate::{
 };
 
 pub async fn set(Json([email, password]): Json<[String; 2]>) -> Result<()> {
-  let Some((prefix, host)) = (!password.is_empty()).then_some(&email).and_then(norm_user_host) else {
+  let Some((prefix, host)) = (!password.is_empty())
+    .then_some(&email)
+    .and_then(norm_user_host)
+  else {
     return Err(Error::BadRequest);
   };
 

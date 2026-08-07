@@ -45,14 +45,11 @@ pub async fn send(
   };
 
   let sk: Option<Vec<u8>> = R.get(DKIM_SK).await.ok().flatten();
+  let Some(sk_arr) = sk.and_then(|s| s.try_into().ok()) else {
+    return Err(Error::NoDkimSk);
+  };
 
-  if let Some(sk) = sk
-    && let Ok(sk_arr) = sk.try_into()
-  {
-    let _ = sign_and_send(&sk_arr, &host_id_bytes, mail).await;
-  } else {
-    let _ = smtp_send::send(&mail, None).await;
-  }
+  let _ = sign_and_send(&sk_arr, &host_id_bytes, mail).await;
 
   Ok(())
 }

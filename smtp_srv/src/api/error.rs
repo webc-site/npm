@@ -1,4 +1,4 @@
-use std::result::Result as StdResult;
+use std::{io, result::Result as StdResult};
 
 use axum::{
   http::StatusCode,
@@ -15,8 +15,11 @@ pub enum Error {
   #[error("Unauthorized")]
   Unauthorized,
 
+  #[error("DKIM Secret Key Missing")]
+  NoDkimSk,
+
   #[error(transparent)]
-  Io(#[from] std::io::Error),
+  Io(#[from] io::Error),
 
   #[error(transparent)]
   Fred(#[from] FredError),
@@ -36,6 +39,7 @@ impl IntoResponse for Error {
     match self {
       Error::BadRequest => StatusCode::BAD_REQUEST.into_response(),
       Error::Unauthorized => StatusCode::UNAUTHORIZED.into_response(),
+      Error::NoDkimSk => (StatusCode::BAD_REQUEST, self.to_string()).into_response(),
       _ => StatusCode::INTERNAL_SERVER_ERROR.into_response(),
     }
   }
