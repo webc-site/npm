@@ -16,7 +16,7 @@ pub use error::{Error, Result};
 use graceful_restart::CANCEL;
 use tokio::net::TcpListener;
 
-genv::s!(SMTP_API_PORT: u16);
+genv::s!(SMTP_API_PORT: u16 = 7501);
 
 pub async fn run() -> aok::Result<()> {
   let addr = SocketAddr::from(([0, 0, 0, 0, 0, 0, 0, 0], *SMTP_API_PORT));
