@@ -16,6 +16,9 @@ pub enum Error {
   Unauthorized,
 
   #[error(transparent)]
+  Io(#[from] std::io::Error),
+
+  #[error(transparent)]
   Fred(#[from] FredError),
 
   #[error(transparent)]
