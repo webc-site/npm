@@ -19,7 +19,7 @@ use tokio::net::TcpListener;
 genv::s!(SMTP_API_PORT: u16);
 
 pub async fn run() -> aok::Result<()> {
-  let addr = SocketAddr::from(([0, 0, 0, 0], *SMTP_API_PORT));
+  let addr = SocketAddr::from(([0, 0, 0, 0, 0, 0, 0, 0], *SMTP_API_PORT));
 
   let authed = Router::new()
     .route("/dkim/{domain}", get(dkim::get))
