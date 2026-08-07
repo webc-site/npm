@@ -12,7 +12,7 @@ use crate::{
 };
 
 pub async fn send(
-  Json([email, password, to, title, txt, html]): Json<[String; 6]>,
+  Json([email, password, sender_name, to, title, txt, html]): Json<[String; 7]>,
 ) -> Result<()> {
   if password.is_empty() || email.is_empty() || to.is_empty() {
     return Err(Error::BadRequest);
@@ -26,8 +26,14 @@ pub async fn send(
     return Err(Error::Unauthorized);
   };
 
-  let body = MessageBuilder::new()
-    .from(email.as_str())
+  let builder = MessageBuilder::new();
+  let builder = if sender_name.is_empty() {
+    builder.from(email.as_str())
+  } else {
+    builder.from((sender_name.as_str(), email.as_str()))
+  };
+
+  let body = builder
     .to(to.as_str())
     .subject(title)
     .text_body(txt)
