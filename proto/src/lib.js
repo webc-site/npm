@@ -12,20 +12,14 @@ export const setBase = (url) => {
 
 const PENDING = [],
   CALLBACK = new Map(),
-  merge = (li) => {
-    let len = 0,
-      offset = 0;
-    li.forEach((item) => {
-      len += item.length;
-    });
-    const result = new Uint8Array(len);
-    li.forEach((item) => {
-      const item_len = item.length;
-      if (item_len) {
-        result.set(item, offset);
-        offset += item_len;
-      }
-    });
+  concat = (list) => {
+    const total_len = list.reduce((len, arr) => len + arr.length, 0),
+      result = new Uint8Array(total_len);
+    let offset = 0;
+    for (const arr of list) {
+      result.set(arr, offset);
+      offset += arr.length;
+    }
     return result;
   },
   U32_MAX = 4294967295,
@@ -53,14 +47,14 @@ const PENDING = [],
       let buf = new Uint8Array();
       const stream = await fS(BASE, {
           method: "POST",
-          body: merge(data)
+          body: concat(data)
         }),
         read = async () => {
           const { done, value } = await stream.read();
           if (done) {
             return 1;
           }
-          buf = merge([buf, value]);
+          buf = concat([buf, value]);
         },
         readN = async (n) => {
           const r = [];
