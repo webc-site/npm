@@ -3,87 +3,28 @@
 import { afterAll, describe, expect, test } from "bun:test";
 import gen from "../src/_.js";
 import { join } from "node:path";
-import { mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { readdirSync, rmSync } from "node:fs";
 import protobuf from "protobufjs";
 
 const ROOT = import.meta.dirname,
-  TMP_DIR = join(ROOT, "tmp"),
-  OUT_DIR = join(TMP_DIR, "out"),
-  DEMO_PROTO = join(TMP_DIR, "demo.proto"),
-  PROTO_CONTENT = `syntax = "proto3";
+  CASE_DIR = join(ROOT, "case"),
+  OUT_DIR = join(ROOT, "tmp_out");
 
-package demo;
+describe("扫描 case 目录并编译测试", () => {
+  rmSync(OUT_DIR, { recursive: true, force: true });
+  afterAll(() => rmSync(OUT_DIR, { recursive: true, force: true }));
 
-enum Status {
-  UNKNOWN = 0;
-  OK = 1;
-  FAIL = 2;
-}
+  const proto_files = readdirSync(CASE_DIR).filter((f) => f.endsWith(".proto"));
 
-message User {
-  int32 id = 1;
-  string name = 2;
-}
-
-message UserAlias {
-  int32 uid = 1;
-  string nickname = 2;
-}
-
-message FullMessage {
-  double f1 = 1;
-  float f2 = 2;
-  int32 f3 = 3;
-  int64 f4 = 4;
-  uint32 f5 = 5;
-  uint64 f6 = 6;
-  sint32 f7 = 7;
-  sint64 f8 = 8;
-  fixed32 f9 = 9;
-  fixed64 f10 = 10;
-  sfixed32 f11 = 11;
-  sfixed64 f12 = 12;
-  bool f13 = 13;
-  string f14 = 14;
-  bytes f15 = 15;
-  repeated double f16 = 16;
-  repeated float f17 = 17;
-  repeated int32 f18 = 18;
-  repeated int64 f19 = 19;
-  repeated uint32 f20 = 20;
-  repeated uint64 f21 = 21;
-  repeated sint32 f22 = 22;
-  repeated sint64 f23 = 23;
-  repeated fixed32 f24 = 24;
-  repeated fixed64 f25 = 25;
-  repeated sfixed32 f26 = 26;
-  repeated bool f28 = 28;
-  repeated string f29 = 29;
-  repeated bytes f30 = 30;
-  User f31 = 31;
-  repeated User f32 = 32;
-  map<string, int32> f33 = 33;
-  Status f34 = 34;
-  repeated Status f35 = 35;
-}
-
-service DemoService {
-  rpc ping(User) returns (User);
-}
-`;
-
-describe("proto2js 编译与 protobufjs 双向交叉验证", () => {
-  rmSync(TMP_DIR, { recursive: true, force: true });
-  mkdirSync(TMP_DIR, { recursive: true });
-  writeFileSync(DEMO_PROTO, PROTO_CONTENT);
-  afterAll(() => rmSync(TMP_DIR, { recursive: true, force: true }));
-
-  test("编译 proto 生成 ES 模块文件", () => {
-    const pkg = gen(DEMO_PROTO, OUT_DIR);
-    expect(pkg).toBe("demo");
+  test("扫描 case 目录并编译所有 proto 文件", () => {
+    expect(proto_files.length).toBeGreaterThan(0);
+    proto_files.forEach((file) => {
+      const pkg = gen(join(CASE_DIR, file), OUT_DIR, [CASE_DIR]);
+      expect(typeof pkg).toBe("string");
+    });
   });
 
-  test("导入生成的模块并验证 Enum 和同构别名", async () => {
+  test("demo.proto: Enum 与同构别名", async () => {
     const statusMod = await import(join(OUT_DIR, "demo/Status.js")),
       userAliasE = await import(join(OUT_DIR, "demo/UserAliasE.js")),
       userE = await import(join(OUT_DIR, "demo/UserE.js"));
@@ -95,10 +36,10 @@ describe("proto2js 编译与 protobufjs 双向交叉验证", () => {
     expect(userAliasE.default).toBe(userE.default);
   });
 
-  test("全类型与 protobufjs 双向编解码互通与二进制一致性", async () => {
+  test("demo.proto: 全类型与 protobufjs 双向交叉验证", async () => {
     const fullMessageE = (await import(join(OUT_DIR, "demo/FullMessageE.js"))).default,
       fullMessageD = (await import(join(OUT_DIR, "demo/FullMessageD.js"))).default,
-      root = await protobuf.load(DEMO_PROTO),
+      root = await protobuf.load(join(CASE_DIR, "demo.proto")),
       PbFullMessage = root.lookupType("demo.FullMessage"),
       INT32_MAX = 2147483647,
       INT32_MIN = -2147483648,
@@ -178,7 +119,7 @@ describe("proto2js 编译与 protobufjs 双向交叉验证", () => {
         pbPayload.f24,
         pbPayload.f25.map(BigInt),
         pbPayload.f26,
-        undefined, // f27
+        undefined,
         pbPayload.f28,
         pbPayload.f29,
         pbPayload.f30,
@@ -190,7 +131,7 @@ describe("proto2js 编译与 protobufjs 双向交叉验证", () => {
       ],
       pbEncoded = new Uint8Array(PbFullMessage.encode(pbPayload).finish()),
       customEncoded = fullMessageE(customPayload),
-      // 1. 验证 protobufjs 编码能够被 proto2js 生成的解码器完美还原
+      // protobufjs 编码 -> 自定义解码
       decodedFromPb = fullMessageD(pbEncoded);
     expect(decodedFromPb[0]).toBe(customPayload[0]);
     expect(decodedFromPb[13]).toBe(customPayload[13]);
@@ -201,7 +142,7 @@ describe("proto2js 编译与 protobufjs 双向交叉验证", () => {
     expect(decodedFromPb[33]).toBe(customPayload[33]);
     expect(decodedFromPb[34]).toEqual(customPayload[34]);
 
-    // 2. 验证 proto2js 生成的编码器输出能够被 protobufjs 官方解码器完美还原
+    // 自定义编码 -> protobufjs 解码
     const decodedByPb = PbFullMessage.decode(customEncoded);
     expect(decodedByPb.f1).toBe(pbPayload.f1);
     expect(decodedByPb.f14).toBe(pbPayload.f14);
@@ -212,7 +153,33 @@ describe("proto2js 编译与 protobufjs 双向交叉验证", () => {
     expect(decodedByPb.f34).toBe(2);
     expect(decodedByPb.f35).toEqual([1, 0, 2]);
 
-    // 3. 验证两端二进制编码完全逐字节一致
+    // 二进制完全一致
     expect(customEncoded).toEqual(pbEncoded);
+  });
+
+  test("nested.proto: 嵌套 Message 编解码", async () => {
+    const outerE = (await import(join(OUT_DIR, "nested/OuterE.js"))).default,
+      outerD = (await import(join(OUT_DIR, "nested/OuterD.js"))).default,
+      data = [
+        [200, "success"],
+        [
+          [1, "item1"],
+          [2, "item2"]
+        ]
+      ],
+      encoded = outerE(data),
+      decoded = outerD(encoded);
+
+    expect(decoded).toEqual(data);
+  });
+
+  test("import_main.proto: 跨文件 Import 依赖编解码", async () => {
+    const requestE = (await import(join(OUT_DIR, "api/RequestE.js"))).default,
+      requestD = (await import(join(OUT_DIR, "api/RequestD.js"))).default,
+      data = [[123456789, "span-001"], "getUserInfo"],
+      encoded = requestE(data),
+      decoded = requestD(encoded);
+
+    expect(decoded).toEqual(data);
   });
 });
