@@ -9,6 +9,7 @@ import protobuf from "protobufjs";
 const ROOT = import.meta.dirname,
   CASE_DIR = join(ROOT, "case"),
   OUT_DIR = join(ROOT, "tmp_out"),
+  importDefault = async (...paths) => (await import(join(...paths))).default,
   cases = readdirSync(CASE_DIR).filter((dir) => statSync(join(CASE_DIR, dir)).isDirectory());
 
 describe("扫描 case 目录自动化测试", () => {
@@ -24,14 +25,15 @@ describe("扫描 case 目录自动化测试", () => {
       expect(typeof pkg).toBe("string");
 
       const { type, modName, pbPayload, payload } = await import(data_file),
-        modE = (await import(join(OUT_DIR, modName + "E.js"))).default,
-        modD = (await import(join(OUT_DIR, modName + "D.js"))).default,
+        modE = await importDefault(OUT_DIR, modName + "E.js"),
+        modD = await importDefault(OUT_DIR, modName + "D.js"),
         root = await protobuf.load(proto_file),
         PbType = root.lookupType(type),
         pbEncoded = new Uint8Array(PbType.encode(pbPayload).finish()),
         customEncoded = modE(payload),
-        // protobufjs 编码 -> 自定义解码
         decodedFromPb = modD(pbEncoded);
+
+      // protobufjs 编码 -> 自定义解码
       expect(decodedFromPb[0]).toEqual(payload[0]);
 
       // 自定义编码 -> protobufjs 解码
@@ -45,12 +47,12 @@ describe("扫描 case 目录自动化测试", () => {
 
   test("demo: Enum 常量与同构消息别名", async () => {
     const statusMod = await import(join(OUT_DIR, "demo/Status.js")),
-      userAliasE = await import(join(OUT_DIR, "demo/UserAliasE.js")),
-      userE = await import(join(OUT_DIR, "demo/UserE.js"));
+      userAliasE = await importDefault(OUT_DIR, "demo/UserAliasE.js"),
+      userE = await importDefault(OUT_DIR, "demo/UserE.js");
 
     expect(statusMod.UNKNOWN).toBe(0);
     expect(statusMod.OK).toBe(1);
     expect(statusMod.FAIL).toBe(2);
-    expect(userAliasE.default).toBe(userE.default);
+    expect(userAliasE).toBe(userE);
   });
 });
