@@ -1,6 +1,6 @@
 {
   "name": "@1-/proto2js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Protobuf to JavaScript converter / 将 Protobuf 转换为 JavaScript",
   "keywords": [
     "codegen",
