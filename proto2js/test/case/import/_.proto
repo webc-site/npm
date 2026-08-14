@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package api;
 
-import "import_sub.proto";
+import "base.proto";
 
 message Request {
   base.Header header = 1;
