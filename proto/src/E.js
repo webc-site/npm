@@ -1,3 +1,5 @@
+import utf8e from "@3-/utf8/utf8e.js";
+
 /*@__NO_SIDE_EFFECTS__*/
 const metaSet = (func, wire_type = 0) => {
     func._w = wire_type;
@@ -14,8 +16,6 @@ const metaSet = (func, wire_type = 0) => {
       return new Uint8Array(buf.buffer);
     };
   },
-  TEXT = new TextEncoder(),
-  utf8e = TEXT.encode.bind(TEXT),
   concat = (list) => {
     const total_len = list.reduce((len, arr) => len + arr.length, 0),
       result = new Uint8Array(total_len);

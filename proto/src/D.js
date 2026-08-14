@@ -1,3 +1,5 @@
+import utf8d from "@3-/utf8/utf8d.js";
+
 /*@__NO_SIDE_EFFECTS__*/
 const metaSet = (f, default_val) => {
     f._ = default_val;
@@ -28,8 +30,6 @@ const metaSet = (f, default_val) => {
       pos + byte_length
     ];
   },
-  TEXT = new TextDecoder(),
-  utf8d = TEXT.decode.bind(TEXT),
   varintLen = (buffer, pos) => {
     const len = buffer.length;
     while (pos < len) {
