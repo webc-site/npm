@@ -1,12 +1,12 @@
-# proto2js : Generate JavaScript modules from Protocol Buffer definitions
+# @1-/proto2js : Convert Protocol Buffer definitions to JavaScript modules
 
 ## Functionality
-Converts Protocol Buffer (.proto) definition files into modular JavaScript code. Supports message types, enums, and service definitions with RPC client generation.
+Convert Protocol Buffer (.proto) definition files into modular JavaScript code. Supports message types, enum types, and service definitions with RPC client generation. Implements dependency-aware parsing that recursively resolves proto imports before code generation.
 
 ## Usage demonstration
 Install as a CLI tool:
 ```bash
-npm install -g proto2js
+npm install -g @1-/proto2js
 ```
 
 Generate JavaScript from a .proto file:
@@ -16,7 +16,7 @@ proto2js example.proto -o ./generated
 
 Or use programmatically:
 ```javascript
-import gen from 'proto2js/src/_.js';
+import gen from '@1-/proto2js/src/_.js';
 
 // Generate JavaScript modules from proto file
 const pkg = gen('./path/to/file.proto', './output/directory');
@@ -37,7 +37,7 @@ E --> H[Service modules]
 ```
 
 ## Technology stack
-- Runtime: Node.js with Bun compatibility
+- Runtime: Node.js (ESM modules)
 - Core parser: proto-parser library
 - File system: Node.js path and fs modules
 - CLI framework: yargs
@@ -46,13 +46,13 @@ E --> H[Service modules]
 ## Code structure
 ```
 src/
-├── _.js          # Main entry point and orchestration
-├── cli.js        # Command-line interface
-├── gen.js        # Core code generation logic
-├── findType.js   # Type resolution utility
+├── _.js          # Main entry point and orchestration logic
+├── cli.js        # Command-line interface implementation
+├── gen.js        # Core code generation logic for messages, enums, services
+├── findType.js   # Type resolution utility for nested types
 ├── merge.js      # Import merging and dependency resolution
-└── importLi.js   # Import statement parsing
+└── importLi.js   # Import statement parsing and package extraction
 ```
 
 ## Historical background
-Protocol Buffers were developed by Google in 2001 as an efficient alternative to XML for serializing structured data. Initially designed for internal RPC systems, they evolved into an open standard supporting multiple languages. The proto2js tool continues this legacy by enabling seamless integration of Protocol Buffer schemas into modern JavaScript ecosystems.
+Protocol Buffers were developed by Google in 2001 as an efficient alternative to XML for serializing structured data. Initially designed for internal RPC systems, they evolved into an open standard supporting multiple languages. The @1-/proto2js tool continues this legacy by enabling seamless integration of Protocol Buffer schemas into modern JavaScript ecosystems.
