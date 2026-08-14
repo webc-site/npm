@@ -35,6 +35,7 @@
     "yargs": "^18.1.0"
   },
   "devDependencies": {
-    "@1-/proto": "file:../proto"
+    "@1-/proto": "file:../proto",
+    "protobufjs": "^7.5.4"
   }
 }

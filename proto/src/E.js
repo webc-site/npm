@@ -88,9 +88,10 @@ export const uint32 = metaSet((val) => {
       val_wire_type = val_encoder._w ?? 2,
       key_tag = encodeTag(1, key_wire_type),
       val_tag = encodeTag(2, val_wire_type),
+      key_data_encoder = key_wire_type === 2 ? lengthDelimited(key_encoder) : key_encoder,
       val_data_encoder = val_wire_type === 2 ? lengthDelimited(val_encoder) : val_encoder,
       map_entry_encoder = ([key, val]) => {
-        const key_buf = concat([key_tag, key_encoder(key)]),
+        const key_buf = concat([key_tag, key_data_encoder(key)]),
           val_buf = concat([val_tag, val_data_encoder(val)]);
         return concat([key_buf, val_buf]);
       };
