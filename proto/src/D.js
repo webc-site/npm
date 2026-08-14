@@ -10,9 +10,9 @@ const metaSet = (f, default_val) => {
         end = buffer.length;
       let pos = 0;
       while (pos < end) {
-        const [value, nextPos] = decode(buffer, pos);
+        const [value, next_pos] = decode(buffer, pos);
         li.push(value);
-        pos = nextPos;
+        pos = next_pos;
       }
       return li;
     }, []),
@@ -21,7 +21,7 @@ const metaSet = (f, default_val) => {
   /*@__NO_SIDE_EFFECTS__*/
   v0 = (f) => (buf) => f(buf, 0)[0],
   /*@__NO_SIDE_EFFECTS__*/
-  getNum = (byte_length, attr) => {
+  numByAttr = (byte_length, attr) => {
     attr = "get" + attr;
     return (buf, pos = 0) => [
       new DataView(buf.buffer, buf.byteOffset + pos, byte_length)[attr](0, true),
@@ -33,9 +33,10 @@ const metaSet = (f, default_val) => {
   varintLen = (buffer, pos) => {
     const len = buffer.length;
     while (pos < len) {
-      if ((buffer[pos++] & 0x80) === 0) {
-        return pos;
+      if ((buffer[pos] & 0x80) === 0) {
+        return ++pos;
       }
+      ++pos;
     }
     return pos;
   },
@@ -48,7 +49,7 @@ const metaSet = (f, default_val) => {
     while (position < len) {
       byte = buffer[position];
       tag_value |= (byte & 0x7f) << shift;
-      position++;
+      ++position;
       if ((byte & 0x80) === 0) {
         return [tag_value & 7, tag_value >>> 3, position];
       }
@@ -102,24 +103,26 @@ const metaSet = (f, default_val) => {
       shift = 0,
       byte;
     do {
-      byte = buf[pos++];
+      byte = buf[pos];
+      ++pos;
       result |= (byte & 0x7f) << shift;
       shift += 7;
     } while (byte & 0x80);
     return [result >>> 0, pos];
   },
-  decodeFixed32 = getNum(4, "Uint32"),
-  decodeFloat = getNum(4, "Float32"),
-  decodeSfixed32 = getNum(4, "Int32"),
-  decodeDouble = getNum(8, "Float64"),
-  decodeFixed64 = getNum(8, "BigUint64"),
-  decodeSfixed64 = getNum(8, "BigInt64"),
+  decodeFixed32 = numByAttr(4, "Uint32"),
+  decodeFloat = numByAttr(4, "Float32"),
+  decodeSfixed32 = numByAttr(4, "Int32"),
+  decodeDouble = numByAttr(8, "Float64"),
+  decodeFixed64 = numByAttr(8, "BigUint64"),
+  decodeSfixed64 = numByAttr(8, "BigInt64"),
   decodeVarint64 = (buf, pos = 0) => {
     let result = 0n,
       shift = 0n,
       byte;
     do {
-      byte = buf[pos++];
+      byte = buf[pos];
+      ++pos;
       result |= BigInt(byte & 0x7f) << shift;
       shift += 7n;
     } while (byte & 0x80);

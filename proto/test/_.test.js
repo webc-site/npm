@@ -42,8 +42,7 @@ describe("标量类型", () => {
     ["bytes 字节", E.bytes, D.bytes, new Uint8Array([1, 2, 3, 4]), new Uint8Array([1, 2, 3, 4])]
   ].forEach(([name, enc, dec, input, expected]) => {
     test(name, () => {
-      const actual = roundtrip(enc, dec, input);
-      expect(actual).toEqual(expected);
+      expect(roundtrip(enc, dec, input)).toEqual(expected);
     });
   });
 
@@ -71,9 +70,7 @@ describe("列表 repeated packed", () => {
     ["doubleLi", E.doubleLi, D.doubleLi, [1.1, 2.2, 3.3]]
   ].forEach(([name, enc, dec, input]) => {
     test(name, () => {
-      const encoded = enc(input),
-        decoded = dec(encoded);
-      expect(decoded).toEqual(input);
+      expect(dec(enc(input))).toEqual(input);
     });
   });
 });

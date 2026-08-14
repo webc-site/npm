@@ -6,7 +6,7 @@ const metaSet = (func, wire_type = 0) => {
   /*@__NO_SIDE_EFFECTS__*/
   packed = (encoder) => metaSet((li) => concat(li.map(encoder)), 2),
   /*@__NO_SIDE_EFFECTS__*/
-  put = (byte_len, attr) => {
+  numPut = (byte_len, attr) => {
     attr = "set" + attr;
     return (val) => {
       const buf = new DataView(new ArrayBuffer(byte_len));
@@ -36,7 +36,8 @@ export const uint32 = metaSet((val) => {
     const r = [];
     let i = 0;
     while (val >= 0x80) {
-      r[i++] = (val & 0x7f) | 0x80;
+      r[i] = (val & 0x7f) | 0x80;
+      ++i;
       val >>>= 7;
     }
     r[i] = val;
@@ -47,7 +48,8 @@ export const uint32 = metaSet((val) => {
     const r = [];
     let i = 0;
     while (val >= 0x80n) {
-      r[i++] = Number(val & 0x7fn) | 0x80;
+      r[i] = Number(val & 0x7fn) | 0x80;
+      ++i;
       val >>= 7n;
     }
     r[i] = Number(val);
@@ -60,12 +62,12 @@ export const uint32 = metaSet((val) => {
     val = BigInt(val);
     return uint64((val << 1n) ^ (val >> 63n));
   }),
-  double = metaSet(put(8, "Float64"), 1),
-  float = metaSet(put(4, "Float32"), 5),
-  fixed32 = metaSet(put(4, "Uint32"), 5),
-  fixed64 = metaSet((v) => put(8, "BigUint64")(BigInt(v)), 1),
-  sfixed32 = metaSet(put(4, "Int32"), 5),
-  sfixed64 = metaSet((v) => put(8, "BigInt64")(BigInt(v)), 1),
+  double = metaSet(numPut(8, "Float64"), 1),
+  float = metaSet(numPut(4, "Float32"), 5),
+  fixed32 = metaSet(numPut(4, "Uint32"), 5),
+  fixed64 = metaSet((v) => numPut(8, "BigUint64")(BigInt(v)), 1),
+  sfixed32 = metaSet(numPut(4, "Int32"), 5),
+  sfixed64 = metaSet((v) => numPut(8, "BigInt64")(BigInt(v)), 1),
   bool = metaSet((b) => new Uint8Array([b ? 1 : 0])),
   string = metaSet(utf8e, 2),
   bytes = metaSet((v) => v, 2),
@@ -104,7 +106,7 @@ export const uint32 = metaSet((val) => {
           return bufs;
         }
 
-        const field = i + 1,
+        const field = 1 + i,
           encoder = encode_li[i];
 
         if (Array.isArray(encoder)) {
