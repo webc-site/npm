@@ -58,7 +58,7 @@ const BASE_TYPE = "BaseType",
           if (code_li.length) {
             addJs([
               prefix_name,
-              ['$ from "@1-/proto/call.js"', ...proto_import]
+              ['$ from "@1-/proto/rpc.js"', ...proto_import]
                 .toSorted()
                 .map((i) => "import " + i)
                 .join("\n") +
