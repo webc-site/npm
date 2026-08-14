@@ -5,7 +5,7 @@ import { hideBin } from "yargs/helpers";
 import gen from "./_.js";
 
 const argv = yargs(hideBin(process.argv))
-  .scriptName("protogen")
+  .scriptName("proto2js")
   .usage("$0 <proto_path> -o <out_dir> [-I <include_dir>]")
   .command("$0 <proto_path>", "Generate JavaScript from a .proto file", (yargs) => {
     yargs.positional("proto_path", {
