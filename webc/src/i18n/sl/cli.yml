@@ -1,0 +1,15 @@
+add: Dodajte komponento
+dev: Zaženite strežnik za razvoj in odpravljanje napak
+new: Nova komponenta
+npm: Zgradite paket dist/npm
+npmPublish: Objavi paket npm
+npmRelease: Potisnite trenutno vejo v vejo za izdajo (sprožite postopek izdaje dejanja github)
+readme: Ustvarite korenski imenik README.md in na začetku dodajte večjezično navigacijo
+redirect2html: Kopiraj strani na podlagi _preusmeritev
+site: Zgradite predogled statičnega mesta na dist/site
+dist: Zgradite statično spletno mesto in ga objavite na dist/dist
+siteSrv: Zgradite statični predogled spletnega mesta in zaženite strežnik za predogled
+distSrv: Zgradite statično spletno mesto za objavo in zaženite strežnik za predogled
+jsDoc: Preverite dokumente src/js in sodelujte z umetno inteligenco za uresničitev samodejnega dokončanja dokumentov
+tran: prevajati
+init: Inicializirajte knjižnico komponent

@@ -1,0 +1,28 @@
+{
+  "name": "@1-/psl",
+  "version": "0.1.3",
+  "description": "Public Suffix List implementation for domain suffix extraction.",
+  "keywords": [
+    "cookie",
+    "domain",
+    "psl",
+    "public-suffix",
+    "tld"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/psl",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/_.js",
+    "./*": "./src/*"
+  },
+  "dependencies": {}
+}

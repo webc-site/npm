@@ -1,0 +1,15 @@
+add: Thêm thành phần
+dev: Bắt đầu máy chủ phát triển và gỡ lỗi
+new: Thành phần mới
+npm: Xây dựng gói dist/npm
+npmPublish: Xuất bản gói npm
+npmRelease: Đẩy nhánh hiện tại đến nhánh phát hành (kích hoạt quá trình phát hành hành động github)
+readme: Tạo thư mục gốc README.md và thêm điều hướng đa ngôn ngữ ở đầu
+redirect2html: Sao chép các trang dựa trên _redirects
+site: Xây dựng bản xem trước trang tĩnh thành dist/site
+dist: Xây dựng một trang web tĩnh và xuất bản nó lên dist/dist
+siteSrv: Xây dựng bản xem trước trang web tĩnh và khởi động máy chủ xem trước
+distSrv: Xây dựng một trang tĩnh để xuất bản và khởi động máy chủ xem trước
+jsDoc: Xác minh tài liệu src/js và hợp tác với trí tuệ nhân tạo để thực hiện hoàn thành tài liệu tự động
+tran: dịch
+init: Khởi tạo thư viện thành phần

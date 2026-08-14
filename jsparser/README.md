@@ -1,0 +1,187 @@
+[English](#en) | [中文](#zh)
+
+---
+
+<a id="en"></a>
+# @1-/jsparser : JavaScript Module Dependency Static Analyzer
+
+- [@1-/jsparser : JavaScript Module Dependency Static Analyzer](#1-jsparser-javascript-module-dependency-static-analyzer)
+  - [Functionality](#functionality)
+  - [Usage demonstration](#usage-demonstration)
+  - [Design approach](#design-approach)
+  - [Technology stack](#technology-stack)
+  - [Code structure](#code-structure)
+  - [Historical background](#historical-background)
+  - [About](#about)
+
+## Functionality
+
+Precisely identifies import and export declarations in JavaScript modules without code execution. Supports static imports, dynamic imports (including interpolation-free template literals), interpolated dynamic template imports, default exports, named exports, destructuring exports, and renamed exports.
+
+## Usage demonstration
+
+Install as an npm package:
+
+```bash
+npm install @1-/jsparser
+```
+
+Use in JavaScript:
+
+```javascript
+import importLi from '@1-/jsparser/importLi.js';
+import exportLi from '@1-/jsparser/exportLi.js';
+
+// Analyze imports in a code string
+const [staticImports, dynamicImports, templateImports] = importLi(`
+  import a from 'a-module';
+  import { b } from 'b-module';
+  export { c } from 'c-module';
+  export * from 'd-module';
+  import('e-module');
+  import(`f-module`);
+  import(`g-module-${x}`);
+`);
+// Returns: [['a-module', 'b-module', 'c-module', 'd-module'], ['e-module', 'f-module'], [['g-module-', '']]]
+
+// Analyze exports in a file (path-only)
+const exportNames = exportLi('./src/module.js');
+// Returns undefined if file does not exist
+```
+
+## Design approach
+
+Performs deep AST traversal using `yuku-parser`. `importLi` extracts module specifiers from `ImportDeclaration` (static imports), `ExportNamedDeclaration` and `ExportAllDeclaration` (static re-exports), and `ImportExpression` (dynamic imports); for template literals, interpolation-free ones go to `dynamicImports`, while interpolated ones go to `templateImports` as arrays of cooked quasis. `exportLi` traverses `ExportDefaultDeclaration` (`default`) and `ExportNamedDeclaration` (identifiers from declarations and renamed specifiers).
+
+```mermaid
+graph TD
+    A[Input JavaScript Code] --> B[yuku-parser AST]
+    B --> C[importLi]
+    B --> D[exportLi]
+    C --> E[Static Import Module Names]
+    C --> F[Dynamic Import Module Names]
+    C --> G[Template Import Quasis Arrays]
+    D --> H[Export Name Array]
+```
+
+## Technology stack
+
+- yuku-parser: JavaScript/TypeScript AST parser
+- @3-/is_obj: Object type checking utility
+- @3-/read: File reading utility
+- Node.js built-in modules
+
+## Code structure
+
+```
+src/
+├── importLi.js    # Import analysis: returns [static, dynamic, template] triple
+└── exportLi.js    # Export analysis: accepts file path, returns export name array (including 'default') or undefined
+```
+
+This library consists of exactly two plain JavaScript files — no abstractions, no extra dependencies, no type declarations.
+
+## Historical background
+
+The ECMAScript 2015 (ES6) standard was finalized in June 2015, with the Modules feature as a core component. This specification defined static `import` and `export` syntax, enabling build tools to perform reliable static analysis for critical capabilities like code splitting and tree-shaking. `@1-/jsparser` adopts a lightweight design focused on reliably extracting inter-module references, serving as a small but essential part of modern frontend engineering infrastructure.
+
+
+## About
+
+This library is developed by [WebC.site](https://webc.site).
+
+[WebC.site](https://webc.site): A new paradigm of web development for AI
+
+
+---
+
+<a id="zh"></a>
+# @1-/jsparser : JavaScript 模块依赖静态分析器
+
+- [@1-/jsparser : JavaScript 模块依赖静态分析器](#1-jsparser-javascript-模块依赖静态分析器)
+  - [功能介绍](#功能介绍)
+  - [使用演示](#使用演示)
+  - [设计思路](#设计思路)
+  - [技术栈](#技术栈)
+  - [代码结构](#代码结构)
+  - [历史故事](#历史故事)
+  - [关于](#关于)
+
+## 功能介绍
+
+精确识别 JavaScript 模块中的导入与导出声明，无需执行代码。支持静态导入、动态导入（含无插值模板字面量）、带插值的动态模板导入、默认导出、命名导出、解构导出、重命名导出。
+
+## 使用演示
+
+安装为 npm 包：
+
+```bash
+npm install @1-/jsparser
+```
+
+在 JavaScript 中使用：
+
+```javascript
+import importLi from '@1-/jsparser/importLi.js';
+import exportLi from '@1-/jsparser/exportLi.js';
+
+// 分析代码字符串中的导入
+const [staticImports, dynamicImports, templateImports] = importLi(`
+  import a from 'a-module';
+  import { b } from 'b-module';
+  export { c } from 'c-module';
+  export * from 'd-module';
+  import('e-module');
+  import(`f-module`);
+  import(`g-module-${x}`);
+`);
+// 返回: [['a-module', 'b-module', 'c-module', 'd-module'], ['e-module', 'f-module'], [['g-module-', '']]]
+
+// 分析文件中的导出（仅接受文件路径）
+const exportNames = exportLi('./src/module.js');
+// 若文件不存在，返回 undefined
+```
+
+## 设计思路
+
+基于 `yuku-parser` 生成的 AST 进行深度遍历。`importLi` 提取 `ImportDeclaration`（静态导入）、`ExportNamedDeclaration` 和 `ExportAllDeclaration`（静态 re-export）、`ImportExpression`（动态导入）节点中的模块源字符串；对模板字面量，区分无插值（归入动态导入）与含插值（归入模板导入）。`exportLi` 遍历导出节点，提取 `ExportDefaultDeclaration`（`default`）、`ExportNamedDeclaration`（声明体中的标识符及 `specifiers` 中的重命名名）。
+
+```mermaid
+graph TD
+    A[输入 JavaScript 代码] --> B[yuku-parser AST]
+    B --> C[importLi]
+    B --> D[exportLi]
+    C --> E[静态导入模块名数组]
+    C --> F[动态导入模块名数组]
+    C --> G[模板导入分段数组]
+    D --> H[导出名称数组]
+```
+
+## 技术栈
+
+- yuku-parser：JavaScript/TypeScript AST 解析器
+- @3-/is_obj：对象类型检查工具
+- @3-/read：文件读取工具
+- Node.js 内置模块
+
+## 代码结构
+
+```
+src/
+├── importLi.js    # 导入分析：返回 [静态导入, 动态导入, 模板导入] 三元组
+└── exportLi.js    # 导出分析：接收文件路径，返回导出名称数组（含 'default'）或 undefined
+```
+
+本库由两个纯 JavaScript 文件构成，无抽象层、无额外依赖、无类型声明。
+
+## 历史故事
+
+ECMAScript 2015（ES6）标准于 2015 年 6 月正式发布，其中模块系统（Modules）作为核心特性被纳入规范。该标准定义了静态的 `import` 和 `export` 语法，使构建工具能够进行可靠的静态分析，从而实现代码分割、摇树优化等关键能力。`@1-/jsparser` 采用轻量设计，专注解决模块间引用关系的可靠提取问题，是现代前端工程化基础设施的微小但重要的组成部分。
+
+
+## 关于
+
+本库由 [WebC.site](https://webc.site) 开发。
+
+[WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

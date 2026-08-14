@@ -1,0 +1,15 @@
+add: Component toevoegen
+dev: Start de ontwikkelings- en foutopsporingsserver
+new: Nieuw onderdeel
+npm: Bouw het dist/npm-pakket
+npmPublish: NPM-pakket publiceren
+npmRelease: Push de huidige branch naar de release branch (trigger het releaseproces van de github-actie)
+readme: Genereer de hoofdmap README.md en voeg aan het begin meertalige navigatie toe
+redirect2html: Kopieer pagina's op basis van _redirects
+site: Bouw een statisch sitevoorbeeld naar dist/site
+dist: Bouw een statische site en publiceer deze op dist/dist
+siteSrv: Bouw een statisch sitevoorbeeld en start de previewserver
+distSrv: Bouw een statische site voor publicatie en start de preview-server
+jsDoc: Verifieer src/js-documenten en werk samen met kunstmatige intelligentie om automatische documentaanvulling te realiseren
+tran: vertalen
+init: Initialiseer de componentenbibliotheek

@@ -1,0 +1,15 @@
+add: Pridėti komponentą
+dev: Pradėkite kurti ir derinti serverį
+new: Naujas komponentas
+npm: Sukurkite dist/npm paketą
+npmPublish: Paskelbkite npm paketą
+npmRelease: Pastumkite dabartinę šaką į išleidimo šaką (suaktyvinkite „Github“ veiksmo išleidimo procesą)
+readme: Sugeneruokite šakninį katalogą README.md ir pradžioje pridėkite kelių kalbų naršymą
+redirect2html: Nukopijuokite puslapius pagal _redirects
+site: Sukurkite statinę svetainės peržiūrą į dist/site
+dist: Sukurkite statinę svetainę ir paskelbkite ją dist/dist
+siteSrv: Sukurkite statinę svetainės peržiūrą ir paleiskite peržiūros serverį
+distSrv: Sukurkite statinę svetainę publikavimui ir paleiskite peržiūros serverį
+jsDoc: Patikrinkite src/js dokumentus ir bendradarbiaukite su dirbtiniu intelektu, kad įgyvendintumėte automatinį dokumentų užbaigimą
+tran: išversti
+init: Inicijuoti komponentų biblioteką

@@ -1,0 +1,31 @@
+{
+  "name": "@1-/i18nyml",
+  "version": "0.1.2",
+  "description": "Load YAML localization files by system language preference. 根据系统语言偏好加载 YAML 本地化文件",
+  "keywords": [
+    "i18n",
+    "internationalization",
+    "locale",
+    "localization",
+    "yaml"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/i18nyml",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/_.js",
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@1-/oslang": "^0.1.2",
+    "@1-/yml": "^0.1.3"
+  }
+}

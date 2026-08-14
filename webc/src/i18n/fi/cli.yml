@@ -1,0 +1,15 @@
+add: Lisää komponentti
+dev: Aloita kehitys- ja virheenkorjauspalvelin
+new: Uusi komponentti
+npm: Rakenna dist/npm-paketti
+npmPublish: Julkaise npm-paketti
+npmRelease: Työnnä nykyinen haara julkaisuhaaraan (käynnistä githubin toiminnan vapautusprosessi)
+readme: Luo juurihakemisto README.md ja lisää alkuun monikielinen navigointi
+redirect2html: Kopioi sivut, jotka perustuvat _uudelleenohjauksiin
+site: Luo staattinen sivuston esikatselu kohteeseen dist/site
+dist: Rakenna staattinen sivusto ja julkaise se dist/dist
+siteSrv: Luo staattinen sivuston esikatselu ja käynnistä esikatselupalvelin
+distSrv: Rakenna staattinen sivusto julkaisua varten ja käynnistä esikatselupalvelin
+jsDoc: Tarkista src/js-asiakirjat ja tee yhteistyötä tekoälyn kanssa toteuttaaksesi automaattisen asiakirjan täydennyksen
+tran: kääntää
+init: Alusta komponenttikirjasto

@@ -1,0 +1,27 @@
+{
+  "name": "@1-/sqlite",
+  "version": "0.1.2",
+  "description": "Bun:SQLite wrapper supporting automatic resource management and transactions / 支持自动资源管理与事务的 Bun:SQLite 封装",
+  "keywords": [
+    "bun",
+    "disposable",
+    "sqlite",
+    "transaction",
+    "using"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/sqlite",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/_.js",
+    "./*": "./src/*"
+  }
+}

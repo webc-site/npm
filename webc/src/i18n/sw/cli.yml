@@ -1,0 +1,15 @@
+add: Ongeza sehemu
+dev: Anzisha seva ya ukuzaji na utatuzi
+new: Sehemu mpya
+npm: Jenga kifurushi cha dist/npm
+npmPublish: Chapisha kifurushi cha npm
+npmRelease: Sukuma tawi la sasa kwenye tawi la kutolewa (anzisha mchakato wa kutolewa kwa kitendo cha github)
+readme: Tengeneza saraka ya mizizi README.md na uongeze urambazaji wa lugha nyingi mwanzoni
+redirect2html: Nakili kurasa kulingana na _redirects
+site: Jenga onyesho la kukagua tovuti tuli kwa dist/tovuti
+dist: Unda tovuti tuli na uchapishe kwa dist/dist
+siteSrv: Unda onyesho la kukagua tovuti tuli na uanzishe seva ya onyesho la kukagua
+distSrv: Unda tovuti tuli kwa uchapishaji na uanzishe seva ya onyesho la kukagua
+jsDoc: Thibitisha hati za src/js na ushirikiane na akili bandia ili kukamilisha ukamilishaji wa hati otomatiki.
+tran: kutafsiri
+init: Anzisha maktaba ya sehemu

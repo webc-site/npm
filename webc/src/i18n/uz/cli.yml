@@ -1,0 +1,15 @@
+add: Komponent qo'shing
+dev: Ishlab chiqish va disk raskadrovka serverini ishga tushiring
+new: Yangi komponent
+npm: Dist/npm paketini yarating
+npmPublish: npm paketini nashr qilish
+npmRelease: Joriy filialni chiqarish filialiga suring (github harakatini chiqarish jarayonini ishga tushiring)
+readme: README.md ildiz katalogini yarating va boshida ko'p tilli navigatsiyani qo'shing
+redirect2html: _redirects asosida sahifalarni nusxalash
+site: Dist/saytga statik saytni oldindan ko'rishni yarating
+dist: Statik sayt yarating va uni dist/dist uchun nashr qiling
+siteSrv: Statik saytni oldindan ko'rishni yarating va oldindan ko'rish serverini ishga tushiring
+distSrv: Nashr qilish uchun statik sayt yarating va oldindan ko'rish serverini ishga tushiring
+jsDoc: src/js hujjatlarini tekshiring va hujjatlarni avtomatik toʻldirishni amalga oshirish uchun sunʼiy intellekt bilan hamkorlik qiling.
+tran: tarjima qiling
+init: Komponentlar kutubxonasini ishga tushiring

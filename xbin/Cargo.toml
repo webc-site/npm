@@ -1,0 +1,18 @@
+[package]
+name = "xbin"
+version = "0.1.14"
+edition = "2024"
+license = "MulanPSL-2.0"
+repository = "https://github.com/webc-site/npm.git"
+homepage = "https://github.com/webc-site/npm/tree/main/xbin"
+description = "Efficient byte array concatenation utilities / 高效字节数组拼接工具"
+keywords = ["bytes", "concatenation", "binary", "asref", "utility"]
+categories = ["data-structures", "memory-management", "no-std", "encoding", "development-tools"]
+
+[dev-dependencies]
+aok = "0.1.18"
+static_init = "1.0.4"
+log = "0.4.33"
+
+[dependencies.log_init]
+version = "0.1.38"
