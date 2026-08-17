@@ -3,6 +3,7 @@
 ---
 
 <a id="en"></a>
+
 # @1-/proto2js : Convert Protocol Buffer definitions to JavaScript modules
 
 - [@1-/proto2js : Convert Protocol Buffer definitions to JavaScript modules](#1-proto2js-convert-protocol-buffer-definitions-to-javascript-modules)
@@ -15,9 +16,11 @@
   - [About](#about)
 
 ## Functionality
+
 Convert Protocol Buffer (.proto) definition files into modular JavaScript code. Supports message types, enum types, and service definitions with RPC client generation. Implements dependency-aware parsing that recursively resolves proto imports before code generation. Generated JavaScript modules support ESM imports and work in modern JavaScript environments.
 
 ## Usage demonstration
+
 Install as a CLI tool:
 
 ```bash
@@ -46,6 +49,7 @@ proto2js ./protos/ -o ./generated
 ```
 
 ## Design rationale
+
 The generator uses a three-stage pipeline architecture:
 
 ```mermaid
@@ -61,6 +65,7 @@ D --> D3[Message module generation]
 ```
 
 Key implementation features:
+
 - Dependency-aware: `merge.js` implements recursive import resolution, building complete dependency graphs
 - Type resolution: `findType.js` provides nested type lookup capability for deep nested references
 - Path intelligence: `gen.js` uses Node.js `relative()` to compute module paths, ensuring correct ESM import statements
@@ -68,6 +73,7 @@ Key implementation features:
 - Error localization: Parse errors include precise line numbers and context information
 
 ## Technology stack
+
 - Runtime: Node.js (ESM modules)
 - Core parser: proto-parser library
 - File system: Node.js path and fs modules
@@ -76,6 +82,7 @@ Key implementation features:
 - Development dependencies: @1-/proto (RPC runtime), protobufjs (development-time validation)
 
 ## Code structure
+
 ```
 src/
 ├── _.js          # Main entry point and orchestration logic, handles file/directory input, path resolution, error handling
@@ -87,6 +94,7 @@ src/
 ```
 
 ## Historical background
+
 Protocol Buffers were developed by Google in 2001 as an efficient alternative to XML for serializing structured data. Initially designed for internal RPC systems, they evolved into an open standard supporting multiple languages. The @1-/proto2js tool continues this legacy by enabling seamless integration of Protocol Buffer schemas into modern JavaScript ecosystems, with specific optimizations for ESM module systems.
 
 ## About
@@ -95,10 +103,10 @@ This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
-
 ---
 
 <a id="zh"></a>
+
 # @1-/proto2js : Convert Protocol Buffer definitions to JavaScript modules
 
 - [@1-/proto2js : Convert Protocol Buffer definitions to JavaScript modules](#1-proto2js-convert-protocol-buffer-definitions-to-javascript-modules)
@@ -111,9 +119,11 @@ This library is developed by [WebC.site](https://webc.site).
   - [关于](#关于)
 
 ## 功能介绍
+
 将 Protocol Buffer (.proto) 定义文件转换为模块化 JavaScript 代码。支持消息类型、枚举类型和服务定义，包含 RPC 客户端生成能力。采用依赖感知解析策略，递归解析 proto 导入依赖后执行代码生成。生成的 JavaScript 模块支持 ESM 导入，可直接在现代 JavaScript 环境中使用。
 
 ## 使用演示
+
 安装为命令行工具：
 
 ```bash
@@ -142,6 +152,7 @@ proto2js ./protos/ -o ./generated
 ```
 
 ## 设计思路
+
 生成器采用三阶段流水线架构：
 
 ```mermaid
@@ -157,6 +168,7 @@ D --> D3[消息模块生成]
 ```
 
 关键实现特性：
+
 - 依赖感知：通过 `merge.js` 实现递归导入解析，构建完整的 dependency graph
 - 类型解析：`findType.js` 提供嵌套类型查找能力，支持深度嵌套引用
 - 路径智能：`gen.js` 使用 Node.js `relative()` 计算模块路径，确保正确的 ESM import 语句
@@ -164,6 +176,7 @@ D --> D3[消息模块生成]
 - 错误定位：解析错误包含精确的行号和上下文信息
 
 ## 技术栈
+
 - 运行时：Node.js (ESM 模块)
 - 核心解析器：proto-parser 库
 - 文件系统：Node.js path 和 fs 模块
@@ -172,6 +185,7 @@ D --> D3[消息模块生成]
 - 开发依赖：@1-/proto（RPC 运行时）、protobufjs（开发时验证）
 
 ## 代码结构
+
 ```
 src/
 ├── _.js          # 主入口点与编排逻辑，处理文件/目录输入、路径解析、错误处理
@@ -183,6 +197,7 @@ src/
 ```
 
 ## 历史故事
+
 Protocol Buffers 由 Google 于 2001 年开发，作为 XML 的高效替代方案用于结构化数据序列化。最初设计用于内部 RPC 系统，后演变为支持多种语言的开放标准。@1-/proto2js 工具延续这一传统，实现 Protocol Buffer 模式与现代 JavaScript 生态系统的无缝集成，特别针对 ESM 模块系统进行了优化设计。
 
 ## 关于
@@ -190,4 +205,3 @@ Protocol Buffers 由 Google 于 2001 年开发，作为 XML 的高效替代方�
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
-

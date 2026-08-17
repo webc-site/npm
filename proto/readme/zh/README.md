@@ -1,9 +1,11 @@
 # ProtoRPC : 面向 JavaScript 的高效二进制 RPC
 
 ## 功能介绍
+
 ProtoRPC 提供轻量级、零依赖的 RPC 框架，实现 Protocol Buffer 线格式规范，支持高效的二进制通信。该框架支持高性能远程过程调用，具备自动请求批处理、节流控制和流式响应处理能力。通过紧凑的二进制编码，最小化网络负载大小，同时保持完整的 JavaScript 兼容性。
 
 ## 使用演示
+
 配置并使用遵循 Protocol Buffer 规范的 RPC 客户端：
 
 ```javascript
@@ -16,7 +18,8 @@ rpc.setBase("https://api.example.com/rpc");
 
 // 定义 RPC 方法（遵循 Protocol Buffer 编码规范）
 // 字段 1：用户 ID（varint 编码），字段 2：用户名（长度限定字符串）
-const getUser = rpc(1, // 函数 ID
+const getUser = rpc(
+  1, // 函数 ID
   $([uint32, lengthDelimited(string)]), // 编码器
   d$([dUint32, dString]) // 解码器
 );
@@ -26,6 +29,7 @@ const result = await getUser([123, "Alice"]);
 ```
 
 ## 设计思路
+
 架构严格遵循 Protocol Buffer 线格式规范，实现精确的协议兼容：
 
 ```mermaid
@@ -51,6 +55,7 @@ graph TD
 ```
 
 关键实现细节：
+
 - 流式响应解析，使用 ReadableStream API 实现零拷贝操作
 - 严格遵循 Protocol Buffer 线格式规范：varint 编码、标签计算（字段<<3|线类型）、长度限定字符串
 - 自动请求批处理，支持可配置的节流超时（默认 9 毫秒）
@@ -61,6 +66,7 @@ graph TD
 - 特殊错误码处理，使用 U32_MAX 作为哨兵值
 
 ## 技术栈
+
 - 核心运行时：现代 JavaScript（ES2020+），支持 BigInt
 - 二进制编码：自定义 Protocol Buffer 线格式实现
 - HTTP 传输：原生 fetch API，支持 ReadableStream 响应处理
@@ -68,6 +74,7 @@ graph TD
 - 构建系统：标准 JavaScript 模块
 
 ## 代码结构
+
 ```
 src/
 ├── rpc.js          # 主 RPC 客户端（含批处理、节流控制和流式响应处理）
@@ -98,4 +105,5 @@ src/
 ```
 
 ## 历史故事
+
 Protocol Buffers 由 Google 于 2001 年开发，旨在解决分布式系统中结构化数据高效序列化的难题。原始设计聚焦于紧凑的二进制表示、语言无关性和可扩展性。ProtoRPC 在 JavaScript 中实现了这些核心原则，无需外部依赖，将 Protocol Buffer 效率优势带入 Web 应用。与需要代码生成的传统 Protocol Buffer 实现不同，ProtoRPC 使用运行时编码/解码函数，在动态 JavaScript 环境中无需编译时代码生成，更适合实际 Web 开发场景。该库的流式响应处理和内存高效的 Uint8Array 操作代表了现代 JavaScript 高性能网络通信的最佳实践。

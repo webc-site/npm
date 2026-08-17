@@ -2,6 +2,7 @@
 
 import yargs from "yargs/yargs";
 import { hideBin } from "yargs/helpers";
+import ERR from "@3-/log/ERR.js";
 import gen from "./_.js";
 
 const argv = yargs(hideBin(process.argv))
@@ -28,6 +29,6 @@ const argv = yargs(hideBin(process.argv))
 try {
   gen(argv.proto_path, argv.out, argv.include);
 } catch (e) {
-  console.error(e);
+  ERR(e);
   process.exit(1);
 }

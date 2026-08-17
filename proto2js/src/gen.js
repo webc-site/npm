@@ -8,17 +8,14 @@ const BASE_TYPE = "BaseType",
     if (!root_nested) return path_code;
 
     const addJs = path_code.push.bind(path_code),
-      rel = (prefix_li.length ? prefix_li.map(() => "..").join("/") : ".") + "/",
+      rel = prefix_li.length ? "../".repeat(prefix_li.length) : "./",
       prefix_dir = rel + prefix_li.join("/"),
-      _relativePath = (name) => {
-        let r = relative(prefix_dir, rel + name);
-        if (!r.startsWith(".")) {
-          r = "./" + r;
-        }
-        return r;
+      relPath = (name) => {
+        const r = relative(prefix_dir, rel + name);
+        return r.startsWith(".") ? r : "./" + r;
       },
-      relativePath = (name_li) => _relativePath(name_li.join("/")),
-      relativePath$ = (name) => _relativePath(name.replaceAll("$", "/"));
+      relPathLi = (name_li) => relPath(name_li.join("/")),
+      relPath$ = (name) => relPath(name.replaceAll("$", "/"));
 
     for (const val of Object.values(root_nested)) {
       const { name, syntaxType } = val;
@@ -33,11 +30,11 @@ const BASE_TYPE = "BaseType",
           const code_li = [],
             proto_import = new Set(),
             protoImportAdd = (suffix, type_li) => {
-              const request_type_name = type_li.join("$");
+              const type_name = type_li.join("$");
               proto_import.add(
-                request_type_name + suffix + ' from "' + relativePath(type_li) + suffix + '.js"'
+                type_name + suffix + ' from "' + relPathLi(type_li) + suffix + '.js"'
               );
-              return request_type_name + suffix;
+              return type_name + suffix;
             };
 
           Object.entries(val.methods).forEach(([method, { requestType, responseType }]) => {
@@ -69,10 +66,7 @@ const BASE_TYPE = "BaseType",
           break;
         }
         case "EnumDefinition": {
-          const t = [];
-          for (const [k, v] of Object.entries(val.values)) {
-            t.push(k + " = " + v);
-          }
+          const t = Object.entries(val.values).map(([k, v]) => k + " = " + v);
           if (t.length) {
             addJs([prefix_name, "export const " + t.join(",\n  ")]);
           }
@@ -93,9 +87,7 @@ const BASE_TYPE = "BaseType",
                       proto_import.add(type);
                       return "[" + type + "]";
                     }
-                    type = type + "Li";
-                    proto_import.add(type);
-                    return type;
+                    type += "Li";
                   }
                   proto_import.add(type);
                   return type;
@@ -104,17 +96,16 @@ const BASE_TYPE = "BaseType",
                 if (syntaxType === BASE_TYPE) {
                   return typeStr(value);
                 } else if (syntaxType === "Identifier") {
-                  const finded = find(type);
-                  if (finded) {
-                    const finded_syntax_type = finded[1].syntaxType;
-                    if (finded_syntax_type === "EnumDefinition") {
+                  const found = find(type);
+                  if (found) {
+                    const found_syntax_type = found[1].syntaxType;
+                    if (found_syntax_type === "EnumDefinition") {
                       comment += " : " + (repeated ? "[enum " + value + "]" : "enum " + value);
-                      value = "int32";
-                      if (repeated) value += "Li";
+                      value = "int32" + (repeated ? "Li" : "");
                       proto_import.add(value);
                       return value;
-                    } else if (finded_syntax_type === "MessageDefinition") {
-                      const name = finded[0].join("$");
+                    } else if (found_syntax_type === "MessageDefinition") {
+                      const name = found[0].join("$");
                       js_import.add(name);
                       return repeated ? "[" + name + "]" : name;
                     }
@@ -124,16 +115,10 @@ const BASE_TYPE = "BaseType",
 
             Object.values(fields).forEach((o) => {
               const { id, name, map, repeated } = o,
-                type = getType(o.type, repeated);
-
-              let args_type;
-
-              if (map) {
-                proto_import.add("map");
-                args_type = "map(" + getType(o.keyType) + "," + type + ")";
-              } else {
-                args_type = type;
-              }
+                type = getType(o.type, repeated),
+                args_type = map
+                  ? (proto_import.add("map"), "map(" + getType(o.keyType) + "," + type + ")")
+                  : type;
               args[id - 1] = [id + " " + name, args_type];
             });
 
@@ -148,21 +133,19 @@ const BASE_TYPE = "BaseType",
 
             if (rename) {
               genJs = (kind) => {
-                comment = "";
-                for (let i = 0; i < args.length; ++i) {
-                  const args_i = args[i];
-                  if (args_i) {
-                    comment += "  " + args_i[0] + " " + args_i[1].replaceAll("$", "/") + "\n";
-                  } else {
-                    comment += "  " + (1 + i) + " _\n";
-                  }
-                }
+                const comment_str = args
+                  .map((args_i, i) =>
+                    args_i
+                      ? "  " + args_i[0] + " " + args_i[1].replaceAll("$", "/")
+                      : "  " + (1 + i) + " _"
+                  )
+                  .join("\n");
                 return (
                   "/*\n" +
-                  comment +
-                  "*/\n" +
+                  comment_str +
+                  "\n*/\n" +
                   'export { default } from "' +
-                  relativePath$(rename) +
+                  relPath$(rename) +
                   kind +
                   '.js"'
                 );
@@ -181,7 +164,7 @@ const BASE_TYPE = "BaseType",
               js_import = [...js_import].toSorted();
               genJs = (kind) => {
                 const imp = js_import
-                  .map((i) => "import " + i + ' from "' + relativePath$(i) + kind + '.js"')
+                  .map((i) => "import " + i + ' from "' + relPath$(i) + kind + '.js"')
                   .join("\n");
                 return (
                   "import { $ as $" +
@@ -205,7 +188,7 @@ const BASE_TYPE = "BaseType",
           }
 
           if (nested) {
-            addJs(...gen(funcId, find, nested, prefix_li.concat([name]), pkg_li, new Map()));
+            addJs(...gen(funcId, find, nested, [...prefix_li, name], pkg_li, new Map()));
           }
         }
       }
@@ -229,8 +212,6 @@ export default (proto, pkg_set, funcId) => {
     );
   }
 
-  const { root } = parsed,
-    { nested } = root;
-
-  return gen(funcId, findType(".", root), nested, [], [...pkg_set], new Map());
+  const { root } = parsed;
+  return gen(funcId, findType(".", root), root.nested, [], [...pkg_set], new Map());
 };

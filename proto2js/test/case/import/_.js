@@ -1,6 +1,6 @@
 export const type = "api.Request",
-  modName = "api/Request",
-  pbPayload = {
+  mod_name = "api/Request",
+  pb_payload = {
     header: { traceId: 123456789, spanId: "span-001" },
     action: "getUserInfo"
   },

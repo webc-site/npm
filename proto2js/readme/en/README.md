@@ -1,9 +1,11 @@
 # @1-/proto2js : Convert Protocol Buffer definitions to JavaScript modules
 
 ## Functionality
+
 Convert Protocol Buffer (.proto) definition files into modular JavaScript code. Supports message types, enum types, and service definitions with RPC client generation. Implements dependency-aware parsing that recursively resolves proto imports before code generation. Generated JavaScript modules support ESM imports and work in modern JavaScript environments.
 
 ## Usage demonstration
+
 Install as a CLI tool:
 
 ```bash
@@ -32,6 +34,7 @@ proto2js ./protos/ -o ./generated
 ```
 
 ## Design rationale
+
 The generator uses a three-stage pipeline architecture:
 
 ```mermaid
@@ -47,6 +50,7 @@ D --> D3[Message module generation]
 ```
 
 Key implementation features:
+
 - Dependency-aware: `merge.js` implements recursive import resolution, building complete dependency graphs
 - Type resolution: `findType.js` provides nested type lookup capability for deep nested references
 - Path intelligence: `gen.js` uses Node.js `relative()` to compute module paths, ensuring correct ESM import statements
@@ -54,6 +58,7 @@ Key implementation features:
 - Error localization: Parse errors include precise line numbers and context information
 
 ## Technology stack
+
 - Runtime: Node.js (ESM modules)
 - Core parser: proto-parser library
 - File system: Node.js path and fs modules
@@ -62,6 +67,7 @@ Key implementation features:
 - Development dependencies: @1-/proto (RPC runtime), protobufjs (development-time validation)
 
 ## Code structure
+
 ```
 src/
 ├── _.js          # Main entry point and orchestration logic, handles file/directory input, path resolution, error handling
@@ -73,4 +79,5 @@ src/
 ```
 
 ## Historical background
+
 Protocol Buffers were developed by Google in 2001 as an efficient alternative to XML for serializing structured data. Initially designed for internal RPC systems, they evolved into an open standard supporting multiple languages. The @1-/proto2js tool continues this legacy by enabling seamless integration of Protocol Buffer schemas into modern JavaScript ecosystems, with specific optimizations for ESM module systems.

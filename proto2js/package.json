@@ -28,6 +28,7 @@
     "./*": "./src/*"
   },
   "dependencies": {
+    "@3-/log": "^0.1.9",
     "@3-/proto_remove_comment": "^0.1.5",
     "@3-/read": "^0.1.4",
     "@3-/walk": "^0.2.2",

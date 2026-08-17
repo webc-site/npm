@@ -22,16 +22,7 @@ const parseImport = (package2proto, path, findPath) => {
 
     return [import_li, package_name];
   },
-  pkgWrap = (li, txt) => {
-    for (;;) {
-      const pkg = li.pop();
-      if (pkg) {
-        txt = "message " + pkg + "{\n" + txt + "\n}";
-      } else {
-        return txt;
-      }
-    }
-  };
+  pkgWrap = (li, txt) => li.reduceRight((acc, pkg) => "message " + pkg + "{\n" + acc + "\n}", txt);
 
 export default (include_dir, proto_path) => {
   const processed = new Set(),
@@ -40,9 +31,10 @@ export default (include_dir, proto_path) => {
         return;
       }
       for (const dir of include_dir) {
-        if (existsSync(join(dir, path))) {
+        const file = join(dir, path);
+        if (existsSync(file)) {
           processed.add(path);
-          return join(dir, path);
+          return file;
         }
       }
       throw new Error("file not found: " + path);
