@@ -1,28 +1,34 @@
 # @1-/proto2js : Convert Protocol Buffer definitions to JavaScript modules
 
 ## Functionality
+
 Convert Protocol Buffer (.proto) definition files into modular JavaScript code. Supports message types, enum types, and service definitions with RPC client generation. Implements dependency-aware parsing that recursively resolves proto imports before code generation.
 
 ## Usage demonstration
+
 Install as a CLI tool:
+
 ```bash
 npm install -g @1-/proto2js
 ```
 
 Generate JavaScript from a .proto file:
+
 ```bash
 proto2js example.proto -o ./generated
 ```
 
 Or use programmatically:
+
 ```javascript
-import gen from '@1-/proto2js/src/_.js';
+import gen from "@1-/proto2js/src/_.js";
 
 // Generate JavaScript modules from proto file
-const pkg = gen('./path/to/file.proto', './output/directory');
+const pkg = gen("./path/to/file.proto", "./output/directory");
 ```
 
 ## Design rationale
+
 The generator uses a dependency-aware parsing approach that resolves proto imports recursively before code generation. It separates concerns by generating distinct modules for different proto constructs:
 
 ```mermaid
@@ -37,6 +43,7 @@ E --> H[Service modules]
 ```
 
 ## Technology stack
+
 - Runtime: Node.js (ESM modules)
 - Core parser: proto-parser library
 - File system: Node.js path and fs modules
@@ -44,6 +51,7 @@ E --> H[Service modules]
 - Utility libraries: @3-/write, @3-/read, @3-/proto_remove_comment
 
 ## Code structure
+
 ```
 src/
 ├── _.js          # Main entry point and orchestration logic
@@ -55,4 +63,5 @@ src/
 ```
 
 ## Historical background
+
 Protocol Buffers were developed by Google in 2001 as an efficient alternative to XML for serializing structured data. Initially designed for internal RPC systems, they evolved into an open standard supporting multiple languages. The @1-/proto2js tool continues this legacy by enabling seamless integration of Protocol Buffer schemas into modern JavaScript ecosystems.

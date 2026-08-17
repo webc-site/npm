@@ -6,18 +6,17 @@ import gen from "./_.js";
 
 const argv = yargs(hideBin(process.argv))
   .scriptName("proto2js")
-  .usage("$0 <proto_path> -o <out_dir> [-I <include_dir>]")
-  .command("$0 <proto_path>", "Generate JavaScript from a .proto file", (yargs) => {
+  .usage("$0 <proto_path> [-o <out_dir>] [-I <include_dir>]")
+  .command("$0 <proto_path>", "Generate JavaScript from a .proto file or directory", (yargs) => {
     yargs.positional("proto_path", {
-      describe: "Path to the .proto file",
+      describe: "Path to the .proto file or directory",
       type: "string"
     });
   })
   .option("out", {
     alias: "o",
     describe: "Output directory for generated files",
-    type: "string",
-    demandOption: true
+    type: "string"
   })
   .option("include", {
     alias: "I",

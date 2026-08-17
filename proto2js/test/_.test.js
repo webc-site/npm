@@ -55,4 +55,37 @@ describe("扫描 case 目录自动化测试", () => {
     expect(statusMod.FAIL).toBe(2);
     expect(userAliasE).toBe(userE);
   });
+
+  test("目录转换测试", async () => {
+    const DIR_OUT = join(ROOT, "tmp_dir_out");
+    rmSync(DIR_OUT, { recursive: true, force: true });
+    try {
+      const pkgs = gen(CASE_DIR, DIR_OUT);
+      expect(Array.isArray(pkgs)).toBe(true);
+      expect(pkgs).toContain("demo");
+      expect(pkgs).toContain("api");
+      expect(pkgs).toContain("base");
+      expect(pkgs).toContain("nested");
+
+      const userE = await importDefault(DIR_OUT, "demo/UserE.js");
+      expect(typeof userE).toBe("function");
+    } finally {
+      rmSync(DIR_OUT, { recursive: true, force: true });
+    }
+  });
+
+  test("CLI 目录转换测试", async () => {
+    const DIR_OUT = join(ROOT, "tmp_cli_test_out");
+    rmSync(DIR_OUT, { recursive: true, force: true });
+    try {
+      const cliPath = join(ROOT, "../src/cli.js"),
+        proc = Bun.spawnSync([process.execPath, cliPath, CASE_DIR, "-o", DIR_OUT]);
+      expect(proc.exitCode).toBe(0);
+
+      const userE = await importDefault(DIR_OUT, "demo/UserE.js");
+      expect(typeof userE).toBe("function");
+    } finally {
+      rmSync(DIR_OUT, { recursive: true, force: true });
+    }
+  });
 });
