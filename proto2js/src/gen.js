@@ -18,12 +18,11 @@ const BASE_TYPE = "BaseType",
       relPath$ = (name) => relPath(name.replaceAll("$", "/"));
 
     for (const val of Object.values(root_nested)) {
-      const { name, syntaxType } = val;
-
-      let prefix_name = prefix_li.concat([name]);
-      const prefix_pkg = prefix_name.join(".") + ".",
-        not_pkg = pkg_li.every((pkg) => !pkg.startsWith(prefix_pkg));
-      prefix_name = prefix_name.join("/");
+      const { name, syntaxType } = val,
+        prefix_name_li = [...prefix_li, name],
+        prefix_pkg = prefix_name_li.join(".") + ".",
+        not_pkg = pkg_li.every((pkg) => !pkg.startsWith(prefix_pkg)),
+        prefix_name = prefix_name_li.join("/");
 
       switch (syntaxType) {
         case "ServiceDefinition": {
@@ -75,11 +74,10 @@ const BASE_TYPE = "BaseType",
         default: {
           const { fields, nested } = val;
           if (not_pkg) {
-            let genJs,
-              proto_import = new Set(),
+            let genJs;
+            const proto_import = new Set(),
               js_import = new Set(),
               args = [],
-              comment = "",
               getType = (type, repeated) => {
                 const typeStr = (type) => {
                   if (repeated) {
@@ -100,7 +98,6 @@ const BASE_TYPE = "BaseType",
                   if (found) {
                     const found_syntax_type = found[1].syntaxType;
                     if (found_syntax_type === "EnumDefinition") {
-                      comment += " : " + (repeated ? "[enum " + value + "]" : "enum " + value);
                       value = "int32" + (repeated ? "Li" : "");
                       proto_import.add(value);
                       return value;
@@ -122,13 +119,10 @@ const BASE_TYPE = "BaseType",
               args[id - 1] = [id + " " + name, args_type];
             });
 
-            if (proto_import.size) {
-              proto_import = ", " + Array.from(proto_import).toSorted().join(", ");
-            } else {
-              proto_import = "";
-            }
-
-            const kind_key = args.map((i) => (i ? i[1] : "")).join(","),
+            const proto_import_str = proto_import.size
+                ? ", " + [...proto_import].toSorted().join(", ")
+                : "",
+              kind_key = args.map((i) => (i ? i[1] : "")).join(","),
               rename = exist.get(kind_key);
 
             if (rename) {
@@ -152,24 +146,20 @@ const BASE_TYPE = "BaseType",
               };
             } else {
               exist.set(kind_key, prefix_name);
-              if (args.length) {
-                args =
-                  "\n  " +
-                  args.map((i) => (i ? "/* " + i[0] + " */ " + i[1] : "")).join(",\n  ") +
-                  "\n";
-              } else {
-                args = "";
-              }
-
-              js_import = [...js_import].toSorted();
+              const args_str = args.length
+                  ? "\n  " +
+                    args.map((i) => (i ? "/* " + i[0] + " */ " + i[1] : "")).join(",\n  ") +
+                    "\n"
+                  : "",
+                js_import_li = [...js_import].toSorted();
               genJs = (kind) => {
-                const imp = js_import
+                const imp = js_import_li
                   .map((i) => "import " + i + ' from "' + relPath$(i) + kind + '.js"')
                   .join("\n");
                 return (
                   "import { $ as $" +
                   kind +
-                  proto_import +
+                  proto_import_str +
                   ' } from "@1-/proto/' +
                   kind +
                   '.js"\n' +
@@ -177,18 +167,18 @@ const BASE_TYPE = "BaseType",
                   "export default $" +
                   kind +
                   "([" +
-                  args +
+                  args_str +
                   "])"
                 );
               };
             }
-            ["E", "D"].forEach((kind) => {
+            for (const kind of ["E", "D"]) {
               addJs([prefix_name + kind, genJs(kind)]);
-            });
+            }
           }
 
           if (nested) {
-            addJs(...gen(funcId, find, nested, [...prefix_li, name], pkg_li, new Map()));
+            addJs(...gen(funcId, find, nested, prefix_name_li, pkg_li, new Map()));
           }
         }
       }
@@ -203,7 +193,7 @@ export default (proto, pkg_set, funcId) => {
     throw new Error(
       proto
         .split("\n")
-        .map((line, pos) => pos + 1 + ": " + line)
+        .map((line, pos) => 1 + pos + ": " + line)
         .join("\n") +
         "\nline " +
         parsed.line +

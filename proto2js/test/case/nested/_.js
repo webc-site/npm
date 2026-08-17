@@ -1,3 +1,5 @@
+const item = ({ code, msg }) => [code, msg];
+
 export const type = "nested.Outer",
   mod_name = "nested/Outer",
   pb_payload = {
@@ -7,7 +9,4 @@ export const type = "nested.Outer",
       { code: 2, msg: "item2" }
     ]
   },
-  payload = [
-    [pb_payload.inner.code, pb_payload.inner.msg],
-    pb_payload.list.map((i) => [i.code, i.msg])
-  ];
+  payload = [item(pb_payload.inner), pb_payload.list.map(item)];

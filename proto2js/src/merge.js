@@ -13,11 +13,9 @@ const parseImport = (package2proto, path, findPath) => {
 
     package2proto.set(package_name, txt + (package2proto.get(package_name) || ""));
 
-    let n = 0;
-    while (n < import_li.length) {
+    for (let n = 0; n < import_li.length; ++n) {
       const [_import_li] = parseImport(package2proto, import_li[n], findPath);
       import_li.push(..._import_li);
-      ++n;
     }
 
     return [import_li, package_name];

@@ -9,15 +9,32 @@ import protobuf from "protobufjs";
 const ROOT = import.meta.dirname,
   CASE_DIR = join(ROOT, "case"),
   OUT_DIR = join(ROOT, "tmp_out"),
+  rmDir = (dir) => rmSync(dir, { recursive: true, force: true }),
   importDefault = async (...paths) => (await import(join(...paths))).default,
+  importED = (dir, name) =>
+    Promise.all(["E", "D"].map((s) => importDefault(dir, name + s + ".js"))),
+  pbEncode = (pb_type, val) => new Uint8Array(pb_type.encode(val).finish()),
+  testUserE = async (dir) => {
+    const user_e = await importDefault(dir, "demo/UserE.js");
+    expect(typeof user_e).toBe("function");
+  },
+  withTmpDir = async (name, fn) => {
+    const dir = join(ROOT, name);
+    rmDir(dir);
+    try {
+      await fn(dir);
+    } finally {
+      rmDir(dir);
+    }
+  },
   CASES = readdirSync(CASE_DIR).filter((dir) => statSync(join(CASE_DIR, dir)).isDirectory());
 
-describe("扫描 case 目录自动化测试", () => {
-  rmSync(OUT_DIR, { recursive: true, force: true });
-  afterAll(() => rmSync(OUT_DIR, { recursive: true, force: true }));
+describe("用例测试", () => {
+  rmDir(OUT_DIR);
+  afterAll(() => rmDir(OUT_DIR));
 
   CASES.forEach((name) => {
-    test("case: " + name, async () => {
+    test("用例 " + name, async () => {
       const case_dir = join(CASE_DIR, name),
         proto_file = join(case_dir, "_.proto"),
         data_file = join(case_dir, "_.js"),
@@ -25,11 +42,10 @@ describe("扫描 case 目录自动化测试", () => {
       expect(typeof pkg).toBe("string");
 
       const { type, mod_name, pb_payload, payload } = await import(data_file),
-        mod_e = await importDefault(OUT_DIR, mod_name + "E.js"),
-        mod_d = await importDefault(OUT_DIR, mod_name + "D.js"),
+        [mod_e, mod_d] = await importED(OUT_DIR, mod_name),
         root = await protobuf.load(proto_file),
         pb_type = root.lookupType(type),
-        pb_encoded = new Uint8Array(pb_type.encode(pb_payload).finish()),
+        pb_encoded = pbEncode(pb_type, pb_payload),
         custom_encoded = mod_e(payload),
         decoded_from_pb = mod_d(pb_encoded);
 
@@ -45,28 +61,33 @@ describe("扫描 case 目录自动化测试", () => {
     });
   });
 
-  test("demo: Enum 常量与同构消息别名", async () => {
-    const status_mod = await import(join(OUT_DIR, "demo/Status.js")),
-      user_alias_e = await importDefault(OUT_DIR, "demo/UserAliasE.js"),
-      user_e = await importDefault(OUT_DIR, "demo/UserE.js");
+  test("枚举与消息别名", async () => {
+    const [status_mod, user_alias_e, user_e] = await Promise.all([
+      import(join(OUT_DIR, "demo/Status.js")),
+      importDefault(OUT_DIR, "demo/UserAliasE.js"),
+      importDefault(OUT_DIR, "demo/UserE.js")
+    ]);
 
-    expect(status_mod.UNKNOWN).toBe(0);
-    expect(status_mod.OK).toBe(1);
-    expect(status_mod.FAIL).toBe(2);
+    [
+      ["UNKNOWN", 0],
+      ["OK", 1],
+      ["FAIL", 2]
+    ].forEach(([k, v]) => expect(status_mod[k]).toBe(v));
     expect(user_alias_e).toBe(user_e);
   });
 
-  test("auth: oneof 分支与 Enum", async () => {
+  test("oneof 分支与枚举", async () => {
     const err_mod = await import(join(OUT_DIR, "auth/NewByMailErr.js")),
-      res_e = await importDefault(OUT_DIR, "auth/NewByMailResponseE.js"),
-      res_d = await importDefault(OUT_DIR, "auth/NewByMailResponseD.js"),
+      [res_e, res_d] = await importED(OUT_DIR, "auth/NewByMailResponse"),
       root = await protobuf.load(join(CASE_DIR, "oneof/_.proto")),
       pb_type = root.lookupType("auth.NewByMailResponse");
 
-    expect(err_mod.OK).toBe(0);
-    expect(err_mod.ERR_MAIL_EXIST).toBe(1);
-    expect(err_mod.ERR_NO_ORG).toBe(2);
-    expect(err_mod.ERR_ORG_USER_EXIST).toBe(3);
+    [
+      ["OK", 0],
+      ["ERR_MAIL_EXIST", 1],
+      ["ERR_NO_ORG", 2],
+      ["ERR_ORG_USER_EXIST", 3]
+    ].forEach(([k, v]) => expect(err_mod[k]).toBe(v));
 
     [
       [{ uid: 123456 }, [123456], [123456, 0]],
@@ -75,43 +96,33 @@ describe("扫描 case 目录自动化测试", () => {
         [undefined, err_mod.ERR_MAIL_EXIST],
         [0, err_mod.ERR_MAIL_EXIST]
       ]
-    ].forEach(([pb_val, custom_val, expected_decoded]) => {
-      const pb_encoded = new Uint8Array(pb_type.encode(pb_val).finish()),
-        custom_encoded = res_e(custom_val);
-      expect(custom_encoded).toEqual(pb_encoded);
-      expect(res_d(pb_encoded)).toEqual(expected_decoded);
+    ].forEach(([pb_val, custom_val, expected]) => {
+      const pb_encoded = pbEncode(pb_type, pb_val);
+      expect(res_e(custom_val)).toEqual(pb_encoded);
+      expect(res_d(pb_encoded)).toEqual(expected);
     });
   });
 
-  test("目录转换测试", async () => {
-    const dir_out = join(ROOT, "tmp_dir_out");
-    rmSync(dir_out, { recursive: true, force: true });
-    try {
-      const pkgs = gen(CASE_DIR, dir_out);
+  test("目录转换", () =>
+    withTmpDir("tmp_dir_out", async (dir) => {
+      const pkgs = gen(CASE_DIR, dir);
       expect(Array.isArray(pkgs)).toBe(true);
       ["demo", "api", "base", "nested", "auth"].forEach((pkg) => {
         expect(pkgs).toContain(pkg);
       });
+      await testUserE(dir);
+    }));
 
-      const user_e = await importDefault(dir_out, "demo/UserE.js");
-      expect(typeof user_e).toBe("function");
-    } finally {
-      rmSync(dir_out, { recursive: true, force: true });
-    }
-  });
-
-  test("CLI 目录转换测试", async () => {
-    const dir_out = join(ROOT, "tmp_cli_test_out");
-    rmSync(dir_out, { recursive: true, force: true });
-    try {
-      const cli_path = join(ROOT, "../src/cli.js"),
-        proc = Bun.spawnSync([process.execPath, cli_path, CASE_DIR, "-o", dir_out]);
+  test("CLI 转换", () =>
+    withTmpDir("tmp_cli_test_out", async (dir) => {
+      const proc = Bun.spawnSync([
+        process.execPath,
+        join(ROOT, "../src/cli.js"),
+        CASE_DIR,
+        "-o",
+        dir
+      ]);
       expect(proc.exitCode).toBe(0);
-
-      const user_e = await importDefault(dir_out, "demo/UserE.js");
-      expect(typeof user_e).toBe("function");
-    } finally {
-      rmSync(dir_out, { recursive: true, force: true });
-    }
-  });
+      await testUserE(dir);
+    }));
 });

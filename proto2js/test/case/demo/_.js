@@ -3,7 +3,8 @@ const INT32_MAX = 2147483647,
   UINT32_MAX = 4294967295,
   MAX_SAFE = Number.MAX_SAFE_INTEGER,
   MIN_SAFE = Number.MIN_SAFE_INTEGER,
-  FIXED64_MAX = (2n ** 64n - 1n).toString();
+  FIXED64_MAX = (2n ** 64n - 1n).toString(),
+  userTuple = ({ id, name }) => [id, name];
 
 export const type = "demo.FullMessage",
   mod_name = "demo/FullMessage",
@@ -83,9 +84,9 @@ export const type = "demo.FullMessage",
     pb_payload.f28,
     pb_payload.f29,
     pb_payload.f30,
-    [pb_payload.f31.id, pb_payload.f31.name],
-    pb_payload.f32.map((u) => [u.id, u.name]),
-    Object.entries(pb_payload.f33).map(([k, v]) => [k, v]),
+    userTuple(pb_payload.f31),
+    pb_payload.f32.map(userTuple),
+    Object.entries(pb_payload.f33),
     pb_payload.f34,
     pb_payload.f35
   ];

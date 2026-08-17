@@ -22,29 +22,27 @@ const genFile = (proto_path, out_dir, include_dir, funcId) => {
     throw e;
   }
 
-  r.forEach(([k, v]) => {
-    write(join(out_dir, k + ".js"), v);
-  });
+  r.forEach(([k, v]) => write(join(out_dir, k + ".js"), v));
   return pkg;
 };
 
 export default (proto_path, out_dir, include_dir, funcId = (i) => JSON.stringify(i)) => {
-  include_dir = new Set(IMPORT.concat(include_dir || []));
+  include_dir = new Set([...IMPORT, ...(include_dir || [])]);
   proto_path = resolve(proto_path);
 
   if (!existsSync(proto_path)) {
     throw new Error("file not found: " + proto_path);
   }
 
-  const is_dir = statSync(proto_path).isDirectory();
-  out_dir = out_dir || (is_dir ? proto_path : dirname(proto_path));
+  const is_dir = statSync(proto_path).isDirectory(),
+    out = out_dir || (is_dir ? proto_path : dirname(proto_path));
 
   if (is_dir) {
     include_dir.add(proto_path);
     return [...walk(proto_path)]
       .filter((file) => file.endsWith(".proto"))
-      .map((file) => genFile(file, out_dir, include_dir, funcId));
+      .map((file) => genFile(file, out, include_dir, funcId));
   }
 
-  return genFile(proto_path, out_dir, include_dir, funcId);
+  return genFile(proto_path, out, include_dir, funcId);
 };

@@ -5,10 +5,6 @@ export default (pkg, root_nested) => (type_obj) => {
   }
 
   const val_li = resolvedValue.slice(pkg.length).split(".");
-  if (!val_li.length) {
-    return;
-  }
-
   let type = root_nested;
   for (const name of val_li) {
     type = type.nested?.[name];
