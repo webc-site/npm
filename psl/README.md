@@ -3,6 +3,7 @@
 ---
 
 <a id="en"></a>
+
 # @1-/psl : Domain public suffix extraction library
 
 - [@1-/psl : Domain public suffix extraction library](#1-psl-domain-public-suffix-extraction-library)
@@ -90,10 +91,10 @@ This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
-
 ---
 
 <a id="zh"></a>
+
 # @1-/psl : 域名公共后缀提取库
 
 - [@1-/psl : 域名公共后缀提取库](#1-psl-域名公共后缀提取库)
@@ -180,4 +181,3 @@ allow.js            # 私有域名包含配置
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
-

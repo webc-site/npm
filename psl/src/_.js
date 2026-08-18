@@ -4,9 +4,9 @@ const TYPE_WILDCARD = 2,
   TYPE_EXCEPTION = 3;
 
 /*
-提取 Host 的顶级域名 (TLD)
+提取 Host 的根域名 (eTLD+1)
 host: 域名字符串
-返回值: TLD 字符串 / undefined
+返回值: 根域名字符串
 */
 export default (host) => {
   if (!host.includes(".")) return host;
@@ -29,8 +29,12 @@ export default (host) => {
       type = 0;
       node = curr;
     }
-    if (type === TYPE_EXCEPTION) return parts.slice(i + 1).join(".");
+    if (type === TYPE_EXCEPTION) {
+      pos = i + 1;
+      break;
+    }
     if (type) pos = i;
   }
-  if (pos != null) return parts.slice(pos).join(".");
+  if (pos != null) return parts.slice(pos > 0 ? pos - 1 : 0).join(".");
+  return host;
 };

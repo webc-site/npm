@@ -1,45 +1,47 @@
 import { expect, test } from "bun:test";
-import tld from "../src/_.js";
+import psl from "../src/_.js";
 
-const eq = (list) => list.forEach(([host, expected]) => expect(tld(host)).toBe(expected)),
-  isUndef = (list) => list.forEach((host) => expect(tld(host)).toBeUndefined());
+const eq = (li) => li.forEach(([host, expected]) => expect(psl(host)).toBe(expected));
 
-test("TLD 提取", () => {
+test("根域名提取", () => {
   eq([
     ["localhost", "localhost"],
-    ["example.com", "com"],
-    ["EXAMPLE.COM", "com"],
-    ["foo.bar.co.uk", "co.uk"],
-    ["sub.city.kobe.jp", "kobe.jp"],
-    ["Sub.City.KOBE.JP", "kobe.jp"],
-    ["www.ck", "ck"],
+    ["example.com", "example.com"],
+    ["EXAMPLE.COM", "example.com"],
+    ["www.example.com", "example.com"],
+    ["a.b.example.com", "example.com"],
+    ["foo.bar.co.uk", "bar.co.uk"],
+    ["sub.city.kobe.jp", "city.kobe.jp"],
+    ["Sub.City.KOBE.JP", "city.kobe.jp"],
+    ["www.ck", "www.ck"],
     ["foo.ck", "foo.ck"],
-    ["user.github.io", "github.io"],
-    ["my-site.pages.dev", "pages.dev"],
-    ["app.vercel.app", "vercel.app"],
-    ["example.co.za", "co.za"]
+    ["bar.foo.ck", "bar.foo.ck"],
+    ["user.github.io", "user.github.io"],
+    ["page.user.github.io", "user.github.io"],
+    ["my-site.pages.dev", "my-site.pages.dev"],
+    ["app.vercel.app", "app.vercel.app"],
+    ["example.co.za", "example.co.za"],
+    ["webc.site", "webc.site"],
+    ["api.webc.site", "webc.site"],
+    ["com", "com"],
+    ["co.uk", "co.uk"]
   ]);
-
-  isUndef(["foo.invalid", "test.za"]);
 });
 
-test("IP 地址", () => {
+test("IP 地址与单段主机名", () => {
   eq([
+    ["127.0.0.1", "127.0.0.1"],
+    ["0.0.0.0", "0.0.0.0"],
+    ["192.168.1.1", "192.168.1.1"],
+    ["8.8.8.8", "8.8.8.8"],
+    ["255.255.255.255", "255.255.255.255"],
     ["::1", "::1"],
     ["::", "::"],
     ["[::1]", "[::1]"],
     ["2001:db8::1", "2001:db8::1"],
     ["[2001:db8::1]", "[2001:db8::1]"],
-    ["fe80::1", "fe80::1"]
-  ]);
-
-  isUndef([
-    "127.0.0.1",
-    "0.0.0.0",
-    "192.168.1.1",
-    "8.8.8.8",
-    "255.255.255.255",
-    "::ffff:127.0.0.1",
-    "[::ffff:127.0.0.1]"
+    ["fe80::1", "fe80::1"],
+    ["::ffff:127.0.0.1", "::ffff:127.0.0.1"],
+    ["[::ffff:127.0.0.1]", "[::ffff:127.0.0.1]"]
   ]);
 });
