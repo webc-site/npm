@@ -59,7 +59,7 @@ D --> D3[消息模块生成]
 
 ## 技术栈
 
-- 运行时：Node.js (ESM 模块)
+- 运行时：Bun (ESM 模块)
 - 核心解析器：proto-parser 库
 - 文件系统：Node.js path 和 fs 模块
 - CLI 框架：yargs

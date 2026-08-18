@@ -59,7 +59,7 @@ Key implementation features:
 
 ## Technology stack
 
-- Runtime: Node.js (ESM modules)
+- Runtime: Bun (ESM modules)
 - Core parser: proto-parser library
 - File system: Node.js path and fs modules
 - CLI framework: yargs
