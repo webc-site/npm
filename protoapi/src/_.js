@@ -1,0 +1,133 @@
+import { uint32 } from "@1-/proto/E.js";
+import { dUint32 } from "@1-/proto/D.js";
+import utf8d from "@3-/utf8/utf8d.js";
+import utf8e from "@3-/utf8/utf8e.js";
+import { OK, ERR, CAPTCHA, NO_ORG } from "./STATUS.js";
+
+let TIMER,
+  API_URL,
+  CAPTCHA_TOKEN,
+  ON_CAPTCHA,
+  ON_ERR,
+  FETCH = fetch,
+  ID = 0;
+
+const MAP = {},
+  REQ_LI = [],
+  callBin = (field, bin) => {
+    const tag = uint32((field << 3) | 2),
+      len = uint32(bin.length),
+      buf = new Uint8Array(tag.length + len.length + bin.length);
+    buf.set(tag, 0);
+    buf.set(len, tag.length);
+    buf.set(bin, tag.length + len.length);
+    return buf;
+  },
+  reqChunk = (mod_bin, id, bin) => {
+    const h1 = uint32(id),
+      h2 = uint32(bin.length),
+      buf = new Uint8Array(mod_bin.length + h1.length + h2.length + bin.length);
+    buf.set(mod_bin, 0);
+    buf.set(h1, mod_bin.length);
+    buf.set(h2, mod_bin.length + h1.length);
+    buf.set(bin, mod_bin.length + h1.length + h2.length);
+    return buf;
+  },
+  resIter = function* (buf) {
+    let pos = 0;
+    while (pos < buf.length) {
+      const [id, p1] = dUint32(buf, pos),
+        [status, p2] = dUint32(buf, p1);
+      if (status > ERR) {
+        yield [id, status];
+        pos = p2;
+      } else {
+        const [len, p3] = dUint32(buf, p2);
+        yield [id, status, buf.subarray(p3, p3 + len)];
+        pos = p3 + len;
+      }
+    }
+  },
+  post = async (body) => {
+    const headers = {};
+    if (CAPTCHA_TOKEN) headers.pragma = CAPTCHA_TOKEN;
+    const res = await FETCH(API_URL, {
+      method: "POST",
+      headers,
+      body
+    });
+    for (const [id, status, data_bin] of resIter(new Uint8Array(await res.arrayBuffer()))) {
+      const item = MAP[id];
+      if (!item) continue;
+      const [resolve, reject, decode, chunk] = item;
+      switch (status) {
+        case OK:
+          delete MAP[id];
+          resolve(data_bin && decode(data_bin));
+          break;
+        case ERR: {
+          delete MAP[id];
+          const err = utf8d(data_bin);
+          ON_ERR(err);
+          reject();
+          break;
+        }
+        case CAPTCHA:
+          (async () => {
+            const token = await ON_CAPTCHA();
+            if (token) {
+              CAPTCHA_TOKEN = token;
+              await post(chunk);
+              return;
+            }
+          })();
+          break;
+        case NO_ORG:
+          delete MAP[id];
+          console.error("Host not bound to org");
+          reject(status);
+          break;
+      }
+    }
+  },
+  send = () => {
+    TIMER = 0;
+    const req_li = REQ_LI.splice(0),
+      len = req_li.reduce((a, b) => a + b.length, 0),
+      body = new Uint8Array(len);
+    let pos = 0;
+    for (const b of req_li) {
+      body.set(b, pos);
+      pos += b.length;
+    }
+    post(body);
+  };
+
+export const setApi = (url) => {
+    API_URL = url;
+  },
+  setFetch = (func) => {
+    FETCH = func;
+  },
+  setCaptcha = (token) => {
+    CAPTCHA_TOKEN = token;
+  },
+  setOnCaptcha = (func) => {
+    ON_CAPTCHA = func;
+  },
+  setOnErr = (func) => {
+    ON_ERR = func;
+  },
+  req = (mod) => {
+    const mod_bin = utf8e(mod + "\0");
+    return (field, encode, decode) =>
+      (...args) =>
+        new Promise((resolve, reject) => {
+          if (ID > 1e9) ID = 0;
+          const id = ++ID,
+            chunk = reqChunk(mod_bin, id, callBin(field, encode(args)));
+          MAP[id] = [resolve, reject, decode, chunk];
+          REQ_LI.push(chunk);
+          if (!TIMER) TIMER = setTimeout(send, 1);
+        });
+  };
