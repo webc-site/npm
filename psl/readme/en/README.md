@@ -2,9 +2,9 @@
 
 ## Functionality
 
-Extract public suffixes from domain names using Mozilla's Public Suffix List specification. The library supports ICANN domains plus common private domains like github.io and pages.dev.
+Extract public suffixes from domain names using Mozilla's Public Suffix List specification. Supports ICANN domains plus private domains like github.io, pages.dev, and vercel.app.
 
-The implementation handles all PSL rule types: normal domains (com), wildcard rules (*.co.uk), and exception rules (!foo.co.uk) to ensure accurate registrable domain determination.
+Accurately handle all PSL rule types: normal domains (com), wildcard rules (*.co.uk), and exception rules (!foo.co.uk) to ensure correct registrable domain determination.
 
 ## Usage demonstration
 
@@ -23,13 +23,13 @@ import psl from "@1-/psl";
 console.log(psl("www.github.com")); // 'github.com'
 console.log(psl("blog.example.co.uk")); // 'example.co.uk'
 console.log(psl("subdomain.google.com")); // 'google.com'
-console.log(psl("user.github.io")); // 'github.io'
-console.log(psl("app.vercel.app")); // 'vercel.app'
+console.log(psl("user.github.io")); // 'user.github.io'
+console.log(psl("app.vercel.app")); // 'app.vercel.app'
 ```
 
 ## Design rationale
 
-The implementation uses a compressed reverse trie structure optimized for memory efficiency and fast lookup. The generation script (`gen.js`) downloads the official PSL data and compresses it into a compact format where:
+Uses a compressed reverse trie structure optimized for memory efficiency and fast lookup:
 
 - Leaf nodes store type codes (1=normal, 2=wildcard, 3=exception)
 - Internal nodes use array format `[type, {children}]` when typed, object format `{children}` when untyped
@@ -68,4 +68,4 @@ allow.js            # Configuration for private domains to include
 
 ## Historical background
 
-The Public Suffix List originated at Mozilla in 2007 to solve cookie scoping vulnerabilities. Before PSL, browsers couldn't distinguish between domains controlled by registrars (like co.uk) versus end users (like example.co.uk), enabling malicious sites to set cookies on overly broad domains. This implementation follows the current PSL specification while adding support for modern hosting platforms like GitHub Pages and Vercel.
+The Public Suffix List originated at Mozilla in 2007 to solve cookie scoping vulnerabilities. Before PSL, browsers couldn't distinguish between domains controlled by registrars (like co.uk) versus end users (like example.co.uk), enabling malicious sites to set cookies on overly broad domains. This implementation follows the current PSL specification while adding support for modern hosting platforms like GitHub Pages, Vercel, and Netlify.
