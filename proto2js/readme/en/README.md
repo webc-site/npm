@@ -59,12 +59,12 @@ Key implementation features:
 
 ## Technology stack
 
-- Runtime: Bun (ESM modules)
+- Runtime: Node.js (ESM modules)
 - Core parser: proto-parser library
 - File system: Node.js path and fs modules
 - CLI framework: yargs
 - Utility libraries: @3-/write, @3-/read, @3-/proto_remove_comment, @3-/walk
-- Development dependencies: @1-/proto (RPC runtime), protobufjs (development-time validation)
+- Development dependencies: @1-/proto (RPC runtime)
 
 ## Code structure
 

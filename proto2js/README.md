@@ -3,7 +3,6 @@
 ---
 
 <a id="en"></a>
-
 # @1-/proto2js : Convert Protocol Buffer definitions to JavaScript modules
 
 - [@1-/proto2js : Convert Protocol Buffer definitions to JavaScript modules](#1-proto2js-convert-protocol-buffer-definitions-to-javascript-modules)
@@ -74,7 +73,7 @@ Key implementation features:
 
 ## Technology stack
 
-- Runtime: Node.js (ESM modules)
+- Runtime: Bun (ESM modules)
 - Core parser: proto-parser library
 - File system: Node.js path and fs modules
 - CLI framework: yargs
@@ -103,10 +102,10 @@ This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/proto2js : Convert Protocol Buffer definitions to JavaScript modules
 
 - [@1-/proto2js : Convert Protocol Buffer definitions to JavaScript modules](#1-proto2js-convert-protocol-buffer-definitions-to-javascript-modules)
@@ -177,7 +176,7 @@ D --> D3[消息模块生成]
 
 ## 技术栈
 
-- 运行时：Node.js (ESM 模块)
+- 运行时：Bun (ESM 模块)
 - 核心解析器：proto-parser 库
 - 文件系统：Node.js path 和 fs 模块
 - CLI 框架：yargs
@@ -205,3 +204,4 @@ Protocol Buffers 由 Google 于 2001 年开发，作为 XML 的高效替代方�
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+
