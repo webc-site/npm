@@ -9,15 +9,15 @@ import protobuf from "protobufjs";
 const ROOT = import.meta.dirname,
   CASE_DIR = join(ROOT, "case"),
   OUT_DIR = join(ROOT, "tmp_out"),
+  CLI_JS = join(ROOT, "../src/cli.js"),
   rmDir = (dir) => rmSync(dir, { recursive: true, force: true }),
   importDefault = async (...paths) => (await import(join(...paths))).default,
   importED = (dir, name) =>
     Promise.all(["E", "D"].map((s) => importDefault(dir, name + s + ".js"))),
   pbEncode = (pb_type, val) => new Uint8Array(pb_type.encode(val).finish()),
-  testUserE = async (dir) => {
-    const user_e = await importDefault(dir, "demo/UserE.js");
-    expect(typeof user_e).toBe("function");
-  },
+  expectEnum = (mod, arr) => arr.forEach((k, v) => expect(mod[k]).toBe(v)),
+  expectUserE = async (dir) =>
+    expect(typeof (await importDefault(dir, "demo/UserE.js"))).toBe("function"),
   withTmpDir = async (name, fn) => {
     const dir = join(ROOT, name);
     rmDir(dir);
@@ -37,24 +37,22 @@ describe("用例测试", () => {
     test("用例 " + name, async () => {
       const case_dir = join(CASE_DIR, name),
         proto_file = join(case_dir, "_.proto"),
-        data_file = join(case_dir, "_.js"),
-        pkg = gen(proto_file, OUT_DIR, [case_dir]);
-      expect(typeof pkg).toBe("string");
+        data_file = join(case_dir, "_.js");
+
+      expect(typeof gen(proto_file, OUT_DIR, [case_dir])).toBe("string");
 
       const { type, mod_name, pb_payload, payload } = await import(data_file),
         [mod_e, mod_d] = await importED(OUT_DIR, mod_name),
         root = await protobuf.load(proto_file),
         pb_type = root.lookupType(type),
         pb_encoded = pbEncode(pb_type, pb_payload),
-        custom_encoded = mod_e(payload),
-        decoded_from_pb = mod_d(pb_encoded);
+        custom_encoded = mod_e(payload);
 
       // protobufjs 编码 -> 自定义解码
-      expect(decoded_from_pb[0]).toEqual(payload[0]);
+      expect(mod_d(pb_encoded)[0]).toEqual(payload[0]);
 
       // 自定义编码 -> protobufjs 解码
-      const decoded_by_pb = pb_type.decode(custom_encoded);
-      expect(pb_type.toObject(decoded_by_pb)).toBeDefined();
+      expect(pb_type.toObject(pb_type.decode(custom_encoded))).toBeDefined();
 
       // 二进制严格一致
       expect(custom_encoded).toEqual(pb_encoded);
@@ -68,11 +66,7 @@ describe("用例测试", () => {
       importDefault(OUT_DIR, "demo/UserE.js")
     ]);
 
-    [
-      ["UNKNOWN", 0],
-      ["OK", 1],
-      ["FAIL", 2]
-    ].forEach(([k, v]) => expect(status_mod[k]).toBe(v));
+    expectEnum(status_mod, ["UNKNOWN", "OK", "FAIL"]);
     expect(user_alias_e).toBe(user_e);
   });
 
@@ -82,12 +76,7 @@ describe("用例测试", () => {
       root = await protobuf.load(join(CASE_DIR, "oneof/_.proto")),
       pb_type = root.lookupType("auth.NewByMailResponse");
 
-    [
-      ["OK", 0],
-      ["ERR_MAIL_EXIST", 1],
-      ["ERR_NO_ORG", 2],
-      ["ERR_ORG_USER_EXIST", 3]
-    ].forEach(([k, v]) => expect(err_mod[k]).toBe(v));
+    expectEnum(err_mod, ["OK", "ERR_MAIL_EXIST", "ERR_NO_ORG", "ERR_ORG_USER_EXIST"]);
 
     [
       [{ uid: 123456 }, [123456], [123456, 0]],
@@ -110,19 +99,12 @@ describe("用例测试", () => {
       ["demo", "api", "base", "nested", "auth"].forEach((pkg) => {
         expect(pkgs).toContain(pkg);
       });
-      await testUserE(dir);
+      await expectUserE(dir);
     }));
 
   test("CLI 转换", () =>
     withTmpDir("tmp_cli_test_out", async (dir) => {
-      const proc = Bun.spawnSync([
-        process.execPath,
-        join(ROOT, "../src/cli.js"),
-        CASE_DIR,
-        "-o",
-        dir
-      ]);
-      expect(proc.exitCode).toBe(0);
-      await testUserE(dir);
+      expect(Bun.spawnSync([process.execPath, CLI_JS, CASE_DIR, "-o", dir]).exitCode).toBe(0);
+      await expectUserE(dir);
     }));
 });
