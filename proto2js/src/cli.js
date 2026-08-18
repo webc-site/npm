@@ -1,11 +1,11 @@
 #!/usr/bin/env bun
 
-import yargs from "yargs/yargs";
 import { hideBin } from "yargs/helpers";
+import yargs from "yargs/yargs";
 import ERR from "@3-/log/ERR.js";
 import gen from "./_.js";
 
-const argv = yargs(hideBin(process.argv))
+const { include, out, proto_path } = yargs(hideBin(process.argv))
   .scriptName("proto2js")
   .usage("$0 <proto_path> [-o <out_dir>] [-I <include_dir>]")
   .command("$0 <proto_path>", "Generate JavaScript from a .proto file or directory", (y) =>
@@ -27,7 +27,7 @@ const argv = yargs(hideBin(process.argv))
   .help().argv;
 
 try {
-  gen(argv.proto_path, argv.out, argv.include);
+  gen(proto_path, out, include);
 } catch (e) {
   ERR(e);
   process.exit(1);

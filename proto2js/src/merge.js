@@ -1,9 +1,9 @@
-import read from "@3-/read";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
+import read from "@3-/read";
 import importLi from "./importLi.js";
 
-const parseImport = (package2proto, path, findPath) => {
+const parseImport = (pkg_proto, path, findPath) => {
     path = findPath(path);
     if (!path) {
       return [[], ""];
@@ -11,11 +11,11 @@ const parseImport = (package2proto, path, findPath) => {
 
     const [import_li, txt, package_name] = importLi(read(path));
 
-    package2proto.set(package_name, txt + (package2proto.get(package_name) || ""));
+    pkg_proto.set(package_name, txt + (pkg_proto.get(package_name) || ""));
 
     for (let n = 0; n < import_li.length; ++n) {
-      const [_import_li] = parseImport(package2proto, import_li[n], findPath);
-      import_li.push(..._import_li);
+      const [sub_import_li] = parseImport(pkg_proto, import_li[n], findPath);
+      import_li.push(...sub_import_li);
     }
 
     return [import_li, package_name];
@@ -37,16 +37,19 @@ export default (include_dir, proto_path) => {
       }
       throw new Error("file not found: " + path);
     },
-    package2proto = new Map(),
+    pkg_proto = new Map(),
     pkg_set = new Set(),
-    pkg = parseImport(package2proto, proto_path, findPath)[1];
+    pkg = parseImport(pkg_proto, proto_path, findPath)[1];
 
   return [
     'syntax = "proto3";\n' +
-      [...package2proto.entries()]
+      [...pkg_proto.entries()]
         .map(([pkg, txt]) => {
-          pkg_set.add(pkg + ".");
-          return pkgWrap(pkg.split("."), txt);
+          if (pkg) {
+            pkg_set.add(pkg + ".");
+            return pkgWrap(pkg.split("."), txt);
+          }
+          return txt;
         })
         .join("\n")
         .replaceAll(/syntax\s*=\s*"proto3"\s*;/g, ""),
