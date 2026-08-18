@@ -2,7 +2,7 @@
 
 ## Functionality
 
-Convert Protocol Buffer (.proto) definition files into modular JavaScript code. Supports message types, enum types, and service definitions with RPC client generation. Implements dependency-aware parsing that recursively resolves proto imports before code generation. Generated JavaScript modules support ESM imports and work in modern JavaScript environments.
+Convert Protocol Buffer (.proto) definition files into modular JavaScript code. Supports message, enum, and service definitions with RPC client generation. Implements dependency-aware parsing that recursively resolves proto imports before code generation. Generated JavaScript modules support ESM imports and work in modern JavaScript environments.
 
 ## Usage demonstration
 
