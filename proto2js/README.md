@@ -73,12 +73,12 @@ Key implementation features:
 
 ## Technology stack
 
-- Runtime: Bun (ESM modules)
+- Runtime: Node.js (ESM modules)
 - Core parser: proto-parser library
 - File system: Node.js path and fs modules
 - CLI framework: yargs
 - Utility libraries: @3-/write, @3-/read, @3-/proto_remove_comment, @3-/walk
-- Development dependencies: @1-/proto (RPC runtime), protobufjs (development-time validation)
+- Development dependencies: @1-/proto (RPC runtime)
 
 ## Code structure
 
@@ -176,12 +176,12 @@ D --> D3[消息模块生成]
 
 ## 技术栈
 
-- 运行时：Bun (ESM 模块)
+- 运行时：Node.js (ESM 模块)
 - 核心解析器：proto-parser 库
 - 文件系统：Node.js path 和 fs 模块
 - CLI 框架：yargs
 - 工具库：@3-/write、@3-/read、@3-/proto_remove_comment、@3-/walk
-- 开发依赖：@1-/proto（RPC 运行时）、protobufjs（开发时验证）
+- 开发依赖：@1-/proto（RPC 运行时）
 
 ## 代码结构
 
