@@ -12,20 +12,20 @@ const IMPORT = [join(import.meta.dirname, "import")],
       inc = new Set(include_dir).add(proto_dir),
       rel_proto_path = proto_path.slice(proto_dir.length + 1),
       [proto_src, pkg_set, pkg] = merge(inc, rel_proto_path);
-    let r;
+    let code_li;
 
     try {
-      r = gen(proto_src, pkg_set, funcId);
+      code_li = gen(proto_src, pkg_set, funcId);
     } catch (e) {
       ERR("❌ " + proto_path);
       throw e;
     }
 
-    r.forEach(([k, v]) => write(join(out_dir, k + ".js"), v));
+    code_li.forEach(([name, code]) => write(join(out_dir, name + ".js"), code));
     return pkg;
   };
 
-export default (proto_path, out_dir, include_dir, funcId = (i) => JSON.stringify(i)) => {
+export default (proto_path, out_dir, include_dir, funcId = JSON.stringify) => {
   include_dir = new Set([...IMPORT, ...(include_dir || [])]);
   proto_path = resolve(proto_path);
 

@@ -1,8 +1,6 @@
 export default (pkg, root_nested) => (type_obj) => {
   const { resolvedValue } = type_obj;
-  if (!resolvedValue || !resolvedValue.startsWith(pkg)) {
-    return;
-  }
+  if (!resolvedValue?.startsWith(pkg)) return;
 
   const val_li = resolvedValue.slice(pkg.length).split(".");
   let type = root_nested;

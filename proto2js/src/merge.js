@@ -5,29 +5,21 @@ import importLi from "./importLi.js";
 
 const parseImport = (pkg_proto, path, findPath) => {
     path = findPath(path);
-    if (!path) {
-      return [[], ""];
-    }
+    if (!path) return "";
 
     const [import_li, txt, package_name] = importLi(read(path));
 
     pkg_proto.set(package_name, txt + (pkg_proto.get(package_name) || ""));
+    import_li.forEach((p) => parseImport(pkg_proto, p, findPath));
 
-    for (let n = 0; n < import_li.length; ++n) {
-      const [sub_import_li] = parseImport(pkg_proto, import_li[n], findPath);
-      import_li.push(...sub_import_li);
-    }
-
-    return [import_li, package_name];
+    return package_name;
   },
   pkgWrap = (li, txt) => li.reduceRight((acc, pkg) => "message " + pkg + "{\n" + acc + "\n}", txt);
 
 export default (include_dir, proto_path) => {
   const processed = new Set(),
     findPath = (path) => {
-      if (processed.has(path)) {
-        return;
-      }
+      if (processed.has(path)) return;
       for (const dir of include_dir) {
         const file = join(dir, path);
         if (existsSync(file)) {
@@ -39,7 +31,7 @@ export default (include_dir, proto_path) => {
     },
     pkg_proto = new Map(),
     pkg_set = new Set(),
-    pkg = parseImport(pkg_proto, proto_path, findPath)[1];
+    pkg = parseImport(pkg_proto, proto_path, findPath);
 
   return [
     'syntax = "proto3";\n' +

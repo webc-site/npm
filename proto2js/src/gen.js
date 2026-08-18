@@ -10,11 +10,7 @@ const BASE_TYPE = "BaseType",
         const r = relative(prefix_dir, rel + name);
         return r.startsWith(".") ? r : "./" + r;
       };
-    return [
-      relPath,
-      (name_li) => relPath(name_li.join("/")),
-      (name) => relPath(name.replaceAll("$", "/"))
-    ];
+    return [(name_li) => relPath(name_li.join("/")), (name) => relPath(name.replaceAll("$", "/"))];
   },
   getTypeStr = (proto_import, type, repeated) => {
     if (repeated) {
@@ -160,7 +156,7 @@ const BASE_TYPE = "BaseType",
     if (!root_nested) return path_code;
 
     const addJs = path_code.push.bind(path_code),
-      [relPath, relPathLi, relPath$] = relPaths(prefix_li);
+      [relPathLi, relPath$] = relPaths(prefix_li);
 
     for (const val of Object.values(root_nested)) {
       const { name, syntaxType } = val,
