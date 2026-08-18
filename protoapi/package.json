@@ -1,8 +1,8 @@
 {
   "name": "@1-/protoapi",
   "version": "0.1.0",
-  "description": "",
-  "keywords": [],
+  "description": "Lightweight binary protocol API client for efficient client-server communication",
+  "keywords": ["binary", "protocol", "api", "client", "serialization"],
   "homepage": "https://github.com/webc-site/npm/tree/main/protoapi",
   "license": "MulanPSL-2.0",
   "author": "x-at-01@googlegroups.com",
