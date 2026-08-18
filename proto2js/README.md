@@ -16,7 +16,7 @@
 
 ## Functionality
 
-Convert Protocol Buffer (.proto) definition files into modular JavaScript code. Supports message types, enum types, and service definitions with RPC client generation. Implements dependency-aware parsing that recursively resolves proto imports before code generation. Generated JavaScript modules support ESM imports and work in modern JavaScript environments.
+Convert Protocol Buffer (.proto) definition files into modular JavaScript code. Supports message, enum, and service definitions with RPC client generation. Implements dependency-aware parsing that recursively resolves proto imports before code generation. Generated JavaScript modules support ESM imports and work in modern JavaScript environments.
 
 ## Usage demonstration
 
@@ -97,6 +97,7 @@ src/
 
 Protocol Buffers were developed by Google in 2001 as an efficient alternative to XML for serializing structured data. Initially designed for internal RPC systems, they evolved into an open standard supporting multiple languages. The @1-/proto2js tool continues this legacy by enabling seamless integration of Protocol Buffer schemas into modern JavaScript ecosystems, with specific optimizations for ESM module systems. The project uses the Mulan Permissive Software License v2 (MulanPSL-2.0) and is maintained by the WebC.site team.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
@@ -120,7 +121,7 @@ This library is developed by [WebC.site](https://webc.site).
 
 ## 功能介绍
 
-将 Protocol Buffer (.proto) 定义文件转换为模块化 JavaScript 代码。支持消息类型、枚举类型和服务定义，生成符合 ESM 规范的可直接导入模块。采用依赖感知解析策略，递归解析 proto 导入依赖后执行代码生成。生成的模块包含类型定义与 RPC 客户端函数，可在 Bun 或 modern Node.js 环境中直接使用。
+将 Protocol Buffer (.proto) 定义文件转换为模块化 JavaScript 代码。支持消息、枚举和服务定义，生成符合 ESM 规范的可直接导入模块。采用依赖感知解析策略，递归解析 proto 导入依赖后执行代码生成。生成的模块包含类型定义与 RPC 客户端函数，可在 Bun 或现代 Node.js 环境中直接使用。
 
 ## 使用演示
 
@@ -130,7 +131,7 @@ This library is developed by [WebC.site](https://webc.site).
 bun add -g @1-/proto2js
 ```
 
-从 .proto 文件生成 JavaScript：
+生成 JavaScript 从 .proto 文件：
 
 ```bash
 proto2js example.proto -o ./generated
@@ -200,6 +201,7 @@ src/
 ## 历史故事
 
 Protocol Buffers 由 Google 于 2001 年开发，作为 XML 的高效替代方案用于结构化数据序列化。最初设计用于内部 RPC 系统，后演变为支持多种语言的开放标准。@1-/proto2js 工具延续这一传统，实现 Protocol Buffer 模式与现代 JavaScript 生态系统的无缝集成，特别针对 ESM 模块系统进行了优化设计。项目采用木兰宽松许可证（MulanPSL-2.0），由 WebC.site 团队维护。
+
 
 ## 关于
 
