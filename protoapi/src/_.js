@@ -57,45 +57,32 @@ const MAP = {},
     }
   },
   post = async (body) => {
-    const headers = {};
-    if (CAPTCHA_TOKEN) headers.pragma = CAPTCHA_TOKEN;
     const res = await FETCH(API_URL, {
       method: "POST",
-      headers,
+      headers: CAPTCHA_TOKEN ? { pragma: CAPTCHA_TOKEN } : undefined,
       body
     });
     for (const [id, status, data_bin] of resIter(new Uint8Array(await res.arrayBuffer()))) {
       const item = MAP[id];
       if (!item) continue;
-      const [resolve, reject, decode, chunk] = item;
-      switch (status) {
-        case OK:
-          delete MAP[id];
-          resolve(data_bin && decode(data_bin));
-          break;
-        case ERR: {
-          delete MAP[id];
-          const err = utf8d(data_bin);
-          if (ON_ERR) ON_ERR(err);
-          reject(err);
-          break;
-        }
-        case CAPTCHA:
-          if (ON_CAPTCHA) {
-            (async () => {
-              const token = await ON_CAPTCHA();
-              if (token) {
-                CAPTCHA_TOKEN = token;
-                await post(chunk);
-              }
-            })();
-          }
-          break;
-        case NO_ORG:
-          delete MAP[id];
-          console.error("Host not bound to org");
-          reject(status);
-          break;
+      if (status === CAPTCHA) {
+        (async () => {
+          CAPTCHA_TOKEN = await ON_CAPTCHA();
+          post(item[3]);
+        })();
+        continue;
+      }
+      delete MAP[id];
+      const [resolve, reject, decode] = item;
+      if (status === OK) {
+        resolve(decode(data_bin));
+      } else if (status === ERR) {
+        const err = utf8d(data_bin);
+        ON_ERR && ON_ERR(err);
+        reject(err);
+      } else {
+        console.error("Host not bound to org");
+        reject(status);
       }
     }
   },
