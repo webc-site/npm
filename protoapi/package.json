@@ -3,10 +3,10 @@
   "version": "0.1.1",
   "description": "Lightweight binary protocol API client for efficient client-server communication",
   "keywords": [
-    "binary",
-    "protocol",
     "api",
+    "binary",
     "client",
+    "protocol",
     "serialization"
   ],
   "homepage": "https://github.com/webc-site/npm/tree/main/protoapi",

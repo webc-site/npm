@@ -1,5 +1,5 @@
-import { uint32 } from "@1-/proto/E.js";
-import { dUint32 } from "@1-/proto/D.js";
+import { $ as $E, uint32 } from "@1-/proto/E.js";
+import { $ as $D, dUint32 } from "@1-/proto/D.js";
 import utf8d from "@3-/utf8/utf8d.js";
 import utf8e from "@3-/utf8/utf8e.js";
 import { OK, ERR, CAPTCHA, NO_ORG } from "./STATUS.js";
@@ -15,27 +15,35 @@ let TIMER,
 const MAP = {},
   REQ_LI = [],
   callBin = (field, bin) => {
-    const tag = uint32((field << 3) | 2),
-      len = uint32(bin.length),
-      buf = new Uint8Array(tag.length + len.length + bin.length);
+    const bin_len = bin.length,
+      tag = uint32((field << 3) | 2),
+      tag_len = tag.length,
+      len = uint32(bin_len),
+      p1 = tag_len + len.length,
+      buf = new Uint8Array(p1 + bin_len);
     buf.set(tag, 0);
-    buf.set(len, tag.length);
-    buf.set(bin, tag.length + len.length);
+    buf.set(len, tag_len);
+    buf.set(bin, p1);
     return buf;
   },
   reqChunk = (mod_bin, id, bin) => {
-    const h1 = uint32(id),
-      h2 = uint32(bin.length),
-      buf = new Uint8Array(mod_bin.length + h1.length + h2.length + bin.length);
+    const mod_len = mod_bin.length,
+      bin_len = bin.length,
+      h1 = uint32(id),
+      h2 = uint32(bin_len),
+      p1 = mod_len + h1.length,
+      p2 = p1 + h2.length,
+      buf = new Uint8Array(p2 + bin_len);
     buf.set(mod_bin, 0);
-    buf.set(h1, mod_bin.length);
-    buf.set(h2, mod_bin.length + h1.length);
-    buf.set(bin, mod_bin.length + h1.length + h2.length);
+    buf.set(h1, mod_len);
+    buf.set(h2, p1);
+    buf.set(bin, p2);
     return buf;
   },
   resIter = function* (buf) {
     let pos = 0;
-    while (pos < buf.length) {
+    const buf_len = buf.length;
+    while (pos < buf_len) {
       const [id, p1] = dUint32(buf, pos),
         [status, p2] = dUint32(buf, p1);
       if (status > ERR) {
@@ -68,19 +76,20 @@ const MAP = {},
         case ERR: {
           delete MAP[id];
           const err = utf8d(data_bin);
-          ON_ERR(err);
-          reject();
+          if (ON_ERR) ON_ERR(err);
+          reject(err);
           break;
         }
         case CAPTCHA:
-          (async () => {
-            const token = await ON_CAPTCHA();
-            if (token) {
-              CAPTCHA_TOKEN = token;
-              await post(chunk);
-              return;
-            }
-          })();
+          if (ON_CAPTCHA) {
+            (async () => {
+              const token = await ON_CAPTCHA();
+              if (token) {
+                CAPTCHA_TOKEN = token;
+                await post(chunk);
+              }
+            })();
+          }
           break;
         case NO_ORG:
           delete MAP[id];
@@ -101,7 +110,16 @@ const MAP = {},
       pos += b.length;
     }
     post(body);
-  };
+  },
+  sendReq = (mod_bin, field, encode_li, decode_li, args) =>
+    new Promise((resolve, reject) => {
+      if (ID > 1e9) ID = 0;
+      const id = ++ID,
+        chunk = reqChunk(mod_bin, id, callBin(field, $E(encode_li)(args)));
+      MAP[id] = [resolve, reject, $D(decode_li), chunk];
+      REQ_LI.push(chunk);
+      if (!TIMER) TIMER = setTimeout(send, 1);
+    });
 
 export const setApi = (url) => {
     API_URL = url;
@@ -120,14 +138,6 @@ export const setApi = (url) => {
   },
   req = (mod) => {
     const mod_bin = utf8e(mod + "\0");
-    return (field, encode, decode) =>
-      (...args) =>
-        new Promise((resolve, reject) => {
-          if (ID > 1e9) ID = 0;
-          const id = ++ID,
-            chunk = reqChunk(mod_bin, id, callBin(field, encode(args)));
-          MAP[id] = [resolve, reject, decode, chunk];
-          REQ_LI.push(chunk);
-          if (!TIMER) TIMER = setTimeout(send, 1);
-        });
+    return (field, encode_li, decode_li, ...args) =>
+      sendReq(mod_bin, field, encode_li, decode_li, args);
   };
