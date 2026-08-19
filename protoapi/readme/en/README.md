@@ -2,7 +2,7 @@
 
 ## Functionality
 
-ProtoAPI implements a compact binary protocol for efficient client-server communication. It handles request batching, automatic captcha resolution, error management, and binary data serialization using protobuf-inspired varint encoding and UTF-8 string handling.
+ProtoAPI provides a compact binary protocol client for efficient client-server communication. Core features include request batching, automatic captcha challenge handling, error status dispatch, and binary data serialization. The protocol uses Protocol Buffers-style varint encoding and UTF-8 string encoding to minimize network payload.
 
 ## Usage demonstration
 
@@ -18,11 +18,11 @@ setApi("https://api.example.com/v1");
 
 // Handle captcha challenges
 setOnCaptcha(async () => {
-  // Implement captcha resolution logic
+  // Implement captcha resolution logic, return token
   return await resolveCaptcha();
 });
 
-// Handle errors
+// Handle error responses
 setOnErr((error) => {
   console.error("API error:", error);
 });
@@ -33,7 +33,7 @@ setCaptcha("precomputed-token");
 // Create API module for 'user' service
 const userApi = req("user");
 
-// Define field 1 request with encode/decode functions
+// Define field 1 request with encode and decode functions
 const getUser = userApi(
   1,
   (args) => new TextEncoder().encode(JSON.stringify(args)),
@@ -46,7 +46,7 @@ const userData = await getUser({ id: 123 });
 
 ## Design rationale
 
-The implementation optimizes for web performance through binary encoding and intelligent batching:
+ProtoAPI optimizes web performance via binary encoding and intelligent batching. All requests are buffered client-side and flushed as a single HTTP POST after a minimal timeout (1ms); responses are parsed by ID and status and dispatched to corresponding Promises.
 
 ```mermaid
 graph TD
@@ -67,24 +67,25 @@ graph TD
 ## Technology stack
 
 - Core runtime: Modern JavaScript (ES modules, Uint8Array)
-- Binary encoding: Custom varint implementation (@1-/proto/E.js and D.js)
-- UTF-8 handling: @3-/utf8 library
-- Network: Standard fetch API with custom headers
-- Protocol foundation: Protobuf-inspired binary format
+- Binary encoding: Custom varint implementation (`@1-/proto/E.js` and `@1-/proto/D.js`)
+- UTF-8 handling: `@3-/utf8` library
+- Network: Standard `fetch` API, supports custom replacement
+- Protocol foundation: Protocol Buffers-style binary format
 
 ## Code structure
 
 ```
 src/
-├── _.js          # Main implementation (200+ lines)
-│   ├── Binary encoding utilities
-│   ├── Request batching system
-│   ├── Response parsing generator
-│   ├── Captcha challenge handler
-│   └── Promise-based API interface
-└── STATUS.js     # Status constants (OK, ERR, CAPTCHA)
+├── _.js          # Main implementation (~130 lines)
+│   ├── Binary encoding utilities (callBin, reqChunk)
+│   ├── Request batching system (REQ_LI, send, TIMER)
+│   ├── Response parsing generator (resIter)
+│   ├── Captcha challenge handler (ON_CAPTCHA, CAPTCHA_TOKEN)
+│   ├── Promise-based API interface (req, sendReq)
+│   └── Global configuration (setApi, setOnCaptcha, etc.)
+└── STATUS.js     # Status constants (OK=0, ERR=1, CAPTCHA=2)
 ```
 
 ## Historical context
 
-Binary protocols like ProtoAPI continue the legacy of early network protocols such as IBM's SNA (1970s) and later Google's Protocol Buffers (2008), which demonstrated how compact binary representations could achieve 3-10x bandwidth savings over text-based alternatives like JSON/XML. ProtoAPI modernizes this approach for web environments with features like automatic batching and captcha integration.
+Binary protocol design stems from a persistent pursuit of bandwidth efficiency. IBM SNA (1970s) first deployed compact binary frames at scale in enterprise networks, while Google Protocol Buffers (2008) popularized them in distributed systems, demonstrating 3–10x smaller payloads compared to JSON. ProtoAPI inherits this principle, optimized for modern web environments with integrated automatic batching and captcha workflows, balancing performance and security.
