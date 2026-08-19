@@ -16,7 +16,7 @@
 
 ## Functionality
 
-ProtoAPI implements a compact binary protocol for efficient client-server communication. It handles request batching, automatic captcha resolution, error management, and binary data serialization using protobuf-inspired varint encoding and UTF-8 string handling.
+ProtoAPI provides a compact binary protocol client for efficient client-server communication. Core features include request batching, automatic captcha challenge handling, error status dispatch, and binary data serialization. The protocol uses Protocol Buffers-style varint encoding and UTF-8 string encoding to minimize network payload.
 
 ## Usage demonstration
 
@@ -32,11 +32,11 @@ setApi("https://api.example.com/v1");
 
 // Handle captcha challenges
 setOnCaptcha(async () => {
-  // Implement captcha resolution logic
+  // Implement captcha resolution logic, return token
   return await resolveCaptcha();
 });
 
-// Handle errors
+// Handle error responses
 setOnErr((error) => {
   console.error("API error:", error);
 });
@@ -47,7 +47,7 @@ setCaptcha("precomputed-token");
 // Create API module for 'user' service
 const userApi = req("user");
 
-// Define field 1 request with encode/decode functions
+// Define field 1 request with encode and decode functions
 const getUser = userApi(
   1,
   (args) => new TextEncoder().encode(JSON.stringify(args)),
@@ -60,7 +60,7 @@ const userData = await getUser({ id: 123 });
 
 ## Design rationale
 
-The implementation optimizes for web performance through binary encoding and intelligent batching:
+ProtoAPI optimizes web performance via binary encoding and intelligent batching. All requests are buffered client-side and flushed as a single HTTP POST after a minimal timeout (1ms); responses are parsed by ID and status and dispatched to corresponding Promises.
 
 ```mermaid
 graph TD
@@ -81,27 +81,29 @@ graph TD
 ## Technology stack
 
 - Core runtime: Modern JavaScript (ES modules, Uint8Array)
-- Binary encoding: Custom varint implementation (@1-/proto/E.js and D.js)
-- UTF-8 handling: @3-/utf8 library
-- Network: Standard fetch API with custom headers
-- Protocol foundation: Protobuf-inspired binary format
+- Binary encoding: Custom varint implementation (`@1-/proto/E.js` and `@1-/proto/D.js`)
+- UTF-8 handling: `@3-/utf8` library
+- Network: Standard `fetch` API, supports custom replacement
+- Protocol foundation: Protocol Buffers-style binary format
 
 ## Code structure
 
 ```
 src/
-├── _.js          # Main implementation (200+ lines)
-│   ├── Binary encoding utilities
-│   ├── Request batching system
-│   ├── Response parsing generator
-│   ├── Captcha challenge handler
-│   └── Promise-based API interface
-└── STATUS.js     # Status constants (OK, ERR, CAPTCHA)
+├── _.js          # Main implementation (~130 lines)
+│   ├── Binary encoding utilities (callBin, reqChunk)
+│   ├── Request batching system (REQ_LI, send, TIMER)
+│   ├── Response parsing generator (resIter)
+│   ├── Captcha challenge handler (ON_CAPTCHA, CAPTCHA_TOKEN)
+│   ├── Promise-based API interface (req, sendReq)
+│   └── Global configuration (setApi, setOnCaptcha, etc.)
+└── STATUS.js     # Status constants (OK=0, ERR=1, CAPTCHA=2)
 ```
 
 ## Historical context
 
-Binary protocols like ProtoAPI continue the legacy of early network protocols such as IBM's SNA (1970s) and later Google's Protocol Buffers (2008), which demonstrated how compact binary representations could achieve 3-10x bandwidth savings over text-based alternatives like JSON/XML. ProtoAPI modernizes this approach for web environments with features like automatic batching and captcha integration.
+Binary protocol design stems from a persistent pursuit of bandwidth efficiency. IBM SNA (1970s) first deployed compact binary frames at scale in enterprise networks, while Google Protocol Buffers (2008) popularized them in distributed systems, demonstrating 3–10x smaller payloads compared to JSON. ProtoAPI inherits this principle, optimized for modern web environments with integrated automatic batching and captcha workflows, balancing performance and security.
+
 
 ## About
 
@@ -126,7 +128,7 @@ This library is developed by [WebC.site](https://webc.site).
 
 ## 功能介绍
 
-ProtoAPI 实现紧凑的二进制协议，用于高效的客户端-服务器通信。它支持请求批处理、自动验证码解析、错误管理及二进制数据序列化，采用类 Protocol Buffers 的 varint 编码和 UTF-8 字符串处理。
+ProtoAPI 提供紧凑的二进制协议客户端，实现高效客户端-服务器通信。核心功能包括请求批处理、自动验证码挑战处理、错误状态分发及二进制数据序列化。协议采用 Protocol Buffers 风格的 varint 编码与 UTF-8 字符串编码，最小化网络载荷。
 
 ## 使用演示
 
@@ -142,11 +144,11 @@ setApi("https://api.example.com/v1");
 
 // 处理验证码挑战
 setOnCaptcha(async () => {
-  // 实现验证码解析逻辑
+  // 实现验证码解析逻辑，返回令牌
   return await resolveCaptcha();
 });
 
-// 处理错误
+// 处理错误响应
 setOnErr((error) => {
   console.error("API 错误:", error);
 });
@@ -157,7 +159,7 @@ setCaptcha("precomputed-token");
 // 创建 'user' 服务的 API 模块
 const userApi = req("user");
 
-// 定义字段 1 请求，包含编码/解码函数
+// 定义字段 1 请求，包含编码与解码函数
 const getUser = userApi(
   1,
   (args) => new TextEncoder().encode(JSON.stringify(args)),
@@ -170,7 +172,7 @@ const userData = await getUser({ id: 123 });
 
 ## 设计思路
 
-实现针对 Web 性能优化，采用二进制编码和智能批处理：
+ProtoAPI 通过二进制编码与智能批处理优化 Web 性能。所有请求在客户端缓冲，超时（1ms）后合并为单个 HTTP POST 请求；响应按 ID 与状态分发至对应 Promise。
 
 ```mermaid
 graph TD
@@ -191,27 +193,29 @@ graph TD
 ## 技术栈
 
 - 核心运行时：现代 JavaScript（ES 模块，Uint8Array）
-- 二进制编码：自定义 varint 实现（@1-/proto/E.js 和 D.js）
-- UTF-8 处理：@3-/utf8 库
-- 网络：标准 fetch API 与自定义头部
-- 协议基础：类 Protocol Buffers 的二进制格式
+- 二进制编码：自定义 varint 实现（`@1-/proto/E.js` 与 `@1-/proto/D.js`）
+- UTF-8 处理：`@3-/utf8` 库
+- 网络：标准 `fetch` API，支持自定义替换
+- 协议基础：Protocol Buffers 风格二进制格式
 
 ## 代码结构
 
 ```
 src/
-├── _.js          # 主实现（200+ 行）
-│   ├── 二进制编码工具
-│   ├── 请求批处理系统
-│   ├── 响应解析生成器
-│   ├── 验证码挑战处理器
-│   └── Promise 基础 API 接口
-└── STATUS.js     # 状态常量（OK, ERR, CAPTCHA）
+├── _.js          # 主实现（约 130 行）
+│   ├── 二进制编码工具（callBin, reqChunk）
+│   ├── 请求批处理系统（REQ_LI, send, TIMER）
+│   ├── 响应解析生成器（resIter）
+│   ├── 验证码挑战处理器（ON_CAPTCHA, CAPTCHA_TOKEN）
+│   ├── Promise 基础 API 接口（req, sendReq）
+│   └── 全局配置（setApi, setOnCaptcha 等）
+└── STATUS.js     # 状态常量（OK=0, ERR=1, CAPTCHA=2）
 ```
 
 ## 历史故事
 
-二进制协议如 ProtoAPI 延续了早期网络协议（如 IBM SNA，1970 年代）和后来 Google Protocol Buffers（2008 年）的传统，证明紧凑的二进制表示相比 JSON/XML 等文本格式可节省 3-10 倍带宽。ProtoAPI 将此方法现代化，为 Web 环境添加了自动批处理和验证码集成等特性。
+二进制协议设计源于对带宽效率的持续追求。IBM SNA（1970 年代）首次在企业网络中大规模应用紧凑二进制帧，而 Google Protocol Buffers（2008）将其推广至分布式系统，证实二进制格式相比 JSON 可减少 3–10 倍传输体积。ProtoAPI 继承此理念，专为现代 Web 环境优化，集成自动批处理与验证码工作流，平衡性能与安全性。
+
 
 ## 关于
 
