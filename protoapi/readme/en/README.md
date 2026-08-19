@@ -11,7 +11,7 @@ npm install @1-/protoapi
 ```
 
 ```javascript
-import { req, setApi, setOnCaptcha, setOnErr } from "@1-/protoapi";
+import { req, setApi, setOnCaptcha, setOnErr, setCaptcha } from "@1-/protoapi";
 
 // Configure API endpoint
 setApi("https://api.example.com/v1");
@@ -26,6 +26,9 @@ setOnCaptcha(async () => {
 setOnErr((error) => {
   console.error("API error:", error);
 });
+
+// Set precomputed captcha token (optional)
+setCaptcha("precomputed-token");
 
 // Create API module for 'user' service
 const userApi = req("user");
@@ -59,7 +62,6 @@ graph TD
   J -->|OK| K[Promise Resolution]
   J -->|ERR| L[Error Handling]
   J -->|CAPTCHA| M[Captcha Challenge Flow]
-  J -->|NO_ORG| N[Organization Validation]
 ```
 
 ## Technology stack
@@ -80,7 +82,7 @@ src/
 │   ├── Response parsing generator
 │   ├── Captcha challenge handler
 │   └── Promise-based API interface
-└── STATUS.js     # Status constants (OK, ERR, CAPTCHA, NO_ORG)
+└── STATUS.js     # Status constants (OK, ERR, CAPTCHA)
 ```
 
 ## Historical context

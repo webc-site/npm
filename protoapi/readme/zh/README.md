@@ -11,7 +11,7 @@ npm install @1-/protoapi
 ```
 
 ```javascript
-import { req, setApi, setOnCaptcha, setOnErr } from "@1-/protoapi";
+import { req, setApi, setOnCaptcha, setOnErr, setCaptcha } from "@1-/protoapi";
 
 // 配置 API 端点
 setApi("https://api.example.com/v1");
@@ -26,6 +26,9 @@ setOnCaptcha(async () => {
 setOnErr((error) => {
   console.error("API 错误:", error);
 });
+
+// 设置预计算的验证码令牌（可选）
+setCaptcha("precomputed-token");
 
 // 创建 'user' 服务的 API 模块
 const userApi = req("user");
@@ -59,7 +62,6 @@ graph TD
   J -->|OK| K[Promise 解析]
   J -->|ERR| L[错误处理]
   J -->|CAPTCHA| M[验证码挑战流程]
-  J -->|NO_ORG| N[组织验证]
 ```
 
 ## 技术栈
@@ -80,7 +82,7 @@ src/
 │   ├── 响应解析生成器
 │   ├── 验证码挑战处理器
 │   └── Promise 基础 API 接口
-└── STATUS.js     # 状态常量（OK, ERR, CAPTCHA, NO_ORG）
+└── STATUS.js     # 状态常量（OK, ERR, CAPTCHA）
 ```
 
 ## 历史故事
