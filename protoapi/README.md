@@ -3,7 +3,6 @@
 ---
 
 <a id="en"></a>
-
 # @1-/protoapi : Lightweight binary protocol API client
 
 - [@1-/protoapi : Lightweight binary protocol API client](#1-protoapi-lightweight-binary-protocol-api-client)
@@ -26,7 +25,7 @@ npm install @1-/protoapi
 ```
 
 ```javascript
-import { req, setApi, setOnCaptcha, setOnErr } from "@1-/protoapi";
+import { req, setApi, setOnCaptcha, setOnErr, setCaptcha } from "@1-/protoapi";
 
 // Configure API endpoint
 setApi("https://api.example.com/v1");
@@ -41,6 +40,9 @@ setOnCaptcha(async () => {
 setOnErr((error) => {
   console.error("API error:", error);
 });
+
+// Set precomputed captcha token (optional)
+setCaptcha("precomputed-token");
 
 // Create API module for 'user' service
 const userApi = req("user");
@@ -74,7 +76,6 @@ graph TD
   J -->|OK| K[Promise Resolution]
   J -->|ERR| L[Error Handling]
   J -->|CAPTCHA| M[Captcha Challenge Flow]
-  J -->|NO_ORG| N[Organization Validation]
 ```
 
 ## Technology stack
@@ -95,7 +96,7 @@ src/
 │   ├── Response parsing generator
 │   ├── Captcha challenge handler
 │   └── Promise-based API interface
-└── STATUS.js     # Status constants (OK, ERR, CAPTCHA, NO_ORG)
+└── STATUS.js     # Status constants (OK, ERR, CAPTCHA)
 ```
 
 ## Historical context
@@ -108,10 +109,10 @@ This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/protoapi : 轻量级二进制协议 API 客户端
 
 - [@1-/protoapi : 轻量级二进制协议 API 客户端](#1-protoapi-轻量级二进制协议-api-客户端)
@@ -134,7 +135,7 @@ npm install @1-/protoapi
 ```
 
 ```javascript
-import { req, setApi, setOnCaptcha, setOnErr } from "@1-/protoapi";
+import { req, setApi, setOnCaptcha, setOnErr, setCaptcha } from "@1-/protoapi";
 
 // 配置 API 端点
 setApi("https://api.example.com/v1");
@@ -149,6 +150,9 @@ setOnCaptcha(async () => {
 setOnErr((error) => {
   console.error("API 错误:", error);
 });
+
+// 设置预计算的验证码令牌（可选）
+setCaptcha("precomputed-token");
 
 // 创建 'user' 服务的 API 模块
 const userApi = req("user");
@@ -182,7 +186,6 @@ graph TD
   J -->|OK| K[Promise 解析]
   J -->|ERR| L[错误处理]
   J -->|CAPTCHA| M[验证码挑战流程]
-  J -->|NO_ORG| N[组织验证]
 ```
 
 ## 技术栈
@@ -203,7 +206,7 @@ src/
 │   ├── 响应解析生成器
 │   ├── 验证码挑战处理器
 │   └── Promise 基础 API 接口
-└── STATUS.js     # 状态常量（OK, ERR, CAPTCHA, NO_ORG）
+└── STATUS.js     # 状态常量（OK, ERR, CAPTCHA）
 ```
 
 ## 历史故事
@@ -215,3 +218,4 @@ src/
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+
