@@ -47,17 +47,19 @@ graph TD
     B --> G[Distribution]
     B --> H[npm Publishing]
     B --> I[Documentation Generation]
-    C --> J[GitHub Repository Cloning]
-    D --> K[Vite Development Server]
-    D --> L[Stylus Compilation Plugin]
-    D --> M[Pug Template Rendering]
-    D --> N[Virtual Routing Plugin]
-    E --> O[Vite Production Build]
-    F --> P[YAML i18n System]
-    F --> Q[Virtual File System]
-    G --> R[CDN Publishing]
-    H --> S[npm Package Management]
-    I --> T[Auto-generated Documentation]
+    B --> J[Site Service]
+    C --> K[GitHub Repository Cloning]
+    D --> L[Vite Development Server]
+    D --> M[Stylus Compilation Plugin]
+    D --> N[Pug Template Rendering]
+    D --> O[Virtual Routing Plugin]
+    E --> P[Vite Production Build]
+    F --> Q[YAML i18n System]
+    F --> R[Virtual File System]
+    G --> S[CDN Publishing]
+    H --> T[npm Package Management]
+    I --> U[Auto-generated Documentation]
+    J --> V[Static File Service]
 ```
 
 ## Technology Stack
@@ -79,6 +81,7 @@ src/
 ├── dist/         # Distribution and publishing logic
 ├── fix/          # Code transformation utilities
 ├── i18n/         # YAML translation files for 50+ languages
+├── jsDoc/        # JavaScript documentation generation logic
 ├── lib/          # Core utility functions
 ├── npm/          # npm package management logic
 ├── site/         # Site generation logic

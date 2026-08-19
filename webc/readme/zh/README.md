@@ -47,17 +47,19 @@ graph TD
     B --> G[分发部署]
     B --> H[npm 发布]
     B --> I[文档生成]
-    C --> J[GitHub 仓库克隆]
-    D --> K[Vite 开发服务器]
-    D --> L[Stylus 编译插件]
-    D --> M[Pug 模板渲染]
-    D --> N[虚拟路由插件]
-    E --> O[Vite 生产构建]
-    F --> P[YAML i18n 系统]
-    F --> Q[虚拟文件系统]
-    G --> R[CDN 发布]
-    H --> S[npm 包管理]
-    I --> T[自动生成文档]
+    B --> J[站点服务]
+    C --> K[GitHub 仓库克隆]
+    D --> L[Vite 开发服务器]
+    D --> M[Stylus 编译插件]
+    D --> N[Pug 模板渲染]
+    D --> O[虚拟路由插件]
+    E --> P[Vite 生产构建]
+    F --> Q[YAML i18n 系统]
+    F --> R[虚拟文件系统]
+    G --> S[CDN 发布]
+    H --> T[npm 包管理]
+    I --> U[自动生成文档]
+    J --> V[静态文件服务]
 ```
 
 ## 技术栈
@@ -79,6 +81,7 @@ src/
 ├── dist/         # 分发与发布逻辑
 ├── fix/          # 代码转换工具
 ├── i18n/         # YAML 翻译文件（50+ 种语言）
+├── jsDoc/        # JavaScript 文档生成逻辑
 ├── lib/          # 核心工具函数
 ├── npm/          # npm 包管理逻辑
 ├── site/         # 站点生成逻辑
