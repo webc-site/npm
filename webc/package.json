@@ -4,9 +4,15 @@
   "bin": {
     "webc": "src/bin/webc.js"
   },
-  "version": "0.1.8",
+  "version": "0.1.7",
   "type": "module",
-  "keywords": ["web-components", "cli", "vite", "rollup", "i18n"],
+  "keywords": [
+    "web-components",
+    "cli",
+    "vite",
+    "rollup",
+    "i18n"
+  ],
   "dependencies": {
     "@1-/csv": "^0.1.4",
     "@1-/i18nyml": "^0.1.1",
