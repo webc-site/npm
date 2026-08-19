@@ -2,7 +2,7 @@ import { $ as $E, uint32 } from "@1-/proto/E.js";
 import { $ as $D, dUint32 } from "@1-/proto/D.js";
 import utf8d from "@3-/utf8/utf8d.js";
 import utf8e from "@3-/utf8/utf8e.js";
-import { OK, ERR, CAPTCHA, NO_ORG } from "./STATUS.js";
+import { OK, ERR, CAPTCHA } from "./STATUS.js";
 
 let TIMER,
   API_URL,
@@ -78,11 +78,8 @@ const MAP = {},
         resolve(decode(data_bin));
       } else if (status === ERR) {
         const err = utf8d(data_bin);
-        ON_ERR && ON_ERR(err);
+        if (ON_ERR) ON_ERR(err);
         reject(err);
-      } else {
-        console.error("Host not bound to org");
-        reject(status);
       }
     }
   },
