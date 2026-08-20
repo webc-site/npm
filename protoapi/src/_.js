@@ -120,8 +120,16 @@ const MAP = new Map(),
     });
 
 export const setApi = (url) => (API_URL = url),
-  setFetch = (func) => (FETCH = func),
-  setCaptcha = (token) => (CAPTCHA_TOKEN = token),
-  setOnCaptcha = (func) => (ON_CAPTCHA = func),
-  setOnErr = (func) => (ON_ERR = func),
+  setFetch = (func) => {
+    FETCH = func;
+  },
+  setCaptcha = (token) => {
+    CAPTCHA_TOKEN = token;
+  },
+  setOnCaptcha = (func) => {
+    ON_CAPTCHA = func;
+  },
+  setOnErr = (func) => {
+    ON_ERR = func;
+  },
   req = (mod) => sendReq.bind(null, utf8e(mod + "\0"));
