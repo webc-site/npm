@@ -2,7 +2,13 @@
   "name": "@1-/md2htm",
   "version": "0.1.0",
   "description": "Lightweight Markdown-to-HTML converter with AST-based parsing and semantic HTML generation.",
-  "keywords": ["markdown", "html", "parser", "converter", "ast"],
+  "keywords": [
+    "ast",
+    "converter",
+    "html",
+    "markdown",
+    "parser"
+  ],
   "homepage": "https://github.com/webc-site/npm/tree/main/md2htm",
   "license": "MulanPSL-2.0",
   "author": "x-at-01@googlegroups.com",
