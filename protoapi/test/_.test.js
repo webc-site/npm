@@ -12,7 +12,7 @@ import { CAPTCHA, ERR, OK } from "../src/STATUS.js";
 setApi("http://localhost:9999");
 
 const reqId = (body) => dUint32(body, body.indexOf(0) + 1)[0],
-  mockRes = (arr) => new Response(new Uint8Array(arr)),
+  mockRes = (arr, status = 200) => new Response(new Uint8Array(arr), { status }),
   mockFetch = (fn) => setFetch(async (_, conf) => mockRes(fn(reqId(conf.body), conf))),
   setRes = (status, data = []) =>
     mockFetch((id) => [id, status, ...(status <= ERR ? [data.length, ...data] : data)]),
@@ -32,6 +32,18 @@ test("错误", async () => {
   expect(call()).rejects.toBe("fail");
   await sleep();
   expect(err_msg).toBe("fail");
+});
+
+test("网络异常", async () => {
+  setFetch(async () => {
+    throw new Error("net error");
+  });
+  expect(call()).rejects.toThrow("net error");
+});
+
+test("HTTP 错误状态码", async () => {
+  setFetch(async () => new Response("Bad Gateway", { status: 502 }));
+  expect(call()).rejects.toBe("HTTP 502");
 });
 
 test("验证码重试", async () => {

@@ -42,14 +42,35 @@ const MAP = new Map(),
       }
     }
   },
-  post = async (body) => {
+  fail = (id_li, err) => {
+    if (id_li) {
+      for (const id of id_li) {
+        const item = MAP.get(id);
+        if (item) {
+          MAP.delete(id);
+          item[1](err);
+        }
+      }
+    }
+    if (ON_ERR) ON_ERR(err);
+  },
+  post = async (body, id_li) => {
     const headers = {};
     if (CAPTCHA_TOKEN) headers.pragma = CAPTCHA_TOKEN;
-    const res = await FETCH(API_URL, {
-      method: "POST",
-      headers,
-      body
-    });
+    let res;
+    try {
+      res = await FETCH(API_URL, {
+        method: "POST",
+        headers,
+        body,
+        credentials: "include"
+      });
+    } catch (err) {
+      return fail(id_li, err);
+    }
+
+    if (!res.ok) return fail(id_li, res.status);
+
     for (const [id, status, data_bin] of resIter(new Uint8Array(await res.arrayBuffer()))) {
       const item = MAP.get(id);
       if (!item) continue;
@@ -58,7 +79,7 @@ const MAP = new Map(),
         (async () => {
           CAPTCHA_TOKEN = await ON_CAPTCHA();
           if (CAPTCHA_TOKEN) {
-            post(chunk);
+            post(chunk, [id]);
           } else {
             MAP.delete(id);
             reject();
@@ -69,7 +90,7 @@ const MAP = new Map(),
       MAP.delete(id);
       if (status === OK) {
         resolve(decode(data_bin));
-      } else if (status === ERR) {
+      } else {
         const err = utf8d(data_bin);
         if (ON_ERR) ON_ERR(err);
         reject(err);
@@ -78,7 +99,10 @@ const MAP = new Map(),
   },
   send = () => {
     TIMER = 0;
-    post(concat(REQ_LI.splice(0)));
+    const req_li = REQ_LI.splice(0),
+      id_li = req_li.map((item) => item[0]),
+      chunk_li = req_li.map((item) => item[1]);
+    post(concat(chunk_li), id_li);
   },
   /*
   发送单个请求
@@ -91,23 +115,13 @@ const MAP = new Map(),
       const id = ++ID,
         chunk = reqChunk(mod_bin, id, callBin(field, $E(encode_li)(args)));
       MAP.set(id, [resolve, reject, $D(decode_li), chunk]);
-      REQ_LI.push(chunk);
+      REQ_LI.push([id, chunk]);
       if (!TIMER) TIMER = setTimeout(send, 1);
     });
 
-export const setApi = (url) => {
-    API_URL = url;
-  },
-  setFetch = (func) => {
-    FETCH = func;
-  },
-  setCaptcha = (token) => {
-    CAPTCHA_TOKEN = token;
-  },
-  setOnCaptcha = (func) => {
-    ON_CAPTCHA = func;
-  },
-  setOnErr = (func) => {
-    ON_ERR = func;
-  },
+export const setApi = (url) => (API_URL = url),
+  setFetch = (func) => (FETCH = func),
+  setCaptcha = (token) => (CAPTCHA_TOKEN = token),
+  setOnCaptcha = (func) => (ON_CAPTCHA = func),
+  setOnErr = (func) => (ON_ERR = func),
   req = (mod) => sendReq.bind(null, utf8e(mod + "\0"));
