@@ -53,7 +53,7 @@ ProtoAPI implements request batching via client-side buffering and timer-based f
 graph TD
   A["Client Application"] --> B["Call req(mod) to create request function"]
   B --> C["Call request function to generate Promise"]
-  C --> D["UTF-8 encode module name"]
+  C --> D["UTF-8 encode module name (with \0 terminator)"]
   D --> E["Varint encode field and arguments"]
   E --> F["Append to in-memory request queue"]
   F --> G["1ms after flush"]
@@ -78,7 +78,7 @@ graph TD
 
 ```
 src/
-├── _.js          # Main implementation (130 lines)
+├── _.js          # Main implementation (approx. 130 lines)
 │   ├── Binary utilities: callBin (field packing), reqChunk (request chunking)
 │   ├── Batching system: REQ_LI (request queue), send (flush function), TIMER (setTimeout timer)
 │   ├── Response parsing: resIter (generator for streaming response parsing)
