@@ -11,7 +11,7 @@ npm install @1-/protoapi
 ```
 
 ```javascript
-import { req, setApi, setOnCaptcha, setOnErr, setCaptcha } from "@1-/protoapi";
+import { req, setApi, setOnCaptcha, setOnErr, setCaptcha, setFetch } from "@1-/protoapi";
 
 // Configure API endpoint
 setApi("https://api.example.com/v1");
@@ -30,14 +30,17 @@ setOnErr((error) => {
 // Set precomputed captcha token (optional)
 setCaptcha("precomputed-token");
 
+// Replace fetch function (optional)
+setFetch(customFetchFunction);
+
 // Create API module for 'user' service
 const userApi = req("user");
 
 // Define field 1 request with encode and decode functions
 const getUser = userApi(
   1,
-  (args) => new TextEncoder().encode(JSON.stringify(args)),
-  (data) => JSON.parse(new TextDecoder().decode(data))
+  (args) => utf8e(JSON.stringify(args)),
+  (data) => JSON.parse(utf8d(data))
 );
 
 // Make request
@@ -68,7 +71,7 @@ graph TD
 
 - Core runtime: Modern JavaScript (ES modules, Uint8Array)
 - Binary encoding: Custom varint implementation (`@1-/proto/E.js` and `@1-/proto/D.js`)
-- UTF-8 handling: `@3-/utf8` library
+- UTF-8 handling: `@3-/utf8/utf8e.js` and `@3-/utf8/utf8d.js` library
 - Network: Standard `fetch` API, supports custom replacement
 - Protocol foundation: Protocol Buffers-style binary format
 
@@ -82,7 +85,7 @@ src/
 │   ├── Response parsing generator (resIter)
 │   ├── Captcha challenge handler (ON_CAPTCHA, CAPTCHA_TOKEN)
 │   ├── Promise-based API interface (req, sendReq)
-│   └── Global configuration (setApi, setOnCaptcha, etc.)
+│   └── Global configuration (setApi, setOnCaptcha, setCaptcha, setFetch, setOnErr)
 └── STATUS.js     # Status constants (OK=0, ERR=1, CAPTCHA=2)
 ```
 

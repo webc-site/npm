@@ -11,7 +11,7 @@ npm install @1-/protoapi
 ```
 
 ```javascript
-import { req, setApi, setOnCaptcha, setOnErr, setCaptcha } from "@1-/protoapi";
+import { req, setApi, setOnCaptcha, setOnErr, setCaptcha, setFetch } from "@1-/protoapi";
 
 // 配置 API 端点
 setApi("https://api.example.com/v1");
@@ -30,14 +30,17 @@ setOnErr((error) => {
 // 设置预计算的验证码令牌（可选）
 setCaptcha("precomputed-token");
 
+// 替换 fetch 函数（可选）
+setFetch(customFetchFunction);
+
 // 创建 'user' 服务的 API 模块
 const userApi = req("user");
 
 // 定义字段 1 请求，包含编码与解码函数
 const getUser = userApi(
   1,
-  (args) => new TextEncoder().encode(JSON.stringify(args)),
-  (data) => JSON.parse(new TextDecoder().decode(data))
+  (args) => utf8e(JSON.stringify(args)),
+  (data) => JSON.parse(utf8d(data))
 );
 
 // 发起请求
@@ -68,7 +71,7 @@ graph TD
 
 - 核心运行时：现代 JavaScript（ES 模块，Uint8Array）
 - 二进制编码：自定义 varint 实现（`@1-/proto/E.js` 与 `@1-/proto/D.js`）
-- UTF-8 处理：`@3-/utf8` 库
+- UTF-8 处理：`@3-/utf8/utf8e.js` 和 `@3-/utf8/utf8d.js` 库
 - 网络：标准 `fetch` API，支持自定义替换
 - 协议基础：Protocol Buffers 风格二进制格式
 
@@ -82,7 +85,7 @@ src/
 │   ├── 响应解析生成器（resIter）
 │   ├── 验证码挑战处理器（ON_CAPTCHA, CAPTCHA_TOKEN）
 │   ├── Promise 基础 API 接口（req, sendReq）
-│   └── 全局配置（setApi, setOnCaptcha 等）
+│   └── 全局配置（setApi, setOnCaptcha, setCaptcha, setFetch, setOnErr）
 └── STATUS.js     # 状态常量（OK=0, ERR=1, CAPTCHA=2）
 ```
 

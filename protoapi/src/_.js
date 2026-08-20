@@ -57,12 +57,14 @@ const MAP = {},
     }
   },
   post = async (body) => {
-    const conf = {
-      method: "POST",
-      body
-    };
+    const headers = {},
+      conf = {
+        method: "POST",
+        headers,
+        body
+      };
     if (CAPTCHA_TOKEN) {
-      conf.headers = { pragma: CAPTCHA_TOKEN };
+      headers.pragma = CAPTCHA_TOKEN;
     }
     const res = await FETCH(API_URL, conf);
     for (const [id, status, data_bin] of resIter(new Uint8Array(await res.arrayBuffer()))) {
