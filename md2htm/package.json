@@ -1,6 +1,6 @@
 {
   "name": "@1-/md2htm",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lightweight Markdown-to-HTML converter with AST-based parsing and semantic HTML generation.",
   "keywords": [
     "ast",
