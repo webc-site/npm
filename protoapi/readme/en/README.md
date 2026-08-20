@@ -1,4 +1,4 @@
-# @1-/protoapi : Lightweight binary protocol API client
+# @1-/protoapi : High-performance binary protocol client for browsers
 
 ## Functionality
 
