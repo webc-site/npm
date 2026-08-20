@@ -12,6 +12,8 @@ npm install @1-/protoapi
 
 ```javascript
 import { req, setApi, setOnCaptcha, setOnErr, setCaptcha, setFetch } from "@1-/protoapi";
+import { string } from "@1-/proto/E.js";
+import { uint64 } from "@1-/proto/D.js";
 
 // Configure API endpoint
 setApi("https://api.example.com/v1");
@@ -33,18 +35,19 @@ setCaptcha("precomputed-token");
 // Replace fetch function (optional)
 setFetch(customFetchFunction);
 
-// Create API module for 'user' service
-const userApi = req("user");
+// Create API module for 'auth' service
+const authApi = req("auth");
 
-// Define field 1 request with encode and decode functions
-const getUser = userApi(
+// Define field 1 request with proto encoding functions
+const login = authApi(
   1,
-  (args) => utf8e(JSON.stringify(args)),
-  (data) => JSON.parse(utf8d(data))
+  [string],
+  [uint64],
+  "test@mail.com"
 );
 
 // Make request
-const userData = await getUser({ id: 123 });
+const userId = await login();
 ```
 
 ## Design rationale
@@ -54,7 +57,7 @@ ProtoAPI optimizes web performance via binary encoding and intelligent batching.
 ```mermaid
 graph TD
   A[Client Application] --> B[Request Creation]
-  B --> C[UTF-8 Encoding]
+  B --> C[UTF-8 Encoding Module Name]
   C --> D[Varint Binary Packaging]
   D --> E[Request Queue]
   E --> F[Batch Timeout Flush]
@@ -70,7 +73,7 @@ graph TD
 ## Technology stack
 
 - Core runtime: Modern JavaScript (ES modules, Uint8Array)
-- Binary encoding: Custom varint implementation (`@1-/proto/E.js` and `@1-/proto/D.js`)
+- Binary encoding: `@1-/proto` library's `E.js` and `D.js` (Protocol Buffers style)
 - UTF-8 handling: `@3-/utf8/utf8e.js` and `@3-/utf8/utf8d.js` library
 - Network: Standard `fetch` API, supports custom replacement
 - Protocol foundation: Protocol Buffers-style binary format

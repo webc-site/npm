@@ -12,6 +12,8 @@ npm install @1-/protoapi
 
 ```javascript
 import { req, setApi, setOnCaptcha, setOnErr, setCaptcha, setFetch } from "@1-/protoapi";
+import { string } from "@1-/proto/E.js";
+import { uint64 } from "@1-/proto/D.js";
 
 // 配置 API 端点
 setApi("https://api.example.com/v1");
@@ -33,18 +35,19 @@ setCaptcha("precomputed-token");
 // 替换 fetch 函数（可选）
 setFetch(customFetchFunction);
 
-// 创建 'user' 服务的 API 模块
-const userApi = req("user");
+// 创建 'auth' 服务的 API 模块
+const authApi = req("auth");
 
-// 定义字段 1 请求，包含编码与解码函数
-const getUser = userApi(
+// 定义字段 1 请求，使用 proto 编码函数
+const login = authApi(
   1,
-  (args) => utf8e(JSON.stringify(args)),
-  (data) => JSON.parse(utf8d(data))
+  [string],
+  [uint64],
+  "test@mail.com"
 );
 
 // 发起请求
-const userData = await getUser({ id: 123 });
+const userId = await login();
 ```
 
 ## 设计思路
@@ -54,7 +57,7 @@ ProtoAPI 通过二进制编码与智能批处理优化 Web 性能。所有请求
 ```mermaid
 graph TD
   A[客户端应用] --> B[请求创建]
-  B --> C[UTF-8 编码]
+  B --> C[UTF-8 编码模块名]
   C --> D[Varint 二进制打包]
   D --> E[请求队列]
   E --> F[批处理超时刷新]
@@ -70,7 +73,7 @@ graph TD
 ## 技术栈
 
 - 核心运行时：现代 JavaScript（ES 模块，Uint8Array）
-- 二进制编码：自定义 varint 实现（`@1-/proto/E.js` 与 `@1-/proto/D.js`）
+- 二进制编码：`@1-/proto` 库的 `E.js` 和 `D.js`（Protocol Buffers 风格）
 - UTF-8 处理：`@3-/utf8/utf8e.js` 和 `@3-/utf8/utf8d.js` 库
 - 网络：标准 `fetch` API，支持自定义替换
 - 协议基础：Protocol Buffers 风格二进制格式
