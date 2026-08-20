@@ -25,7 +25,9 @@ npm install @1-/protoapi
 ```
 
 ```javascript
-import { req, setApi, setOnCaptcha, setOnErr, setCaptcha } from "@1-/protoapi";
+import { req, setApi, setOnCaptcha, setOnErr, setCaptcha, setFetch } from "@1-/protoapi";
+import { string } from "@1-/proto/E.js";
+import { uint64 } from "@1-/proto/D.js";
 
 // Configure API endpoint
 setApi("https://api.example.com/v1");
@@ -44,18 +46,22 @@ setOnErr((error) => {
 // Set precomputed captcha token (optional)
 setCaptcha("precomputed-token");
 
-// Create API module for 'user' service
-const userApi = req("user");
+// Replace fetch function (optional)
+setFetch(customFetchFunction);
 
-// Define field 1 request with encode and decode functions
-const getUser = userApi(
+// Create API module for 'auth' service
+const authApi = req("auth");
+
+// Define field 1 request with proto encoding functions
+const login = authApi(
   1,
-  (args) => new TextEncoder().encode(JSON.stringify(args)),
-  (data) => JSON.parse(new TextDecoder().decode(data))
+  [string],
+  [uint64],
+  "test@mail.com"
 );
 
 // Make request
-const userData = await getUser({ id: 123 });
+const userId = await login();
 ```
 
 ## Design rationale
@@ -65,7 +71,7 @@ ProtoAPI optimizes web performance via binary encoding and intelligent batching.
 ```mermaid
 graph TD
   A[Client Application] --> B[Request Creation]
-  B --> C[UTF-8 Encoding]
+  B --> C[UTF-8 Encoding Module Name]
   C --> D[Varint Binary Packaging]
   D --> E[Request Queue]
   E --> F[Batch Timeout Flush]
@@ -81,8 +87,8 @@ graph TD
 ## Technology stack
 
 - Core runtime: Modern JavaScript (ES modules, Uint8Array)
-- Binary encoding: Custom varint implementation (`@1-/proto/E.js` and `@1-/proto/D.js`)
-- UTF-8 handling: `@3-/utf8` library
+- Binary encoding: `@1-/proto` library's `E.js` and `D.js` (Protocol Buffers style)
+- UTF-8 handling: `@3-/utf8/utf8e.js` and `@3-/utf8/utf8d.js` library
 - Network: Standard `fetch` API, supports custom replacement
 - Protocol foundation: Protocol Buffers-style binary format
 
@@ -96,14 +102,13 @@ src/
 │   ├── Response parsing generator (resIter)
 │   ├── Captcha challenge handler (ON_CAPTCHA, CAPTCHA_TOKEN)
 │   ├── Promise-based API interface (req, sendReq)
-│   └── Global configuration (setApi, setOnCaptcha, etc.)
+│   └── Global configuration (setApi, setOnCaptcha, setCaptcha, setFetch, setOnErr)
 └── STATUS.js     # Status constants (OK=0, ERR=1, CAPTCHA=2)
 ```
 
 ## Historical context
 
 Binary protocol design stems from a persistent pursuit of bandwidth efficiency. IBM SNA (1970s) first deployed compact binary frames at scale in enterprise networks, while Google Protocol Buffers (2008) popularized them in distributed systems, demonstrating 3–10x smaller payloads compared to JSON. ProtoAPI inherits this principle, optimized for modern web environments with integrated automatic batching and captcha workflows, balancing performance and security.
-
 
 ## About
 
@@ -137,7 +142,9 @@ npm install @1-/protoapi
 ```
 
 ```javascript
-import { req, setApi, setOnCaptcha, setOnErr, setCaptcha } from "@1-/protoapi";
+import { req, setApi, setOnCaptcha, setOnErr, setCaptcha, setFetch } from "@1-/protoapi";
+import { string } from "@1-/proto/E.js";
+import { uint64 } from "@1-/proto/D.js";
 
 // 配置 API 端点
 setApi("https://api.example.com/v1");
@@ -156,18 +163,22 @@ setOnErr((error) => {
 // 设置预计算的验证码令牌（可选）
 setCaptcha("precomputed-token");
 
-// 创建 'user' 服务的 API 模块
-const userApi = req("user");
+// 替换 fetch 函数（可选）
+setFetch(customFetchFunction);
 
-// 定义字段 1 请求，包含编码与解码函数
-const getUser = userApi(
+// 创建 'auth' 服务的 API 模块
+const authApi = req("auth");
+
+// 定义字段 1 请求，使用 proto 编码函数
+const login = authApi(
   1,
-  (args) => new TextEncoder().encode(JSON.stringify(args)),
-  (data) => JSON.parse(new TextDecoder().decode(data))
+  [string],
+  [uint64],
+  "test@mail.com"
 );
 
 // 发起请求
-const userData = await getUser({ id: 123 });
+const userId = await login();
 ```
 
 ## 设计思路
@@ -177,7 +188,7 @@ ProtoAPI 通过二进制编码与智能批处理优化 Web 性能。所有请求
 ```mermaid
 graph TD
   A[客户端应用] --> B[请求创建]
-  B --> C[UTF-8 编码]
+  B --> C[UTF-8 编码模块名]
   C --> D[Varint 二进制打包]
   D --> E[请求队列]
   E --> F[批处理超时刷新]
@@ -193,8 +204,8 @@ graph TD
 ## 技术栈
 
 - 核心运行时：现代 JavaScript（ES 模块，Uint8Array）
-- 二进制编码：自定义 varint 实现（`@1-/proto/E.js` 与 `@1-/proto/D.js`）
-- UTF-8 处理：`@3-/utf8` 库
+- 二进制编码：`@1-/proto` 库的 `E.js` 和 `D.js`（Protocol Buffers 风格）
+- UTF-8 处理：`@3-/utf8/utf8e.js` 和 `@3-/utf8/utf8d.js` 库
 - 网络：标准 `fetch` API，支持自定义替换
 - 协议基础：Protocol Buffers 风格二进制格式
 
@@ -208,14 +219,13 @@ src/
 │   ├── 响应解析生成器（resIter）
 │   ├── 验证码挑战处理器（ON_CAPTCHA, CAPTCHA_TOKEN）
 │   ├── Promise 基础 API 接口（req, sendReq）
-│   └── 全局配置（setApi, setOnCaptcha 等）
+│   └── 全局配置（setApi, setOnCaptcha, setCaptcha, setFetch, setOnErr）
 └── STATUS.js     # 状态常量（OK=0, ERR=1, CAPTCHA=2）
 ```
 
 ## 历史故事
 
 二进制协议设计源于对带宽效率的持续追求。IBM SNA（1970 年代）首次在企业网络中大规模应用紧凑二进制帧，而 Google Protocol Buffers（2008）将其推广至分布式系统，证实二进制格式相比 JSON 可减少 3–10 倍传输体积。ProtoAPI 继承此理念，专为现代 Web 环境优化，集成自动批处理与验证码工作流，平衡性能与安全性。
-
 
 ## 关于
 
