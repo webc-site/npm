@@ -1,6 +1,6 @@
 {
   "name": "@1-/protoapi",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Lightweight binary protocol API client for efficient client-server communication",
   "keywords": [
     "api",
