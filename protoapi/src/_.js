@@ -9,7 +9,7 @@ let TIMER,
   CAPTCHA_TOKEN,
   ON_CAPTCHA,
   ON_ERR,
-  FETCH = fetch,
+  FETCH,
   ID = 0;
 
 const MAP = new Map(),

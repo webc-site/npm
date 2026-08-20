@@ -56,7 +56,7 @@ graph TD
   C --> D["UTF-8 encode module name"]
   D --> E["Varint encode field and arguments"]
   E --> F["Append to in-memory request queue"]
-  F --> G["Flush after 1ms delay"]
+  F --> G["1ms after flush"]
   G --> H["HTTP POST Request"]
   H --> I["Server Response"]
   I --> J["Streaming binary parsing"]
@@ -78,9 +78,9 @@ graph TD
 
 ```
 src/
-├── _.js          # Main implementation (~130 lines)
+├── _.js          # Main implementation (130 lines)
 │   ├── Binary utilities: callBin (field packing), reqChunk (request chunking)
-│   ├── Batching system: REQ_LI (request queue), send (flush function), TIMER (debounce timer)
+│   ├── Batching system: REQ_LI (request queue), send (flush function), TIMER (setTimeout timer)
 │   ├── Response parsing: resIter (generator for streaming response parsing)
 │   ├── Captcha handling: ON_CAPTCHA (callback), CAPTCHA_TOKEN (Pragma header value)
 │   ├── API interface: req (module name binding factory), sendReq (low-level request function)

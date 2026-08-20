@@ -78,9 +78,9 @@ graph TD
 
 ```
 src/
-├── _.js          # 主实现（约 130 行）
+├── _.js          # 主实现（130 行）
 │   ├── 二进制工具：callBin（字段打包）、reqChunk（请求分块）
-│   ├── 批处理系统：REQ_LI（请求队列）、send（刷新函数）、TIMER（防抖定时器）
+│   ├── 批处理系统：REQ_LI（请求队列）、send（刷新函数）、TIMER（setTimeout 定时器）
 │   ├── 响应解析：resIter（生成器，流式解析响应）
 │   ├── 验证码处理：ON_CAPTCHA（回调）、CAPTCHA_TOKEN（Pragma 请求头值）
 │   ├── API 接口：req（模块名绑定工厂）、sendReq（底层请求函数）
