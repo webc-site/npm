@@ -77,8 +77,47 @@ const CASES = [
     '<table><thead><tr><th class="left">标题1</th><th class="center">标题2</th><th class="right">标题3</th></tr></thead><tbody><tr><td class="left">居左</td><td class="center">居中</td><td class="right">居右</td></tr></tbody></table>'
   ],
 
-  // HTML 块
-  ["原生 HTML 块", '<div class="box"><span>内容</span></div>', '<div class="box"><span>内容</span></div>\n']
+  // HTML 块与实体
+  [
+    "原生 HTML 块",
+    '<div class="box"><span>内容</span></div>',
+    '<div class="box"><span>内容</span></div>\n'
+  ],
+  ["HTML 字符转义", "1 < 2 && 3 > 2", "<p>1 &lt; 2 &amp;&amp; 3 &gt; 2</p>"],
+  ["HTML 实体解析", "&copy; 2026", "<p>© 2026</p>"],
+
+  // 自动链接与引用链接
+  ["自动链接", "<https://webc.org>", '<p><a href="https://webc.org">https://webc.org</a></p>'],
+  [
+    "邮箱自动链接",
+    "<test@example.com>",
+    '<p><a href="mailto:test@example.com">test@example.com</a></p>'
+  ],
+  [
+    "引用链接",
+    '[首页][home]\n\n[home]: https://example.com "主页"',
+    '<p><a href="https://example.com" title="主页">首页</a></p>'
+  ],
+
+  // 更多告警块类型
+  [
+    "TIP 告警块",
+    "> [!TIP]\n> 技巧",
+    '<blockquote class="q tip"><b class="qt"><i class="qi"></i>TIP</b><p>技巧</p></blockquote>'
+  ],
+  [
+    "WARNING 告警块",
+    "> [!WARNING]\n> 警告",
+    '<blockquote class="q warning"><b class="qt"><i class="qi"></i>WARNING</b><p>警告</p></blockquote>'
+  ],
+
+  // 嵌套结构与松散列表
+  [
+    "嵌套引用",
+    "> 一级\n> > 二级",
+    "<blockquote><p>一级</p><blockquote><p>二级</p></blockquote></blockquote>"
+  ],
+  ["松散列表", "- 项1\n\n- 项2", "<ul><li><p>项1</p></li><li><p>项2</p></li></ul>"]
 ];
 
 CASES.forEach(([desc, input, output]) => {
