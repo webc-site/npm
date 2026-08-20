@@ -39,12 +39,7 @@ setFetch(customFetchFunction);
 const authApi = req("auth");
 
 // 定义字段 1 请求，使用 proto 编码函数
-const login = authApi(
-  1,
-  [string],
-  [uint64],
-  "test@mail.com"
-);
+const login = authApi(1, [string], [uint64], "test@mail.com");
 
 // 发起请求
 const userId = await login();

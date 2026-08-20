@@ -39,12 +39,7 @@ setFetch(customFetchFunction);
 const authApi = req("auth");
 
 // Define field 1 request with proto encoding functions
-const login = authApi(
-  1,
-  [string],
-  [uint64],
-  "test@mail.com"
-);
+const login = authApi(1, [string], [uint64], "test@mail.com");
 
 // Make request
 const userId = await login();

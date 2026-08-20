@@ -3,6 +3,7 @@
 ---
 
 <a id="en"></a>
+
 # @1-/protoapi : Lightweight binary protocol API client
 
 - [@1-/protoapi : Lightweight binary protocol API client](#1-protoapi-lightweight-binary-protocol-api-client)
@@ -53,12 +54,7 @@ setFetch(customFetchFunction);
 const authApi = req("auth");
 
 // Define field 1 request with proto encoding functions
-const login = authApi(
-  1,
-  [string],
-  [uint64],
-  "test@mail.com"
-);
+const login = authApi(1, [string], [uint64], "test@mail.com");
 
 // Make request
 const userId = await login();
@@ -116,10 +112,10 @@ This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
-
 ---
 
 <a id="zh"></a>
+
 # @1-/protoapi : 轻量级二进制协议 API 客户端
 
 - [@1-/protoapi : 轻量级二进制协议 API 客户端](#1-protoapi-轻量级二进制协议-api-客户端)
@@ -170,12 +166,7 @@ setFetch(customFetchFunction);
 const authApi = req("auth");
 
 // 定义字段 1 请求，使用 proto 编码函数
-const login = authApi(
-  1,
-  [string],
-  [uint64],
-  "test@mail.com"
-);
+const login = authApi(1, [string], [uint64], "test@mail.com");
 
 // 发起请求
 const userId = await login();
@@ -232,4 +223,3 @@ src/
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
-
