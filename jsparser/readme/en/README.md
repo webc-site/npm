@@ -1,0 +1,72 @@
+# @1-/jsparser : JavaScript Module Dependency Static Analyzer
+
+## Functionality
+
+Precisely identifies import and export declarations in JavaScript modules without code execution. Supports static imports, dynamic imports (including interpolation-free template literals), interpolated dynamic template imports, default exports, named exports, destructuring exports, and renamed exports.
+
+## Usage demonstration
+
+Install as an npm package:
+
+```bash
+npm install @1-/jsparser
+```
+
+Use in JavaScript:
+
+```javascript
+import importLi from '@1-/jsparser/importLi.js';
+import exportLi from '@1-/jsparser/exportLi.js';
+
+// Analyze imports in a code string
+const [staticImports, dynamicImports, templateImports] = importLi(`
+  import a from 'a-module';
+  import { b } from 'b-module';
+  export { c } from 'c-module';
+  export * from 'd-module';
+  import('e-module');
+  import(`f-module`);
+  import(`g-module-${x}`);
+`);
+// Returns: [['a-module', 'b-module', 'c-module', 'd-module'], ['e-module', 'f-module'], [['g-module-', '']]]
+
+// Analyze exports in a file (path-only)
+const exportNames = exportLi('./src/module.js');
+// Returns undefined if file does not exist
+```
+
+## Design approach
+
+Performs deep AST traversal using `yuku-parser`. `importLi` extracts module specifiers from `ImportDeclaration` (static imports), `ExportNamedDeclaration` and `ExportAllDeclaration` (static re-exports), and `ImportExpression` (dynamic imports); for template literals, interpolation-free ones go to `dynamicImports`, while interpolated ones go to `templateImports` as arrays of cooked quasis. `exportLi` traverses `ExportDefaultDeclaration` (`default`) and `ExportNamedDeclaration` (identifiers from declarations and renamed specifiers).
+
+```mermaid
+graph TD
+    A[Input JavaScript Code] --> B[yuku-parser AST]
+    B --> C[importLi]
+    B --> D[exportLi]
+    C --> E[Static Import Module Names]
+    C --> F[Dynamic Import Module Names]
+    C --> G[Template Import Quasis Arrays]
+    D --> H[Export Name Array]
+```
+
+## Technology stack
+
+- yuku-parser: JavaScript/TypeScript AST parser
+- @3-/is_obj: Object type checking utility
+- @3-/read: File reading utility
+- Node.js built-in modules
+
+## Code structure
+
+```
+src/
+├── importLi.js    # Import analysis: returns [static, dynamic, template] triple
+└── exportLi.js    # Export analysis: accepts file path, returns export name array (including 'default') or undefined
+```
+
+This library consists of exactly two plain JavaScript files — no abstractions, no extra dependencies, no type declarations.
+
+## Historical background
+
+The ECMAScript 2015 (ES6) standard was finalized in June 2015, with the Modules feature as a core component. This specification defined static `import` and `export` syntax, enabling build tools to perform reliable static analysis for critical capabilities like code splitting and tree-shaking. `@1-/jsparser` adopts a lightweight design focused on reliably extracting inter-module references, serving as a small but essential part of modern frontend engineering infrastructure.

@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package base;
+
+message Header {
+  int64 trace_id = 1;
+  string span_id = 2;
+}

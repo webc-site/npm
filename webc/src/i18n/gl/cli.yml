@@ -1,0 +1,15 @@
+add: Engadir compoñente
+dev: Inicia o servidor de desenvolvemento e depuración
+new: Novo compoñente
+npm: Construír o paquete dist/npm
+npmPublish: Publicar paquete npm
+npmRelease: Empuxe a rama actual á rama de liberación (activar o proceso de liberación da acción de github)
+readme: Xera o directorio raíz README.md e engade navegación multilingüe ao principio
+redirect2html: Copiar páxinas baseadas en _redireccións
+site: Construír vista previa do sitio estática para dist/site
+dist: Crea un sitio estático e publícao en dist/dist
+siteSrv: Constrúe unha vista previa estática do sitio e inicie o servidor de vista previa
+distSrv: Constrúe un sitio estático para a súa publicación e inicie o servidor de vista previa
+jsDoc: Verifique os documentos src/js e coopere coa intelixencia artificial para realizar a finalización automática de documentos
+tran: traducir
+init: Inicializa a biblioteca de compoñentes

@@ -1,0 +1,36 @@
+- name: 保留基础类嵌套
+  files:
+    nest.styl: |
+      .parent
+        color red
+        .child
+          color blue
+  entry: nest.styl
+  includes:
+    - ".parent {\n  color: red;\n  .child {\n    color: blue;\n  }\n}"
+  excludes:
+    - .parent .child
+
+- name: 保留伪类状态拼接嵌套
+  files:
+    nest.styl: |
+      .btn
+        padding 10px
+        &:hover
+          color red
+        &.active
+          color blue
+  entry: nest.styl
+  includes:
+    - ".btn {\n  padding: 10px;\n  &:hover {\n    color: red;\n  }\n\n  &.active {\n    color: blue;\n  }\n}"
+
+- name: 保留嵌套媒体查询
+  files:
+    nest.styl: |
+      .container
+        width 100%
+        @media (max-width: 600px)
+          width 50%
+  entry: nest.styl
+  includes:
+    - ".container {\n  width: 100%;\n  @media (max-width: 600px) {\n    width: 50%;\n  }\n}"

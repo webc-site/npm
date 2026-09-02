@@ -1,0 +1,15 @@
+add: Lisage komponent
+dev: Käivitage arendus- ja silumisserver
+new: Uus komponent
+npm: Koostage pakett dist/npm
+npmPublish: Avalda npm pakett
+npmRelease: Lükake praegune haru väljalaskeharule (käivitage Githubi toimingu vabastamisprotsess)
+readme: Genereeri juurkataloog README.md ja lisa algusesse mitmekeelne navigeerimine
+redirect2html: Kopeerige _redirects-il põhinevad lehed
+site: Ehitage staatilise saidi eelvaade dist/saidile
+dist: Looge staatiline sait ja avaldage see dist/dist
+siteSrv: Looge saidi staatiline eelvaade ja käivitage eelvaateserver
+distSrv: Looge avaldamiseks staatiline sait ja käivitage eelvaateserver
+jsDoc: Kontrollige src/js-dokumente ja tehke tehisintellektiga koostööd, et teostada dokumentide automaatne lõpetamine
+tran: tõlkida
+init: Initsialiseeri komponentide raamatukogu

@@ -1,0 +1,83 @@
+    Finished `test` profile [optimized + debuginfo] target(s) in 0.09s
+     Running tests/main.rs (/private/tmp/rust/debug/deps/main-742ad811a565a2a4)
+
+running 1 test
+INFO 2026-06-17 05:09:01 upload/tests/main.rs:81 Uploading data to Backblaze: test-s3-rust-1781644141148
+INFO 2026-06-17 05:09:02 upload/tests/main.rs:84 Uploaded sha3_b64: liJf7Wbluz8nQmp8oguxD8oowySlDLpskU9XFR4acGQ
+INFO 2026-06-17 05:09:02 upload/tests/main.rs:92 Fetching url: https://tran.018007.xyz/liJf7Wbluz8nQmp8oguxD8oowySlDLpskU9XFR4acGQ
+
+thread 'test_upload' (13901629) panicked at upload/tests/main.rs:99:3:
+assertion `left == right` failed
+  left: "<!doctype html><meta charset=UTF-8><title>talkto.me</title><meta content=\"width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover\" name=viewport><link href=//c.018007.xyz/CqA9M5lgDt.css rel=stylesheet><script type=importmap>{\"imports\":{\"-/\":\"//c.018007.xyz/\"}}</script><script type=module>import\"-/XjIjAx-1kR\"</script><body><style id=I>body:before{content:\"\";border:6px solid #ccc;border-top-color:#888;border-radius:50%;width:64px;height:64px;margin:-32px;animation:1s linear infinite I;position:fixed;top:50%;left:50%}@keyframes I{to{transform:rotate(1turn)}}</style>"
+ right: "test-s3-rust-1781644141148"
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/3daae5e42ec9ba435212987331af1b7b8634fa90/library/std/src/panicking.rs:678:5
+   1: core::panicking::panic_fmt
+             at /rustc/3daae5e42ec9ba435212987331af1b7b8634fa90/library/core/src/panicking.rs:80:14
+   2: core::panicking::assert_failed_inner
+   3: core::panicking::assert_failed::<alloc::string::String, alloc::string::String>
+             at /Users/z/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/panicking.rs:394:5
+   4: main::test_upload::{closure#0}
+             at ./tests/main.rs:99:3
+   5: <core::pin::Pin<&mut dyn core::future::future::Future<Output = core::result::Result<(), anyhow::Error>>> as core::future::future::Future>::poll
+             at /Users/z/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/future/future.rs:133:9
+   6: <core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = core::result::Result<(), anyhow::Error>>>> as core::future::future::Future>::poll
+             at /Users/z/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/future/future.rs:133:9
+   7: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = core::result::Result<(), anyhow::Error>>>>>::{closure#0}::{closure#0}::{closure#0}
+             at /Users/z/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.52.3/src/runtime/scheduler/current_thread/mod.rs:778:70
+   8: tokio::task::coop::with_budget::<core::task::poll::Poll<core::result::Result<(), anyhow::Error>>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = core::result::Result<(), anyhow::Error>>>>>::{closure#0}::{closure#0}::{closure#0}>
+             at /Users/z/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.52.3/src/task/coop/mod.rs:167:5
+   9: tokio::task::coop::budget::<core::task::poll::Poll<core::result::Result<(), anyhow::Error>>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = core::result::Result<(), anyhow::Error>>>>>::{closure#0}::{closure#0}::{closure#0}>
+             at /Users/z/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.52.3/src/task/coop/mod.rs:133:5
+  10: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = core::result::Result<(), anyhow::Error>>>>>::{closure#0}::{closure#0}
+             at /Users/z/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.52.3/src/runtime/scheduler/current_thread/mod.rs:778:25
+  11: <tokio::runtime::scheduler::current_thread::Context>::enter::<core::task::poll::Poll<core::result::Result<(), anyhow::Error>>, <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = core::result::Result<(), anyhow::Error>>>>>::{closure#0}::{closure#0}>
+             at /Users/z/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.52.3/src/runtime/scheduler/current_thread/mod.rs:451:19
+  12: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = core::result::Result<(), anyhow::Error>>>>>::{closure#0}
+             at /Users/z/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.52.3/src/runtime/scheduler/current_thread/mod.rs:777:44
+  13: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = core::result::Result<(), anyhow::Error>>>>>::{closure#0}, core::option::Option<core::result::Result<(), anyhow::Error>>>::{closure#0}
+             at /Users/z/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.52.3/src/runtime/scheduler/current_thread/mod.rs:865:68
+  14: <tokio::runtime::context::scoped::Scoped<tokio::runtime::scheduler::Context>>::set::<<tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = core::result::Result<(), anyhow::Error>>>>>::{closure#0}, core::option::Option<core::result::Result<(), anyhow::Error>>>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<core::result::Result<(), anyhow::Error>>)>
+             at /Users/z/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.52.3/src/runtime/context/scoped.rs:40:9
+  15: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<core::result::Result<(), anyhow::Error>>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = core::result::Result<(), anyhow::Error>>>>>::{closure#0}, core::option::Option<core::result::Result<(), anyhow::Error>>>::{closure#0}>::{closure#0}
+             at /Users/z/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.52.3/src/runtime/context.rs:181:38
+  16: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::try_with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<core::result::Result<(), anyhow::Error>>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = core::result::Result<(), anyhow::Error>>>>>::{closure#0}, core::option::Option<core::result::Result<(), anyhow::Error>>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<core::result::Result<(), anyhow::Error>>)>
+             at /Users/z/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/std/src/thread/local.rs:463:12
+  17: <std::thread::local::LocalKey<tokio::runtime::context::Context>>::with::<tokio::runtime::context::set_scheduler<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<core::result::Result<(), anyhow::Error>>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = core::result::Result<(), anyhow::Error>>>>>::{closure#0}, core::option::Option<core::result::Result<(), anyhow::Error>>>::{closure#0}>::{closure#0}, (alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<core::result::Result<(), anyhow::Error>>)>
+             at /Users/z/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/std/src/thread/local.rs:427:20
+  18: tokio::runtime::context::set_scheduler::<(alloc::boxed::Box<tokio::runtime::scheduler::current_thread::Core>, core::option::Option<core::result::Result<(), anyhow::Error>>), <tokio::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = core::result::Result<(), anyhow::Error>>>>>::{closure#0}, core::option::Option<core::result::Result<(), anyhow::Error>>>::{closure#0}>
+             at /Users/z/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.52.3/src/runtime/context.rs:181:17
+  19: <tokio::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio::runtime::scheduler::current_thread::CoreGuard>::block_on<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = core::result::Result<(), anyhow::Error>>>>>::{closure#0}, core::option::Option<core::result::Result<(), anyhow::Error>>>
+             at /Users/z/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.52.3/src/runtime/scheduler/current_thread/mod.rs:865:27
+  20: <tokio::runtime::scheduler::current_thread::CoreGuard>::block_on::<core::pin::Pin<&mut core::pin::Pin<&mut dyn core::future::future::Future<Output = core::result::Result<(), anyhow::Error>>>>>
+             at /Users/z/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.52.3/src/runtime/scheduler/current_thread/mod.rs:765:24
+  21: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = core::result::Result<(), anyhow::Error>>>>::{closure#0}
+             at /Users/z/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.52.3/src/runtime/scheduler/current_thread/mod.rs:205:33
+  22: tokio::runtime::context::runtime::enter_runtime::<<tokio::runtime::scheduler::current_thread::CurrentThread>::block_on<core::pin::Pin<&mut dyn core::future::future::Future<Output = core::result::Result<(), anyhow::Error>>>>::{closure#0}, core::result::Result<(), anyhow::Error>>
+             at /Users/z/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.52.3/src/runtime/context/runtime.rs:65:16
+  23: <tokio::runtime::scheduler::current_thread::CurrentThread>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = core::result::Result<(), anyhow::Error>>>>
+             at /Users/z/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.52.3/src/runtime/scheduler/current_thread/mod.rs:193:9
+  24: <tokio::runtime::runtime::Runtime>::block_on_inner::<core::pin::Pin<&mut dyn core::future::future::Future<Output = core::result::Result<(), anyhow::Error>>>>
+             at /Users/z/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.52.3/src/runtime/runtime.rs:371:52
+  25: <tokio::runtime::runtime::Runtime>::block_on::<core::pin::Pin<&mut dyn core::future::future::Future<Output = core::result::Result<(), anyhow::Error>>>>
+             at /Users/z/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tokio-1.52.3/src/runtime/runtime.rs:345:18
+  26: main::test_upload
+             at ./tests/main.rs:103:3
+  27: main::test_upload::{closure#0}
+             at ./tests/main.rs:60:27
+  28: <main::test_upload::{closure#0} as core::ops::function::FnOnce<()>>::call_once
+             at /Users/z/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/ops/function.rs:250:5
+  29: <fn() -> core::result::Result<(), alloc::string::String> as core::ops::function::FnOnce<()>>::call_once
+             at /rustc/3daae5e42ec9ba435212987331af1b7b8634fa90/library/core/src/ops/function.rs:250:5
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+test test_upload ... FAILED
+
+failures:
+
+failures:
+    test_upload
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.60s
+
+error: test failed, to rerun pass `--test main`

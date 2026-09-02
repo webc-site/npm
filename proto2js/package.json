@@ -1,0 +1,43 @@
+{
+  "name": "@1-/proto2js",
+  "version": "0.1.6",
+  "description": "Protobuf to JavaScript converter / 将 Protobuf 转换为 JavaScript",
+  "keywords": [
+    "codegen",
+    "grpc",
+    "javascript",
+    "proto",
+    "protobuf"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/proto2js",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "bin": {
+    "proto2js": "./src/cli.js"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/_.js",
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@3-/log": "^0.1.9",
+    "@3-/proto_remove_comment": "^0.1.5",
+    "@3-/read": "^0.1.4",
+    "@3-/walk": "^0.2.2",
+    "@3-/write": "^0.1.2",
+    "proto-parser": "^0.0.9",
+    "yargs": "^18.1.0"
+  },
+  "devDependencies": {
+    "@1-/proto": "0.1.1",
+    "protobufjs": "^8.7.2"
+  }
+}

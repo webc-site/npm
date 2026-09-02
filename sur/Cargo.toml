@@ -1,0 +1,64 @@
+[package]
+name = "sur"
+version = "0.1.10"
+edition = "2024"
+license = "MulanPSL-2.0"
+repository = "https://github.com/webc-site/npm.git"
+homepage = "https://github.com/webc-site/npm/tree/main/sur"
+description = "High-performance asynchronous SurrealDB client for native and Cloudflare Workers (Wasm) / 面向原生与 Cloudflare Workers (Wasm) 的高性能 SurrealDB 异步客户端"
+keywords = [ "surrealdb", "database", "wasm", "async", "cbor" ]
+categories = [
+"database",
+"web-programming",
+"asynchronous",
+"wasm",
+"api-bindings"
+]
+readme = "README.md"
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = [ "--cfg", "docsrs" ]
+
+[features]
+default = [ ]
+
+[dependencies]
+arc-swap = "1.9.2"
+base64 = "0.23.1"
+bytes = "1.12.1"
+ciborium = "0.2.2"
+log = "0.4.34"
+sonic-rs = "0.5.8"
+thiserror = "2.0.20"
+
+[dependencies.reqer]
+version = "0.1.2"
+path = "../reqer"
+
+[dependencies.serde]
+version = "1.0.229"
+features = [ "derive" ]
+
+[dependencies.ts_]
+version = "0.1.4"
+path = "../ts_"
+features = [ "sec" ]
+
+[dev-dependencies]
+aok = "0.1.18"
+log = "0.4.34"
+sonic-rs = "0.5.8"
+static_init = "1.0.4"
+
+[dev-dependencies.log_init]
+version = "0.1.39"
+path = "../log_init"
+
+[dev-dependencies.tokio]
+version = "1.53.1"
+features = [ "macros", "rt-multi-thread" ]
+
+[target."cfg(target_arch = \"wasm32\")".dependencies.getrandom]
+version = "0.3"
+features = [ "wasm_js" ]
