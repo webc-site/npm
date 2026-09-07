@@ -3,19 +3,19 @@
 ---
 
 <a id="en"></a>
-
 # @1-/mdt : Render Markdown templates and generate hierarchical TOC
 
-- [1. Features](#1-features)
-- [2. Usage Demonstration](#2-usage-demonstration)
-  - [API Usage](#api-usage)
-  - [CLI Tool](#cli-tool)
-  - [Template Example (README.mdt)](#template-example-readmemdt)
-- [3. Design Idea](#3-design-idea)
-- [4. Tech Stack](#4-tech-stack)
-- [5. Code Structure](#5-code-structure)
-- [6. History](#6-history)
-- [About](#about)
+- [@1-/mdt : Render Markdown templates and generate hierarchical TOC](#1-mdt-render-markdown-templates-and-generate-hierarchical-toc)
+  - [1. Features](#1-features)
+  - [2. Usage Demonstration](#2-usage-demonstration)
+    - [API Usage](#api-usage)
+    - [CLI Tool](#cli-tool)
+    - [Template Example (README.mdt)](#template-example-readmemdt)
+  - [3. Design Idea](#3-design-idea)
+  - [4. Tech Stack](#4-tech-stack)
+  - [5. Code Structure](#5-code-structure)
+  - [6. History](#6-history)
+  - [About](#about)
 
 ## 1. Features
 
@@ -125,28 +125,30 @@ In 2004, John Gruber and Aaron Swartz designed Markdown to enable writing human-
 
 Monolithic Markdown files cause merge conflicts and retrieval difficulties; splitting documents into multiple files breaks table of contents navigation, anchor consistency, and relative links. `mdt` provides a lightweight solution, avoiding static site generator configuration overhead, with template assembly syntax and block-level TOC generation—enabling developers to focus on content while the tool handles anchor calculation, hierarchy generation, and template assembly.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/mdt : Render Markdown templates and generate hierarchical TOC
 
-- [1. 功能介绍](#1-功能介绍)
-- [2. 使用演示](#2-使用演示)
-  - [API 调用](#api-调用)
-  - [命令行工具](#命令行工具)
-  - [模板示例 (README.mdt)](#模板示例-readmemdt)
-- [3. 设计思路](#3-设计思路)
-- [4. 技术栈](#4-技术栈)
-- [5. 代码结构](#5-代码结构)
-- [6. 历史故事](#6-历史故事)
-- [关于](#关于)
+- [@1-/mdt : Render Markdown templates and generate hierarchical TOC](#1-mdt-render-markdown-templates-and-generate-hierarchical-toc)
+  - [1. 功能介绍](#1-功能介绍)
+  - [2. 使用演示](#2-使用演示)
+    - [API 调用](#api-调用)
+    - [命令行工具](#命令行工具)
+    - [模板示例 (README.mdt)](#模板示例-readmemdt)
+  - [3. 设计思路](#3-设计思路)
+  - [4. 技术栈](#4-技术栈)
+  - [5. 代码结构](#5-代码结构)
+  - [6. 历史故事](#6-历史故事)
+  - [关于](#关于)
 
 ## 1. 功能介绍
 
@@ -256,8 +258,10 @@ src/
 
 单体 Markdown 文件导致协作冲突与检索困难；多文件拆分则破坏目录导航、锚点一致性与相对链接。`mdt` 提供轻量级解决方案，避免静态网站生成器配置开销，通过模板拼接语法与自动化块级 TOC 生成，使开发者专注文档内容，系统处理锚点计算、层级生成与模板组装。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+
