@@ -10,6 +10,7 @@
 - [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
 - [API Reference](#api-reference)
+- [Environment Variables](#environment-variables)
 - [The Story](#the-story)
 
 ## Features
@@ -100,6 +101,12 @@ Holds the parsed cryptographic material.
 
 - `pub key: PrivateKeyDer<'static>`: The private key.
 - `pub cert: Vec<CertificateDer<'static>>`: The certificate chain.
+
+## Environment Variables
+
+| Variable | Type | Default | Description |
+| --- | --- | --- | --- |
+| `SSL_EXPIRE_PRE` | `u64` | `864000` | Certificate pre-eviction threshold in seconds (default: 10 days, i.e., `10 * 86400` seconds). The background task checks every hour and cleans up cached certificates whose remaining validity is less than this value, triggering a fresh load from Kvrocks on subsequent requests. |
 
 ## The Story
 

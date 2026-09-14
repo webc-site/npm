@@ -6,17 +6,23 @@ license = "MulanPSL-2.0"
 repository = "https://github.com/webc-site/npm.git"
 homepage = "https://github.com/webc-site/npm/tree/main/smtp_srv"
 description = "Auto-refreshing SMTPS server powered by Redis / Kvrocks / 基于 Redis / Kvrocks 自动热更新证书的 SMTPS 服务器"
-keywords = ["smtp", "server", "redis", "kvrocks", "tls"]
-categories = ["email", "network-programming", "asynchronous", "cryptography", "development-tools"]
+keywords = [ "smtp", "server", "redis", "kvrocks", "tls" ]
+categories = [
+"email",
+"network-programming",
+"asynchronous",
+"cryptography",
+"development-tools"
+]
 
 [package.metadata.docs.rs]
 all-features = true
-rustdoc-args = ["--cfg", "docsrs"]
+rustdoc-args = [ "--cfg", "docsrs" ]
 
 [features]
-default = ["api"]
-api = ["dep:axum", "dep:sk_dkim", "dep:getrandom"]
-kill_port = ["smtp_recv/kill_port"]
+default = [ "api" ]
+api = [ "dep:axum", "dep:sk_dkim", "dep:getrandom" ]
+kill_port = [ "smtp_recv/kill_port" ]
 
 [dependencies]
 aok = "0.1.18"
@@ -29,14 +35,32 @@ xbin = "0.1.14"
 xboot = "0.1.39"
 mail-send = "0.6.2"
 rustls-pki-types = "1.15.1"
-axum = { version = "0.8.9", optional = true }
 base64 = "0.23.1"
-sk_dkim = { version = "0.1.8", path = "../sk_dkim", features = ["pk"], optional = true }
-getrandom = { version = "0.4.3", optional = true }
 thiserror = "2.0.20"
 sonic-rs = "0.5.8"
-serde = { version = "1.0.229", features = ["derive"] }
-ts_ = { version = "0.1.4", path = "../ts_", features = ["sec"] }
+
+[dependencies.axum]
+version = "0.8.9"
+optional = true
+
+[dependencies.sk_dkim]
+version = "0.1.8"
+path = "../sk_dkim"
+features = [ "pk" ]
+optional = true
+
+[dependencies.getrandom]
+version = "0.4.3"
+optional = true
+
+[dependencies.serde]
+version = "1.0.229"
+features = [ "derive" ]
+
+[dependencies.ts_]
+version = "0.1.4"
+path = "../ts_"
+features = [ "sec" ]
 
 [dependencies.password_]
 version = "0.1.2"
@@ -48,7 +72,7 @@ path = "../auth_trait"
 
 [dependencies.static_init]
 version = "1.0.4"
-features = ["parking_lot"]
+features = [ "parking_lot" ]
 
 [dependencies.mail_forward]
 version = "0.1.10"
@@ -56,7 +80,7 @@ path = "../mail_forward"
 
 [dependencies.xkv]
 version = "0.1.59"
-features = ["r"]
+features = [ "r" ]
 path = "../xkv"
 
 [dependencies.xmail]
@@ -69,7 +93,7 @@ path = "../graceful_restart"
 
 [dependencies.log_init]
 version = "0.1.39"
-features = ["systemd"]
+features = [ "systemd" ]
 
 [dependencies.smtp_send]
 version = "0.1.37"
@@ -81,14 +105,14 @@ version = "0.1.52"
 [dependencies.mail_struct]
 version = "0.1.23"
 path = "../mail_struct"
-features = ["encode"]
+features = [ "encode" ]
 
 [dependencies.auth_env]
 version = "0.1.5"
 path = "../auth_env"
 
 [dependencies.cert_by_host]
-version = "0.1.9"
+version = "0.1.10"
 path = "../cert_by_host"
 
 [dependencies.smtp_recv]
@@ -101,12 +125,12 @@ path = "../ssl_trait"
 
 [dependencies.tokio]
 version = "1.53.1"
-features = ["rt-multi-thread"]
+features = [ "rt-multi-thread" ]
 
 [dev-dependencies]
 hex = "0.4.3"
 
 [dev-dependencies.sk_dkim]
 path = "../sk_dkim"
-features = ["pk"]
+features = [ "pk" ]
 version = "0.1.8"

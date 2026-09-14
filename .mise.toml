@@ -1,3 +1,6 @@
 [env]
 _.source = ["./sh/mise.sh"]
+
+[tools]
+rust = "latest"
 # _.path = ["./sh/bin"]

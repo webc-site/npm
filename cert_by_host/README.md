@@ -3,23 +3,22 @@
 ---
 
 <a id="en"></a>
-
 # cert_by_host : Dynamic SSL Certificate Loading with Auto-Expiration
 
-- [cert_by_host : Dynamic SSL Certificate Loading with Auto-Expiration](#cert_by_host-dynamic-ssl-certificate-loading-with-auto-expiration)
-  - [Table of Contents](#table-of-contents)
-  - [Features](#features)
-  - [Usage](#usage)
-  - [Design Architecture](#design-architecture)
-  - [Tech Stack](#tech-stack)
-  - [Project Structure](#project-structure)
-  - [API Reference](#api-reference)
-    - [`pub async fn get(host: impl Into<String>) -> Result<Option<Cert>>`](#pub-async-fn-gethost-impl-intostring-resultoptioncert)
-    - [`pub struct SslConfig`](#pub-struct-sslconfig)
-  - [The Story](#the-story)
-  - [About](#about)
-
 `cert_by_host` is a high-performance Rust library designed to dynamically load HTTPS certificates from Kvrocks (a Redis-compatible store) based on hostnames. It features an efficient in-memory cache with automatic expiration handling, ensuring your application serves the correct certificates with minimal latency.
+
+- [Table of Contents](#table-of-contents)
+- [Features](#features)
+- [Usage](#usage)
+- [Design Architecture](#design-architecture)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [API Reference](#api-reference)
+  - [`pub async fn get(host: impl Into<String>) -> Result<Option<Cert>>`](#pub-async-fn-gethost-impl-intostring-resultoptioncert)
+  - [`pub struct SslConfig`](#pub-struct-sslconfig)
+- [Environment Variables](#environment-variables)
+- [The Story](#the-story)
+- [About](#about)
 
 ## Table of Contents
 
@@ -29,6 +28,7 @@
 - [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
 - [API Reference](#api-reference)
+- [Environment Variables](#environment-variables)
 - [The Story](#the-story)
 
 ## Features
@@ -120,9 +120,16 @@ Holds the parsed cryptographic material.
 - `pub key: PrivateKeyDer<'static>`: The private key.
 - `pub cert: Vec<CertificateDer<'static>>`: The certificate chain.
 
+## Environment Variables
+
+| Variable | Type | Default | Description |
+| --- | --- | --- | --- |
+| `SSL_EXPIRE_PRE` | `u64` | `864000` | Certificate pre-eviction threshold in seconds (default: 10 days, i.e., `10 * 86400` seconds). The background task checks every hour and cleans up cached certificates whose remaining validity is less than this value, triggering a fresh load from Kvrocks on subsequent requests. |
+
 ## The Story
 
 In the era of SaaS and PaaS, platforms often manage tens of thousands of custom domains for their users. Loading all certificates into memory at startup is inefficient and slow. `cert_by_host` was born out of the need to serve SSL certificates dynamically and instantly. By combining the speed of in-memory caching with the persistence of Kvrocks, it solves the "C10K" problem for SSL termination, ensuring that even with millions of domains, your server only holds what's currently active in memory.
+
 
 ## About
 
@@ -130,26 +137,26 @@ This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # cert_by_host : 基于域名动态加载与自动过期的 HTTPS 证书管理
 
-- [cert_by_host : 基于域名动态加载与自动过期的 HTTPS 证书管理](#cert_by_host-基于域名动态加载与自动过期的-https-证书管理)
-  - [目录](#目录)
-  - [功能特性](#功能特性)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 说明](#api-说明)
-    - [`pub async fn get(host: impl Into<String>) -> Result<Option<Cert>>`](#pub-async-fn-gethost-impl-intostring-resultoptioncert)
-    - [`pub struct SslConfig`](#pub-struct-sslconfig)
-  - [项目背景](#项目背景)
-  - [关于](#关于)
-
 `cert_by_host` 是一个高性能 Rust 库，专为根据主机名从 Kvrocks（兼容 Redis 协议）动态加载 HTTPS 证书而设计。它内置了高效的内存缓存和自动过期处理机制，确保您的应用能以极低的延迟获取正确的证书。
+
+- [目录](#目录)
+- [功能特性](#功能特性)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [API 说明](#api-说明)
+  - [`pub async fn get(host: impl Into<String>) -> Result<Option<Cert>>`](#pub-async-fn-gethost-impl-intostring-resultoptioncert)
+  - [`pub struct SslConfig`](#pub-struct-sslconfig)
+- [环境变量](#环境变量)
+- [项目背景](#项目背景)
+- [关于](#关于)
 
 ## 目录
 
@@ -159,6 +166,7 @@ This library is developed by [WebC.site](https://webc.site).
 - [技术堆栈](#技术堆栈)
 - [目录结构](#目录结构)
 - [API 说明](#api-说明)
+- [环境变量](#环境变量)
 - [项目背景](#项目背景)
 
 ## 功能特性
@@ -250,12 +258,20 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 - `pub key: PrivateKeyDer<'static>`: 私钥。
 - `pub cert: Vec<CertificateDer<'static>>`: 证书链。
 
+## 环境变量
+
+| 变量名 | 类型 | 默认值 | 说明 |
+| --- | --- | --- | --- |
+| `SSL_EXPIRE_PRE` | `u64` | `864000` | 证书提前淘汰秒数（默认 10 天，即 `10 * 86400` 秒）。后台定时任务每小时检查一次，提前清理剩余有效期不足该阈值的证书缓存，触发下次请求时重新从 Kvrocks 加载新证书。 |
+
 ## 项目背景
 
 在 SaaS 和 PaaS 平台盛行的今天，服务商往往需要管理成千上万个用户自定义域名。传统的做法是在启动时将所有证书加载到内存，这既低效又占用资源。`cert_by_host` 应运而生，旨在解决海量域名的 SSL 证书动态服务问题。通过结合内存缓存的极速体验与 Kvrocks 的持久化存储能力，它完美解决了 SSL 终端的 "C10K" 问题，确保即便面对百万级域名，您的服务器也仅需按需加载活跃资源。
+
 
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

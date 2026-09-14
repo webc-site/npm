@@ -104,7 +104,7 @@ features = [ "parking_lot" ]
 
 [dev-dependencies.cert_by_host]
 path = "../cert_by_host"
-version = "0.1.9"
+version = "0.1.10"
 
 [dev-dependencies.rapidhash]
 version = "4"
