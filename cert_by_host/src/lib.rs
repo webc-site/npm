@@ -24,11 +24,13 @@ pub static EXPIRE: Mutex<BTreeMap<u64, String>> = Mutex::new(BTreeMap::new());
 #[static_init::dynamic(lazy)]
 pub static NOT_EXIST: ExpireSet<String> = ExpireSet::new(30);
 
+genv::s!(SSL_EXPIRE_PRE: u64 | 10 * 86400);
+
 xboot::add!({
   spawn(async move {
     loop {
       sleep(Duration::from_secs(3600)).await;
-      let deadline = coarsetime::Clock::now_since_epoch().as_secs() + 4000;
+      let deadline = coarsetime::Clock::now_since_epoch().as_secs() + *SSL_EXPIRE_PRE;
       let mut btree = EXPIRE.lock();
       let keep = btree.split_off(&deadline);
       let pinned = CACHE.pin();
