@@ -23,6 +23,7 @@ default = []
 anyhow = "1.0.104"
 coarsetime = "0.1.37"
 fred = "10.1.0"
+genv = "0.1.18"
 linkme = "0.3.37"
 papaya = "0.2.5"
 parking_lot = "0.12.5"
