@@ -1,6 +1,6 @@
 {
   "name": "@1-/mdt",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "Render markdown template and generate hierarchical TOC / 渲染 Markdown 模板并生成有层级的 TOC 目录",
   "keywords": [
     "generator",

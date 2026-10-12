@@ -3,19 +3,19 @@
 ---
 
 <a id="en"></a>
-
 # @1-/mdt : Render Markdown templates and generate hierarchical TOC
 
-- [1. Features](#1-features)
-- [2. Usage Demonstration](#2-usage-demonstration)
-  - [API Usage](#api-usage)
-  - [CLI Tool](#cli-tool)
-  - [Template Example (README.mdt)](#template-example-readmemdt)
-- [3. Design Idea](#3-design-idea)
-- [4. Tech Stack](#4-tech-stack)
-- [5. Code Structure](#5-code-structure)
-- [6. History](#6-history)
-- [About](#about)
+- [@1-/mdt : Render Markdown templates and generate hierarchical TOC](#1-mdt-render-markdown-templates-and-generate-hierarchical-toc)
+  - [1. Features](#1-features)
+  - [2. Usage Demonstration](#2-usage-demonstration)
+    - [API Usage](#api-usage)
+    - [CLI Tool](#cli-tool)
+    - [Template Example (README.mdt)](#template-example-readmemdt)
+  - [3. Design Idea](#3-design-idea)
+  - [4. Tech Stack](#4-tech-stack)
+  - [5. Code Structure](#5-code-structure)
+  - [6. History](#6-history)
+  - [About](#about)
 
 ## 1. Features
 
@@ -42,17 +42,17 @@ console.log(result);
 
 ### CLI Tool
 
-Run `mdt` to process `.mdt` template files and generate corresponding `.md` documents:
+Install and run `mdt` to process `.mdt` template files and generate corresponding `.md` documents:
 
 ```bash
 # Process all .mdt files in current directory
-bun run mdt
+mdt
 
 # Process specified file (generates README.md)
-bun run mdt README.mdt
+mdt README.mdt
 
 # Process specified directory
-bun run mdt ./docs
+mdt ./docs
 ```
 
 ### Template Example (README.mdt)
@@ -113,6 +113,7 @@ src/
 ├── blockRender.js  # Block-level renderer coordinator
 ├── linesRender.js  # Recursive resolver for `<+ path >` syntax (with missing file warnings and circular reference detection)
 ├── headerParse.js  # Header parser (uses regex matching, skips all code block types)
+├── inCode.js       # Code block range detection utility (for skipping headers inside code blocks)
 ├── tocGen.js       # Hierarchical TOC generator (level 2+ headers only)
 ├── tocInject.js    # TOC injector (intelligent insertion positioning)
 ├── anchor.js       # Header-to-anchor converter (Unicode support, uses \p{L}\p{N} regex)
@@ -125,28 +126,30 @@ In 2004, John Gruber and Aaron Swartz designed Markdown to enable writing human-
 
 Monolithic Markdown files cause merge conflicts and retrieval difficulties; splitting documents into multiple files breaks table of contents navigation, anchor consistency, and relative links. `mdt` provides a lightweight solution, avoiding static site generator configuration overhead, with template assembly syntax and block-level TOC generation—enabling developers to focus on content while the tool handles anchor calculation, hierarchy generation, and template assembly.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/mdt : Render Markdown templates and generate hierarchical TOC
 
-- [1. 功能介绍](#1-功能介绍)
-- [2. 使用演示](#2-使用演示)
-  - [API 调用](#api-调用)
-  - [命令行工具](#命令行工具)
-  - [模板示例 (README.mdt)](#模板示例-readmemdt)
-- [3. 设计思路](#3-设计思路)
-- [4. 技术栈](#4-技术栈)
-- [5. 代码结构](#5-代码结构)
-- [6. 历史故事](#6-历史故事)
-- [关于](#关于)
+- [@1-/mdt : Render Markdown templates and generate hierarchical TOC](#1-mdt-render-markdown-templates-and-generate-hierarchical-toc)
+  - [1. 功能介绍](#1-功能介绍)
+  - [2. 使用演示](#2-使用演示)
+    - [API 调用](#api-调用)
+    - [命令行工具](#命令行工具)
+    - [模板示例 (README.mdt)](#模板示例-readmemdt)
+  - [3. 设计思路](#3-设计思路)
+  - [4. 技术栈](#4-技术栈)
+  - [5. 代码结构](#5-代码结构)
+  - [6. 历史故事](#6-历史故事)
+  - [关于](#关于)
 
 ## 1. 功能介绍
 
@@ -173,17 +176,17 @@ console.log(result);
 
 ### 命令行工具
 
-运行 `mdt` 处理 `.mdt` 模板文件，生成对应 `.md` 文档：
+安装后运行 `mdt` 处理 `.mdt` 模板文件，生成对应 `.md` 文档：
 
 ```bash
 # 处理当前目录所有 .mdt 文件
-bun run mdt
+mdt
 
 # 处理指定文件（生成 README.md）
-bun run mdt README.mdt
+mdt README.mdt
 
 # 处理指定目录
-bun run mdt ./docs
+mdt ./docs
 ```
 
 ### 模板示例 (README.mdt)
@@ -230,7 +233,7 @@ graph TD
 
 - 运行时：[Bun](https://bun.sh/)
 - 核心依赖：
-  - `@1-/md`: Markdown 行处理工具（含代码 block 检测）
+  - `@1-/md`: Markdown 行处理工具（含代码块检测）
   - `@1-/read`: 异步文件读取
   - `@1-/walk`: 目录遍历
   - `@3-/log`: 日志输出
@@ -244,6 +247,7 @@ src/
 ├── blockRender.js  # 块级渲染协调器
 ├── linesRender.js  # 递归处理 `<+ 路径 >` 引用（含缺失文件警告和循环引用检测）
 ├── headerParse.js  # 标题解析（使用正则匹配，跳过所有类型代码块）
+├── inCode.js       # 代码块范围判定工具（用于跳过代码块内标题）
 ├── tocGen.js       # 层级 TOC 生成器（仅处理二级及以上标题）
 ├── tocInject.js    # TOC 注入器（智能定位插入位置）
 ├── anchor.js       # 标题到锚点转换（Unicode 支持，使用 \p{L}\p{N} 正则）
@@ -256,8 +260,10 @@ src/
 
 单体 Markdown 文件导致协作冲突与检索困难；多文件拆分则破坏目录导航、锚点一致性与相对链接。`mdt` 提供轻量级解决方案，避免静态网站生成器配置开销，通过模板拼接语法与自动化块级 TOC 生成，使开发者专注文档内容，系统处理锚点计算、层级生成与模板组装。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+
