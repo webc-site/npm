@@ -1,0 +1,27 @@
+{
+  "name": "@1-/npmver",
+  "version": "0.1.1",
+  "description": "Fetch the latest version of an NPM package from the official registry\n  获取 NPM 包最新版本号",
+  "keywords": [
+    "fetch",
+    "npm",
+    "package",
+    "registry",
+    "version"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/npmver",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/_.js",
+    "./*": "./src/*"
+  }
+}

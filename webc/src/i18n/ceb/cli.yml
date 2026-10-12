@@ -1,0 +1,15 @@
+add: Idugang ang sangkap
+dev: Sugdi ang development ug debugging server
+new: Bag-ong component
+npm: Paghimo sa dist/npm nga pakete
+npmPublish: I-publish ang npm package
+npmRelease: Iduso ang kasamtangan nga sanga ngadto sa sanga sa pagpagawas (gi-trigger ang proseso sa pagpagawas sa aksyon sa github)
+readme: Paghimo og root directory nga README.md ug idugang ang multi-language navigation sa sinugdanan
+redirect2html: Kopyaha ang mga panid base sa _redirects
+site: Paghimo og static nga preview sa site ngadto sa dist/site
+dist: Paghimo ug static nga site ug i-publish kini sa dist/dist
+siteSrv: Paghimo usa ka static nga preview sa site ug sugdi ang preview server
+distSrv: Paghimo usa ka static nga site alang sa pagmantala ug pagsugod sa preview server
+jsDoc: I-verify ang mga dokumento sa src/js ug pakigtambayayong sa artipisyal nga paniktik aron matuman ang awtomatikong pagkompleto sa dokumento
+tran: paghubad
+init: Pagsugod sa component library

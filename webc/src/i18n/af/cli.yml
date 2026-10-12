@@ -1,0 +1,15 @@
+add: Voeg komponent by
+dev: Begin die ontwikkeling en ontfouting bediener
+new: Nuwe komponent
+npm: Bou die dist/npm-pakket
+npmPublish: Publiseer npm-pakket
+npmRelease: Druk die huidige tak na die vrystellingtak (snelleer die github-aksievrystellingsproses)
+readme: Genereer wortelgids README.md en voeg meertalige navigasie aan die begin by
+redirect2html: Kopieer bladsye gebaseer op _herleidings
+site: Bou statiese werfvoorskou na dist/werf
+dist: Bou 'n statiese webwerf en publiseer dit na dist/dist
+siteSrv: Bou 'n statiese werfvoorskou en begin die voorskoubediener
+distSrv: Bou 'n statiese webwerf vir publikasie en begin die voorskoubediener
+jsDoc: Verifieer src/js-dokumente en werk saam met kunsmatige intelligensie om outomatiese dokumentvoltooiing te realiseer
+tran: vertaal
+init: Inisialiseer komponentbiblioteek

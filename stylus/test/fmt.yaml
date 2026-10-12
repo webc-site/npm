@@ -1,0 +1,289 @@
+- name: 基础
+  code: |
+    @import "../O/_.styl"
+    @import url('//registry.npmmirror.com/18s/0.2.24/files/_.css')
+    theme-color = #0071e3
+
+    .box
+      align-items center
+      background HSL(220, 50%, 94%)
+      border-radius 24px
+
+      .card
+        padding 24px
+        margin 0 auto
+  expected: |
+    @import "../O/_.styl"
+    @import url('//registry.npmmirror.com/18s/0.2.24/files/_.css')
+
+    theme-color = #0071e3
+
+    .box
+      align-items center
+      background HSL(220, 50%, 94%)
+      border-radius 24px
+
+      .card
+        padding 24px
+        margin 0 auto
+
+- name: 注释
+  code: |
+    // single line comment
+    /* multi-line
+       comment */
+    @import "a.styl" // import comment
+    theme-color = #007 // var comment
+
+    .box // rule comment
+      align-items center /* inline multi */
+      /* nested comment */
+      width 100px
+  expected: |
+    // single line comment
+
+    /* multi-line
+       comment */
+
+    @import "a.styl" // import comment
+
+    theme-color = #007 // var comment
+
+    .box // rule comment
+      align-items center /* inline multi */
+      /* nested comment */
+      width 100px
+
+- name: 去重
+  code: |
+    .box
+      width 100px
+      height 100px
+      width 200px
+      margin 0 auto
+      margin 10px
+
+      .card
+        color red
+        color blue
+  expected: |
+    .box
+      height 100px
+      width 200px
+      margin 10px
+
+      .card
+        color blue
+
+- name: 导入与选择器
+  code: |
+    @import "a.styl"
+    .box
+      @import "b.styl"
+      .card
+        color red
+  expected: |
+    @import "a.styl"
+
+    .box
+      @import "b.styl"
+
+      .card
+        color red
+
+- name: CSS嵌套换行
+  code: |
+    .box
+      > button.BtnC
+        display flex
+
+        > .Ico
+          background-image url('./svg/menu.svg')
+      & c-side b
+        display flex
+  expected: |
+    .box
+      > button.BtnC
+        display flex
+
+        > .Ico
+          background-image url('./svg/menu.svg')
+
+      & c-side b
+        display flex
+
+- name: Media嵌套换行
+  code: |
+    .box
+      & c-side b
+        display flex
+        flex-direction column
+        gap 8px
+        padding 24px 16px
+
+        > a
+          font-size 16px
+          font-weight 350
+          text-decoration none
+      @media (min-width 701px)
+        > button.BtnC
+          display none
+  expected: |
+    .box
+      & c-side b
+        display flex
+        flex-direction column
+        gap 8px
+        padding 24px 16px
+
+        > a
+          font-size 16px
+          font-weight 350
+          text-decoration none
+
+      @media (min-width 701px)
+        > button.BtnC
+          display none
+
+- name: Lg组件
+  code: |
+    $gap = 24px
+    $gap-mobile = 16px
+
+    .Lg, .Btn, .BtnC, .Input
+      display flex
+      position relative
+      z-index 1
+
+      &::before
+        backdrop-filter blur(2px) saturate(150%)
+        border 1px solid #00000014
+        border-radius inherit
+        box-shadow inset 0 1px 0 #ffffff99
+        box-sizing border-box
+        content ''
+        inset 0
+        position absolute
+        transition background 0.3s cubic-bezier(0.4, 0, 0.2, 1), backdrop-filter 0.3s cubic-bezier(0.4, 0, 0.2, 1)
+        z-index -1
+
+      &:hover::before
+        backdrop-filter saturate(150%) url('./svg/glass.svg#h')
+
+    .Lg, .Input
+      &::before
+        background linear-gradient(180deg, #ffffffec, #f5f5f7b0)
+
+    main.Lg
+      border-radius 24px
+      margin $gap
+      padding $gap
+      text-align center
+
+      @media (max-width 800px)
+        margin $gap-mobile
+        padding $gap-mobile
+  expected: |
+    $gap = 24px
+    $gap-mobile = 16px
+
+    .Lg, .Btn, .BtnC, .Input
+      display flex
+      position relative
+      z-index 1
+
+      &::before
+        backdrop-filter blur(2px) saturate(150%)
+        border 1px solid #00000014
+        border-radius inherit
+        box-shadow inset 0 1px 0 #fff9
+        box-sizing border-box
+        content ''
+        inset 0
+        position absolute
+        transition background 0.3s cubic-bezier(0.4, 0, 0.2, 1), backdrop-filter 0.3s cubic-bezier(0.4, 0, 0.2, 1)
+        z-index -1
+
+      &:hover::before
+        backdrop-filter saturate(150%) url('./svg/glass.svg#h')
+
+    .Lg, .Input
+      &::before
+        background linear-gradient(180deg, #ffffffec, #f5f5f7b0)
+
+    main.Lg
+      border-radius 24px
+      margin $gap
+      padding $gap
+      text-align center
+
+      @media (max-width 800px)
+        margin $gap-mobile
+        padding $gap-mobile
+
+- name: RGBA转HEX
+  code: |
+    theme-color = rgba(255, 255, 255, 0.92)
+    .box
+      background rgba(0, 0, 0, 1)
+      color rgba(255, 0, 0, 0.5)
+      border-color rgb(0, 128, 255)
+  expected: |
+    theme-color = #ffffffeb
+
+    .box
+      background #000
+      color #ff000080
+      border-color #0080ff
+
+- name: NameTip
+  code: |
+    .NameTip, .NameTipLi > a
+      align-items center
+      backdrop-filter blur(20px)
+      background linear-gradient(180deg, #ffffff, rgba(235, 235, 240, 0.6))
+      border 1px solid rgba(0, 0, 0, 0.08)
+      border-radius 8px
+      box-shadow inset 0 0 0 1px rgba(255, 255, 255, 0.6), inset 0 0 8px rgba(255, 255, 255, 0.8), inset 0 0 4px rgba(0, 0, 0, 0.02)
+      color #555
+      cursor pointer
+      display flex
+      overflow hidden
+      text-decoration none
+      transition all 0.2s cubic-bezier(0.4, 0, 0.2, 1)
+
+      &:hover
+        background linear-gradient(180deg, #ffffff, rgba(240, 240, 245, 0.8))
+        border-color rgba(0, 0, 0, 0.16)
+        box-shadow inset 0 0 0 1px rgba(255, 255, 255, 0.7), inset 0 0 10px rgba(255, 255, 255, 0.9), inset 0 0 4px rgba(0, 0, 0, 0.01)
+        color #222
+
+      &:active
+        background linear-gradient(180deg, rgba(240, 240, 245, 0.95), rgba(220, 220, 225, 0.75))
+        box-shadow inset 0 0 8px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(255, 255, 255, 0.4)
+        transform scale(0.98)
+  expected: |
+    .NameTip, .NameTipLi > a
+      align-items center
+      backdrop-filter blur(20px)
+      background linear-gradient(180deg, #fff, #ebebf099)
+      border 1px solid #00000014
+      border-radius 8px
+      box-shadow inset 0 0 0 1px #fff9, inset 0 0 8px #fffc, inset 0 0 4px #00000005
+      color #555
+      cursor pointer
+      display flex
+      overflow hidden
+      text-decoration none
+      transition all 0.2s cubic-bezier(0.4, 0, 0.2, 1)
+
+      &:hover
+        background linear-gradient(180deg, #fff, #f0f0f5cc)
+        border-color #00000029
+        box-shadow inset 0 0 0 1px #ffffffb3, inset 0 0 10px #ffffffe6, inset 0 0 4px #00000003
+        color #222
+
+      &:active
+        background linear-gradient(180deg, #f0f0f5f2, #dcdce1bf)
+        box-shadow inset 0 0 8px #0000000a, inset 0 0 0 1px #fff6
+        transform scale(0.98)

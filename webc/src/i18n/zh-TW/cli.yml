@@ -1,0 +1,15 @@
+add: 新增組件
+dev: 啟動開發調試伺服器
+new: 新組件
+npm: 建構 dist/npm 包
+npmPublish: 發布npm包
+npmRelease: 推送目前分支到 release 分支（觸發 github action 發布流程）
+readme: 產生根目錄 README.md ，開頭新增多語言導航
+redirect2html: 根據 _redirects 複製頁面
+site: 建立靜態網站預覽到 dist/site
+dist: 建立靜態網站發佈到 dist/dist
+siteSrv: 建立靜態網站預覽 ，並啟動預覽伺服器
+distSrv: 建立靜態網站發布，並啟動預覽伺服器
+jsDoc: 校驗 src/js 的文檔，配合人工智慧實作文檔自動補全
+tran: 翻譯
+init: 初始化組件庫

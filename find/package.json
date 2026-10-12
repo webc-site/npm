@@ -1,0 +1,27 @@
+{
+  "name": "@1-/find",
+  "version": "0.1.2",
+  "description": "Locate directory containing target file by walking up / 向上递归查找包含指定目标的目录",
+  "keywords": [
+    "directory",
+    "find",
+    "lookup",
+    "parent",
+    "walk"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/find",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/_.js",
+    "./*": "./src/*"
+  }
+}

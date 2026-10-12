@@ -1,0 +1,15 @@
+add: Tambahkan komponen
+dev: Mulai server pengembangan dan debugging
+new: Komponen baru
+npm: Bangun paket dist/npm
+npmPublish: Publikasikan paket npm
+npmRelease: Dorong cabang saat ini ke cabang rilis (memicu proses rilis tindakan github)
+readme: Hasilkan direktori root README.md dan tambahkan navigasi multi-bahasa di awal
+redirect2html: Salin halaman berdasarkan _redirects
+site: Buat pratinjau situs statis ke dist/situs
+dist: Bangun situs statis dan publikasikan ke dist/dist
+siteSrv: Buat pratinjau situs statis dan mulai server pratinjau
+distSrv: Bangun situs statis untuk publikasi dan mulai server pratinjau
+jsDoc: Verifikasi dokumen src/js dan bekerja sama dengan kecerdasan buatan untuk mewujudkan penyelesaian dokumen otomatis
+tran: menerjemahkan
+init: Inisialisasi perpustakaan komponen

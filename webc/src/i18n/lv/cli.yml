@@ -1,0 +1,15 @@
+add: Pievienojiet komponentu
+dev: Sāciet izstrādes un atkļūdošanas serveri
+new: Jauns komponents
+npm: Izveidojiet dist/npm pakotni
+npmPublish: Publicējiet npm pakotni
+npmRelease: Nospiediet pašreizējo zaru uz izlaišanas zaru (aktivizējiet Github darbības izlaišanas procesu)
+readme: Ģenerējiet saknes direktoriju README.md un sākumā pievienojiet vairāku valodu navigāciju
+redirect2html: Kopējiet lapas, kuru pamatā ir _redirects
+site: Izveidojiet statisku vietnes priekšskatījumu uz dist/site
+dist: Izveidojiet statisku vietni un publicējiet to dist/dist
+siteSrv: Izveidojiet statisku vietnes priekšskatījumu un palaidiet priekšskatījuma serveri
+distSrv: Izveidojiet statisku vietni publicēšanai un palaidiet priekšskatījuma serveri
+jsDoc: Pārbaudiet src/js dokumentus un sadarbojieties ar mākslīgo intelektu, lai īstenotu automātisku dokumentu aizpildīšanu
+tran: tulkot
+init: Inicializēt komponentu bibliotēku

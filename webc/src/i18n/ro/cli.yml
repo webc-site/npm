@@ -1,0 +1,15 @@
+add: Adăugați componentă
+dev: Porniți serverul de dezvoltare și depanare
+new: Componenta noua
+npm: Construiți pachetul dist/npm
+npmPublish: Publicați pachetul npm
+npmRelease: Împingeți ramura curentă în ramura de lansare (declanșați procesul de eliberare a acțiunii github)
+readme: Generați directorul rădăcină README.md și adăugați navigare în mai multe limbi la început
+redirect2html: Copiați pagini bazate pe _redirecționări
+site: Creați previzualizare statică a site-ului pe dist/site
+dist: Creați un site static și publicați-l în dist/dist
+siteSrv: Creați o previzualizare statică a site-ului și porniți serverul de previzualizare
+distSrv: Creați un site static pentru publicare și porniți serverul de previzualizare
+jsDoc: Verificați documentele src/js și cooperați cu inteligența artificială pentru a realiza completarea automată a documentelor
+tran: traduce
+init: Inițializați biblioteca de componente

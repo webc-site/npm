@@ -1,0 +1,23 @@
+{
+  "name": "@1-/ipv4",
+  "version": "0.1.1",
+  "description": "Convert IPv4 addresses to and from 32-bit integers / 将 IPv4 地址与 32 位整数相互转换",
+  "keywords": [],
+  "homepage": "https://github.com/webc-site/npm/tree/main/ipv4",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@3-/int": "^0.1.1"
+  }
+}

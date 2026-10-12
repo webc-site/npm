@@ -1,0 +1,42 @@
+{
+  "name": "@1-/i18n_scan",
+  "version": "0.1.11",
+  "description": "Incremental document translation scanner & synchronizer / 增量式文档翻译状态扫描与同步工具",
+  "keywords": [
+    "i18n",
+    "incremental",
+    "l10n",
+    "sync",
+    "translation"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/i18n_scan",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/_.js",
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@1-/bar": "^0.1.0",
+    "@1-/csv": "^0.1.4",
+    "@1-/read": "^0.1.1",
+    "@1-/scan": "^0.1.17",
+    "@1-/walk": "^0.1.2",
+    "@3-/ext": "^0.0.2",
+    "@3-/log": "^0.1.9",
+    "@3-/plimit": "^0.1.3"
+  },
+  "devDependencies": {
+    "@3-/lang": "^0.2.15",
+    "@3-/read": "^0.1.4",
+    "@3-/req": "^0.1.18"
+  }
+}

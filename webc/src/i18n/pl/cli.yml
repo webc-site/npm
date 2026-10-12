@@ -1,0 +1,15 @@
+add: Dodaj komponent
+dev: Uruchom serwer programistyczny i debugujący
+new: Nowy komponent
+npm: Zbuduj pakiet dist/npm
+npmPublish: Opublikuj pakiet npm
+npmRelease: Przepchnij bieżącą gałąź do gałęzi wydania (uruchom proces wydawania akcji Github)
+readme: Wygeneruj katalog główny README.md i dodaj na początku wielojęzyczną nawigację
+redirect2html: Kopiuj strony w oparciu o _redirects
+site: Zbuduj statyczny podgląd witryny na dist/site
+dist: Zbuduj witrynę statyczną i opublikuj ją w dist/dist
+siteSrv: Utwórz statyczny podgląd witryny i uruchom serwer podglądu
+distSrv: Zbuduj statyczną witrynę do publikacji i uruchom serwer podglądu
+jsDoc: Weryfikuj dokumenty src/js i współpracuj ze sztuczną inteligencją, aby realizować automatyczne uzupełnianie dokumentów
+tran: tłumaczyć
+init: Zainicjuj bibliotekę komponentów

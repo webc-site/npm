@@ -1,0 +1,5 @@
+{
+  "double": "\"hello",
+  "single": "'world",
+  "ends_with_colon": "value:"
+}

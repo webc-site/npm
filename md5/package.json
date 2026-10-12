@@ -1,0 +1,32 @@
+{
+  "name": "@1-/md5",
+  "version": "0.1.5",
+  "description": "Calculate file MD5 hashes efficiently",
+  "keywords": [
+    "checksum",
+    "file-integrity",
+    "hash",
+    "md5",
+    "streaming"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/md5",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@1-/fmt": "^0.1.1",
+    "@1-/read": "^0.1.1",
+    "@3-/ext": "^0.0.2",
+    "@3-/utf8": "^0.1.1"
+  }
+}

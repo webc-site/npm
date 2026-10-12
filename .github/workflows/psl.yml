@@ -1,0 +1,55 @@
+name: psl
+
+on:
+  schedule:
+    - cron: "0 0 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: 安装 Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: 配置 Git 用户
+        run: |
+          git config --global user.email action@github.com
+          git config --global user.name ${{ github.repository_owner }}
+
+      - name: 运行 gen 更新
+        run: |
+          cd psl
+          ./gen.js
+
+      - name: 检查改动并提交发布
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NO_AI: 1
+        run: |
+          if [ -n "$(git status --porcelain psl/src)" ]; then
+            echo "检测到 PSL 规则更新，提交并发布..."
+            git add psl/
+            git commit -m "chore(psl): update public suffix list"
+            echo "NEED_PUSH=true" >> $GITHUB_ENV
+            ./dist.js psl
+          else
+            echo "未检测到更新，无需发布。"
+          fi
+
+      - name: 推送改动
+        if: env.NEED_PUSH == 'true'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}

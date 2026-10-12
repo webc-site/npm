@@ -1,0 +1,28 @@
+{
+  "name": "@1-/hash",
+  "version": "0.1.1",
+  "description": "Length-bounded MD5 hash utility / 长度受限的 MD5 哈希工具",
+  "keywords": [
+    "crypto",
+    "hash",
+    "length-bounded",
+    "md5"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/hash",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@3-/utf8": "^0.1.1"
+  }
+}

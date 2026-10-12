@@ -1,0 +1,29 @@
+- name: 外置引用的打包逻辑
+  files:
+    var.styl: |
+      bg_color = #f00
+    theme.styl: |
+      body
+        background bg_color
+    comp_a/_.styl: |
+      text_color = #000
+      .comp-a
+        color text_color
+    main.styl: |
+      @import "./var.styl"
+      @import "./theme.styl"
+      @import "./comp_a/_.styl"
+      .main
+        color text_color
+  entry: main.styl
+  compileArgs:
+    - false
+    - true
+  includes:
+    - '@import "./var.css";'
+    - '@import "./theme.css";'
+    - '@import "./comp_a/_.css";'
+    - ".main {\n  color: #000;\n}"
+  excludes:
+    - body
+    - .comp-a

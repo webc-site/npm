@@ -1,0 +1,15 @@
+add: Ychwanegu cydran
+dev: Dechreuwch y gweinydd datblygu a dadfygio
+new: Cydran newydd
+npm: Adeiladwch y pecyn dist / npm
+npmPublish: Cyhoeddi pecyn npm
+npmRelease: Gwthiwch y gangen gyfredol i'r gangen rhyddhau (sbardun y broses rhyddhau gweithredu github)
+readme: Cynhyrchu cyfeiriadur gwraidd README.md ac ychwanegu llywio aml-iaith ar y dechrau
+redirect2html: Copïo tudalennau yn seiliedig ar _redirects
+site: Adeiladu rhagolwg safle statig i'r distyllfa/safle
+dist: Adeiladu gwefan statig a'i chyhoeddi er mwyn pellhau/pellhau
+siteSrv: Adeiladu rhagolwg safle sefydlog a dechrau'r gweinydd rhagolwg
+distSrv: Adeiladwch wefan sefydlog i'w chyhoeddi a chychwyn y gweinydd rhagolwg
+jsDoc: Dilysu dogfennau src/js a chydweithio â deallusrwydd artiffisial i gyflawni cwblhau dogfen yn awtomatig
+tran: cyfieithu
+init: Cychwyn llyfrgell gydrannau

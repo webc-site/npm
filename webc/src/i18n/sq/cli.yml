@@ -1,0 +1,15 @@
+add: Shto komponent
+dev: Filloni serverin e zhvillimit dhe korrigjimit
+new: Komponent i ri
+npm: Ndërtoni paketën dist/npm
+npmPublish: Publikoni paketën npm
+npmRelease: Shtyni degën aktuale në degën e lëshimit (shkaktoni procesin e lëshimit të veprimit github)
+readme: Gjeneroni direktorinë rrënjësore README.md dhe shtoni navigimin shumë-gjuhësh në fillim
+redirect2html: Kopjoni faqet bazuar në _redirects
+site: Ndërtoni pamje paraprake të faqes statike në dist/site
+dist: Ndërtoni një sajt statik dhe publikojeni në dist/dist
+siteSrv: Ndërtoni një pamje paraprake të faqes statike dhe filloni serverin e pamjes paraprake
+distSrv: Ndërtoni një faqe statike për publikim dhe filloni serverin e shikimit
+jsDoc: Verifikoni dokumentet src/js dhe bashkëpunoni me inteligjencën artificiale për të realizuar plotësimin automatik të dokumenteve
+tran: përkthejnë
+init: Inicializoni bibliotekën e komponentëve

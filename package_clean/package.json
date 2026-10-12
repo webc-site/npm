@@ -1,0 +1,28 @@
+{
+  "name": "@1-/package_clean",
+  "version": "0.1.1",
+  "description": "Clean package.json objects for publishing by removing development-specific fields",
+  "keywords": [
+    "clean",
+    "dependencies",
+    "npm",
+    "package-json",
+    "publish"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/package_clean",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/_.js",
+    "./*": "./src/*"
+  },
+  "description_zh": "通过移除开发专用字段来清理 package.json 对象以供发布"
+}

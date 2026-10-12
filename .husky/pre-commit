@@ -1,0 +1,2 @@
+#!/bin/sh
+./_/hook/fmt.js || exit 1

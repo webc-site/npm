@@ -1,0 +1,32 @@
+{
+  "name": "@1-/proto",
+  "version": "0.1.1",
+  "description": "Tree-shakable protobuf encoder and decoder",
+  "keywords": [
+    "decode",
+    "encode",
+    "grpc",
+    "protobuf",
+    "tree-shaking"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/proto",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "files": [
+    "./*"
+  ],
+  "type": "module",
+  "exports": {
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@3-/utf8": "^0.1.1"
+  },
+  "devDependencies": {
+    "protobufjs": "^7.5.4"
+  }
+}
