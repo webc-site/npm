@@ -27,7 +27,6 @@ features = [ "parking_lot" ]
 
 [dev-dependencies.log_init]
 path = "../log_init"
-version = "0.1.39"
 
 [features]
 default = [ ]

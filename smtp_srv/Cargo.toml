@@ -109,4 +109,3 @@ hex = "0.4.3"
 [dev-dependencies.sk_dkim]
 path = "../sk_dkim"
 features = ["pk"]
-version = "0.1.8"

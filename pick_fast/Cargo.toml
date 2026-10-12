@@ -48,11 +48,9 @@ features = ["parking_lot"]
 [dev-dependencies.ts_]
 path = "../ts_"
 features = ["milli"]
-version = "0.1.4"
 
 [dev-dependencies.race]
 path = "../race"
-version = "0.1.15"
 
 [dev-dependencies.tokio]
 version = "1.53.1"

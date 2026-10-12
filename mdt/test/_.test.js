@@ -265,3 +265,53 @@ test("无二级标题不生成目录", () =>
     const content = await renderMdt(join(pkg_path, "README.mdt"), pkg_path);
     assertInclude(content, ["# 仅一级标题", "段落一", "段落二"], ["- ["]);
   }));
+
+test("基于自身相对路径多级包含", () =>
+  withTmp(async (pkg_path, write) => {
+    await write(
+      ["README.mdt", ["# 根文档", "<+ ./dir_a/a.md >"]],
+      ["dir_a/a.md", ["## 目录A内容", "<+ ./dir_b/b.md >"]],
+      ["dir_a/dir_b/b.md", ["### 目录B内容", "最终叶子节点"]]
+    );
+    const content = await renderMdt(join(pkg_path, "README.mdt"), pkg_path);
+    assertInclude(content, ["# 根文档", "## 目录A内容", "### 目录B内容", "最终叶子节点"]);
+  }));
+
+[
+  [
+    "间接循环包含",
+    ["loop_a.md", ["## Loop A", "<+ ./loop_b.md >"]],
+    ["loop_b.md", ["### Loop B", "<+ ./loop_a.md >"]],
+    "<+ ./loop_a.md >",
+    "loop_a.md"
+  ],
+  ["直接自引用死循环", null, null, "<+ ./README.mdt >", "README.mdt"]
+].forEach(([desc, file_a, file_b, include_tag, expected_target]) => {
+  test(desc + "警告与防止死循环", () =>
+    withTmp(async (pkg_path, write) => {
+      const files = [["README.mdt", ["# 根文档", include_tag]]];
+      if (file_a) files.push(file_a);
+      if (file_b) files.push(file_b);
+      await write(...files);
+      let content;
+      const warn_msg = await captureWarn(async () => {
+        content = await renderMdt(join(pkg_path, "README.mdt"), pkg_path);
+      });
+      assertInclude(warn_msg, ["CIRCULAR", expected_target]);
+      assertInclude(content, ["# 根文档"]);
+    })
+  );
+});
+
+test("多处引用同一公共文件正常渲染", () =>
+  withTmp(async (pkg_path, write) => {
+    await write(
+      ["README.mdt", ["# 根文档", "<+ ./part1.md >", "<+ ./part2.md >"]],
+      ["part1.md", ["## 第一部分", "<+ ./common.md >"]],
+      ["part2.md", ["## 第二部分", "<+ ./common.md >"]],
+      ["common.md", ["公共内容"]]
+    );
+    const content = await renderMdt(join(pkg_path, "README.mdt"), pkg_path);
+    assertInclude(content, ["# 根文档", "## 第一部分", "## 第二部分"]);
+    expect(content.split("公共内容").length - 1).toBe(2);
+  }));

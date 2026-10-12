@@ -4,9 +4,9 @@
 
 `mdt` parses Markdown template files with recursive assembly and automated TOC generation to solve multi-file documentation maintenance challenges.
 
-- **Recursive Assembly**: Imports external Markdown files using `<+ relative_path >` syntax with nested support; missing files generate warnings but processing continues
+- **Recursive Assembly**: Imports external Markdown files using `<+ relative_path >` syntax with nested support and circular reference detection; missing files generate warnings but processing continues
 - **Block Rendering**: Splits documents by `---` into independent blocks for isolated processing
-- **Hierarchical TOC**: Extracts headers level 2 and above within each block to build indented tables of contents, skipping headers inside all types of code blocks (including language-specific blocks)
+- **Hierarchical TOC**: Extracts headers level 2 and above within each block to build indented tables of contents, skipping headers inside all types of code blocks
 - **Automatic Injection**: Inserts generated TOC directly before the first level-2+ header of each block at optimal whitespace position
 - **Anchor Conversion**: Translates header text into standardized Markdown anchor links with full Unicode character support (Chinese, Japanese, etc.), using Unicode-aware regex processing
 
@@ -14,7 +14,7 @@
 
 ### API Usage
 
-Import the main module and pass template path and package root directory:
+Import the main module and pass template path and optional current directory path:
 
 ```javascript
 import render from "@1-/mdt";
@@ -94,7 +94,7 @@ graph TD
 src/
 ├── _.js            # Main entry point, splits blocks and coordinates rendering
 ├── blockRender.js  # Block-level renderer coordinator
-├── linesRender.js  # Recursive resolver for `<+ path >` syntax (with missing file warnings)
+├── linesRender.js  # Recursive resolver for `<+ path >` syntax (with missing file warnings and circular reference detection)
 ├── headerParse.js  # Header parser (uses regex matching, skips all code block types)
 ├── tocGen.js       # Hierarchical TOC generator (level 2+ headers only)
 ├── tocInject.js    # TOC injector (intelligent insertion positioning)
