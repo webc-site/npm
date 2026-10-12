@@ -25,17 +25,17 @@ console.log(result);
 
 ### CLI Tool
 
-Run `mdt` to process `.mdt` template files and generate corresponding `.md` documents:
+Install and run `mdt` to process `.mdt` template files and generate corresponding `.md` documents:
 
 ```bash
 # Process all .mdt files in current directory
-bun run mdt
+mdt
 
 # Process specified file (generates README.md)
-bun run mdt README.mdt
+mdt README.mdt
 
 # Process specified directory
-bun run mdt ./docs
+mdt ./docs
 ```
 
 ### Template Example (README.mdt)
@@ -96,6 +96,7 @@ src/
 ├── blockRender.js  # Block-level renderer coordinator
 ├── linesRender.js  # Recursive resolver for `<+ path >` syntax (with missing file warnings and circular reference detection)
 ├── headerParse.js  # Header parser (uses regex matching, skips all code block types)
+├── inCode.js       # Code block range detection utility (for skipping headers inside code blocks)
 ├── tocGen.js       # Hierarchical TOC generator (level 2+ headers only)
 ├── tocInject.js    # TOC injector (intelligent insertion positioning)
 ├── anchor.js       # Header-to-anchor converter (Unicode support, uses \p{L}\p{N} regex)

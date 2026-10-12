@@ -9,7 +9,7 @@ import renderMdt from "../src/_.js";
 
 const CLI_PATH = join(import.meta.dirname, "../src/mdt.js"),
   /*
-  按序校验字符串片段是否在目标文本中依次出现
+  校验文本片段依次出现
   content: 目标文本
   snippet_li: 片段数组
   */
@@ -22,33 +22,33 @@ const CLI_PATH = join(import.meta.dirname, "../src/mdt.js"),
     });
   },
   /*
-  批量校验文本包含与排除规则
+  校验包含与排除文本
   content: 目标文本
-  has_li: 必须包含的字符串数组
-  has_not_li: 不能包含的字符串数组
+  has_li: 必须包含的片段
+  not_li: 不能包含的片段
   */
-  assertInclude = (content, has_li = [], has_not_li = []) => {
+  assertInclude = (content, has_li = [], not_li = []) => {
     has_li.forEach((val) => expect(content).toContain(val));
-    has_not_li.forEach((val) => expect(content).not.toContain(val));
+    not_li.forEach((val) => expect(content).not.toContain(val));
   },
   /*
-  捕获函数执行期间的 WARN 日志
+  捕获执行期间的 WARN 日志
   func: 异步执行函数
-  返回值: 拼接后的日志字符串
+  返回值: 拼接后的日志
   */
   captureWarn = async (func) => {
     const warn_li = [],
-      original_warn = console.warn;
+      warn = console.warn;
     console.warn = (...args) => warn_li.push(args.join(" "));
     try {
       await func();
     } finally {
-      console.warn = original_warn;
+      console.warn = warn;
     }
     return warn_li.join(" ");
   },
   /*
-  创建临时沙箱目录并注入测试工具函数
+  创建临时沙箱运行回调
   cb: 测试回调 (pkg_path, write, run, exists, read)
   */
   withTmp = async (cb) => {
@@ -61,26 +61,37 @@ const CLI_PATH = join(import.meta.dirname, "../src/mdt.js"),
         (...entries) =>
           Promise.all(
             entries.map(async ([file, lines]) => {
-              const full_path = join(pkg_path, file);
-              await mkdir(dirname(full_path), { recursive: true });
-              await writeFile(full_path, lines.join("\n"));
+              const full = join(pkg_path, file);
+              await mkdir(dirname(full), { recursive: true });
+              await writeFile(full, lines.join("\n"));
             })
           ),
-        async (args) => {
-          const proc = Bun.spawn([CLI_PATH, ...args], { cwd: pkg_path });
-          await proc.exited;
-        },
+        (args) => Bun.spawn([CLI_PATH, ...args], { cwd: pkg_path }).exited,
         (file) => existsSync(join(pkg_path, file)),
         (file) => read(join(pkg_path, file))
       );
     } finally {
       await rm(pkg_path, { recursive: true, force: true });
     }
+  },
+  /*
+  临时沙箱写入文件并渲染 mdt
+  entries: 文件条目数组 [相对路径, 行数组]
+  返回值: [渲染结果, 警告日志]
+  */
+  renderTmp = async (...entries) => {
+    let content, warn_msg;
+    await withTmp(async (pkg_path, write) => {
+      await write(...entries);
+      warn_msg = await captureWarn(async () => {
+        content = await renderMdt(join(pkg_path, "README.mdt"), pkg_path);
+      });
+    });
+    return [content, warn_msg];
   };
 
-test("演示与多语言分块渲染", () =>
-  withTmp(async (pkg_path, write) => {
-    await write(
+test("演示与多语言分块渲染", async () => {
+  const [content] = await renderTmp(
       [
         "readme/en.md",
         [
@@ -136,53 +147,50 @@ test("演示与多语言分块渲染", () =>
           "<+ ./readme/zh.md >"
         ]
       ]
-    );
+    ),
+    block_li = content.split("\n---\n");
 
-    const block_li = (await renderMdt(join(pkg_path, "README.mdt"), pkg_path)).split("\n---\n");
+  expect(block_li.length).toBe(3);
 
-    expect(block_li.length).toBe(3);
-
+  [
+    [block_li[0], ["[English](#en) | [中文](#zh)"], ["- ["]],
     [
-      [block_li[0], ["[English](#en) | [中文](#zh)"], ["- ["]],
+      block_li[1],
+      ["- [Sub 1](#sub-1)", "  - [Sub Sub 1](#sub-sub-1)", "- [Sub 2](#sub-2)"],
       [
-        block_li[1],
-        ["- [Sub 1](#sub-1)", "  - [Sub Sub 1](#sub-sub-1)", "- [Sub 2](#sub-2)"],
-        [
-          "- [Test Project](#test-project)",
-          "comment-inside-code-block",
-          "comment-inside-js-code-block"
-        ]
-      ],
-      [block_li[2], ["- [1. 简介](#1-简介)", "- [2. 安装](#2-安装)"], ["- [测试项目](#测试项目)"]]
-    ].forEach(([block, has_li, has_not_li]) => assertInclude(block, has_li, has_not_li));
-
-    [
-      [
-        block_li[1],
-        [
-          "# Test Project",
-          "[![Badge]",
-          "> A fast and simple tool.",
-          "Description paragraph 1.",
-          "Description paragraph 2.",
-          "- [Sub 1](#sub-1)",
-          "## Sub 1"
-        ]
+        "- [Test Project](#test-project)",
+        "comment-inside-code-block",
+        "comment-inside-js-code-block"
       ],
       [
-        block_li[2],
-        [
-          "# 测试项目",
-          "这里是中文项目简介第一段。",
-          "这里是中文项目简介第二段。",
-          "- [1. 简介](#1-简介)",
-          "## 1. 简介"
-        ]
+        "# Test Project",
+        "[![Badge]",
+        "> A fast and simple tool.",
+        "Description paragraph 1.",
+        "Description paragraph 2.",
+        "- [Sub 1](#sub-1)",
+        "## Sub 1"
       ]
-    ].forEach(([block, order_li]) => assertOrder(block, order_li));
-  }));
+    ],
+    [
+      block_li[2],
+      ["- [1. 简介](#1-简介)", "- [2. 安装](#2-安装)"],
+      ["- [测试项目](#测试项目)"],
+      [
+        "# 测试项目",
+        "这里是中文项目简介第一段。",
+        "这里是中文项目简介第二段。",
+        "- [1. 简介](#1-简介)",
+        "## 1. 简介"
+      ]
+    ]
+  ].forEach(([block, has_li, not_li, order_li]) => {
+    assertInclude(block, has_li, not_li);
+    if (order_li) assertOrder(block, order_li);
+  });
+});
 
-test("项目 README 真实渲染", async () => {
+test("项目 README 渲染", async () => {
   const rendered = await renderMdt(join(import.meta.dirname, "../README.mdt"));
   assertInclude(rendered, [
     "[English](#en) | [中文](#zh)",
@@ -208,110 +216,103 @@ test("项目 README 真实渲染", async () => {
   ["默认参数", [], "README.mdt", "README.md"],
   ["指定文件", ["README.mdt"], "README.mdt", "README.md"],
   ["指定目录", ["./docs"], "docs/README.mdt", "docs/README.md"]
-].forEach(([desc, args, src_file, out_file]) => {
+].forEach(([desc, args, src, out]) => {
   test("CLI " + desc, () =>
     withTmp(async (pkg_path, write, run, exists, read) => {
       await write(
-        [src_file, ["# 标题", "说明段落", "<+ ./sub.md >"]],
-        [join(dirname(src_file), "sub.md"), ["## 子章节", "内容"]]
+        [src, ["# 标题", "说明段落", "<+ ./sub.md >"]],
+        [join(dirname(src), "sub.md"), ["## 子章节", "内容"]]
       );
       await run(args);
-      expect(exists(out_file)).toBe(true);
-      const content = await read(out_file);
-      assertInclude(content, ["# 标题", "- [子章节](#子章节)", "## 子章节", "内容"]);
+      expect(exists(out)).toBe(true);
+      assertInclude(await read(out), ["# 标题", "- [子章节](#子章节)", "## 子章节", "内容"]);
     })
   );
 });
 
-test("多层嵌套导入", () =>
-  withTmp(async (pkg_path, write) => {
-    await write(
+[
+  [
+    "多层嵌套导入与目录生成",
+    [
       ["README.mdt", ["# 根文档", "<+ ./sub1.md >"]],
       ["sub1.md", ["## 一级嵌套", "<+ ./sub2.md >"]],
       ["sub2.md", ["### 二级嵌套", "最终内容"]]
-    );
-    const content = await renderMdt(join(pkg_path, "README.mdt"), pkg_path);
-    assertInclude(content, [
+    ],
+    [
       "# 根文档",
       "- [一级嵌套](#一级嵌套)",
       "  - [二级嵌套](#二级嵌套)",
       "## 一级嵌套",
       "### 二级嵌套",
       "最终内容"
-    ]);
-    assertOrder(content, [
-      "# 根文档",
-      "- [一级嵌套](#一级嵌套)",
-      "## 一级嵌套",
-      "### 二级嵌套",
-      "最终内容"
-    ]);
-  }));
-
-test("缺失文件警告与容错", () =>
-  withTmp(async (pkg_path, write) => {
-    await write(["README.mdt", ["# 标题", "正常内容", "<+ ./missing.md >"]]);
-    let content;
-    const warn_msg = await captureWarn(async () => {
-      content = await renderMdt(join(pkg_path, "README.mdt"), pkg_path);
-    });
-    assertInclude(warn_msg, ["MISS", "missing.md", "README.mdt"]);
-    assertInclude(content, ["# 标题", "正常内容"]);
-  }));
-
-test("无二级标题不生成目录", () =>
-  withTmp(async (pkg_path, write) => {
-    await write(["README.mdt", ["# 仅一级标题", "段落一", "段落二"]]);
-    const content = await renderMdt(join(pkg_path, "README.mdt"), pkg_path);
-    assertInclude(content, ["# 仅一级标题", "段落一", "段落二"], ["- ["]);
-  }));
-
-test("基于自身相对路径多级包含", () =>
-  withTmp(async (pkg_path, write) => {
-    await write(
+    ],
+    [],
+    ["# 根文档", "- [一级嵌套](#一级嵌套)", "## 一级嵌套", "### 二级嵌套", "最终内容"]
+  ],
+  [
+    "无二级标题不生成目录",
+    [["README.mdt", ["# 仅一级标题", "段落一", "段落二"]]],
+    ["# 仅一级标题", "段落一", "段落二"],
+    ["- ["]
+  ],
+  [
+    "相对路径多级包含",
+    [
       ["README.mdt", ["# 根文档", "<+ ./dir_a/a.md >"]],
       ["dir_a/a.md", ["## 目录A内容", "<+ ./dir_b/b.md >"]],
       ["dir_a/dir_b/b.md", ["### 目录B内容", "最终叶子节点"]]
-    );
-    const content = await renderMdt(join(pkg_path, "README.mdt"), pkg_path);
-    assertInclude(content, ["# 根文档", "## 目录A内容", "### 目录B内容", "最终叶子节点"]);
-  }));
-
-[
-  [
-    "间接循环包含",
-    ["loop_a.md", ["## Loop A", "<+ ./loop_b.md >"]],
-    ["loop_b.md", ["### Loop B", "<+ ./loop_a.md >"]],
-    "<+ ./loop_a.md >",
-    "loop_a.md"
+    ],
+    ["# 根文档", "## 目录A内容", "### 目录B内容", "最终叶子节点"]
   ],
-  ["直接自引用死循环", null, null, "<+ ./README.mdt >", "README.mdt"]
-].forEach(([desc, file_a, file_b, include_tag, expected_target]) => {
-  test(desc + "警告与防止死循环", () =>
-    withTmp(async (pkg_path, write) => {
-      const files = [["README.mdt", ["# 根文档", include_tag]]];
-      if (file_a) files.push(file_a);
-      if (file_b) files.push(file_b);
-      await write(...files);
-      let content;
-      const warn_msg = await captureWarn(async () => {
-        content = await renderMdt(join(pkg_path, "README.mdt"), pkg_path);
-      });
-      assertInclude(warn_msg, ["CIRCULAR", expected_target]);
-      assertInclude(content, ["# 根文档"]);
-    })
-  );
-});
-
-test("多处引用同一公共文件正常渲染", () =>
-  withTmp(async (pkg_path, write) => {
-    await write(
+  [
+    "多处引用公共文件",
+    [
       ["README.mdt", ["# 根文档", "<+ ./part1.md >", "<+ ./part2.md >"]],
       ["part1.md", ["## 第一部分", "<+ ./common.md >"]],
       ["part2.md", ["## 第二部分", "<+ ./common.md >"]],
       ["common.md", ["公共内容"]]
-    );
-    const content = await renderMdt(join(pkg_path, "README.mdt"), pkg_path);
-    assertInclude(content, ["# 根文档", "## 第一部分", "## 第二部分"]);
-    expect(content.split("公共内容").length - 1).toBe(2);
-  }));
+    ],
+    ["# 根文档", "## 第一部分", "## 第二部分"],
+    [],
+    null,
+    [["公共内容", 2]]
+  ]
+].forEach(([desc, entries, has_li, not_li, order_li, count_li = []]) => {
+  test(desc, async () => {
+    const [content] = await renderTmp(...entries);
+    assertInclude(content, has_li, not_li);
+    if (order_li) assertOrder(content, order_li);
+    count_li.forEach(([str, num]) => expect(content.split(str).length - 1).toBe(num));
+  });
+});
+
+[
+  [
+    "文件缺失",
+    [["README.mdt", ["# 标题", "正常内容", "<+ ./missing.md >"]]],
+    ["MISS", "missing.md", "README.mdt"],
+    ["# 标题", "正常内容"]
+  ],
+  [
+    "间接循环包含",
+    [
+      ["README.mdt", ["# 根文档", "<+ ./loop_a.md >"]],
+      ["loop_a.md", ["## Loop A", "<+ ./loop_b.md >"]],
+      ["loop_b.md", ["### Loop B", "<+ ./loop_a.md >"]]
+    ],
+    ["CIRCULAR", "loop_a.md"],
+    ["# 根文档"]
+  ],
+  [
+    "直接自引用死循环",
+    [["README.mdt", ["# 根文档", "<+ ./README.mdt >"]]],
+    ["CIRCULAR", "README.mdt"],
+    ["# 根文档"]
+  ]
+].forEach(([desc, entries, warn_li, has_li]) => {
+  test("异常警告: " + desc, async () => {
+    const [content, warn_msg] = await renderTmp(...entries);
+    assertInclude(warn_msg, warn_li);
+    assertInclude(content, has_li);
+  });
+});

@@ -6,25 +6,24 @@
 
 # @1-/mdt : Render Markdown templates and generate hierarchical TOC
 
-- [@1-/mdt : Render Markdown templates and generate hierarchical TOC](#1-mdt-render-markdown-templates-and-generate-hierarchical-toc)
-  - [1. Features](#1-features)
-  - [2. Usage Demonstration](#2-usage-demonstration)
-    - [API Usage](#api-usage)
-    - [CLI Tool](#cli-tool)
-    - [Template Example (README.mdt)](#template-example-readmemdt)
-  - [3. Design Idea](#3-design-idea)
-  - [4. Tech Stack](#4-tech-stack)
-  - [5. Code Structure](#5-code-structure)
-  - [6. History](#6-history)
-  - [About](#about)
+- [1. Features](#1-features)
+- [2. Usage Demonstration](#2-usage-demonstration)
+  - [API Usage](#api-usage)
+  - [CLI Tool](#cli-tool)
+  - [Template Example (README.mdt)](#template-example-readmemdt)
+- [3. Design Idea](#3-design-idea)
+- [4. Tech Stack](#4-tech-stack)
+- [5. Code Structure](#5-code-structure)
+- [6. History](#6-history)
+- [About](#about)
 
 ## 1. Features
 
 `mdt` parses Markdown template files with recursive assembly and automated TOC generation to solve multi-file documentation maintenance challenges.
 
-- **Recursive Assembly**: Imports external Markdown files using `<+ relative_path >` syntax with nested support; missing files generate warnings but processing continues
+- **Recursive Assembly**: Imports external Markdown files using `<+ relative_path >` syntax with nested support and circular reference detection; missing files generate warnings but processing continues
 - **Block Rendering**: Splits documents by `---` into independent blocks for isolated processing
-- **Hierarchical TOC**: Extracts headers level 2 and above within each block to build indented tables of contents, skipping headers inside all types of code blocks (including language-specific blocks)
+- **Hierarchical TOC**: Extracts headers level 2 and above within each block to build indented tables of contents, skipping headers inside all types of code blocks
 - **Automatic Injection**: Inserts generated TOC directly before the first level-2+ header of each block at optimal whitespace position
 - **Anchor Conversion**: Translates header text into standardized Markdown anchor links with full Unicode character support (Chinese, Japanese, etc.), using Unicode-aware regex processing
 
@@ -32,7 +31,7 @@
 
 ### API Usage
 
-Import the main module and pass template path and package root directory:
+Import the main module and pass template path and optional current directory path:
 
 ```javascript
 import render from "@1-/mdt";
@@ -112,7 +111,7 @@ graph TD
 src/
 ├── _.js            # Main entry point, splits blocks and coordinates rendering
 ├── blockRender.js  # Block-level renderer coordinator
-├── linesRender.js  # Recursive resolver for `<+ path >` syntax (with missing file warnings)
+├── linesRender.js  # Recursive resolver for `<+ path >` syntax (with missing file warnings and circular reference detection)
 ├── headerParse.js  # Header parser (uses regex matching, skips all code block types)
 ├── tocGen.js       # Hierarchical TOC generator (level 2+ headers only)
 ├── tocInject.js    # TOC injector (intelligent insertion positioning)
@@ -138,25 +137,24 @@ This library is developed by [WebC.site](https://webc.site).
 
 # @1-/mdt : Render Markdown templates and generate hierarchical TOC
 
-- [@1-/mdt : Render Markdown templates and generate hierarchical TOC](#1-mdt-render-markdown-templates-and-generate-hierarchical-toc)
-  - [1. 功能介绍](#1-功能介绍)
-  - [2. 使用演示](#2-使用演示)
-    - [API 调用](#api-调用)
-    - [命令行工具](#命令行工具)
-    - [模板示例 (README.mdt)](#模板示例-readmemdt)
-  - [3. 设计思路](#3-设计思路)
-  - [4. 技术栈](#4-技术栈)
-  - [5. 代码结构](#5-代码结构)
-  - [6. 历史故事](#6-历史故事)
-  - [关于](#关于)
+- [1. 功能介绍](#1-功能介绍)
+- [2. 使用演示](#2-使用演示)
+  - [API 调用](#api-调用)
+  - [命令行工具](#命令行工具)
+  - [模板示例 (README.mdt)](#模板示例-readmemdt)
+- [3. 设计思路](#3-设计思路)
+- [4. 技术栈](#4-技术栈)
+- [5. 代码结构](#5-代码结构)
+- [6. 历史故事](#6-历史故事)
+- [关于](#关于)
 
 ## 1. 功能介绍
 
 `mdt` 解析 Markdown 模板文件，支持递归拼接与自动化目录生成，解决多文件文档维护痛点。
 
-- **递归拼接**：使用 `<+ 相对路径 >` 语法导入外部 Markdown 文件，支持多层嵌套，缺失文件时输出警告但继续处理
-- **分块渲染**：以 `---` 分割文档为独立块，各块独立解析与渲染
-- **层级目录**：提取各块内二级及以上标题生成缩进式 TOC，跳过代码块内标题（包括各种语言的代码块）
+- **递归拼接**：使用 `<+ 相对路径 >` 语法导入外部 Markdown 文件，支持多层嵌套和循环引用检测；缺失文件时输出警告但继续处理
+- **分块渲染**：以 `---` 分割文档为独立块，各块独立解析、展开、生成目录并注入
+- **层级目录**：提取各块内二级及以上标题生成缩进式 TOC，跳过所有类型代码块内的标题
 - **自动注入**：将生成的 TOC 插入至各块首个二级及以上标题前的最优空白位置
 - **锚点转换**：标题文本自动转换为标准化 Markdown 锚点链接，支持 Unicode 字符（中文、日文等），使用 Unicode-aware regex 处理特殊字符
 
@@ -164,7 +162,7 @@ This library is developed by [WebC.site](https://webc.site).
 
 ### API 调用
 
-导入主模块并传入模板路径与包根路径：
+导入主模块并传入模板路径与可选的当前目录路径：
 
 ```javascript
 import render from "@1-/mdt";
@@ -244,7 +242,7 @@ graph TD
 src/
 ├── _.js            # 主入口，分割文档块并协调渲染
 ├── blockRender.js  # 块级渲染协调器
-├── linesRender.js  # 递归处理 `<+ 路径 >` 引用（含缺失文件警告）
+├── linesRender.js  # 递归处理 `<+ 路径 >` 引用（含缺失文件警告和循环引用检测）
 ├── headerParse.js  # 标题解析（使用正则匹配，跳过所有类型代码块）
 ├── tocGen.js       # 层级 TOC 生成器（仅处理二级及以上标题）
 ├── tocInject.js    # TOC 注入器（智能定位插入位置）
