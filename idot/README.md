@@ -6,27 +6,26 @@
 
 # idot : DNS over TLS Client for Rust
 
-- [idot : DNS over TLS Client for Rust](#idot-dns-over-tls-client-for-rust)
-  - [Features](#features)
-  - [Installation](#installation)
-  - [Usage](#usage)
-    - [DnsRace + Cache (Recommended)](#dnsrace-cache-recommended)
-    - [Basic Query](#basic-query)
-    - [Custom Server](#custom-server)
-  - [API Reference](#api-reference)
-    - [Structs](#structs)
-      - [`Dot`](#dot)
-      - [`HostIp`](#hostip)
-    - [Functions](#functions)
-    - [Constants](#constants)
-      - [`DOT_LI`](#dot_li)
-      - [`dns` module](#dns-module)
-  - [Architecture](#architecture)
-    - [Implementation Details](#implementation-details)
-  - [Tech Stack](#tech-stack)
-  - [DoT vs DoQ](#dot-vs-doq)
-
 Based on [idns](https://crates.io/crates/idns). See idns for `DnsRace`, `Cache`, `Parse` trait, and more.
+
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [DnsRace + Cache (Recommended)](#dnsrace-cache-recommended)
+  - [Basic Query](#basic-query)
+  - [Custom Server](#custom-server)
+- [API Reference](#api-reference)
+  - [Structs](#structs)
+    - [`Dot`](#dot)
+    - [`HostIp`](#hostip)
+  - [Functions](#functions)
+  - [Constants](#constants)
+    - [`DOT_LI`](#dot_li)
+    - [`dns` module](#dns-module)
+- [Architecture](#architecture)
+  - [Implementation Details](#implementation-details)
+- [Tech Stack](#tech-stack)
+- [DoT vs DoQ](#dot-vs-doq)
 
 ## Features
 
@@ -214,6 +213,7 @@ graph TD
 | Head-of-line blocking | Yes        | No         |
 | Maturity              | High       | Medium     |
 
+
 ---
 
 <+ ../../about/en.md >
@@ -224,27 +224,26 @@ graph TD
 
 # idot : Rust DNS over TLS 客户端
 
-- [idot : Rust DNS over TLS 客户端](#idot-rust-dns-over-tls-客户端)
-  - [特性](#特性)
-  - [安装](#安装)
-  - [使用](#使用)
-    - [DnsRace + Cache（推荐）](#dnsrace-cache推荐)
-    - [基本查询](#基本查询)
-    - [自定义服务器](#自定义服务器)
-  - [API 参考](#api-参考)
-    - [结构体](#结构体)
-      - [`Dot`](#dot)
-      - [`HostIp`](#hostip)
-    - [函数](#函数)
-    - [常量](#常量)
-      - [`DOT_LI`](#dot_li)
-      - [`dns` 模块](#dns-模块)
-  - [架构](#架构)
-    - [实现细节](#实现细节)
-  - [技术栈](#技术栈)
-  - [DoT vs DoQ](#dot-vs-doq)
-
 基于 [idns](https://crates.io/crates/idns)。`DnsRace`、`Cache`、`Parse` trait 等更多功能请查看 idns。
+
+- [特性](#特性)
+- [安装](#安装)
+- [使用](#使用)
+  - [DnsRace + Cache（推荐）](#dnsrace-cache推荐)
+  - [基本查询](#基本查询)
+  - [自定义服务器](#自定义服务器)
+- [API 参考](#api-参考)
+  - [结构体](#结构体)
+    - [`Dot`](#dot)
+    - [`HostIp`](#hostip)
+  - [函数](#函数)
+  - [常量](#常量)
+    - [`DOT_LI`](#dot_li)
+    - [`dns` 模块](#dns-模块)
+- [架构](#架构)
+  - [实现细节](#实现细节)
+- [技术栈](#技术栈)
+- [DoT vs DoQ](#dot-vs-doq)
 
 ## 特性
 
@@ -431,6 +430,7 @@ graph TD
 | 0-RTT    | 否         | 是         |
 | 队头阻塞 | 是         | 否         |
 | 成熟度   | 高         | 中         |
+
 
 ---
 

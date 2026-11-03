@@ -5,14 +5,13 @@
 <a id="en"></a>
 # @1-/github_cdn : Branch-sharded static resource CDN storage based on GitHub and jsDelivr
 
-- [@1-/github_cdn : Branch-sharded static resource CDN storage based on GitHub and jsDelivr](#1-github_cdn-branch-sharded-static-resource-cdn-storage-based-on-github-and-jsdelivr)
-  - [Features](#features)
-  - [Usage](#usage)
-  - [Design Concept](#design-concept)
-  - [技术栈](#技术栈)
-  - [Code Structure](#code-structure)
-  - [History Story](#history-story)
-  - [About](#about)
+- [Features](#features)
+- [Usage](#usage)
+- [Design Concept](#design-concept)
+- [技术栈](#技术栈)
+- [Code Structure](#code-structure)
+- [History Story](#history-story)
+- [About](#about)
 
 ## Features
 
@@ -118,14 +117,13 @@ This library is developed by [WebC.site](https://webc.site).
 <a id="zh"></a>
 # @1-/github_cdn : Branch-sharded static resource CDN storage based on GitHub and jsDelivr
 
-- [@1-/github_cdn : Branch-sharded static resource CDN storage based on GitHub and jsDelivr](#1-github_cdn-branch-sharded-static-resource-cdn-storage-based-on-github-and-jsdelivr)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 

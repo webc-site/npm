@@ -6,7 +6,7 @@ use tokio::{
   io::{BufReader, ReadHalf, WriteHalf},
   net::TcpStream,
 };
-use tokio_rustls::server::TlsStream as ServerTlsStream;
+use tokio_rustls::{LazyConfigAcceptor, server::TlsStream as ServerTlsStream};
 
 use crate::{Result, SmtpError};
 
@@ -38,7 +38,7 @@ pub async fn perform_tls_handshake<S: CertByHost>(
   require_sni: bool,
 ) -> Result<(ServerTlsStream<TcpStream>, String)> {
   // 启动惰性TLS接受器，等待ClientHello
-  let acceptor = tokio_rustls::LazyConfigAcceptor::new(Default::default(), stream);
+  let acceptor = LazyConfigAcceptor::new(Default::default(), stream);
   let start = acceptor.await?;
   let client_hello = start.client_hello();
 

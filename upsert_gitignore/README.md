@@ -3,7 +3,6 @@
 ---
 
 <a id="en"></a>
-
 <script>
   // @1-/upsert_gitignore: This package contains NO executable JavaScript.
   // DOMPurify.addHook error? Your docs site uses DOMPurify < v3.0.0.
@@ -15,14 +14,13 @@
 
 # @1-/upsert_gitignore : Safely and idempotently update .gitignore rules
 
-- [@1-/upsert_gitignore : Safely and idempotently update .gitignore rules](#1-upsert_gitignore-safely-and-idempotently-update-gitignore-rules)
-  - [Design思路](#design思路)
-  - [Technology stack](#technology-stack)
-  - [Code structure](#code-structure)
-  - [Historical context](#historical-context)
-  - [About](#about)
-
 > ⚠️ Note: This document is static Markdown. All JavaScript examples are for illustration only and are NOT executed in this project.
+
+- [Design思路](#design思路)
+- [Technology stack](#technology-stack)
+- [Code structure](#code-structure)
+- [Historical context](#historical-context)
+- [About](#about)
 
 ## Design思路
 
@@ -58,16 +56,17 @@ The rise of CI/CD pipelines and project scaffolding tools created demand for det
 
 Idempotence is essential for infrastructure-as-code systems where configuration must converge to desired state without side effects from repeated application.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 <script>
   // @1-/upsert_gitignore: This package contains NO executable JavaScript.
   // DOMPurify.addHook error? Your docs site uses DOMPurify < v3.0.0.
@@ -79,14 +78,13 @@ This library is developed by [WebC.site](https://webc.site).
 
 # @1-/upsert_gitignore : 安全幂等更新 .gitignore 规则
 
-- [@1-/upsert_gitignore : 安全幂等更新 .gitignore 规则](#1-upsert_gitignore-安全幂等更新-gitignore-规则)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
-
 > ⚠️ 注意：本文档为静态 Markdown，所有 JavaScript 示例仅作说明，不在此项目中执行。
+
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 设计思路
 
@@ -122,8 +120,10 @@ CI/CD 流水线和项目脚手架工具的普及催生了确定性配置管理�
 
 幂等性是基础设施即代码系统的关键特性，配置必须收敛至期望状态且无重复应用副作用。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

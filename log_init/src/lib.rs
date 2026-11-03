@@ -32,11 +32,11 @@ where
 pub fn init() {
   INIT.call_once(|| {
     #[cfg(all(target_os = "linux", feature = "systemd"))]
-    if env::var_os("INVOCATION_ID").is_some() {
-      if let Ok(journald) = logforth_append_journald::Journald::new() {
-        init_with_appender(journald);
-        return;
-      }
+    if env::var_os("INVOCATION_ID").is_some()
+      && let Ok(journald) = logforth_append_journald::Journald::new()
+    {
+      init_with_appender(journald);
+      return;
     }
 
     #[cfg(feature = "stdout")]

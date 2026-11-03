@@ -1,6 +1,6 @@
 [package]
 name = "upload"
-version = "0.1.4"
+version = "0.1.5"
 edition = "2024"
 license = "MulanPSL-2.0"
 repository = "https://github.com/webc-site/npm.git"
@@ -52,7 +52,7 @@ path = "../ts_"
 features = [ "sec" ]
 
 [dependencies.ext_mime]
-version = "0.1.6"
+version = "0.1.7"
 path = "../ext_mime"
 
 [dependencies.reqwest]

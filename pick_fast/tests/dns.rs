@@ -1,5 +1,7 @@
 use std::{io, sync::Arc, time::Duration};
 
+use hickory_resolver::Resolver;
+
 mod dns_server;
 use aok::{OK, Void};
 use dns_server::{DNS_SERVER_LI, DnsServer};
@@ -26,7 +28,7 @@ fn create_resolver(server: &DnsServer) -> TokioResolver {
   let mut config = ResolverConfig::default();
   config.add_name_server(ns);
 
-  hickory_resolver::Resolver::builder_with_config(config, Default::default())
+  Resolver::builder_with_config(config, Default::default())
     .build()
     .unwrap()
 }

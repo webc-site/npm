@@ -2,6 +2,7 @@
 
 use std::ops::Deref;
 
+use blake3::Hasher;
 use rand_chacha::ChaCha20Rng;
 use rsa::{RsaPrivateKey, rand_core::SeedableRng};
 
@@ -40,7 +41,7 @@ impl Dkim {
 
 impl Sk {
   pub fn new(sk: impl AsRef<[u8]>) -> Self {
-    let mut hasher = blake3::Hasher::new();
+    let mut hasher = Hasher::new();
     hasher.update(sk.as_ref());
     Self { hasher }
   }

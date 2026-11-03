@@ -1,14 +1,16 @@
 use std::sync::Arc;
 
 use mail_send::mail_auth::{
-  common::crypto::{RsaKey, Sha256},
-  dkim::{DkimSigner, Done},
+  crypto::{RsaKey, Sha256},
+  dkim::DkimSigner,
+  signer::Ready,
 };
 use papaya::HashMap;
 use rsa::pkcs1::EncodeRsaPrivateKey;
+use rustls_pki_types::{PrivateKeyDer, PrivatePkcs1KeyDer};
 use sk_dkim::Sk;
 
-type DkimSignerType = DkimSigner<RsaKey<Sha256>, Done>;
+type DkimSignerType = DkimSigner<RsaKey<Sha256>, Ready>;
 
 /// RFC 6376: 每个头部列出 N+1 次防止注入攻击
 /// RFC 6376: List each header N+1 times to prevent injection attacks
@@ -45,9 +47,9 @@ pub fn signer(selector: &str, host: &str, sk: &Sk) -> Option<Arc<DkimSignerType>
 
   let dkim = sk.dkim(selector, host);
   let der = dkim.to_pkcs1_der().ok()?;
-  let rsa_key = RsaKey::<Sha256>::from_key_der(rustls_pki_types::PrivateKeyDer::Pkcs1(
-    rustls_pki_types::PrivatePkcs1KeyDer::from(der.as_bytes()),
-  ))
+  let rsa_key = RsaKey::<Sha256>::from_key_der(PrivateKeyDer::Pkcs1(PrivatePkcs1KeyDer::from(
+    der.as_bytes(),
+  )))
   .ok()?;
 
   let signer = Arc::new(
@@ -63,7 +65,7 @@ pub fn signer(selector: &str, host: &str, sk: &Sk) -> Option<Arc<DkimSignerType>
 
 #[cfg(test)]
 mod tests {
-  use mail_send::mail_builder::MessageBuilder;
+  use mail_send::mail_builder::{MessageBuilder, headers::text::Text};
 
   use super::*;
 
@@ -78,11 +80,11 @@ mod tests {
       .subject("Subject")
       .header(
         "List-Unsubscribe",
-        mail_send::mail_builder::headers::text::Text::new("<https://example.com/unsubscribe>"),
+        Text::new("<https://example.com/unsubscribe>"),
       )
       .header(
         "List-Unsubscribe-Post",
-        mail_send::mail_builder::headers::text::Text::new("List-Unsubscribe=One-Click"),
+        Text::new("List-Unsubscribe=One-Click"),
       )
       .text_body("Body");
 

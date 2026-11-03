@@ -3,29 +3,27 @@
 ---
 
 <a id="en"></a>
-
 # idns : Fast DNS Record Parsing with Racing Query
 
-- [idns : Fast DNS Record Parsing with Racing Query](#idns-fast-dns-record-parsing-with-racing-query)
-  - [Table of Contents](#table-of-contents)
-  - [Features](#features)
-  - [Installation](#installation)
-  - [Usage](#usage)
-    - [Query DNS Records](#query-dns-records)
-    - [SPF Verification](#spf-verification)
-  - [API Reference](#api-reference)
-    - [Structs](#structs)
-    - [Enums](#enums)
-    - [Traits](#traits)
-  - [Architecture](#architecture)
-    - [SPF Verification Flow](#spf-verification-flow)
-    - [Caching](#caching)
-  - [Project Structure](#project-structure)
-  - [Tech Stack](#tech-stack)
-  - [History](#history)
-  - [About](#about)
-
 DNS record parsing library with racing query support. Works with [idoq](https://crates.io/crates/idoq) (DNS over QUIC), [idot](https://crates.io/crates/idot) (DNS over TLS) and [idoh](https://crates.io/crates/idoh) (DNS over HTTPS).
+
+- [Table of Contents](#table-of-contents)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Query DNS Records](#query-dns-records)
+  - [SPF Verification](#spf-verification)
+- [API Reference](#api-reference)
+  - [Structs](#structs)
+  - [Enums](#enums)
+  - [Traits](#traits)
+- [Architecture](#architecture)
+  - [SPF Verification Flow](#spf-verification-flow)
+  - [Caching](#caching)
+- [Project Structure](#project-structure)
+- [Tech Stack](#tech-stack)
+- [History](#history)
+- [About](#about)
 
 ## Table of Contents
 
@@ -239,38 +237,38 @@ The "v=spf1" prefix you see in SPF records stands for "version SPF 1". Despite b
 
 Racing DNS queries, as implemented in this library, is a technique popularized by Google's "Happy Eyeballs" algorithm (RFC 6555). The idea is simple: send queries to multiple servers simultaneously and use the first response. This dramatically reduces latency in unreliable network conditions.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # idns : 竞速查询的 DNS 记录解析库
 
-- [idns : 竞速查询的 DNS 记录解析库](#idns-竞速查询的-dns-记录解析库)
-  - [目录](#目录)
-  - [特性](#特性)
-  - [安装](#安装)
-  - [使用](#使用)
-    - [查询 DNS 记录](#查询-dns-记录)
-    - [SPF 验证](#spf-验证)
-  - [API 参考](#api-参考)
-    - [结构体](#结构体)
-    - [枚举](#枚举)
-    - [Trait](#trait)
-  - [架构](#架构)
-    - [SPF 验证流程](#spf-验证流程)
-    - [缓存机制](#缓存机制)
-  - [项目结构](#项目结构)
-  - [技术栈](#技术栈)
-  - [历史](#历史)
-  - [关于](#关于)
-
 支持竞速查询的 DNS 记录解析库。可配合 [idoq](https://crates.io/crates/idoq)（DNS over QUIC）、[idot](https://crates.io/crates/idot)（DNS over TLS）和 [idoh](https://crates.io/crates/idoh)（DNS over HTTPS）使用。
+
+- [目录](#目录)
+- [特性](#特性)
+- [安装](#安装)
+- [使用](#使用)
+  - [查询 DNS 记录](#查询-dns-记录)
+  - [SPF 验证](#spf-验证)
+- [API 参考](#api-参考)
+  - [结构体](#结构体)
+  - [枚举](#枚举)
+  - [Trait](#trait)
+- [架构](#架构)
+  - [SPF 验证流程](#spf-验证流程)
+  - [缓存机制](#缓存机制)
+- [项目结构](#项目结构)
+- [技术栈](#技术栈)
+- [历史](#历史)
+- [关于](#关于)
 
 ## 目录
 
@@ -484,8 +482,10 @@ SPF 记录中的 "v=spf1" 前缀表示 "SPF 版本 1"。尽管已有 20 多年�
 
 本库实现的竞速 DNS 查询技术源自 Google 的 "Happy Eyeballs" 算法（RFC 6555）。原理很简单：同时向多个服务器发送查询，使用最先返回的响应。这在不稳定的网络环境下能显著降低延迟。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

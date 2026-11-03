@@ -3,17 +3,15 @@
 ---
 
 <a id="en"></a>
-
 # @1-/s3 : Minimalist S3 uploader with SHA3-256 deduplication
 
-- [@1-/s3 : Minimalist S3 uploader with SHA3-256 deduplication](#1-s3-minimalist-s3-uploader-with-sha3-256-deduplication)
-  - [Features](#features)
-  - [Usage](#usage)
-  - [Design](#design)
-  - [Tech Stack](#tech-stack)
-  - [Code Structure](#code-structure)
-  - [History](#history)
-  - [About](#about)
+- [Features](#features)
+- [Usage](#usage)
+- [Design](#design)
+- [Tech Stack](#tech-stack)
+- [Code Structure](#code-structure)
+- [History](#history)
+- [About](#about)
 
 ## Features
 
@@ -79,26 +77,26 @@ Content-Addressable Storage (CAS) trace back to the Venti backup system of Bell 
 
 This library combines both ideas, calculating SHA3-256 hashes on client-side to achieve cost-effective S3 upload deduplication with minimal code size.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/s3 : 基于 SHA3-256 哈希去重的极简 S3 上传工具
 
-- [@1-/s3 : 基于 SHA3-256 哈希去重的极简 S3 上传工具](#1-s3-基于-sha3-256-哈希去重的极简-s3-上传工具)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -164,8 +162,10 @@ AWS S3 于 2006 年由亚马逊推出，开启了云计算对象存储时代，�
 
 本工具将内容寻址与 S3 存储结合，在客户端完成 SHA3-256 计算，以精简的代码实现存储去重。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

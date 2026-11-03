@@ -3,31 +3,29 @@
 ---
 
 <a id="en"></a>
-
 # race : Staggered Async Task Executor
 
-- [race : Staggered Async Task Executor](#race-staggered-async-task-executor)
-  - [Table of Contents](#table-of-contents)
-  - [Introduction](#introduction)
-  - [Features](#features)
-  - [Installation](#installation)
-  - [Usage](#usage)
-    - [Basic Usage](#basic-usage)
-    - [DNS Resolution with Staggered Requests](#dns-resolution-with-staggered-requests)
-    - [Infinite Task Streams](#infinite-task-streams)
-    - [Non-Copy Types](#non-copy-types)
-  - [Design](#design)
-    - [Execution Flow](#execution-flow)
-    - [Key Design Decisions](#key-design-decisions)
-  - [API Reference](#api-reference)
-    - [`Race<'a, A, T, E, G, Fut, I>`](#racea-a-t-e-g-fut-i)
-      - [`new(step: std::time::Duration, run: G, args_li: impl IntoIterator) -> Self`](#newstep-stdtimeduration-run-g-args_li-impl-intoiterator-self)
-      - [`Stream::poll_next`](#streampoll_next)
-  - [Performance](#performance)
-  - [Tech Stack](#tech-stack)
-  - [Project Structure](#project-structure)
-  - [History](#history)
-  - [About](#about)
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Basic Usage](#basic-usage)
+  - [DNS Resolution with Staggered Requests](#dns-resolution-with-staggered-requests)
+  - [Infinite Task Streams](#infinite-task-streams)
+  - [Non-Copy Types](#non-copy-types)
+- [Design](#design)
+  - [Execution Flow](#execution-flow)
+  - [Key Design Decisions](#key-design-decisions)
+- [API Reference](#api-reference)
+  - [`Race<'a, A, T, E, G, Fut, I>`](#racea-a-t-e-g-fut-i)
+    - [`new(step: std::time::Duration, run: G, args_li: impl IntoIterator) -> Self`](#newstep-stdtimeduration-run-g-args_li-impl-intoiterator-self)
+    - [`Stream::poll_next`](#streampoll_next)
+- [Performance](#performance)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [History](#history)
+- [About](#about)
 
 ## Table of Contents
 
@@ -362,40 +360,40 @@ Hedged requests help reduce tail latency by sending redundant requests after a d
 
 This Rust implementation adds modern optimizations like zero-cost abstractions, efficient time handling, and support for infinite streams.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # race : 阶梯式异步任务执行器
 
-- [race : 阶梯式异步任务执行器](#race-阶梯式异步任务执行器)
-  - [目录](#目录)
-  - [简介](#简介)
-  - [特性](#特性)
-  - [安装](#安装)
-  - [使用](#使用)
-    - [基本用法](#基本用法)
-    - [DNS 阶梯解析](#dns-阶梯解析)
-    - [无限任务流](#无限任务流)
-    - [非 Copy 类型](#非-copy-类型)
-  - [设计](#设计)
-    - [执行流程](#执行流程)
-    - [关键设计决策](#关键设计决策)
-  - [API 参考](#api-参考)
-    - [`Race<'a, A, T, E, G, Fut, I>`](#racea-a-t-e-g-fut-i)
-      - [`new(step: std::time::Duration, run: G, args_li: impl IntoIterator) -> Self`](#newstep-stdtimeduration-run-g-args_li-impl-intoiterator-self)
-      - [`Stream::poll_next`](#streampoll_next)
-  - [性能](#性能)
-  - [技术栈](#技术栈)
-  - [目录结构](#目录结构)
-  - [历史](#历史)
-  - [关于](#关于)
+- [目录](#目录)
+- [简介](#简介)
+- [特性](#特性)
+- [安装](#安装)
+- [使用](#使用)
+  - [基本用法](#基本用法)
+  - [DNS 阶梯解析](#dns-阶梯解析)
+  - [无限任务流](#无限任务流)
+  - [非 Copy 类型](#非-copy-类型)
+- [设计](#设计)
+  - [执行流程](#执行流程)
+  - [关键设计决策](#关键设计决策)
+- [API 参考](#api-参考)
+  - [`Race<'a, A, T, E, G, Fut, I>`](#racea-a-t-e-g-fut-i)
+    - [`new(step: std::time::Duration, run: G, args_li: impl IntoIterator) -> Self`](#newstep-stdtimeduration-run-g-args_li-impl-intoiterator-self)
+    - [`Stream::poll_next`](#streampoll_next)
+- [性能](#性能)
+- [技术栈](#技术栈)
+- [目录结构](#目录结构)
+- [历史](#历史)
+- [关于](#关于)
 
 ## 目录
 
@@ -728,8 +726,10 @@ race/
 
 对冲请求通过延迟发送冗余请求来降低尾延迟，使用最先到达的响应。该技术广泛应用于 Google、Amazon 等大规模分布式系统。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

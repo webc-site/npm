@@ -1,5 +1,6 @@
 use aok::{OK, Void};
 use idns::Query;
+use idot::QType;
 use jiff::Zoned;
 use log::info;
 use mail_send::{
@@ -28,9 +29,7 @@ async fn test_dkim_verify() -> Void {
 
   // Verify TXT record from DNS
   let txt_record_name = format!("{}._domainkey.{}", SELECTOR, DOMAIN);
-  let answers = idot::DOT
-    .answer_li(idot::QType::Txt, &txt_record_name)
-    .await?;
+  let answers = idot::DOT.answer_li(QType::Txt, &txt_record_name).await?;
 
   let mut dns_txt = None;
   if let Some(answers) = answers {

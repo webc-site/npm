@@ -3,10 +3,11 @@ use std::{str::from_utf8, sync::Arc};
 use aok::{OK, Void};
 use fred::interfaces::KeysInterface;
 use mail_send::mail_auth::{
-  common::crypto::{RsaKey, Sha256},
+  crypto::{RsaKey, Sha256},
   dkim::DkimSigner,
 };
 use mail_struct::{Mail, UserMail};
+use rustls_pki_types::{PrivateKeyDer, PrivatePkcs1KeyDer, PrivatePkcs8KeyDer};
 use smtp_send::{Send, send};
 
 use crate::r;
@@ -43,14 +44,11 @@ pub(crate) async fn sign_and_send(sk: &[u8; 32], host_id_bytes: &[u8], mut mail:
     let private_key_der: Option<Vec<u8>> =
       xkv::R.get(&host_dkim_private_key[..]).await.ok().flatten();
     if let Some(der) = private_key_der {
-      let rsa_key = RsaKey::<Sha256>::from_key_der(rustls_pki_types::PrivateKeyDer::Pkcs8(
-        rustls_pki_types::PrivatePkcs8KeyDer::from(der.clone()),
-      ))
-      .or_else(|_| {
-        RsaKey::<Sha256>::from_key_der(rustls_pki_types::PrivateKeyDer::Pkcs1(
-          rustls_pki_types::PrivatePkcs1KeyDer::from(der),
-        ))
-      });
+      let rsa_key =
+        RsaKey::<Sha256>::from_key_der(PrivateKeyDer::Pkcs8(PrivatePkcs8KeyDer::from(der.clone())))
+          .or_else(|_| {
+            RsaKey::<Sha256>::from_key_der(PrivateKeyDer::Pkcs1(PrivatePkcs1KeyDer::from(der)))
+          });
 
       if let Ok(rsa_key) = rsa_key {
         let signer = Arc::new(

@@ -3,17 +3,15 @@
 ---
 
 <a id="en"></a>
-
 # package_clean : Clean package.json for publishing
 
-- [package_clean : Clean package.json for publishing](#package_clean-clean-packagejson-for-publishing)
-  - [Functionality](#functionality)
-  - [Usage demonstration](#usage-demonstration)
-  - [Design rationale](#design-rationale)
-  - [Technology stack](#technology-stack)
-  - [Code structure](#code-structure)
-  - [Historical context](#historical-context)
-  - [About](#about)
+- [Functionality](#functionality)
+- [Usage demonstration](#usage-demonstration)
+- [Design rationale](#design-rationale)
+- [Technology stack](#technology-stack)
+- [Code structure](#code-structure)
+- [Historical context](#historical-context)
+- [About](#about)
 
 ## Functionality
 
@@ -79,26 +77,26 @@ test/
 
 Package.json cleaning tools emerged alongside the npm ecosystem's evolution. As JavaScript packaging matured, developers needed ways to distinguish between development and production dependencies. The concept of "clean" package configurations predates modern bundlers, appearing in early Node.js tooling to ensure consistent publishing behavior across different environments.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # package_clean : 清理 package.json 以供发布
 
-- [package_clean : 清理 package.json 以供发布](#package_clean-清理-packagejson-以供发布)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -164,8 +162,10 @@ test/
 
 package.json 清理工具随着 npm 生态系统的演进而出现。随着 JavaScript 打包技术的发展，开发者需要区分开发依赖和生产依赖。"精简" package 配置的概念早于现代打包器，在早期 Node.js 工具链中就已存在，旨在确保不同环境中发布行为的一致性。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

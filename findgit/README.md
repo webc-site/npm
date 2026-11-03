@@ -3,18 +3,16 @@
 ---
 
 <a id="en"></a>
-
 # @1-/findgit : Find Git repository root directory upward
 
-- [@1-/findgit : Find Git repository root directory upward](#1-findgit-find-git-repository-root-directory-upward)
-  - [Table of Contents](#table-of-contents)
-  - [Features](#features)
-  - [Usage](#usage)
-  - [Design](#design)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [History Trivia](#history-trivia)
-  - [About](#about)
+- [Table of Contents](#table-of-contents)
+- [Features](#features)
+- [Usage](#usage)
+- [Design](#design)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [History Trivia](#history-trivia)
+- [About](#about)
 
 ## Table of Contents
 
@@ -85,27 +83,27 @@ Git discarded the traditional CVS/SVN model of placing metadata folders in every
 While this choice simplified version control management, it created a new requirement for toolchains and build tools running in nested folders to search upward recursively to find the repository boundary.
 `@1-/findgit` implements this lookup pattern with minimal overhead.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/findgit : 向上寻找 Git 仓库根目录
 
-- [@1-/findgit : 向上寻找 Git 仓库根目录](#1-findgit-向上寻找-git-仓库根目录)
-  - [目录](#目录)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [目录](#目录)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 目录
 
@@ -176,8 +174,10 @@ graph TD
 这种变革简化了版本管理，但也带来新需求：各种构建与辅助工具在子目录工作时，需要递归向上检索 `.git` 目录以确定项目边界。
 本项目以此为核心功能，提供极简的定位实现。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

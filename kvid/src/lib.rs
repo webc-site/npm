@@ -8,7 +8,7 @@ use std::{
 
 pub use error::{Error, Result};
 use hipstr::HipStr;
-use parking_lot::{Mutex, RawMutex, lock_api::RawMutex as _};
+use parking_lot::Mutex;
 use tokio::sync::Mutex as AsyncMutex;
 use ts_::sec as ts_sec;
 
@@ -101,9 +101,7 @@ impl KvId {
     Self {
       name: HipStr::borrowed(name),
       fast: Fast::new(),
-      // RawMutex::INIT 是初始状态值，非共享实例
-      // RawMutex::INIT is init state value, not shared instance
-      slow: Mutex::const_new(RawMutex::INIT, Slow::new()),
+      slow: Mutex::new(Slow::new()),
       fetch_lock: AsyncMutex::const_new(()),
     }
   }

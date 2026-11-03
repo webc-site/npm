@@ -8,6 +8,7 @@ use std::{
 use ireq::Error;
 #[cfg(feature = "retry")]
 use ireq::{REQ, retry};
+use reqwest::StatusCode;
 use tokio::{
   io::{AsyncReadExt, AsyncWriteExt},
   net::TcpListener,
@@ -109,7 +110,7 @@ async fn test_error_status() {
   let res = ireq::get(&url).await;
   assert!(res.is_err());
   if let Err(Error::Status(response)) = res {
-    assert_eq!(response.status(), reqwest::StatusCode::NOT_FOUND);
+    assert_eq!(response.status(), StatusCode::NOT_FOUND);
   } else {
     panic!("expected Error::Status");
   }

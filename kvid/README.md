@@ -3,30 +3,7 @@
 ---
 
 <a id="en"></a>
-
 # kvid : Distributed ID Generator with Dual-Segment Preloading
-
-- [kvid : Distributed ID Generator with Dual-Segment Preloading](#kvid-distributed-id-generator-with-dual-segment-preloading)
-  - [Introduction](#introduction)
-  - [Features](#features)
-  - [Usage](#usage)
-  - [API Reference](#api-reference)
-    - [Constants](#constants)
-    - [KvId](#kvid)
-    - [Error](#error)
-  - [Design](#design)
-    - [Dual-Segment Architecture](#dual-segment-architecture)
-    - [next() Flow](#next-flow)
-    - [spawn_fill() Background Preload](#spawn_fill-background-preload)
-    - [Data Structures](#data-structures)
-    - [Dynamic Step Algorithm](#dynamic-step-algorithm)
-    - [Redis Storage](#redis-storage)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [Competitors](#competitors)
-  - [ID Generation Algorithms](#id-generation-algorithms)
-  - [History](#history)
-  - [About](#about)
 
 - [Introduction](#introduction)
 - [Features](#features)
@@ -38,6 +15,27 @@
 - [Competitors](#competitors)
 - [ID Generation Algorithms](#id-generation-algorithms)
 - [History](#history)
+
+- [Introduction](#introduction)
+- [Features](#features)
+- [Usage](#usage)
+- [API Reference](#api-reference)
+  - [Constants](#constants)
+  - [KvId](#kvid)
+  - [Error](#error)
+- [Design](#design)
+  - [Dual-Segment Architecture](#dual-segment-architecture)
+  - [next() Flow](#next-flow)
+  - [spawn_fill() Background Preload](#spawn_fill-background-preload)
+  - [Data Structures](#data-structures)
+  - [Dynamic Step Algorithm](#dynamic-step-algorithm)
+  - [Redis Storage](#redis-storage)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [Competitors](#competitors)
+- [ID Generation Algorithms](#id-generation-algorithms)
+- [History](#history)
+- [About](#about)
 
 ## Introduction
 
@@ -292,39 +290,18 @@ The segment approach trades small ID gaps for clock independence. kvid advances 
 
 Fun fact: Redis HINCRBY, the atomic operation kvid relies on, was added in Redis 2.0 (2010) - the same year Snowflake was released. Both solutions emerged from the same era of distributed systems challenges.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # kvid : 双号段预加载的分布式 ID 生成器
-
-- [kvid : 双号段预加载的分布式 ID 生成器](#kvid-双号段预加载的分布式-id-生成器)
-  - [项目介绍](#项目介绍)
-  - [特性](#特性)
-  - [使用演示](#使用演示)
-  - [API 参考](#api-参考)
-    - [常量](#常量)
-    - [KvId](#kvid)
-    - [Error](#error)
-  - [设计思路](#设计思路)
-    - [双号段架构](#双号段架构)
-    - [next() 流程](#next-流程)
-    - [spawn_fill() 后台预加载](#spawn_fill-后台预加载)
-    - [数据结构](#数据结构)
-    - [动态步长算法](#动态步长算法)
-    - [Redis 存储](#redis-存储)
-  - [技术栈](#技术栈)
-  - [目录结构](#目录结构)
-  - [竞品对比](#竞品对比)
-  - [ID 生成算法对比](#id-生成算法对比)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
 
 - [项目介绍](#项目介绍)
 - [特性](#特性)
@@ -336,6 +313,27 @@ This library is developed by [WebC.site](https://webc.site).
 - [竞品对比](#竞品对比)
 - [ID 生成算法对比](#id-生成算法对比)
 - [历史故事](#历史故事)
+
+- [项目介绍](#项目介绍)
+- [特性](#特性)
+- [使用演示](#使用演示)
+- [API 参考](#api-参考)
+  - [常量](#常量)
+  - [KvId](#kvid)
+  - [Error](#error)
+- [设计思路](#设计思路)
+  - [双号段架构](#双号段架构)
+  - [next() 流程](#next-流程)
+  - [spawn_fill() 后台预加载](#spawn_fill-后台预加载)
+  - [数据结构](#数据结构)
+  - [动态步长算法](#动态步长算法)
+  - [Redis 存储](#redis-存储)
+- [技术栈](#技术栈)
+- [目录结构](#目录结构)
+- [竞品对比](#竞品对比)
+- [ID 生成算法对比](#id-生成算法对比)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 项目介绍
 
@@ -590,8 +588,10 @@ kvid 优势：Rust 实现、无锁快速路径、双号段预加载、静态全�
 
 趣闻：kvid 依赖的 Redis HINCRBY 命令在 Redis 2.0 (2010) 中引入——与 Snowflake 发布同年。两种方案诞生于分布式系统挑战的同一时代。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

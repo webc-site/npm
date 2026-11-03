@@ -3,17 +3,15 @@
 ---
 
 <a id="en"></a>
-
 # @1-/tran : Command-line translation tool for i18n
 
-- [@1-/tran : Command-line translation tool for i18n](#1-tran-command-line-translation-tool-for-i18n)
-  - [Functionality](#functionality)
-  - [Usage demonstration](#usage-demonstration)
-  - [Design approach](#design-approach)
-  - [Technology stack](#technology-stack)
-  - [Code structure](#code-structure)
-  - [Historical context](#historical-context)
-  - [About](#about)
+- [Functionality](#functionality)
+- [Usage demonstration](#usage-demonstration)
+- [Design approach](#design-approach)
+- [Technology stack](#technology-stack)
+- [Code structure](#code-structure)
+- [Historical context](#historical-context)
+- [About](#about)
 
 ## Functionality
 
@@ -98,26 +96,26 @@ src/
 
 In 1954, Georgetown University and IBM demonstrated the first public machine translation system, automatically translating Russian sentences into English. Using only 250 words and six grammar rules, this experiment marked the formal beginning of computational linguistics and automated translation. Modern tools like @1-/tran inherit this vision, leveraging neural networks and large language models to deliver high-accuracy, context-aware multilingual content processing.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/tran : 命令行国际化翻译工具
 
-- [@1-/tran : 命令行国际化翻译工具](#1-tran-命令行国际化翻译工具)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -202,8 +200,10 @@ src/
 
 1954 年，乔治城大学与 IBM 合作完成首次公开的机器翻译演示，将俄语句子自动翻译为英语。该实验仅使用 250 个词汇和六条语法规则，标志着计算语言学与自动化翻译的正式开端。现代工具如 @1-/tran 继承这一理念，依托神经网络与大语言模型，实现高精度、上下文感知的多语言内容处理。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

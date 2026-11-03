@@ -5,14 +5,13 @@
 <a id="en"></a>
 # @1-/format : Lightweight modular code formatter for JavaScript, Stylus, and SVG
 
-- [@1-/format : Lightweight modular code formatter for JavaScript, Stylus, and SVG](#1-format-lightweight-modular-code-formatter-for-javascript-stylus-and-svg)
-  - [Functionality](#functionality)
-  - [Usage demonstration](#usage-demonstration)
-  - [Design philosophy](#design-philosophy)
-  - [Technology stack](#technology-stack)
-  - [Code structure](#code-structure)
-  - [Historical context](#historical-context)
-  - [About](#about)
+- [Functionality](#functionality)
+- [Usage demonstration](#usage-demonstration)
+- [Design philosophy](#design-philosophy)
+- [Technology stack](#technology-stack)
+- [Code structure](#code-structure)
+- [Historical context](#historical-context)
+- [About](#about)
 
 ## Functionality
 Format code consistently across multiple languages using language-specific processors. Supports:
@@ -85,14 +84,13 @@ This library is developed by [WebC.site](https://webc.site).
 <a id="zh"></a>
 # @1-/format : 轻量级模块化代码格式化工具，支持 JavaScript、Stylus 和 SVG
 
-- [@1-/format : 轻量级模块化代码格式化工具，支持 JavaScript、Stylus 和 SVG](#1-format-轻量级模块化代码格式化工具支持-javascriptstylus-和-svg)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 使用语言特定处理器一致地格式化多种语言代码。支持：

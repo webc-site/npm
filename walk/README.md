@@ -3,23 +3,21 @@
 ---
 
 <a id="en"></a>
-
 # @1-/walk : Concurrency-controlled directory traversal library with directory skipping
 
-- [@1-/walk : Concurrency-controlled directory traversal library with directory skipping](#1-walk-concurrency-controlled-directory-traversal-library-with-directory-skipping)
-  - [Features](#features)
-  - [Usage](#usage)
-    - [Installation](#installation)
-    - [Absolute Path Traversal (`walk`)](#absolute-path-traversal-walk)
-    - [Relative Path Traversal (`walkRel`)](#relative-path-traversal-walkrel)
-    - [Preconfigured Ignore Traversal (`walkRelIgnore`)](#preconfigured-ignore-traversal-walkrelignore)
-  - [Design Flow](#design-flow)
-  - [Tech Stack](#tech-stack)
-  - [Code Structure](#code-structure)
-  - [Historical Trivia](#historical-trivia)
-  - [About](#about)
-
 Directory traversal library for Node.js and Bun with concurrency limit and directory skipping.
+
+- [Features](#features)
+- [Usage](#usage)
+  - [Installation](#installation)
+  - [Absolute Path Traversal (`walk`)](#absolute-path-traversal-walk)
+  - [Relative Path Traversal (`walkRel`)](#relative-path-traversal-walkrel)
+  - [Preconfigured Ignore Traversal (`walkRelIgnore`)](#preconfigured-ignore-traversal-walkrelignore)
+- [Design Flow](#design-flow)
+- [Tech Stack](#tech-stack)
+- [Code Structure](#code-structure)
+- [Historical Trivia](#historical-trivia)
+- [About](#about)
 
 ## Features
 
@@ -131,26 +129,25 @@ This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/walk : 并发受控且支持目录跳过的快速文件遍历工具
 
-- [@1-/walk : 并发受控且支持目录跳过的快速文件遍历工具](#1-walk-并发受控且支持目录跳过的快速文件遍历工具)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-    - [安装](#安装)
-    - [绝对路径遍历 (`walk`)](#绝对路径遍历-walk)
-    - [相对路径遍历 (`walkRel`)](#相对路径遍历-walkrel)
-    - [预设忽略遍历 (`walkRelIgnore`)](#预设忽略遍历-walkrelignore)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
-
 提供并发限制、目录跳过及路径过滤功能的文件系统遍历库。
+
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+  - [安装](#安装)
+  - [绝对路径遍历 (`walk`)](#绝对路径遍历-walk)
+  - [相对路径遍历 (`walkRel`)](#相对路径遍历-walkrel)
+  - [预设忽略遍历 (`walkRelIgnore`)](#预设忽略遍历-walkrelignore)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -261,3 +258,4 @@ graph TD
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

@@ -3,17 +3,15 @@
 ---
 
 <a id="en"></a>
-
 # @1-/ipv4 : Convert IPv4 addresses to and from 32-bit integers
 
-- [@1-/ipv4 : Convert IPv4 addresses to and from 32-bit integers](#1-ipv4-convert-ipv4-addresses-to-and-from-32-bit-integers)
-  - [Functionality](#functionality)
-  - [Usage demonstration](#usage-demonstration)
-  - [Design rationale](#design-rationale)
-  - [Technology stack](#technology-stack)
-  - [Code structure](#code-structure)
-  - [Historical context](#historical-context)
-  - [About](#about)
+- [Functionality](#functionality)
+- [Usage demonstration](#usage-demonstration)
+- [Design rationale](#design-rationale)
+- [Technology stack](#technology-stack)
+- [Code structure](#code-structure)
+- [Historical context](#historical-context)
+- [About](#about)
 
 ## Functionality
 
@@ -80,26 +78,26 @@ src/
 
 The IPv4 addressing scheme was standardized in 1981 with RFC 791. Its 32-bit design allowed approximately 4.3 billion unique addresses, which seemed abundant at the time. The conversion between dotted-decimal notation and integer representation became essential for network programming, enabling efficient subnet calculations and routing table implementations. This library implements the fundamental conversion operations that underpin modern network infrastructure.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/ipv4 : IPv4 地址与 32 位整数双向转换
 
-- [@1-/ipv4 : IPv4 地址与 32 位整数双向转换](#1-ipv4-ipv4-地址与-32-位整数双向转换)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -166,8 +164,10 @@ src/
 
 IPv4 地址方案于 1981 年 RFC 791 标准化。其 32 位设计可提供约 43 亿个唯一地址，在当时看似充足。IPv4 点分十进制表示法与整数表示法之间的转换成为网络编程基础，支撑子网计算和路由表实现。本库实现了现代网络基础设施所依赖的核心转换操作。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

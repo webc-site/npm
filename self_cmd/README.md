@@ -3,21 +3,7 @@
 ---
 
 <a id="en"></a>
-
 # self_cmd: Self-Executing Command Builder
-
-- [self_cmd: Self-Executing Command Builder](#self_cmd-self-executing-command-builder)
-  - [Overview](#overview)
-  - [Features](#features)
-  - [Usage](#usage)
-  - [Design Philosophy](#design-philosophy)
-  - [Technical Stack](#technical-stack)
-  - [Project Structure](#project-structure)
-  - [API Reference](#api-reference)
-    - [`get() -> Result<Command>`](#get-resultcommand)
-    - [`fd_mapping() -> Result<Vec<FdMapping>>` (Linux only)](#fd_mapping-resultvecfdmapping-linux-only)
-  - [Error Handling](#error-handling)
-  - [About](#about)
 
 - [Overview](#overview)
 - [Features](#features)
@@ -27,6 +13,18 @@
 - [Project Structure](#project-structure)
 - [API Reference](#api-reference)
 - [Error Handling](#error-handling)
+
+- [Overview](#overview)
+- [Features](#features)
+- [Usage](#usage)
+- [Design Philosophy](#design-philosophy)
+- [Technical Stack](#technical-stack)
+- [Project Structure](#project-structure)
+- [API Reference](#api-reference)
+  - [`get() -> Result<Command>`](#get-resultcommand)
+  - [`fd_mapping() -> Result<Vec<FdMapping>>` (Linux only)](#fd_mapping-resultvecfdmapping-linux-only)
+- [Error Handling](#error-handling)
+- [About](#about)
 
 ## Overview
 
@@ -195,30 +193,18 @@ All public functions return `Result<T>` which is an alias for `std::result::Resu
 - **Debugging Support**: Rich error messages with context
 - **Integration**: Seamless integration with `?` operator and error handling patterns
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # self_cmd: 自执行命令构建器
-
-- [self_cmd: 自执行命令构建器](#self_cmd-自执行命令构建器)
-  - [概述](#概述)
-  - [功能特性](#功能特性)
-  - [使用方法](#使用方法)
-  - [设计理念](#设计理念)
-  - [技术栈](#技术栈)
-  - [项目结构](#项目结构)
-  - [API 参考](#api-参考)
-    - [`get() -> Result<Command>`](#get-resultcommand)
-    - [`fd_mapping() -> Result<Vec<FdMapping>>` (仅 Linux)](#fd_mapping-resultvecfdmapping-仅-linux)
-  - [错误处理](#错误处理)
-  - [关于](#关于)
 
 - [概述](#概述)
 - [功能特性](#功能特性)
@@ -228,6 +214,18 @@ This library is developed by [WebC.site](https://webc.site).
 - [项目结构](#项目结构)
 - [API 参考](#api-参考)
 - [错误处理](#错误处理)
+
+- [概述](#概述)
+- [功能特性](#功能特性)
+- [使用方法](#使用方法)
+- [设计理念](#设计理念)
+- [技术栈](#技术栈)
+- [项目结构](#项目结构)
+- [API 参考](#api-参考)
+  - [`get() -> Result<Command>`](#get-resultcommand)
+  - [`fd_mapping() -> Result<Vec<FdMapping>>` (仅 Linux)](#fd_mapping-resultvecfdmapping-仅-linux)
+- [错误处理](#错误处理)
+- [关于](#关于)
 
 ## 概述
 
@@ -396,8 +394,10 @@ pub enum Error {
 - **调试支持**: 带有上下文的丰富错误消息
 - **集成**: 与 `?` 操作符和错误处理模式的无缝集成
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

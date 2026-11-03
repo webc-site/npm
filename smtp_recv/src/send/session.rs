@@ -1,5 +1,5 @@
 use auth_trait::Auth;
-use mail_struct::UserMail;
+use mail_struct::{Mail, UserMail};
 use tokio::{
   io::{BufReader, split},
   net::TcpStream,
@@ -201,7 +201,7 @@ impl<A: Auth, M: Mailer> Session<A, M> {
     let body = read_mail(&mut self.stream).await?;
 
     if let Some(sender) = self.send_to.take_sender()
-      && let Some(mail) = mail_struct::Mail::new(&sender, self.send_to.take_to_li(), body)
+      && let Some(mail) = Mail::new(&sender, self.send_to.take_to_li(), body)
     {
       let user_mail = UserMail {
         user_id: self.user_id,

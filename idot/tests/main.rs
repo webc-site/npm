@@ -1,7 +1,7 @@
 use std::time::Instant;
 
 use aok::{OK, Void};
-use idns::Query;
+use idns::{DnsRace, Query};
 use idot::{DOT_LI, Dot, QType, dot_li, host_ip};
 use log::info;
 
@@ -37,7 +37,7 @@ async fn test_aaaa() -> Void {
 
 #[tokio::test]
 async fn test_race() -> Void {
-  let race = idns::DnsRace::new(dot_li(DOT_LI));
+  let race = DnsRace::new(dot_li(DOT_LI));
 
   if let Some(answers) = race.answer_li(QType::A, "github.com").await? {
     for a in &answers {
@@ -51,7 +51,7 @@ async fn test_race() -> Void {
 /// 测试 salesforce.com MX 记录查询
 #[tokio::test]
 async fn test_salesforce_mx() -> Void {
-  let race = idns::DnsRace::new(dot_li(DOT_LI));
+  let race = DnsRace::new(dot_li(DOT_LI));
   let answers = race.answer_li(QType::Mx, "salesforce.com").await?;
 
   let count = answers.as_ref().map(|v| v.len()).unwrap_or(0);

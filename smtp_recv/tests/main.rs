@@ -9,7 +9,7 @@ use lettre::{
   },
 };
 use mail_parser::MessageParser;
-use rapidhash::HashSetExt;
+use rapidhash::{HashSetExt, RapidHashSet};
 use rustls::crypto::ring::default_provider;
 use serde::Deserialize;
 use smtp_recv::run;
@@ -34,7 +34,7 @@ impl mail_forward::Forward for SimpleForward {
   }
 
   async fn forward_set(&self, set: &[String]) -> aok::Result<Vec<String>> {
-    let mut res = rapidhash::RapidHashSet::new();
+    let mut res = RapidHashSet::new();
     for s in set {
       res.insert(s.to_string());
     }
@@ -93,25 +93,18 @@ impl smtp_recv::Mailer for PrintMailer {
   async fn forward(&self, mail: mail_struct::Mail) -> anyhow::Result<()> {
     let message = MessageParser::default().parse(&mail.body).unwrap();
 
-    fn print_addrs(prefix: &str, addrs: &mail_parser::Address) {
-      match addrs {
-        mail_parser::Address::List(list) => {
-          let formatted: Vec<String> = list
-            .iter()
-            .map(|addr| {
-              if let Some(name) = &addr.name {
-                format!("{} <{}>", name, addr.address.as_deref().unwrap_or(""))
-              } else {
-                addr.address.as_deref().unwrap_or("").to_string()
-              }
-            })
-            .collect();
-          println!("{}: {}", prefix, formatted.join(", "));
-        }
-        mail_parser::Address::Group(groups) => {
-          println!("{}: (Group) {:?}", prefix, groups);
-        }
-      }
+    fn print_addrs(prefix: &str, addrs: mail_parser::AddressList) {
+      let formatted: Vec<String> = addrs
+        .mailboxes()
+        .map(|addr| {
+          if let Some(name) = addr.name() {
+            format!("{} <{}>", name, addr.address().unwrap_or(""))
+          } else {
+            addr.address().unwrap_or("").to_string()
+          }
+        })
+        .collect();
+      println!("{}: {}", prefix, formatted.join(", "));
     }
 
     if let Some(from) = message.from() {
@@ -194,47 +187,44 @@ async fn test_send() -> Result<()> {
 
     // 验证发件人
     let from = message.from().unwrap().first().unwrap();
-    assert_eq!(from.name.as_deref(), expected_mail.sender.name.as_deref());
-    assert_eq!(
-      from.address.as_deref().unwrap(),
-      expected_mail.sender.address
-    );
+    assert_eq!(from.name(), expected_mail.sender.name.as_deref());
+    assert_eq!(from.address().unwrap(), expected_mail.sender.address);
 
     // 验证收件人
     if !expected_mail.to.is_empty() {
       let to = message.to().unwrap();
-      let to_li: Vec<_> = to.iter().collect();
+      let to_li: Vec<_> = to.mailboxes().collect();
       assert_eq!(to_li.len(), expected_mail.to.len());
       for (j, expected_to) in expected_mail.to.iter().enumerate() {
-        assert_eq!(to_li[j].name.as_deref(), expected_to.name.as_deref());
-        assert_eq!(to_li[j].address.as_deref().unwrap(), expected_to.address);
+        assert_eq!(to_li[j].name(), expected_to.name.as_deref());
+        assert_eq!(to_li[j].address().unwrap(), expected_to.address);
       }
     }
 
     // 验证抄送
     if !expected_mail.cc.is_empty() {
       let cc = message.cc().unwrap();
-      let cc_list: Vec<_> = cc.iter().collect();
+      let cc_list: Vec<_> = cc.mailboxes().collect();
       assert_eq!(cc_list.len(), expected_mail.cc.len());
       for (j, expected_cc) in expected_mail.cc.iter().enumerate() {
-        assert_eq!(cc_list[j].name.as_deref(), expected_cc.name.as_deref());
-        assert_eq!(cc_list[j].address.as_deref().unwrap(), expected_cc.address);
+        assert_eq!(cc_list[j].name(), expected_cc.name.as_deref());
+        assert_eq!(cc_list[j].address().unwrap(), expected_cc.address);
       }
     }
 
     // 验证密送 (通过信封收件人)
     // 收集所有 To 和 Cc 地址
-    let mut header_rcpts: rapidhash::RapidHashSet<String> = rapidhash::RapidHashSet::new();
+    let mut header_rcpts: rapidhash::RapidHashSet<String> = RapidHashSet::new();
     if let Some(to) = message.to() {
-      for addr in to.iter() {
-        if let Some(a) = &addr.address {
+      for addr in to.mailboxes() {
+        if let Some(a) = addr.address() {
           header_rcpts.insert(a.to_string());
         }
       }
     }
     if let Some(cc) = message.cc() {
-      for addr in cc.iter() {
-        if let Some(a) = &addr.address {
+      for addr in cc.mailboxes() {
+        if let Some(a) = addr.address() {
           header_rcpts.insert(a.to_string());
         }
       }

@@ -1,5 +1,6 @@
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
+use std::pin::pin;
 pub(crate) mod error;
 pub(crate) mod os;
 
@@ -69,7 +70,7 @@ pub async fn graceful_restart() {
 
   CANCEL.cancel();
 
-  let mut shutdown_fut = std::pin::pin!(timeout(SHUTDOWN_TIMEOUT, LOCK.write()));
+  let mut shutdown_fut = pin!(timeout(SHUTDOWN_TIMEOUT, LOCK.write()));
 
   loop {
     tokio::select! {

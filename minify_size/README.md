@@ -3,17 +3,15 @@
 ---
 
 <a id="en"></a>
-
 # @1-/minify_size : Minify JavaScript and report Brotli-compressed size
 
-- [@1-/minify_size : Minify JavaScript and report Brotli-compressed size](#1-minify_size-minify-javascript-and-report-brotli-compressed-size)
-  - [1. Functionality](#1-functionality)
-  - [2. Usage](#2-usage)
-  - [3. Design](#3-design)
-  - [4. Technology Stack](#4-technology-stack)
-  - [5. Code Structure](#5-code-structure)
-  - [6. History](#6-history)
-  - [About](#about)
+- [1. Functionality](#1-functionality)
+- [2. Usage](#2-usage)
+- [3. Design](#3-design)
+- [4. Technology Stack](#4-technology-stack)
+- [5. Code Structure](#5-code-structure)
+- [6. History](#6-history)
+- [About](#about)
 
 ## 1. Functionality
 
@@ -99,26 +97,26 @@ src/
 
 Brotli was developed by Jyrki Alakuijala and Zoltán Szabadka at Google in 2013. Initially designed for web font compression, it evolved into a general-purpose algorithm optimized for web transmission and became an industry standard (RFC 7932). Modern JavaScript bundlers like rolldown leverage Rust's performance for sub-second builds while maintaining compatibility with existing JavaScript tooling ecosystems.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/minify_size : Minify JavaScript and report Brotli-compressed size
 
-- [@1-/minify_size : Minify JavaScript and report Brotli-compressed size](#1-minify_size-minify-javascript-and-report-brotli-compressed-size)
-  - [1. 功能介绍](#1-功能介绍)
-  - [2. 使用演示](#2-使用演示)
-  - [3. 设计思路](#3-设计思路)
-  - [4. 技术栈](#4-技术栈)
-  - [5. 代码结构](#5-代码结构)
-  - [6. 历史故事](#6-历史故事)
-  - [关于](#关于)
+- [1. 功能介绍](#1-功能介绍)
+- [2. 使用演示](#2-使用演示)
+- [3. 设计思路](#3-设计思路)
+- [4. 技术栈](#4-技术栈)
+- [5. 代码结构](#5-代码结构)
+- [6. 历史故事](#6-历史故事)
+- [关于](#关于)
 
 ## 1. 功能介绍
 
@@ -204,8 +202,10 @@ src/
 
 Brotli 由 Google 的 Jyrki Alakuijala 和 Zoltán Szabadka 于 2013 年开发。最初专为网页字体压缩设计，后发展为通用压缩算法，针对网页传输优化，并成为行业标准（RFC 7932）。现代 JavaScript 打包器如 rolldown 利用 Rust 的性能优势实现亚秒级构建，同时保持与现有 JavaScript 工具生态的兼容性。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

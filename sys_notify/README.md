@@ -3,22 +3,20 @@
 ---
 
 <a id="en"></a>
-
 # sys_notify : Simple systemd ready notification
 
-- [sys_notify : Simple systemd ready notification](#sys_notify-simple-systemd-ready-notification)
-  - [Table of Contents](#table-of-contents)
-  - [Project Overview](#project-overview)
-  - [Features](#features)
-  - [Quick Start](#quick-start)
-  - [API Documentation](#api-documentation)
-    - [`ready() -> bool`](#ready-bool)
-  - [Usage Examples](#usage-examples)
-  - [Design Philosophy](#design-philosophy)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [Background](#background)
-  - [About](#about)
+- [Table of Contents](#table-of-contents)
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Quick Start](#quick-start)
+- [API Documentation](#api-documentation)
+  - [`ready() -> bool`](#ready-bool)
+- [Usage Examples](#usage-examples)
+- [Design Philosophy](#design-philosophy)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [Background](#background)
+- [About](#about)
 
 ## Table of Contents
 
@@ -146,31 +144,31 @@ systemd introduced the sd-notify protocol to solve this problem. Services ready 
 
 This mechanism enables systemd to accurately track service status, achieving more precise dependency management and parallel startup optimization. The sys_notify project brings this mechanism to the Rust ecosystem, providing Rust service developers with a standardized system integration solution.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # sys_notify : 简洁的 systemd 就绪通知库
 
-- [sys_notify : 简洁的 systemd 就绪通知库](#sys_notify-简洁的-systemd-就绪通知库)
-  - [目录](#目录)
-  - [项目简介](#项目简介)
-  - [功能特性](#功能特性)
-  - [快速开始](#快速开始)
-  - [API 文档](#api-文档)
-    - [`ready() -> bool`](#ready-bool)
-  - [使用示例](#使用示例)
-  - [设计思路](#设计思路)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [相关历史](#相关历史)
-  - [关于](#关于)
+- [目录](#目录)
+- [项目简介](#项目简介)
+- [功能特性](#功能特性)
+- [快速开始](#快速开始)
+- [API 文档](#api-文档)
+  - [`ready() -> bool`](#ready-bool)
+- [使用示例](#使用示例)
+- [设计思路](#设计思路)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [相关历史](#相关历史)
+- [关于](#关于)
 
 ## 目录
 
@@ -298,8 +296,10 @@ systemd 引入了 sd-notify 协议来解决这一问题。服务通过 Unix 套�
 
 这种机制使 systemd 能够准确跟踪服务状态，实现更精确的依赖管理和并行启动优化。sys_notify 项目将这一机制带到 Rust 生态系统中，为 Rust 服务开发者提供标准化的系统集成方案。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

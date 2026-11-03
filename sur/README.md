@@ -5,16 +5,15 @@
 <a id="en"></a>
 # sur : Ultra-Fast Asynchronous SurrealDB Client for Native and Wasm
 
-- [sur : Ultra-Fast Asynchronous SurrealDB Client for Native and Wasm](#sur-ultra-fast-asynchronous-surrealdb-client-for-native-and-wasm)
-  - [Overview](#overview)
-  - [Features](#features)
-  - [Usage](#usage)
-  - [Design](#design)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [API Reference](#api-reference)
-  - [Historical Trivia](#historical-trivia)
-  - [About](#about)
+- [Overview](#overview)
+- [Features](#features)
+- [Usage](#usage)
+- [Design](#design)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [API Reference](#api-reference)
+- [Historical Trivia](#historical-trivia)
+- [About](#about)
 
 ## Overview
 
@@ -175,16 +174,15 @@ This library is developed by [WebC.site](https://webc.site).
 <a id="zh"></a>
 # sur : 极简高性能 SurrealDB 异步客户端
 
-- [sur : 极简高性能 SurrealDB 异步客户端](#sur-极简高性能-surrealdb-异步客户端)
-  - [项目功能介绍](#项目功能介绍)
-  - [特性介绍](#特性介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 说明](#api-说明)
-  - [历史小故事](#历史小故事)
-  - [关于](#关于)
+- [项目功能介绍](#项目功能介绍)
+- [特性介绍](#特性介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [API 说明](#api-说明)
+- [历史小故事](#历史小故事)
+- [关于](#关于)
 
 ## 项目功能介绍
 

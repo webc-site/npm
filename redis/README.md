@@ -3,22 +3,7 @@
 ---
 
 <a id="en"></a>
-
 # @1-/redis : Low-coupling, high-cohesion Redis client wrapper with environment-driven configuration
-
-- [@1-/redis : Low-coupling, high-cohesion Redis client wrapper with environment-driven configuration](#1-redis-low-coupling-high-cohesion-redis-client-wrapper-with-environment-driven-configuration)
-  - [Functionality](#functionality)
-  - [Usage Demo](#usage-demo)
-    - [Installation](#installation)
-    - [Single Node Mode](#single-node-mode)
-    - [Cluster Mode](#cluster-mode)
-    - [Sentinel Mode](#sentinel-mode)
-    - [Environment-Driven Mode](#environment-driven-mode)
-  - [Design Rationale](#design-rationale)
-  - [Technical Stack](#technical-stack)
-  - [Code Structure](#code-structure)
-  - [Historical Context](#historical-context)
-  - [About](#about)
 
 - [Functionality](#functionality)
 - [Usage Demo](#usage-demo)
@@ -26,6 +11,19 @@
 - [Technical Stack](#technical-stack)
 - [Code Structure](#code-structure)
 - [Historical Context](#historical-context)
+
+- [Functionality](#functionality)
+- [Usage Demo](#usage-demo)
+  - [Installation](#installation)
+  - [Single Node Mode](#single-node-mode)
+  - [Cluster Mode](#cluster-mode)
+  - [Sentinel Mode](#sentinel-mode)
+  - [Environment-Driven Mode](#environment-driven-mode)
+- [Design Rationale](#design-rationale)
+- [Technical Stack](#technical-stack)
+- [Code Structure](#code-structure)
+- [Historical Context](#historical-context)
+- [About](#about)
 
 ## Functionality
 
@@ -168,31 +166,18 @@ src/
 
 Redis (Remote Dictionary Server) was created by Salvatore Sanfilippo (antirez) in 2009 as a solution to scalability limitations in relational databases for his real-time web analytics service LLOOGG. Redis Sentinel was introduced in 2012 to provide high availability through automatic failover, and Redis Cluster was released in 2015 with Redis 3.0 to enable horizontal scaling without proxies.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/redis : 低耦合高内聚的 Redis 客户端封装及环境驱动配置方案
-
-- [@1-/redis : 低耦合高内聚的 Redis 客户端封装及环境驱动配置方案](#1-redis-低耦合高内聚的-redis-客户端封装及环境驱动配置方案)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-    - [安装](#安装)
-    - [单节点模式](#单节点模式)
-    - [集群模式](#集群模式)
-    - [哨兵模式](#哨兵模式)
-    - [环境驱动模式](#环境驱动模式)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
 
 - [功能介绍](#功能介绍)
 - [使用演示](#使用演示)
@@ -200,6 +185,19 @@ This library is developed by [WebC.site](https://webc.site).
 - [技术栈](#技术栈)
 - [代码结构](#代码结构)
 - [历史故事](#历史故事)
+
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+  - [安装](#安装)
+  - [单节点模式](#单节点模式)
+  - [集群模式](#集群模式)
+  - [哨兵模式](#哨兵模式)
+  - [环境驱动模式](#环境驱动模式)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -342,8 +340,10 @@ src/
 
 Redis（远程字典服务器）由 Salvatore Sanfilippo（antirez）于 2009 年创建，旨在解决其实时网络分析服务 LLOOGG 在关系型数据库中遇到的可扩展性限制。Redis Sentinel 于 2012 年发布，通过自动故障转移提供高可用性；Redis Cluster 则于 2015 年随 Redis 3.0 正式发布，实现无需代理的水平扩展能力。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

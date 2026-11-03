@@ -3,19 +3,17 @@
 ---
 
 <a id="en"></a>
-
 # mdcheck : Check Mermaid syntax in Markdown files without browsers
 
-- [mdcheck : Check Mermaid syntax in Markdown files without browsers](#mdcheck-check-mermaid-syntax-in-markdown-files-without-browsers)
-  - [1. Functionality](#1-functionality)
-  - [2. Usage demonstration](#2-usage-demonstration)
-    - [Command-line execution](#command-line-execution)
-    - [Configuration](#configuration)
-  - [3. Design思路](#3-design思路)
-  - [4. Technology stack](#4-technology-stack)
-  - [5. Code structure](#5-code-structure)
-  - [6. Historical context](#6-historical-context)
-  - [About](#about)
+- [1. Functionality](#1-functionality)
+- [2. Usage demonstration](#2-usage-demonstration)
+  - [Command-line execution](#command-line-execution)
+  - [Configuration](#configuration)
+- [3. Design思路](#3-design思路)
+- [4. Technology stack](#4-technology-stack)
+- [5. Code structure](#5-code-structure)
+- [6. Historical context](#6-historical-context)
+- [About](#about)
 
 ## 1. Functionality
 
@@ -88,28 +86,28 @@ Traditional Mermaid tools like `mermaid-cli` require Puppeteer to launch Chromiu
 
 This project implements surgical DOM mocking: injecting only the specific global objects Mermaid's parser requires (`window`, `document`, `DOMParser`, and essential DOM classes). By avoiding full browser initialization, validation completes in under 10ms per mermaid block, enabling real-time feedback during development and high-throughput validation in CI pipelines.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # mdcheck : 无需浏览器校验 Markdown 中的 Mermaid 语法
 
-- [mdcheck : 无需浏览器校验 Markdown 中的 Mermaid 语法](#mdcheck-无需浏览器校验-markdown-中的-mermaid-语法)
-  - [1. 功能介绍](#1-功能介绍)
-  - [2. 使用演示](#2-使用演示)
-    - [命令行执行](#命令行执行)
-    - [配置方法](#配置方法)
-  - [3. 设计思路](#3-设计思路)
-  - [4. 技术栈](#4-技术栈)
-  - [5. 代码结构](#5-代码结构)
-  - [6. 历史故事](#6-历史故事)
-  - [关于](#关于)
+- [1. 功能介绍](#1-功能介绍)
+- [2. 使用演示](#2-使用演示)
+  - [命令行执行](#命令行执行)
+  - [配置方法](#配置方法)
+- [3. 设计思路](#3-设计思路)
+- [4. 技术栈](#4-技术栈)
+- [5. 代码结构](#5-代码结构)
+- [6. 历史故事](#6-历史故事)
+- [关于](#关于)
 
 ## 1. 功能介绍
 
@@ -182,8 +180,10 @@ Knut Sveidqvist 于 2014 年创建 Mermaid，通过纯文本生成图表，开�
 
 本项目采用精准 DOM 模拟方案：仅注入 Mermaid 解析器必需的全局对象（`window`、`document`、`DOMParser` 及必要 DOM 类）。通过避免完整浏览器初始化，验证时间缩短至每个 mermaid 代码块 10 毫秒以内，支持开发过程中的实时反馈及 CI 流水线中的高吞吐量验证。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

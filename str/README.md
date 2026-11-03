@@ -3,17 +3,15 @@
 ---
 
 <a id="en"></a>
-
 # @1-/str : A minimalist and high-performance parser for indented text lists
 
-- [@1-/str : A minimalist and high-performance parser for indented text lists](#1-str-a-minimalist-and-high-performance-parser-for-indented-text-lists)
-  - [Features](#features)
-  - [Usage](#usage)
-  - [Design](#design)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [History](#history)
-  - [About](#about)
+- [Features](#features)
+- [Usage](#usage)
+- [Design](#design)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [History](#history)
+- [About](#about)
 
 ## Features
 
@@ -81,26 +79,26 @@ graph TD
 
 The "Off-side rule" (syntactic indentation) was first introduced in Algol-58 in the 1960s and popularized by Python, YAML, and Markdown. Structuring documents and configurations via indentation became a modern standard. `@1-/str` provides a fast and robust base parser for extracting indent-hierarchy, serving as a building block for Markdown lists and outline processors.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/str : 极简高效的带缩进文本列表解析工具
 
-- [@1-/str : 极简高效的带缩进文本列表解析工具](#1-str-极简高效的带缩进文本列表解析工具)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -168,8 +166,10 @@ graph TD
 
 关于“缩进文本”的设计史，最著名的莫过于 Python 的 Off-side rule（越位规则）。在 1960 年代，Algol-58 首次提出了基于缩进的代码结构设想，而直到 Python、YAML 和 Markdown 的兴起，基于缩进的结构化文本才被广泛应用于配置与富文本表示。本库专注于提供纯净、快速的缩进和内容剥离算法，为后续更复杂的 Markdown 列表或树形缩进解析奠定基础。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

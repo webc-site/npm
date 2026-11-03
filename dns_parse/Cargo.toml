@@ -1,6 +1,6 @@
 [package]
 name = "dns_parse"
-version = "0.1.5"
+version = "0.1.6"
 edition = "2024"
 license = "MulanPSL-2.0"
 repository = "https://github.com/webc-site/npm.git"
@@ -22,7 +22,7 @@ hex = "0.4.3"
 thiserror = "2.0.21"
 
 [dependencies.idns]
-version = "0.2.16"
+version = "0.2.17"
 path = "../idns"
 
 [dev-dependencies]

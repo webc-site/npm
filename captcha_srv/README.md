@@ -5,25 +5,24 @@
 <a id="en"></a>
 # captcha_srv : High Performance Axum CAPTCHA Service
 
-- [captcha_srv : High Performance Axum CAPTCHA Service](#captcha_srv-high-performance-axum-captcha-service)
-  - [Overview](#overview)
-  - [Usage](#usage)
-    - [Server Initialization](#server-initialization)
-    - [Variable Byte Encoding & Key Generation](#variable-byte-encoding-key-generation)
-  - [Features](#features)
-  - [Design](#design)
-    - [GET, POST & /verify Binary Protocols](#get-post-verify-binary-protocols)
-    - [Workflow Diagram](#workflow-diagram)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [API Reference](#api-reference)
-    - [Constants](#constants)
-    - [Data Structures & Types](#data-structures-types)
-    - [Functions](#functions)
-  - [Historical Background](#historical-background)
-  - [About](#about)
-
 Behavioral CAPTCHA service built with Axum framework and Redis/kvrocks. Features target icon click verification, WebP image rendering, zero-copy binary encoding, and graceful restart support.
+
+- [Overview](#overview)
+- [Usage](#usage)
+  - [Server Initialization](#server-initialization)
+  - [Variable Byte Encoding & Key Generation](#variable-byte-encoding-key-generation)
+- [Features](#features)
+- [Design](#design)
+  - [GET, POST & /verify Binary Protocols](#get-post-verify-binary-protocols)
+  - [Workflow Diagram](#workflow-diagram)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [API Reference](#api-reference)
+  - [Constants](#constants)
+  - [Data Structures & Types](#data-structures-types)
+  - [Functions](#functions)
+- [Historical Background](#historical-background)
+- [About](#about)
 
 ## Overview
 
@@ -202,25 +201,24 @@ This library is developed by [WebC.site](https://webc.site).
 <a id="zh"></a>
 # captcha_srv : 高性能 Axum 验证码服务
 
-- [captcha_srv : 高性能 Axum 验证码服务](#captcha_srv-高性能-axum-验证码服务)
-  - [项目功能介绍](#项目功能介绍)
-  - [使用演示](#使用演示)
-    - [启动服务](#启动服务)
-    - [变长编码与键构造](#变长编码与键构造)
-  - [特性介绍](#特性介绍)
-  - [设计思路](#设计思路)
-    - [GET、POST 与 /verify 二进制协议](#getpost-与-verify-二进制协议)
-    - [业务流程图](#业务流程图)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 说明](#api-说明)
-    - [常量](#常量)
-    - [数据结构与类型](#数据结构与类型)
-    - [函数](#函数)
-  - [历史小故事](#历史小故事)
-  - [关于](#关于)
-
 基于 Axum 框架与 Redis/kvrocks 的行为验证码服务端。支持图形点选、WebP 图像生成、零拷贝二进制协议传输与无缝优雅重启。
+
+- [项目功能介绍](#项目功能介绍)
+- [使用演示](#使用演示)
+  - [启动服务](#启动服务)
+  - [变长编码与键构造](#变长编码与键构造)
+- [特性介绍](#特性介绍)
+- [设计思路](#设计思路)
+  - [GET、POST 与 /verify 二进制协议](#getpost-与-verify-二进制协议)
+  - [业务流程图](#业务流程图)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [API 说明](#api-说明)
+  - [常量](#常量)
+  - [数据结构与类型](#数据结构与类型)
+  - [函数](#函数)
+- [历史小故事](#历史小故事)
+- [关于](#关于)
 
 ## 项目功能介绍
 

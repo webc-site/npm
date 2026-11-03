@@ -3,17 +3,15 @@
 ---
 
 <a id="en"></a>
-
 # @1-/read : Read file as UTF-8 string
 
-- [@1-/read : Read file as UTF-8 string](#1-read-read-file-as-utf-8-string)
-  - [Features](#features)
-  - [Usage](#usage)
-  - [Design](#design)
-  - [Tech Stack](#tech-stack)
-  - [Code Structure](#code-structure)
-  - [History](#history)
-  - [About](#about)
+- [Features](#features)
+- [Usage](#usage)
+- [Design](#design)
+- [Tech Stack](#tech-stack)
+- [Code Structure](#code-structure)
+- [History](#history)
+- [About](#about)
 
 ## Features
 
@@ -58,26 +56,26 @@ graph TD
 
 In 1992, Ken Thompson and Rob Pike designed UTF-8 encoding on a restaurant placemat. The encoding solved ASCII backward compatibility while enabling universal text representation. This library implements UTF-8 file reading as a minimal utility, reflecting the principle that simple interfaces enable robust systems.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/read : 读取文件为 UTF-8 字符串
 
-- [@1-/read : 读取文件为 UTF-8 字符串](#1-read-读取文件为-utf-8-字符串)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -122,8 +120,10 @@ graph TD
 
 1992 年，Ken Thompson 与 Rob Pike 在餐厅餐巾纸上设计出 UTF-8 编码。该编码解决 ASCII 向后兼容性问题，同时支持统一文本表示。本库实现 UTF-8 文件读取作为轻量级工具，体现简单接口构建稳健系统的理念。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

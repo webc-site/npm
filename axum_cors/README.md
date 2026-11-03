@@ -3,20 +3,18 @@
 ---
 
 <a id="en"></a>
-
 # axum_cors : Zero-copy CORS middleware for Axum
 
-- [axum_cors : Zero-copy CORS middleware for Axum](#axum_cors-zero-copy-cors-middleware-for-axum)
-  - [Introduction](#introduction)
-  - [Usage](#usage)
-  - [Features](#features)
-  - [Design](#design)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [API Reference](#api-reference)
-    - [`cors`](#cors)
-  - [Background & History](#background-history)
-  - [About](#about)
+- [Introduction](#introduction)
+- [Usage](#usage)
+- [Features](#features)
+- [Design](#design)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [API Reference](#api-reference)
+  - [`cors`](#cors)
+- [Background & History](#background-history)
+- [About](#about)
 
 ## Introduction
 
@@ -110,29 +108,29 @@ Middleware handler function processing incoming requests and injecting CORS head
 
 CORS (Cross-Origin Resource Sharing) originated as W3C recommendation to resolve restrictive Same-Origin Policy (SOP) introduced by Netscape Navigator 2.0 in 1995. Early web platforms used JSONP (JSON with Padding) for cross-domain queries by exploiting script tag exceptions, creating structural security vulnerabilities. CORS standardized modern HTTP handshake headers in 2009, enabling secure cross-origin communication. This middleware provides low-overhead implementation matching standard Axum request lifecycles.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # axum_cors : 基于 Axum 的零拷贝跨域资源共享中间件
 
-- [axum_cors : 基于 Axum 的零拷贝跨域资源共享中间件](#axum_cors-基于-axum-的零拷贝跨域资源共享中间件)
-  - [项目功能介绍](#项目功能介绍)
-  - [使用演示](#使用演示)
-  - [特性介绍](#特性介绍)
-  - [设计思路](#设计思路)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 说明](#api-说明)
-    - [`cors`](#cors)
-  - [历史背景](#历史背景)
-  - [关于](#关于)
+- [项目功能介绍](#项目功能介绍)
+- [使用演示](#使用演示)
+- [特性介绍](#特性介绍)
+- [设计思路](#设计思路)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [API 说明](#api-说明)
+  - [`cors`](#cors)
+- [历史背景](#历史背景)
+- [关于](#关于)
 
 ## 项目功能介绍
 
@@ -226,8 +224,10 @@ pub async fn cors(req: Request<Body>, next: Next) -> impl IntoResponse
 
 跨域资源共享 (CORS) 诞生自 W3C 推荐标准，用以解决 1995 年 Netscape Navigator 2.0 引入的同源策略 (SOP) 带来的跨域限制。早期 Web 开发多采用 JSONP (JSON with Padding) 等绕过浏览器限制的非标准化技术，存在严重安全隐患。2009 年 W3C 正式发布 CORS 工作草案以标准化浏览器跨域行为。本中间件提供对 Axum 框架无缝适配的轻量化现代实现。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

@@ -1,3 +1,4 @@
+use reqwest::{Client, StatusCode};
 mod sign;
 use std::time::Duration;
 
@@ -53,7 +54,7 @@ impl S3 {
     }
 
     let client = client.unwrap_or_else(|| {
-      reqwest::Client::builder()
+      Client::builder()
         .connect_timeout(connect_timeout)
         .timeout(timeout)
         .build()
@@ -145,7 +146,7 @@ impl S3 {
     let resp = self.client.delete(&url).headers(headers).send().await?;
 
     let status = resp.status();
-    if !status.is_success() && status != reqwest::StatusCode::NOT_FOUND {
+    if !status.is_success() && status != StatusCode::NOT_FOUND {
       return Err(Error::RequestFailed(status));
     }
 

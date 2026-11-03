@@ -3,19 +3,17 @@
 ---
 
 <a id="en"></a>
-
 # autozstd : High performance Zstd envelope compression with fallback
 
-- [autozstd : High performance Zstd envelope compression with fallback](#autozstd-high-performance-zstd-envelope-compression-with-fallback)
-  - [Overview](#overview)
-  - [Usage](#usage)
-  - [Features](#features)
-  - [Design](#design)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [API Docs](#api-docs)
-  - [History & Background](#history-background)
-  - [About](#about)
+- [Overview](#overview)
+- [Usage](#usage)
+- [Features](#features)
+- [Design](#design)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [API Docs](#api-docs)
+- [History & Background](#history-background)
+- [About](#about)
 
 ## Overview
 
@@ -96,28 +94,28 @@ graph TD
 
 Yann Collet created LZ4 in 2011 to optimize for extreme decompression speeds. In 2014, he implemented Finite State Entropy (FSE) based on Jarek Duda's Asymmetric Numeral Systems (ANS). FSE was a major breakthrough as it bridged the gap between Huffman coding's speed and arithmetic coding's compression ratio. Zstandard, released in 2016 by Facebook, integrated these concepts into a single robust tool, allowing developers to scale dynamically between speed and compression ratio. `autozstd` extends this powerful tool by resolving the "small payload expansion" problem through envelope framing.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # autozstd : 基于信封模式与回退机制的高性能 Zstd 压缩
 
-- [autozstd : 基于信封模式与回退机制的高性能 Zstd 压缩](#autozstd-基于信封模式与回退机制的高性能-zstd-压缩)
-  - [项目功能介绍](#项目功能介绍)
-  - [使用演示](#使用演示)
-  - [特性介绍](#特性介绍)
-  - [设计思路](#设计思路)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 说明](#api-说明)
-  - [技术背景与历史故事](#技术背景与历史故事)
-  - [关于](#关于)
+- [项目功能介绍](#项目功能介绍)
+- [使用演示](#使用演示)
+- [特性介绍](#特性介绍)
+- [设计思路](#设计思路)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [API 说明](#api-说明)
+- [技术背景与历史故事](#技术背景与历史故事)
+- [关于](#关于)
 
 ## 项目功能介绍
 
@@ -198,8 +196,10 @@ graph TD
 
 Zstandard 的创作者 Yann Collet 最初是在为 HP 48 计算器开发游戏时接触到数据压缩的。2011 年他发布了极速解压的 LZ4。2014 年，他基于 Jarek Duda 的非对称数字系统（ANS）理论，实现了有限状态熵（FSE）。这一算法的突破在于它以接近霍夫曼编码的极高速度，实现了算术编码级别的压缩率。2016 年 Yann Collet 带着这些成果在 Facebook 发布了 Zstandard，成为了现代压缩的行业标准。`autozstd` 正是通过信封协议，解决极小数据在 Zstd 帧结构下由于帧头膨胀的问题，使该顶尖算法在微服务和网络数据包传输中更加完美。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

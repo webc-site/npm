@@ -3,23 +3,7 @@
 ---
 
 <a id="en"></a>
-
 # xkv : Static Global Redis Client Manager for Fred and Kvrocks
-
-- [xkv : Static Global Redis Client Manager for Fred and Kvrocks](#xkv-static-global-redis-client-manager-for-fred-and-kvrocks)
-  - [Introduction](#introduction)
-  - [Usage](#usage)
-  - [Features](#features)
-  - [Design](#design)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [API Description](#api-description)
-    - [Structs](#structs)
-      - [`Server`](#server)
-    - [Functions](#functions)
-    - [Macros](#macros)
-  - [History](#history)
-  - [About](#about)
 
 - [Introduction](#introduction)
 - [Usage](#usage)
@@ -29,6 +13,20 @@
 - [Directory Structure](#directory-structure)
 - [API Description](#api-description)
 - [History](#history)
+
+- [Introduction](#introduction)
+- [Usage](#usage)
+- [Features](#features)
+- [Design](#design)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [API Description](#api-description)
+  - [Structs](#structs)
+    - [`Server`](#server)
+  - [Functions](#functions)
+  - [Macros](#macros)
+- [History](#history)
+- [About](#about)
 
 ## Introduction
 
@@ -169,32 +167,18 @@ Defines static helpers returning `ServerConfig`.
 
 In 2007, Salvatore Sanfilippo (known as antirez) faced performance bottlenecks while developing LLOOGG, real-time web analytics software. MySQL struggled with high-frequency writes and real-time retrieval of recent page views. To overcome limitations, Sanfilippo developed in-memory database designed around specific data structures like lists and sets. Released in 2009 under name Redis (Remote Dictionary Server), technology successfully powered LLOOGG and evolved into foundational modern caching infrastructure.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # xkv : 基于 Fred 与 Kvrocks 的全局静态 Redis 客户端管理器
-
-- [xkv : 基于 Fred 与 Kvrocks 的全局静态 Redis 客户端管理器](#xkv-基于-fred-与-kvrocks-的全局静态-redis-客户端管理器)
-  - [项目功能介绍](#项目功能介绍)
-  - [使用演示](#使用演示)
-  - [特性介绍](#特性介绍)
-  - [设计思路](#设计思路)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 说明](#api-说明)
-    - [结构体](#结构体)
-      - [`Server`](#server)
-    - [函数](#函数)
-    - [宏](#宏)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
 
 - [项目功能介绍](#项目功能介绍)
 - [使用演示](#使用演示)
@@ -204,6 +188,20 @@ This library is developed by [WebC.site](https://webc.site).
 - [目录结构](#目录结构)
 - [API 说明](#api-说明)
 - [历史故事](#历史故事)
+
+- [项目功能介绍](#项目功能介绍)
+- [使用演示](#使用演示)
+- [特性介绍](#特性介绍)
+- [设计思路](#设计思路)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [API 说明](#api-说明)
+  - [结构体](#结构体)
+    - [`Server`](#server)
+  - [函数](#函数)
+  - [宏](#宏)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 项目功能介绍
 
@@ -344,8 +342,10 @@ graph TD
 
 2007 年，Salvatore Sanfilippo（网名 antirez）在开发实时网站分析服务 LLOOGG 时遇到严重的 MySQL 性能瓶颈。由于该服务需要极高的写入速度并快速展示最新访问记录，传统关系型数据库难以应对。为此，Sanfilippo 设计了基于内存的特定数据结构（如列表、集合）存储方案。2009 年，该项目以 Redis（Remote Dictionary Server）之名开源，成功解决 LLOOGG 的性能问题，并逐步演变为现代高速缓存的关键基础设施。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

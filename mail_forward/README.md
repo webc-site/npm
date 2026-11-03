@@ -3,26 +3,24 @@
 ---
 
 <a id="en"></a>
-
 # mail_forward : Secure and Efficient Mail Forwarding Trait
 
-- [mail_forward : Secure and Efficient Mail Forwarding Trait](#mail_forward-secure-and-efficient-mail-forwarding-trait)
-  - [Features](#features)
-  - [Usage](#usage)
-  - [Design](#design)
-    - [Call Flow](#call-flow)
-  - [Tech Stack](#tech-stack)
-  - [API Reference](#api-reference)
-    - [`trait Forward`](#trait-forward)
-      - [`fn forward(&self, mail: &str) -> impl Future<Output = Result<Option<String>>> + Send`](#fn-forwardself-mail-str-impl-futureoutput-resultoptionstring-send)
-      - [`fn forward_set<S: AsRef<str>>(&self, mail_li: impl IntoIterator<Item = S>) -> impl Future<Output = Result<Vec<String>>> + Send`](#fn-forward_sets-asrefstrself-mail_li-impl-intoiteratoritem-s-impl-futureoutput-resultvecstring-send)
-  - [Examples](#examples)
-    - [Single Email Lookup](#single-email-lookup)
-    - [Batch Processing](#batch-processing)
-  - [Historical Anecdote](#historical-anecdote)
-  - [About](#about)
-
 `mail_forward` defines a standard interface (trait) for retrieving email forwarding addresses. It abstracts the logic of looking up where incoming emails should be redirected, allowing for various backend implementations with both single and batch processing capabilities.
+
+- [Features](#features)
+- [Usage](#usage)
+- [Design](#design)
+  - [Call Flow](#call-flow)
+- [Tech Stack](#tech-stack)
+- [API Reference](#api-reference)
+  - [`trait Forward`](#trait-forward)
+    - [`fn forward(&self, mail: &str) -> impl Future<Output = Result<Option<String>>> + Send`](#fn-forwardself-mail-str-impl-futureoutput-resultoptionstring-send)
+    - [`fn forward_set<S: AsRef<str>>(&self, mail_li: impl IntoIterator<Item = S>) -> impl Future<Output = Result<Vec<String>>> + Send`](#fn-forward_sets-asrefstrself-mail_li-impl-intoiteratoritem-s-impl-futureoutput-resultvecstring-send)
+- [Examples](#examples)
+  - [Single Email Lookup](#single-email-lookup)
+  - [Batch Processing](#batch-processing)
+- [Historical Anecdote](#historical-anecdote)
+- [About](#about)
 
 ## Features
 
@@ -147,35 +145,35 @@ for target in results {
 
 In the early days of Unix systems, email forwarding was often handled by a simple text file named `.forward` located in a user's home directory. This mechanism, known as "dot-forwarding," allowed users to specify a destination address or a program to process their mail. It was one of the earliest forms of user-controlled email routing, establishing a concept effectively standardized and modernized by traits like `mail_forward` in system-level programming today. The addition of batch processing in `mail_forward` represents the evolution from simple single-mail forwarding to modern bulk email handling capabilities.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # mail_forward : 安全高效的邮件转发接口
 
-- [mail_forward : 安全高效的邮件转发接口](#mail_forward-安全高效的邮件转发接口)
-  - [功能特性](#功能特性)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-    - [调用流程](#调用流程)
-  - [技术栈](#技术栈)
-  - [API 参考](#api-参考)
-    - [`trait Forward`](#trait-forward)
-      - [`fn forward(&self, mail: &str) -> impl Future<Output = Result<Option<String>>> + Send`](#fn-forwardself-mail-str-impl-futureoutput-resultoptionstring-send)
-      - [`fn forward_set<S: AsRef<str>>(&self, mail_li: impl IntoIterator<Item = S>) -> impl Future<Output = Result<Vec<String>>> + Send`](#fn-forward_sets-asrefstrself-mail_li-impl-intoiteratoritem-s-impl-futureoutput-resultvecstring-send)
-  - [使用示例](#使用示例)
-    - [单个邮件查找](#单个邮件查找)
-    - [批量处理](#批量处理)
-  - [历史趣闻](#历史趣闻)
-  - [关于](#关于)
-
 `mail_forward` 定义了一个标准接口（trait），用于获取邮件转发地址。它抽象了查找邮件重定向目标的逻辑，允许适配多种后端实现，同时支持单个邮件和批量处理功能。
+
+- [功能特性](#功能特性)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+  - [调用流程](#调用流程)
+- [技术栈](#技术栈)
+- [API 参考](#api-参考)
+  - [`trait Forward`](#trait-forward)
+    - [`fn forward(&self, mail: &str) -> impl Future<Output = Result<Option<String>>> + Send`](#fn-forwardself-mail-str-impl-futureoutput-resultoptionstring-send)
+    - [`fn forward_set<S: AsRef<str>>(&self, mail_li: impl IntoIterator<Item = S>) -> impl Future<Output = Result<Vec<String>>> + Send`](#fn-forward_sets-asrefstrself-mail_li-impl-intoiteratoritem-s-impl-futureoutput-resultvecstring-send)
+- [使用示例](#使用示例)
+  - [单个邮件查找](#单个邮件查找)
+  - [批量处理](#批量处理)
+- [历史趣闻](#历史趣闻)
+- [关于](#关于)
 
 ## 功能特性
 
@@ -300,8 +298,10 @@ for target in results {
 
 在 Unix 系统的早期，邮件转发通常由用户主目录下名为 `.forward` 的简单文本文件处理。这种机制被称为 "dot-forwarding"，允许用户指定目标地址或处理邮件的程序。它是最早的用户自主控制邮件路由的形式之一，这一概念如今在系统级编程中通过像 `mail_forward` 这样的 trait 得到了标准化和现代化。`mail_forward` 中批量处理功能的添加，代表了从简单单邮件转发到现代批量邮件处理能力的演进。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

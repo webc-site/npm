@@ -2,6 +2,7 @@
 name = "axum_graceful_restart_tests"
 version = "0.1.0"
 edition = "2024"
+publish = false
 
 [dependencies]
 axum = "0.8.9"
@@ -13,7 +14,7 @@ version = "0.1.10"
 path = "../../kill_port"
 
 [dependencies.axum_graceful_restart]
-version = "0.1.9"
+version = "0.1.10"
 path = ".."
 
 [dependencies.loginit]

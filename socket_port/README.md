@@ -5,25 +5,24 @@
 <a id="en"></a>
 # socket_port : Zero-downtime hot restart TCP listener
 
-- [socket_port : Zero-downtime hot restart TCP listener](#socket_port-zero-downtime-hot-restart-tcp-listener)
-  - [Table of Contents](#table-of-contents)
-  - [Features](#features)
-  - [Installation](#installation)
-  - [Usage Examples](#usage-examples)
-    - [Basic Listen](#basic-listen)
-    - [Async Integration (Tokio)](#async-integration-tokio)
-  - [Design Architecture](#design-architecture)
-    - [Key Mechanisms](#key-mechanisms)
-  - [Technology Stack](#technology-stack)
-  - [Directory Structure](#directory-structure)
-  - [API Reference](#api-reference)
-    - [`listen(port: u16) -> Result<TcpListener>`](#listenport-u16-resulttcplistener)
-    - [`listen_fd(port: u16) -> Result<Option<TcpListener>>`](#listen_fdport-u16-resultoptiontcplistener)
-  - [Optional Features: kill_port](#optional-features-kill_port)
-  - [Historical Context](#historical-context)
-  - [About](#about)
-
 Seamlessly create TCP listeners with systemd socket activation support, enabling hot restarts and dual-stack networking without service interruption.
+
+- [Table of Contents](#table-of-contents)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage Examples](#usage-examples)
+  - [Basic Listen](#basic-listen)
+  - [Async Integration (Tokio)](#async-integration-tokio)
+- [Design Architecture](#design-architecture)
+  - [Key Mechanisms](#key-mechanisms)
+- [Technology Stack](#technology-stack)
+- [Directory Structure](#directory-structure)
+- [API Reference](#api-reference)
+  - [`listen(port: u16) -> Result<TcpListener>`](#listenport-u16-resulttcplistener)
+  - [`listen_fd(port: u16) -> Result<Option<TcpListener>>`](#listen_fdport-u16-resultoptiontcplistener)
+- [Optional Features: kill_port](#optional-features-kill_port)
+- [Historical Context](#historical-context)
+- [About](#about)
 
 ## Table of Contents
 
@@ -209,25 +208,24 @@ This library is developed by [WebC.site](https://webc.site).
 <a id="zh"></a>
 # socket_port : 零停机热重启 TCP 监听器
 
-- [socket_port : 零停机热重启 TCP 监听器](#socket_port-零停机热重启-tcp-监听器)
-  - [目录](#目录)
-  - [功能特性](#功能特性)
-  - [安装](#安装)
-  - [使用示例](#使用示例)
-    - [基础监听](#基础监听)
-    - [异步集成 (Tokio)](#异步集成-tokio)
-  - [设计架构](#设计架构)
-    - [核心机制](#核心机制)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 参考](#api-参考)
-    - [`listen(port: u16) -> Result<TcpListener>`](#listenport-u16-resulttcplistener)
-    - [`listen_fd(port: u16) -> Result<Option<TcpListener>>`](#listen_fdport-u16-resultoptiontcplistener)
-  - [可选特性：kill_port](#可选特性kill_port)
-  - [历史趣闻](#历史趣闻)
-  - [关于](#关于)
-
 创建支持 systemd 套接字激活的 TCP 监听器，实现无缝热重启与双栈网络支持，确保服务零中断。
+
+- [目录](#目录)
+- [功能特性](#功能特性)
+- [安装](#安装)
+- [使用示例](#使用示例)
+  - [基础监听](#基础监听)
+  - [异步集成 (Tokio)](#异步集成-tokio)
+- [设计架构](#设计架构)
+  - [核心机制](#核心机制)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [API 参考](#api-参考)
+  - [`listen(port: u16) -> Result<TcpListener>`](#listenport-u16-resulttcplistener)
+  - [`listen_fd(port: u16) -> Result<Option<TcpListener>>`](#listen_fdport-u16-resultoptiontcplistener)
+- [可选特性：kill_port](#可选特性kill_port)
+- [历史趣闻](#历史趣闻)
+- [关于](#关于)
 
 ## 目录
 

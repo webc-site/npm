@@ -3,24 +3,22 @@
 ---
 
 <a id="en"></a>
-
 # rank : Hacker News style decay ranking algorithm
 
-- [rank : Hacker News style decay ranking algorithm](#rank-hacker-news-style-decay-ranking-algorithm)
-  - [Table of Contents](#table-of-contents)
-  - [Introduction](#introduction)
-  - [Usage](#usage)
-    - [Basic Example](#basic-example)
-  - [Features](#features)
-  - [Design](#design)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [API](#api)
-    - [Rank](#rank)
-      - [Methods](#methods)
-    - [RANK](#rank)
-  - [History](#history)
-  - [About](#about)
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Usage](#usage)
+  - [Basic Example](#basic-example)
+- [Features](#features)
+- [Design](#design)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [API](#api)
+  - [Rank](#rank)
+    - [Methods](#methods)
+  - [RANK](#rank)
+- [History](#history)
+- [About](#about)
 
 ## Table of Contents
 
@@ -144,33 +142,33 @@ pub const RANK: Rank = Rank::new(10000, 2.0);
 
 Hacker News ranking algorithm was designed by Paul Graham for Y Combinator's Hacker News. Originally implemented in Lisp dialect Arc, it balances vote count against time decay using gravity. Arc's default gravity was 1.8. This crate provides optimized Rust port with high-speed monotonic clock support.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # rank : 基于 Hacker News 公式的排序衰减算法
 
-- [rank : 基于 Hacker News 公式的排序衰减算法](#rank-基于-hacker-news-公式的排序衰减算法)
-  - [目录](#目录)
-  - [项目功能介绍](#项目功能介绍)
-  - [使用演示](#使用演示)
-    - [基础示例](#基础示例)
-  - [特性介绍](#特性介绍)
-  - [设计思路](#设计思路)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 说明](#api-说明)
-    - [Rank](#rank)
-      - [方法](#方法)
-    - [RANK](#rank)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [目录](#目录)
+- [项目功能介绍](#项目功能介绍)
+- [使用演示](#使用演示)
+  - [基础示例](#基础示例)
+- [特性介绍](#特性介绍)
+- [设计思路](#设计思路)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [API 说明](#api-说明)
+  - [Rank](#rank)
+    - [方法](#方法)
+  - [RANK](#rank)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 目录
 
@@ -294,8 +292,10 @@ pub const RANK: Rank = Rank::new(10000, 2.0);
 
 Hacker News 排序算法由 Paul Graham 创制，用于 Y Combinator 旗下 Hacker News 论坛。算法最早运行于 Lisp 变体 Arc 语言中，核心思路是用重力因子使旧帖分数随时间呈幂律衰减。Arc 语言版本最初使用 1.8 做为默认衰减因子。本库将其移植为 Rust 语言版，并优化底层时钟调用效率。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

@@ -3,17 +3,15 @@
 ---
 
 <a id="en"></a>
-
 # @1-/mdmermaid : Render Mermaid code blocks to SVG in Markdown
 
-- [@1-/mdmermaid : Render Mermaid code blocks to SVG in Markdown](#1-mdmermaid-render-mermaid-code-blocks-to-svg-in-markdown)
-  - [1. Features](#1-features)
-  - [2. Usage](#2-usage)
-  - [3. Design](#3-design)
-  - [4. Tech Stack](#4-tech-stack)
-  - [5. Code Structure](#5-code-structure)
-  - [6. History Story](#6-history-story)
-  - [About](#about)
+- [1. Features](#1-features)
+- [2. Usage](#2-usage)
+- [3. Design](#3-design)
+- [4. Tech Stack](#4-tech-stack)
+- [5. Code Structure](#5-code-structure)
+- [6. History Story](#6-history-story)
+- [About](#about)
 
 ## 1. Features
 
@@ -110,26 +108,26 @@ Early Markdown engines relied on browser-side dynamic scripts to parse Mermaid, 
 
 This tool implements static build-time rendering, compiling Mermaid into static SVG or uploading compressed SVG. This eliminates client-side overhead and ensures consistent rendering across viewers.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/mdmermaid : 将 Markdown 中的 Mermaid 代码块渲染为 SVG
 
-- [@1-/mdmermaid : 将 Markdown 中的 Mermaid 代码块渲染为 SVG](#1-mdmermaid-将-markdown-中的-mermaid-代码块渲染为-svg)
-  - [1. 功能介绍](#1-功能介绍)
-  - [2. 使用演示](#2-使用演示)
-  - [3. 设计思路](#3-设计思路)
-  - [4. 技术栈](#4-技术栈)
-  - [5. 代码结构](#5-代码结构)
-  - [6. 历史故事](#6-历史故事)
-  - [关于](#关于)
+- [1. 功能介绍](#1-功能介绍)
+- [2. 使用演示](#2-使用演示)
+- [3. 设计思路](#3-设计思路)
+- [4. 技术栈](#4-技术栈)
+- [5. 代码结构](#5-代码结构)
+- [6. 历史故事](#6-历史故事)
+- [关于](#关于)
 
 ## 1. 功能介绍
 
@@ -226,8 +224,10 @@ src/
 
 本工具提供构建时静态渲染，将 Mermaid 代码块预编译为静态 SVG 或压缩上传，消除客户端脚本负担，保证多终端渲染一致。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

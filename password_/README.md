@@ -3,23 +3,21 @@
 ---
 
 <a id="en"></a>
-
 # password\_ : Secure Password Hashing Made Simple
 
-- [password\_ : Secure Password Hashing Made Simple](#password_-secure-password-hashing-made-simple)
-  - [Table of Contents](#table-of-contents)
-  - [Introduction](#introduction)
-  - [Usage](#usage)
-  - [Design](#design)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [API Reference](#api-reference)
-    - [Types](#types)
-    - [Functions](#functions)
-  - [History](#history)
-  - [About](#about)
-
 A lightweight and secure password hashing library based on Argon2.
+
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Usage](#usage)
+- [Design](#design)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [API Reference](#api-reference)
+  - [Types](#types)
+  - [Functions](#functions)
+- [History](#history)
+- [About](#about)
 
 ## Table of Contents
 
@@ -113,32 +111,32 @@ The library exports the following from `lib.rs`:
 
 In 2013, the Password Hashing Competition (PHC) was launched to find a successor to aging algorithms like PBKDF2 and bcrypt, which were becoming vulnerable to GPU-based attacks. After two years of rigorous analysis, **Argon2** was selected as the winner in July 2015. Designed by Alex Biryukov, Daniel Dinu, and Dmitry Khovratovich, Argon2 introduced memory-hardness properties that make it prohibitively expensive to crack using specialized hardware, setting a new standard for password security.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # password\_ : 简单安全的密码哈希库
 
-- [password\_ : 简单安全的密码哈希库](#password_-简单安全的密码哈希库)
-  - [目录](#目录)
-  - [简介](#简介)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 参考](#api-参考)
-    - [类型](#类型)
-    - [函数](#函数)
-  - [历史轶事](#历史轶事)
-  - [关于](#关于)
-
 基于 Argon2 算法的轻量级安全密码哈希库。
+
+- [目录](#目录)
+- [简介](#简介)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [API 参考](#api-参考)
+  - [类型](#类型)
+  - [函数](#函数)
+- [历史轶事](#历史轶事)
+- [关于](#关于)
 
 ## 目录
 
@@ -232,8 +230,10 @@ fn main() -> Void {
 
 2013 年，为了寻找 PBKDF2 和 bcrypt 等老旧算法的继任者（这些算法在 GPU 攻击面前日益脆弱），密码哈希竞赛 (PHC) 正式启动。经过两年的严格分析，**Argon2** 于 2015 年 7 月脱颖而出夺得桂冠。Argon2 由 Alex Biryukov、Daniel Dinu 和 Dmitry Khovratovich 设计，引入了内存硬化 (memory-hardness) 特性，使得使用专用硬件破解密码的成本极其高昂，从而树立了密码安全的新标准。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

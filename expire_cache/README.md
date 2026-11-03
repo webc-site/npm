@@ -3,27 +3,25 @@
 ---
 
 <a id="en"></a>
-
 # expire_cache: High-performance generational cache
 
-- [expire_cache: High-performance generational cache](#expire_cache-high-performance-generational-cache)
-  - [Features](#features)
-  - [Installation](#installation)
-  - [Quick Start](#quick-start)
-    - [Basic Usage](#basic-usage)
-    - [Async Initialization](#async-initialization)
-    - [Sync Initialization](#sync-initialization)
-    - [Set Usage](#set-usage)
-  - [API Reference](#api-reference)
-    - [`Expire<T: Map>`](#expiret-map)
-    - [`get_or_init_async!` macro](#get_or_init_async-macro)
-      - [Why a macro instead of a callback function?](#why-a-macro-instead-of-a-callback-function)
-  - [Design](#design)
-    - [Generational Collection](#generational-collection)
-  - [License](#license)
-  - [About](#about)
-
 `expire_cache` implements an efficient expiration cache using generational collection strategy. Instead of tracking individual item expiration times, it maintains two data buckets (generations), significantly reducing memory overhead and CPU usage for expiration checks.
+
+- [Features](#features)
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+  - [Basic Usage](#basic-usage)
+  - [Async Initialization](#async-initialization)
+  - [Sync Initialization](#sync-initialization)
+  - [Set Usage](#set-usage)
+- [API Reference](#api-reference)
+  - [`Expire<T: Map>`](#expiret-map)
+  - [`get_or_init_async!` macro](#get_or_init_async-macro)
+    - [Why a macro instead of a callback function?](#why-a-macro-instead-of-a-callback-function)
+- [Design](#design)
+  - [Generational Collection](#generational-collection)
+- [License](#license)
+- [About](#about)
 
 ## Features
 
@@ -167,36 +165,36 @@ This approach trades absolute precision for significant throughput improvements 
 
 MulanPSL-2.0
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # expire_cache: 高性能分代缓存
 
-- [expire_cache: 高性能分代缓存](#expire_cache-高性能分代缓存)
-  - [特性](#特性)
-  - [安装](#安装)
-  - [快速开始](#快速开始)
-    - [基本用法](#基本用法)
-    - [异步初始化](#异步初始化)
-    - [同步初始化](#同步初始化)
-    - [集合用法](#集合用法)
-  - [API 参考](#api-参考)
-    - [`Expire<T: Map>`](#expiret-map)
-    - [`get_or_init_async!` 宏](#get_or_init_async-宏)
-      - [为什么用宏而不是回调函数？](#为什么用宏而不是回调函数)
-  - [设计](#设计)
-    - [分代收集策略](#分代收集策略)
-  - [许可证](#许可证)
-  - [关于](#关于)
-
 `expire_cache` 实现了基于分代收集策略的高效过期缓存。它不追踪单个条目的过期时间，而是维护两个数据桶（代），显著降低过期检查的内存开销和 CPU 使用率。
+
+- [特性](#特性)
+- [安装](#安装)
+- [快速开始](#快速开始)
+  - [基本用法](#基本用法)
+  - [异步初始化](#异步初始化)
+  - [同步初始化](#同步初始化)
+  - [集合用法](#集合用法)
+- [API 参考](#api-参考)
+  - [`Expire<T: Map>`](#expiret-map)
+  - [`get_or_init_async!` 宏](#get_or_init_async-宏)
+    - [为什么用宏而不是回调函数？](#为什么用宏而不是回调函数)
+- [设计](#设计)
+  - [分代收集策略](#分代收集策略)
+- [许可证](#许可证)
+- [关于](#关于)
 
 ## 特性
 
@@ -340,8 +338,10 @@ Rust 的 `impl Trait` 返回类型在每个调用点会生成不同的 opaque ty
 
 MulanPSL-2.0
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

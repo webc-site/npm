@@ -3,23 +3,21 @@
 ---
 
 <a id="en"></a>
-
 # xbin : Efficient byte array concatenation utilities
 
-- [xbin : Efficient byte array concatenation utilities](#xbin-efficient-byte-array-concatenation-utilities)
-  - [Introduction](#introduction)
-  - [Usage](#usage)
-  - [Features](#features)
-  - [Design](#design)
-  - [Technology Stack](#technology-stack)
-  - [Project Structure](#project-structure)
-  - [API](#api)
-    - [`pub fn concat<T: AsRef<[u8]>, const N: usize>(array: [T; N]) -> Vec<u8>`](#pub-fn-concatt-asrefu8-const-n-usizearray-t-n-vecu8)
-    - [`#[macro_export] macro_rules! concat`](#macro_export-macro_rules-concat)
-  - [History](#history)
-  - [About](#about)
-
 Features const generics, exception safety, zero-realloc and fast memcpy.
+
+- [Introduction](#introduction)
+- [Usage](#usage)
+- [Features](#features)
+- [Design](#design)
+- [Technology Stack](#technology-stack)
+- [Project Structure](#project-structure)
+- [API](#api)
+  - [`pub fn concat<T: AsRef<[u8]>, const N: usize>(array: [T; N]) -> Vec<u8>`](#pub-fn-concatt-asrefu8-const-n-usizearray-t-n-vecu8)
+  - [`#[macro_export] macro_rules! concat`](#macro_export-macro_rules-concat)
+- [History](#history)
+- [About](#about)
 
 ## Introduction
 
@@ -101,32 +99,32 @@ Convenience macro to concatenate multiple heterogeneous types that implement `As
 
 In the early days of systems programming, buffer overflow vulnerabilities and slow string copy operations plagued applications due to successive allocations. The C library function `strcat` repeatedly traverses the destination string to find its end, leading to $O(N^2)$ complexity. Modern languages like Rust employ memory safety guarantees and slices. `xbin` builds on these concepts by optimizing byte concatenation down to a single memory allocation and block memory transfer using Rust's const generics, ensuring maximum CPU cache efficiency.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # xbin : 高效字节数组连接工具
 
-- [xbin : 高效字节数组连接工具](#xbin-高效字节数组连接工具)
-  - [项目功能介绍](#项目功能介绍)
-  - [使用演示](#使用演示)
-  - [特性介绍](#特性介绍)
-  - [设计思路](#设计思路)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 说明](#api-说明)
-    - [`pub fn concat<T: AsRef<[u8]>, const N: usize>(array: [T; N]) -> Vec<u8>`](#pub-fn-concatt-asrefu8-const-n-usizearray-t-n-vecu8)
-    - [`#[macro_export] macro_rules! concat`](#macro_export-macro_rules-concat)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
-
 提供基于常量泛型、异常安全、零二次分配以及快速内存拷贝的字节数组拼接工具。
+
+- [项目功能介绍](#项目功能介绍)
+- [使用演示](#使用演示)
+- [特性介绍](#特性介绍)
+- [设计思路](#设计思路)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [API 说明](#api-说明)
+  - [`pub fn concat<T: AsRef<[u8]>, const N: usize>(array: [T; N]) -> Vec<u8>`](#pub-fn-concatt-asrefu8-const-n-usizearray-t-n-vecu8)
+  - [`#[macro_export] macro_rules! concat`](#macro_export-macro_rules-concat)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 项目功能介绍
 
@@ -208,8 +206,10 @@ xbin/
 
 在早期系统编程中，由于连续的多次内存分配，缓冲区溢出漏洞和低效的字符串拷贝层出不穷。C 语言标准的 `strcat` 函数在执行时必须重复遍历目标字符串寻找末尾，导致了 $O(N^2)$ 的复杂度灾难。现代语言如 Rust 引入了所有权和切片概念。`xbin` 结合现代 Rust 的常量泛型，将多次拼接操作在编译期即可优化的内存布局，转为一次内存分配和高效的数据块传输，榨干 CPU 缓存效率。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

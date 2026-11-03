@@ -3,23 +3,21 @@
 ---
 
 <a id="en"></a>
-
 # axum_graceful_restart
-
-- [axum_graceful_restart](#axum_graceful_restart)
-  - [<a name="english"></a>English](#a-nameenglishaenglish)
-    - [<a name="introduction"></a>Introduction](#a-nameintroductionaintroduction)
-    - [<a name="key-features"></a>Key Features](#a-namekey-featuresakey-features)
-    - [<a name="usage"></a>Usage](#a-nameusageausage)
-    - [<a name="design-philosophy"></a>Design Philosophy](#a-namedesign-philosophyadesign-philosophy)
-    - [<a name="technology-stack"></a>Technology Stack](#a-nametechnology-stackatechnology-stack)
-    - [<a name="file-structure"></a>File Structure](#a-namefile-structureafile-structure)
-    - [<a name="a-little-history-the-story-of-so_reuseport"></a>A Little History: The Story of SO_REUSEPORT](#a-namea-little-history-the-story-of-so_reuseportaa-little-history-the-story-of-so_reuseport)
-  - [About](#about)
 
 [English](#english) | [中文](#中文)
 
 ---
+
+- [<a name="english"></a>English](#a-nameenglishaenglish)
+  - [<a name="introduction"></a>Introduction](#a-nameintroductionaintroduction)
+  - [<a name="key-features"></a>Key Features](#a-namekey-featuresakey-features)
+  - [<a name="usage"></a>Usage](#a-nameusageausage)
+  - [<a name="design-philosophy"></a>Design Philosophy](#a-namedesign-philosophyadesign-philosophy)
+  - [<a name="technology-stack"></a>Technology Stack](#a-nametechnology-stackatechnology-stack)
+  - [<a name="file-structure"></a>File Structure](#a-namefile-structureafile-structure)
+  - [<a name="a-little-history-the-story-of-so_reuseport"></a>A Little History: The Story of SO_REUSEPORT](#a-namea-little-history-the-story-of-so_reuseportaa-little-history-the-story-of-so_reuseport)
+- [About](#about)
 
 ## <a name="english"></a>English
 
@@ -101,32 +99,32 @@ The `SO_REUSEPORT` socket option is a relatively modern addition to the world of
 
 `SO_REUSEPORT` was introduced in Linux kernel 3.9 (released in 2013) and has since been adopted by other BSD-derived systems like macOS and FreeBSD. It was a game-changer. It allows multiple sockets to bind to the exact same IP address and port combination, as long as all of them set this option. The kernel then takes on the responsibility of load-balancing incoming connections across the listening sockets. This simple-sounding feature unlocked a much cleaner and more reliable pattern for high-availability services, enabling the elegant rolling restart strategies we see in many modern systems, including this library. It's a great example of how kernel-level improvements can profoundly simplify application-level architecture.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # axum_graceful_restart
-
-- [axum_graceful_restart](#axum_graceful_restart)
-  - [<a name="中文"></a>中文](#a-name中文a中文)
-    - [<a name="简介-1"></a>简介](#a-name简介-1a简介)
-    - [<a name="核心功能-1"></a>核心功能](#a-name核心功能-1a核心功能)
-    - [<a name="使用示例-1"></a>使用示例](#a-name使用示例-1a使用示例)
-    - [<a name="设计思路-1"></a>设计思路](#a-name设计思路-1a设计思路)
-    - [<a name="技术栈-1"></a>技术栈](#a-name技术栈-1a技术栈)
-    - [<a name="文件结构-1"></a>文件结构](#a-name文件结构-1a文件结构)
-    - [<a name="技术拾遗so_reuseport-的故事"></a>技术拾遗：SO_REUSEPORT 的故事](#a-name技术拾遗so_reuseport-的故事a技术拾遗so_reuseport-的故事)
-  - [关于](#关于)
 
 [English](#english) | [中文](#中文)
 
 ---
+
+- [<a name="中文"></a>中文](#a-name中文a中文)
+  - [<a name="简介-1"></a>简介](#a-name简介-1a简介)
+  - [<a name="核心功能-1"></a>核心功能](#a-name核心功能-1a核心功能)
+  - [<a name="使用示例-1"></a>使用示例](#a-name使用示例-1a使用示例)
+  - [<a name="设计思路-1"></a>设计思路](#a-name设计思路-1a设计思路)
+  - [<a name="技术栈-1"></a>技术栈](#a-name技术栈-1a技术栈)
+  - [<a name="文件结构-1"></a>文件结构](#a-name文件结构-1a文件结构)
+  - [<a name="技术拾遗so_reuseport-的故事"></a>技术拾遗：SO_REUSEPORT 的故事](#a-name技术拾遗so_reuseport-的故事a技术拾遗so_reuseport-的故事)
+- [关于](#关于)
 
 ## <a name="中文"></a>中文
 
@@ -208,8 +206,10 @@ async fn handler() -> String {
 
 `SO_REUSEPORT` 于 2013 年在 Linux 内核 3.9 版本中被引入，并此后被其他 BSD 衍生系统（如 macOS 和 FreeBSD）所采用。它的出现改变了游戏规则。它允许多个套接字绑定到完全相同的 IP 地址和端口组合，只要所有套接字都设置了此选项即可。然后，内核会负责在这些监听套接字之间对传入的连接进行负载均衡。这个听起来简单的功能，为高可用性服务解锁了一种更清晰、更可靠的模式，使得我们能在许多现代系统中（包括本库）看到这种优雅的滚动重启策略。这是内核级改进如何深刻简化应用层架构的一个绝佳范例。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

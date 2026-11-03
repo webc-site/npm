@@ -3,17 +3,15 @@
 ---
 
 <a id="en"></a>
-
 # @1-/rolldown : High-performance JavaScript bundler with iterative DCE optimization
 
-- [@1-/rolldown : High-performance JavaScript bundler with iterative DCE optimization](#1-rolldown-high-performance-javascript-bundler-with-iterative-dce-optimization)
-  - [Functionality](#functionality)
-  - [Usage demonstration](#usage-demonstration)
-  - [Design rationale](#design-rationale)
-  - [Technology stack](#technology-stack)
-  - [Code structure](#code-structure)
-  - [Historical context](#historical-context)
-  - [About](#about)
+- [Functionality](#functionality)
+- [Usage demonstration](#usage-demonstration)
+- [Design rationale](#design-rationale)
+- [Technology stack](#technology-stack)
+- [Code structure](#code-structure)
+- [Historical context](#historical-context)
+- [About](#about)
 
 ## Functionality
 
@@ -91,26 +89,26 @@ src/
 
 JavaScript bundlers evolved from Browserify's simple concatenation to Webpack and Rollup's modular systems. Rolldown represents the next generation, leveraging Rust's performance for sub-second builds while maintaining Rollup's API compatibility. This wrapper enhances rolldown with compiler-inspired iterative DCE optimization techniques.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/rolldown : 高性能 JavaScript 打包器与迭代 DCE 优化工具
 
-- [@1-/rolldown : 高性能 JavaScript 打包器与迭代 DCE 优化工具](#1-rolldown-高性能-javascript-打包器与迭代-dce-优化工具)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -188,8 +186,10 @@ src/
 
 JavaScript 打包工具从 Browserify 的简单连接演变为 Webpack 和 Rollup 的模块化系统。Rolldown 代表新一代打包器，利用 Rust 性能实现亚秒级构建，同时保持 Rollup 的 API 兼容性。此封装通过受编译器优化启发的迭代 DCE 技术，将 Dead Code Elimination 效果提升到新水平。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

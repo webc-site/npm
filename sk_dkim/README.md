@@ -3,22 +3,20 @@
 ---
 
 <a id="en"></a>
-
 # sk_dkim : Deterministic DKIM Key Generation
 
-- [sk_dkim : Deterministic DKIM Key Generation](#sk_dkim-deterministic-dkim-key-generation)
-  - [Table of Contents](#table-of-contents)
-  - [Introduction](#introduction)
-  - [Why RSA? (The Sad State of Ed25519 Support)](#why-rsa-the-sad-state-of-ed25519-support)
-  - [Usage](#usage)
-    - [Example](#example)
-  - [Design](#design)
-  - [API Reference](#api-reference)
-    - [`struct Sk`](#struct-sk)
-    - [`struct Dkim`](#struct-dkim)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [About](#about)
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Why RSA? (The Sad State of Ed25519 Support)](#why-rsa-the-sad-state-of-ed25519-support)
+- [Usage](#usage)
+  - [Example](#example)
+- [Design](#design)
+- [API Reference](#api-reference)
+  - [`struct Sk`](#struct-sk)
+  - [`struct Dkim`](#struct-dkim)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [About](#about)
 
 ## Table of Contents
 
@@ -146,31 +144,31 @@ Represents the generated DKIM key pair.
 └── test.sh         # Test execution script
 ```
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # sk_dkim : 基于密钥的确定性 DKIM 密钥生成
 
-- [sk_dkim : 基于密钥的确定性 DKIM 密钥生成](#sk_dkim-基于密钥的确定性-dkim-密钥生成)
-  - [目录](#目录)
-  - [简介](#简介)
-  - [为什么是 RSA？(Ed25519 的悲惨现状)](#为什么是-rsaed25519-的悲惨现状)
-  - [使用方法](#使用方法)
-    - [演示代码](#演示代码)
-  - [设计思路](#设计思路)
-  - [API 参考](#api-参考)
-    - [`struct Sk`](#struct-sk)
-    - [`struct Dkim`](#struct-dkim)
-  - [技术栈](#技术栈)
-  - [目录结构](#目录结构)
-  - [关于](#关于)
+- [目录](#目录)
+- [简介](#简介)
+- [为什么是 RSA？(Ed25519 的悲惨现状)](#为什么是-rsaed25519-的悲惨现状)
+- [使用方法](#使用方法)
+  - [演示代码](#演示代码)
+- [设计思路](#设计思路)
+- [API 参考](#api-参考)
+  - [`struct Sk`](#struct-sk)
+  - [`struct Dkim`](#struct-dkim)
+- [技术栈](#技术栈)
+- [目录结构](#目录结构)
+- [关于](#关于)
 
 ## 目录
 
@@ -298,8 +296,10 @@ fn main() {
 └── test.sh         # 测试执行脚本
 ```
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

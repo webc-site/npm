@@ -1,6 +1,7 @@
 use aok::{OK, Void};
+use hipstr::HipStr;
 use log::info;
-use trim_li::trim_li;
+use trim_li::{Restore, trim_li};
 
 #[static_init::constructor(0)]
 extern "C" fn _log_init() {
@@ -80,23 +81,20 @@ fn test_trim_li() -> Void {
   // 7. 测试 load 传入修改后的内容
   let (restore, li) = trim_li("  foo  \n  \n  bar  \n\n  ");
   assert_eq!(li.len(), 2);
-  let modified_li = vec![
-    hipstr::HipStr::borrowed("  FOO"),
-    hipstr::HipStr::borrowed("  BAR"),
-  ];
+  let modified_li = vec![HipStr::borrowed("  FOO"), HipStr::borrowed("  BAR")];
   let restored = restore.load(&modified_li).unwrap();
   assert_eq!(restored.as_str(), "  FOO\n\n  BAR");
 
   // 长度不一致返回 None
-  let invalid_li = vec![hipstr::HipStr::borrowed("  FOO")];
+  let invalid_li = vec![HipStr::borrowed("  FOO")];
   assert!(restore.load(&invalid_li).is_none());
 
   // 测试 From / Into 序列化与反序列化
   let serialized: Vec<u8> = restore.clone().into();
-  let deserialized = trim_li::Restore::from(&serialized[..]);
+  let deserialized = Restore::from(&serialized[..]);
   assert_eq!(restore, deserialized);
 
-  let deserialized_vec = trim_li::Restore::from(serialized);
+  let deserialized_vec = Restore::from(serialized);
   assert_eq!(restore, deserialized_vec);
 
   info!("All trim_li and restore tests passed!");

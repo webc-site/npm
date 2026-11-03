@@ -3,17 +3,15 @@
 ---
 
 <a id="en"></a>
-
 # @1-/vernext : Increment semantic version number last segment
 
-- [@1-/vernext : Increment semantic version number last segment](#1-vernext-increment-semantic-version-number-last-segment)
-  - [Functionality](#functionality)
-  - [Usage demonstration](#usage-demonstration)
-  - [Design rationale](#design-rationale)
-  - [Technology stack](#technology-stack)
-  - [Code structure](#code-structure)
-  - [Historical context](#historical-context)
-  - [About](#about)
+- [Functionality](#functionality)
+- [Usage demonstration](#usage-demonstration)
+- [Design rationale](#design-rationale)
+- [Technology stack](#technology-stack)
+- [Code structure](#code-structure)
+- [Historical context](#historical-context)
+- [About](#about)
 
 ## Functionality
 
@@ -70,26 +68,26 @@ The core functionality is implemented in a single, concise file that exports a d
 
 Semantic versioning was introduced in 2012 by Tom Preston-Werner, creator of GitHub, to provide a clear and consistent way to communicate the nature of changes between software versions. The concept of version numbers dates back to the early days of computing, with IBM's OS/360 in 1964 using version numbers to track software releases. This library implements a fundamental operation in the semantic versioning workflow — incrementing the patch version for bug fixes.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/vernext : 递增语义化版本号末位段
 
-- [@1-/vernext : 递增语义化版本号末位段](#1-vernext-递增语义化版本号末位段)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -146,8 +144,10 @@ src/
 
 语义化版本控制规范于 2012 年由 GitHub 创始人 Tom Preston-Werner 提出，旨在为软件版本变更提供清晰一致的沟通方式。版本号概念可追溯至计算早期，IBM 的 OS/360 系统于 1964 年即使用版本号追踪软件发布。本库实现了语义化版本工作流中的基础操作——为修复缺陷而递增补丁版本号。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

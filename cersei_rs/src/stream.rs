@@ -4,6 +4,7 @@ use cersei::{
   events::{AgentEvent, AgentStream as CerseiAgentStream},
   prelude::serde_json,
 };
+use napi::Error;
 use napi_derive::napi;
 use tokio::sync::mpsc::{Receiver, Sender};
 
@@ -48,7 +49,7 @@ impl AgentStream {
             return Ok(Some((msg::TOOL, name, args)));
           }
           msg::Msg::Err(err) => {
-            return Err(napi::Error::from_reason(err));
+            return Err(Error::from_reason(err));
           }
         },
         None => return Ok(None),

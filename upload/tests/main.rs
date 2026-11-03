@@ -1,7 +1,9 @@
 use std::{env, time::Duration};
 
 use aok::{OK, Void};
+use jiff::Timestamp;
 use log::info;
+use reqwest::Client;
 use tokio::time::sleep;
 use upload::S3;
 
@@ -33,7 +35,7 @@ async fn test_upload() -> Void {
 
   let uploader = S3::new(s3_id, s3_sk, s3_host, s3_bucket, s3_region, []);
 
-  let now_millis = jiff::Timestamp::now().as_millisecond();
+  let now_millis = Timestamp::now().as_millisecond();
   let data = format!("test-s3-rust-{now_millis}");
   let file_name = "test.txt";
 
@@ -50,7 +52,7 @@ async fn test_upload() -> Void {
   };
   info!("Fetching url: {url}");
 
-  let client = reqwest::Client::new();
+  let client = Client::new();
 
   let mut text = String::new();
   let mut success = false;

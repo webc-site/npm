@@ -20,12 +20,13 @@ pub fn should_reject(body: &[u8]) -> bool {
   MessageParser::default()
     .parse(body)
     .map(|m| {
-      let auto = m
-        .header(AUTO_SUBMITTED)
+      let headers = m.headers();
+      let auto = headers
+        .value(AUTO_SUBMITTED)
         .is_some_and(|v| v.as_text().is_none_or(|s| s != "no"));
-      let empty_rp = m
-        .header(HeaderName::ReturnPath)
-        .is_some_and(|v| v.as_text().is_some_and(|s| s.is_empty() || s == "<>"));
+      let empty_rp = headers
+        .value(HeaderName::ReturnPath)
+        .is_some_and(|v| v.as_text().is_none_or(|s| s.is_empty() || s == "<>"));
       !auto && !empty_rp
     })
     .unwrap_or(true)

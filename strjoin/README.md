@@ -3,22 +3,20 @@
 ---
 
 <a id="en"></a>
-
 # strjoin : High-performance zero-allocation string join extension for Rust iterators
 
-- [strjoin : High-performance zero-allocation string join extension for Rust iterators](#strjoin-high-performance-zero-allocation-string-join-extension-for-rust-iterators)
-  - [Features](#features)
-  - [Design](#design)
-  - [Technical Stack](#technical-stack)
-  - [Directory Structure](#directory-structure)
-  - [Usage](#usage)
-  - [API](#api)
-    - [`Join`](#join)
-      - [`fn join(self, sep: impl AsRef<str>) -> String`](#fn-joinself-sep-impl-asrefstr-string)
-  - [History](#history)
-  - [About](#about)
-
 High-performance string join extension trait for Rust iterators. It eliminates the need for temporary `Vec` allocations during string slice joining.
+
+- [Features](#features)
+- [Design](#design)
+- [Technical Stack](#technical-stack)
+- [Directory Structure](#directory-structure)
+- [Usage](#usage)
+- [API](#api)
+  - [`Join`](#join)
+    - [`fn join(self, sep: impl AsRef<str>) -> String`](#fn-joinself-sep-impl-asrefstr-string)
+- [History](#history)
+- [About](#about)
 
 ## Features
 
@@ -96,32 +94,32 @@ Concatenates the iterator elements with the specified separator.
 
 In early versions of Rust (prior to 1.3.0), the method for joining slices was named `connect`. It was later renamed to `join` to align with the conventions of other modern languages. While standard Rust provides `[T].join` for slices, it lacks a direct `join` on general iterators, forcing developers to write `.collect::<Vec<_>>().join(...)` which incurs redundant memory allocations. `strjoin` resolves this limitation, delivering optimal performance by executing string joining directly on the iterator stream with bounded pre-allocation.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # strjoin : 针对 Rust 迭代器的高性能零临时分配字符串拼接扩展
 
-- [strjoin : 针对 Rust 迭代器的高性能零临时分配字符串拼接扩展](#strjoin-针对-rust-迭代器的高性能零临时分配字符串拼接扩展)
-  - [项目功能介绍](#项目功能介绍)
-  - [使用演示](#使用演示)
-  - [特性介绍](#特性介绍)
-  - [设计思路](#设计思路)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 说明](#api-说明)
-    - [`Join`](#join)
-      - [`fn join(self, sep: impl AsRef<str>) -> String`](#fn-joinself-sep-impl-asrefstr-string)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
-
 针对 Rust 迭代器的高性能字符串拼接扩展。无需通过 `collect::<Vec<_>>()` 进行临时内存分配即可实现高效拼接。
+
+- [项目功能介绍](#项目功能介绍)
+- [使用演示](#使用演示)
+- [特性介绍](#特性介绍)
+- [设计思路](#设计思路)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [API 说明](#api-说明)
+  - [`Join`](#join)
+    - [`fn join(self, sep: impl AsRef<str>) -> String`](#fn-joinself-sep-impl-asrefstr-string)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 项目功能介绍
 
@@ -203,8 +201,10 @@ graph TD
 
 在 Rust 1.3.0 之前，切片的拼接方法曾被称为 `connect`。为契合现代主流编程语言的习惯，官方随后将其重命名为 `join`。然而，Rust 标准库仅为切片 `[T]` 提供了高效的 `join` 接口，并未对通用迭代器开放。这促使开发者通常需要先编写 `.collect::<Vec<_>>().join(...)`，造成了冗余的临时内存分配。`strjoin` 填补了此空白，通过引入限额同质预估策略，使得在迭代器流上直接进行高性能拼接成为可能。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

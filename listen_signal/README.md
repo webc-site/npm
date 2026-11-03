@@ -3,28 +3,26 @@
 ---
 
 <a id="en"></a>
-
 # listen_signal : Graceful Process Termination Made Simple
 
-- [listen_signal : Graceful Process Termination Made Simple](#listen_signal-graceful-process-termination-made-simple)
-  - [Table of Contents](#table-of-contents)
-  - [Introduction](#introduction)
-  - [Features](#features)
-  - [Installation](#installation)
-  - [Usage Example](#usage-example)
-    - [Graceful Shutdown Pattern with Reload Support](#graceful-shutdown-pattern-with-reload-support)
-  - [API Reference](#api-reference)
-    - [Function: `wait()`](#function-wait)
-    - [Constants](#constants)
-      - [Signal Constants](#signal-constants)
-      - [Pre-configured Signal Sets](#pre-configured-signal-sets)
-  - [Design Philosophy](#design-philosophy)
-    - [Signal Flow](#signal-flow)
-    - [Architecture](#architecture)
-  - [Technology Stack](#technology-stack)
-  - [Project Structure](#project-structure)
-  - [Signal Handling History](#signal-handling-history)
-  - [About](#about)
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage Example](#usage-example)
+  - [Graceful Shutdown Pattern with Reload Support](#graceful-shutdown-pattern-with-reload-support)
+- [API Reference](#api-reference)
+  - [Function: `wait()`](#function-wait)
+  - [Constants](#constants)
+    - [Signal Constants](#signal-constants)
+    - [Pre-configured Signal Sets](#pre-configured-signal-sets)
+- [Design Philosophy](#design-philosophy)
+  - [Signal Flow](#signal-flow)
+  - [Architecture](#architecture)
+- [Technology Stack](#technology-stack)
+- [Project Structure](#project-structure)
+- [Signal Handling History](#signal-handling-history)
+- [About](#about)
 
 ## Table of Contents
 
@@ -239,37 +237,37 @@ Modern async runtimes like Tokio brought new challenges to signal handling - sig
 
 The principle of graceful shutdown - catching signals, closing connections, flushing buffers, saving state - has become a cornerstone of reliable distributed systems. What started as a kernel notification mechanism in 1979 now orchestrates the lifecycle of microservices across global infrastructure.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # listen_signal : 优雅终止进程的简洁方案
 
-- [listen_signal : 优雅终止进程的简洁方案](#listen_signal-优雅终止进程的简洁方案)
-  - [目录](#目录)
-  - [项目介绍](#项目介绍)
-  - [功能特性](#功能特性)
-  - [安装配置](#安装配置)
-  - [使用示例](#使用示例)
-    - [支持重载的优雅关闭模式](#支持重载的优雅关闭模式)
-  - [API 文档](#api-文档)
-    - [函数: `wait()`](#函数-wait)
-    - [常量](#常量)
-      - [信号常量](#信号常量)
-      - [预配置信号组](#预配置信号组)
-  - [设计思路](#设计思路)
-    - [信号流转](#信号流转)
-    - [架构设计](#架构设计)
-  - [技术栈](#技术栈)
-  - [项目结构](#项目结构)
-  - [信号处理历史](#信号处理历史)
-  - [关于](#关于)
+- [目录](#目录)
+- [项目介绍](#项目介绍)
+- [功能特性](#功能特性)
+- [安装配置](#安装配置)
+- [使用示例](#使用示例)
+  - [支持重载的优雅关闭模式](#支持重载的优雅关闭模式)
+- [API 文档](#api-文档)
+  - [函数: `wait()`](#函数-wait)
+  - [常量](#常量)
+    - [信号常量](#信号常量)
+    - [预配置信号组](#预配置信号组)
+- [设计思路](#设计思路)
+  - [信号流转](#信号流转)
+  - [架构设计](#架构设计)
+- [技术栈](#技术栈)
+- [项目结构](#项目结构)
+- [信号处理历史](#信号处理历史)
+- [关于](#关于)
 
 ## 目录
 
@@ -484,8 +482,10 @@ SIGTERM（信号 15）被设计为"礼貌的"终止请求——给进程时间�
 
 优雅关闭原则——捕获信号、关闭连接、刷新缓冲区、保存状态——已成为可靠分布式系统的基石。从 1979 年的内核通知机制开始，如今已发展为编排全球基础设施中微服务生命周期的核心技术。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

@@ -3,17 +3,15 @@
 ---
 
 <a id="en"></a>
-
 # @1-/yml : Minimalist High-Fault-Tolerant YAML Parser
 
-- [@1-/yml : Minimalist High-Fault-Tolerant YAML Parser](#1-yml-minimalist-high-fault-tolerant-yaml-parser)
-  - [Functionality](#functionality)
-  - [Usage Demo](#usage-demo)
-  - [Design Rationale](#design-rationale)
-  - [Tech Stack](#tech-stack)
-  - [Code Structure](#code-structure)
-  - [Historical Note](#historical-note)
-  - [About](#about)
+- [Functionality](#functionality)
+- [Usage Demo](#usage-demo)
+- [Design Rationale](#design-rationale)
+- [Tech Stack](#tech-stack)
+- [Code Structure](#code-structure)
+- [Historical Note](#historical-note)
+- [About](#about)
 
 ## Functionality
 
@@ -77,26 +75,26 @@ src/
 
 YAML was co-designed in 2001 by Clark Evans, Ingy döt Net, and Oren Ben-Kiki as a _human-friendly data serialization language_. Its name — “YAML Ain’t Markup Language” — deliberately rejects markup semantics, prioritizing direct representation of native data structures (mappings, sequences, scalars). This parser honors that ethos: it avoids complex ASTs and backtracking, using only a lean state machine to recover semantic intent from imperfect input.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/yml : 极简高容错 YAML 解析器
 
-- [@1-/yml : 极简高容错 YAML 解析器](#1-yml-极简高容错-yaml-解析器)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -160,8 +158,10 @@ src/
 
 YAML 由 Clark Evans、Ingy döt Net 和 Oren Ben-Kiki 于 2001 年联合设计，初衷是成为“人类可读的数据序列化语言”。其名称 “YAML Ain’t Markup Language” 明确拒绝将自身定位为 XML 替代品，而是强调对原生数据结构（映射、序列、标量）的直接表达。本解析器延续这一精神，舍弃复杂语法树与多轮回溯，以极简状态机还原 YAML 的语义本质。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

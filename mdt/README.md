@@ -5,17 +5,16 @@
 <a id="en"></a>
 # @1-/mdt : Render Markdown templates and generate hierarchical TOC
 
-- [@1-/mdt : Render Markdown templates and generate hierarchical TOC](#1-mdt-render-markdown-templates-and-generate-hierarchical-toc)
-  - [1. Features](#1-features)
-  - [2. Usage Demonstration](#2-usage-demonstration)
-    - [API Usage](#api-usage)
-    - [CLI Tool](#cli-tool)
-    - [Template Example (README.mdt)](#template-example-readmemdt)
-  - [3. Design Idea](#3-design-idea)
-  - [4. Tech Stack](#4-tech-stack)
-  - [5. Code Structure](#5-code-structure)
-  - [6. History](#6-history)
-  - [About](#about)
+- [1. Features](#1-features)
+- [2. Usage Demonstration](#2-usage-demonstration)
+  - [API Usage](#api-usage)
+  - [CLI Tool](#cli-tool)
+  - [Template Example (README.mdt)](#template-example-readmemdt)
+- [3. Design Idea](#3-design-idea)
+- [4. Tech Stack](#4-tech-stack)
+- [5. Code Structure](#5-code-structure)
+- [6. History](#6-history)
+- [About](#about)
 
 ## 1. Features
 
@@ -139,17 +138,16 @@ This library is developed by [WebC.site](https://webc.site).
 <a id="zh"></a>
 # @1-/mdt : Render Markdown templates and generate hierarchical TOC
 
-- [@1-/mdt : Render Markdown templates and generate hierarchical TOC](#1-mdt-render-markdown-templates-and-generate-hierarchical-toc)
-  - [1. 功能介绍](#1-功能介绍)
-  - [2. 使用演示](#2-使用演示)
-    - [API 调用](#api-调用)
-    - [命令行工具](#命令行工具)
-    - [模板示例 (README.mdt)](#模板示例-readmemdt)
-  - [3. 设计思路](#3-设计思路)
-  - [4. 技术栈](#4-技术栈)
-  - [5. 代码结构](#5-代码结构)
-  - [6. 历史故事](#6-历史故事)
-  - [关于](#关于)
+- [1. 功能介绍](#1-功能介绍)
+- [2. 使用演示](#2-使用演示)
+  - [API 调用](#api-调用)
+  - [命令行工具](#命令行工具)
+  - [模板示例 (README.mdt)](#模板示例-readmemdt)
+- [3. 设计思路](#3-设计思路)
+- [4. 技术栈](#4-技术栈)
+- [5. 代码结构](#5-代码结构)
+- [6. 历史故事](#6-历史故事)
+- [关于](#关于)
 
 ## 1. 功能介绍
 

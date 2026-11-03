@@ -3,17 +3,15 @@
 ---
 
 <a id="en"></a>
-
 # @1-/oslang : OS language detection utility
 
-- [@1-/oslang : OS language detection utility](#1-oslang-os-language-detection-utility)
-  - [Functionality](#functionality)
-  - [Usage demonstration](#usage-demonstration)
-  - [Design rationale](#design-rationale)
-  - [Technology stack](#technology-stack)
-  - [Code structure](#code-structure)
-  - [Historical context](#historical-context)
-  - [About](#about)
+- [Functionality](#functionality)
+- [Usage demonstration](#usage-demonstration)
+- [Design rationale](#design-rationale)
+- [Technology stack](#technology-stack)
+- [Code structure](#code-structure)
+- [Historical context](#historical-context)
+- [About](#about)
 
 ## Functionality
 
@@ -74,26 +72,26 @@ src/
 
 The POSIX standard, first published in 1988 (IEEE Std 1003.1-1988), formally standardized `LC_*` environment variables (e.g., `LC_MESSAGES`, `LC_TIME`) to provide portable localization on Unix systems. `LANG` served as the default fallback, while `LANGUAGE` was later extended by GNU to support ordered language preference lists (e.g., `zh_CN:zh_TW`). This library carries forward that four-decade tradition, re-implementing its core semantics in modern JavaScript.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/oslang : 操作系统语言检测工具
 
-- [@1-/oslang : 操作系统语言检测工具](#1-oslang-操作系统语言检测工具)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -154,8 +152,10 @@ src/
 
 POSIX 标准于 1988 年首次发布（IEEE Std 1003.1-1988），正式将 `LC_*` 环境变量（如 `LC_MESSAGES`, `LC_TIME`）纳入规范，为 Unix 系统提供可移植的本地化机制。`LANG` 变量作为默认兜底，`LANGUAGE` 则被 GNU 系统扩展用于多语言优先级列表（如 `zh_CN:zh_TW`）。本库延续这一四十年传统，在现代 JavaScript 环境中轻量复现其核心语义。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

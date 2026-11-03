@@ -29,9 +29,10 @@ impl<'a> Smtp<'a> {
 
   pub async fn send(&mut self, mail: impl IntoMessage<'_>) -> Result<()> {
     match self.signer {
-      Some(signer) => self.client.send_signed(mail, signer).await,
-      None => self.client.send(mail).await,
-    }
+      Some(signer) => self.client.send_signed(mail, signer).await?,
+      None => self.client.send(mail).await?,
+    };
+    Ok(())
   }
 
   // 重置连接状态 / Reset connection state

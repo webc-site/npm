@@ -1,5 +1,6 @@
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
+use coarsetime::Clock;
 mod error;
 mod get_by_kvrocks;
 
@@ -30,7 +31,7 @@ xboot::add!({
   spawn(async move {
     loop {
       sleep(Duration::from_secs(3600)).await;
-      let deadline = coarsetime::Clock::now_since_epoch().as_secs() + *SSL_EXPIRE_PRE;
+      let deadline = Clock::now_since_epoch().as_secs() + *SSL_EXPIRE_PRE;
       let mut btree = EXPIRE.lock();
       let keep = btree.split_off(&deadline);
       let pinned = CACHE.pin();

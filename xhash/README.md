@@ -3,22 +3,20 @@
 ---
 
 <a id="en"></a>
-
 # xhash : Fast and simple xxHash wrapper for Rust
 
-- [xhash : Fast and simple xxHash wrapper for Rust](#xhash-fast-and-simple-xxhash-wrapper-for-rust)
-  - [Introduction](#introduction)
-  - [Usage](#usage)
-  - [Features](#features)
-  - [Design](#design)
-  - [Technology Stack](#technology-stack)
-  - [Directory Structure](#directory-structure)
-  - [API Documentation](#api-documentation)
-    - [Constants](#constants)
-    - [Functions](#functions)
-    - [Structs](#structs)
-  - [History & Background](#history-background)
-  - [About](#about)
+- [Introduction](#introduction)
+- [Usage](#usage)
+- [Features](#features)
+- [Design](#design)
+- [Technology Stack](#technology-stack)
+- [Directory Structure](#directory-structure)
+- [API Documentation](#api-documentation)
+  - [Constants](#constants)
+  - [Functions](#functions)
+  - [Structs](#structs)
+- [History & Background](#history-background)
+- [About](#about)
 
 ## Introduction
 
@@ -112,31 +110,31 @@ When processing streams using [Hasher](file:///Users/z/git/npm/xhash/src/hasher.
 
 xxHash was created by Yann Collet around 2012. He designed it as fast checksum engine for his LZ4 compression algorithm. Existing cryptographic hash algorithms introduced high CPU overheads, while standard non-cryptographic hashes failed to saturate RAM bandwidth. Collet set out to create hashing algorithm that could operate at RAM speed limits. The "xx" prefix represents "extremely", denoting processing speeds faster than memory copies.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # xhash : 快速、简洁的 Rust xxHash 封装
 
-- [xhash : 快速、简洁的 Rust xxHash 封装](#xhash-快速简洁的-rust-xxhash-封装)
-  - [项目功能介绍](#项目功能介绍)
-  - [使用演示](#使用演示)
-  - [特性介绍](#特性介绍)
-  - [设计思路](#设计思路)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 说明](#api-说明)
-    - [常量](#常量)
-    - [函数](#函数)
-    - [结构体](#结构体)
-  - [历史与背景](#历史与背景)
-  - [关于](#关于)
+- [项目功能介绍](#项目功能介绍)
+- [使用演示](#使用演示)
+- [特性介绍](#特性介绍)
+- [设计思路](#设计思路)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [API 说明](#api-说明)
+  - [常量](#常量)
+  - [函数](#函数)
+  - [结构体](#结构体)
+- [历史与背景](#历史与背景)
+- [关于](#关于)
 
 ## 项目功能介绍
 
@@ -230,8 +228,10 @@ graph TD
 
 xxHash 由 Yann Collet 于 2012 年发布。当时 Collet 正在为自行开发的 LZ4 压缩算法寻找匹配的数据校验引擎。由于传统加密哈希算法 CPU 开销过大，而非加密哈希算法难以跑满内存带宽，Collet 决定设计以内存极限读取速度为目标的非加密哈希算法。算法前缀 “xx” 代表 “extremely”（极度），意指速度超越普通内存复制。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

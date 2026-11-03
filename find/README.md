@@ -3,17 +3,15 @@
 ---
 
 <a id="en"></a>
-
 # @1-/find : Locate directory containing target file by walking up parent paths
 
-- [@1-/find : Locate directory containing target file by walking up parent paths](#1-find-locate-directory-containing-target-file-by-walking-up-parent-paths)
-  - [Features](#features)
-  - [Usage](#usage)
-  - [Design](#design)
-  - [Tech Stack](#tech-stack)
-  - [Code Structure](#code-structure)
-  - [History](#history)
-  - [About](#about)
+- [Features](#features)
+- [Usage](#usage)
+- [Design](#design)
+- [Tech Stack](#tech-stack)
+- [Code Structure](#code-structure)
+- [History](#history)
+- [About](#about)
 
 ## Features
 
@@ -94,20 +92,19 @@ This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/find : 向上递归查找包含指定目标的目录
 
-- [@1-/find : 向上递归查找包含指定目标的目录](#1-find-向上递归查找包含指定目标的目录)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -187,3 +184,4 @@ Git 与 npm 等工具均采用此逻辑定位工作区根目录。
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

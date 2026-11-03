@@ -3,6 +3,7 @@ use std::{mem, net::IpAddr};
 use idns::{Spf, spf::Status};
 use log::info;
 use mail_forward::Forward;
+use mail_struct::Mail;
 use ssl_trait::CertByHost;
 use tokio::net::TcpStream;
 
@@ -225,7 +226,7 @@ impl<F: Forward, M: Mailer, C: CertByHost> Session<F, M, C> {
   /// 发送邮件到指定目标
   async fn send_mail(&mut self, sender: &str, li: Vec<String>, body: Vec<u8>) -> Result<()> {
     let n = li.len();
-    let Some(mail) = mail_struct::Mail::new(sender, li, body) else {
+    let Some(mail) = Mail::new(sender, li, body) else {
       log::error!("mail construct: {sender}");
       self.send(S::LOCAL_ERROR).await?;
       return Ok(());

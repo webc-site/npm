@@ -1,3 +1,4 @@
+use async_scoped::TokioScope;
 mod dkim;
 mod error;
 mod parse;
@@ -10,15 +11,16 @@ use std::sync::Arc;
 pub use dkim::signer;
 pub use error::{Error, Reject, SendErr};
 use mail_send::mail_auth::{
-  common::crypto::{RsaKey, Sha256},
-  dkim::{DkimSigner, Done},
+  crypto::{RsaKey, Sha256},
+  dkim::DkimSigner,
+  signer::Ready,
 };
 use mail_struct::Mail;
 pub use parse::{MAX_RECEIVED, add_received, recv_overflow};
 use sk_dkim::Sk;
 pub use smtp::Smtp;
 
-pub type Signer = DkimSigner<RsaKey<Sha256>, Done>;
+pub type Signer = DkimSigner<RsaKey<Sha256>, Ready>;
 pub type SignerArc = Arc<Signer>;
 
 #[derive(Debug)]
@@ -36,7 +38,7 @@ pub struct SendResult {
 // 并发发送邮件并收集结果 / Send emails concurrently and collect results
 pub async fn send(mail: &Mail, signer: Option<&Signer>) -> SendResult {
   let (_, results) = unsafe {
-    async_scoped::TokioScope::scope_and_collect(|scope| {
+    TokioScope::scope_and_collect(|scope| {
       for msg in mail {
         scope.spawn(send::send(msg, signer));
       }

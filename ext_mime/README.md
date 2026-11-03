@@ -3,26 +3,24 @@
 ---
 
 <a id="en"></a>
-
 # ext_mime : fast and efficient file extension to MIME-Type mapping
-
-- [ext_mime : fast and efficient file extension to MIME-Type mapping](#ext_mime-fast-and-efficient-file-extension-to-mime-type-mapping)
-  - [Core Features](#core-features)
-  - [Usage](#usage)
-  - [Perfect Hashing (PHF) & Performance](#perfect-hashing-phf-performance)
-    - [Perfect Hashing (PHF) Explained](#perfect-hashing-phf-explained)
-    - [Performance Benefits](#performance-benefits)
-  - [Design Architecture](#design-architecture)
-  - [Tech Stack](#tech-stack)
-  - [Directory Layout](#directory-layout)
-  - [API Documentation](#api-documentation)
-  - [Historical Trivia](#historical-trivia)
-  - [About](#about)
 
 > [!NOTE]
 > This project automatically synchronizes and publishes the latest `mime-db` data monthly via GitHub Actions.
 
 Highly efficient and low-latency file extension to MIME-Type mapping library built on perfect hash functions.
+
+- [Core Features](#core-features)
+- [Usage](#usage)
+- [Perfect Hashing (PHF) & Performance](#perfect-hashing-phf-performance)
+  - [Perfect Hashing (PHF) Explained](#perfect-hashing-phf-explained)
+  - [Performance Benefits](#performance-benefits)
+- [Design Architecture](#design-architecture)
+- [Tech Stack](#tech-stack)
+- [Directory Layout](#directory-layout)
+- [API Documentation](#api-documentation)
+- [Historical Trivia](#historical-trivia)
+- [About](#about)
 
 ## Core Features
 
@@ -116,35 +114,35 @@ In 1991, Nathan Borenstein pioneered the MIME standard to break the limits of pl
 
 Perfect Hashing was mathematically formalized by Fredman, Komlós, and Szemerédi in 1984. It secures predictable, O(1) query time without hashing collisions, making it perfect for embedded lookup lists in systems programming.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # ext_mime : 高效的文件后缀到 MIME 映射
-
-- [ext_mime : 高效的文件后缀到 MIME 映射](#ext_mime-高效的文件后缀到-mime-映射)
-  - [项目功能介绍](#项目功能介绍)
-  - [使用演示](#使用演示)
-  - [什么是完美哈希 (PHF) 与性能优势](#什么是完美哈希-phf-与性能优势)
-    - [什么是完美哈希 (PHF)](#什么是完美哈希-phf)
-    - [性能优势](#性能优势)
-  - [设计思路](#设计思路)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 说明](#api-说明)
-  - [历史小故事](#历史小故事)
-  - [关于](#关于)
 
 > [!NOTE]
 > 本项目通过 GitHub Actions 每月自动同步并发布最新 `mime-db` 数据。
 
 基于完美哈希函数构建的高效、低延迟文件后缀到 MIME 类型映射工具。
+
+- [项目功能介绍](#项目功能介绍)
+- [使用演示](#使用演示)
+- [什么是完美哈希 (PHF) 与性能优势](#什么是完美哈希-phf-与性能优势)
+  - [什么是完美哈希 (PHF)](#什么是完美哈希-phf)
+  - [性能优势](#性能优势)
+- [设计思路](#设计思路)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [API 说明](#api-说明)
+- [历史小故事](#历史小故事)
+- [关于](#关于)
 
 ## 项目功能介绍
 
@@ -238,8 +236,10 @@ ext_mime/
 
 完美哈希函数（Perfect Hashing）由 Fredman、Komlós 和 Szemerédi 在 1984 年系统化提出。其通过在编译期设计无碰撞的哈希策略，使得在海量静态键值检索中能以最少内存维持稳定的 O(1) 效率。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

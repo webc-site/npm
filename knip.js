@@ -41,5 +41,5 @@ export default {
   workspaces,
   ignoreDependencies: ["@1-/minify_size", "@1-/new", "@1-/fix"],
   ignoreBinaries: ["dump", "ncu", "fd"],
-  ignore: ["_/conf/**", "**/knip.js", "_/rs/github_action/**"]
+  ignore: ["_/conf/**", "**/knip.js"]
 };

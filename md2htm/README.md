@@ -5,14 +5,13 @@
 <a id="en"></a>
 # md2htm : Lightweight Markdown-to-HTML Converter
 
-- [md2htm : Lightweight Markdown-to-HTML Converter](#md2htm-lightweight-markdown-to-html-converter)
-  - [Functionality](#functionality)
-  - [Usage Example](#usage-example)
-  - [Design Approach](#design-approach)
-  - [Technology Stack](#technology-stack)
-  - [Code Structure](#code-structure)
-  - [Historical Context](#historical-context)
-  - [About](#about)
+- [Functionality](#functionality)
+- [Usage Example](#usage-example)
+- [Design Approach](#design-approach)
+- [Technology Stack](#technology-stack)
+- [Code Structure](#code-structure)
+- [Historical Context](#historical-context)
+- [About](#about)
 
 ## Functionality
 
@@ -85,14 +84,13 @@ This library is developed by [WebC.site](https://webc.site).
 <a id="zh"></a>
 # md2htm : 轻量级 Markdown 到 HTML 转换器
 
-- [md2htm : 轻量级 Markdown 到 HTML 转换器](#md2htm-轻量级-markdown-到-html-转换器)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 

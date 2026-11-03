@@ -7,7 +7,7 @@ use std::{
 };
 
 use axum::{Router, routing::get};
-use axum_graceful_restart::Result;
+use axum_graceful_restart::{GracefulRestart, Result};
 use tokio::time::sleep;
 
 fn get_free_port() -> u16 {
@@ -166,7 +166,7 @@ async fn main() -> Result<()> {
 
   // 15 秒全局测试超时，防止整体卡死
   tokio::select! {
-    res = axum_graceful_restart::GracefulRestart::new(addr_str.parse()?)?.serve(app) => {
+    res = GracefulRestart::new(addr_str.parse()?)?.serve(app) => {
 
       res?;
       if let Some(r) = runner

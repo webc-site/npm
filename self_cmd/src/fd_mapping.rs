@@ -1,12 +1,13 @@
 use std::{
-  env,
+  env, io,
+  io::Error,
   os::fd::{FromRawFd, OwnedFd},
 };
 
 use command_fds::FdMapping;
 use log::{error, info, warn};
 
-pub fn fd_mapping() -> std::io::Result<Vec<command_fds::FdMapping>> {
+pub fn fd_mapping() -> io::Result<Vec<command_fds::FdMapping>> {
   // Get LISTEN_FDS from environment / 从环境变量获取 LISTEN_FDS
   let listen_fds = env::var("LISTEN_FDS")
     .ok()
@@ -37,7 +38,7 @@ pub fn fd_mapping() -> std::io::Result<Vec<command_fds::FdMapping>> {
           });
         }
         _ => {
-          let err = std::io::Error::last_os_error();
+          let err = Error::last_os_error();
           error!("❌ failed to duplicate FD {raw_fd}: {err}");
           return Err(err);
         }

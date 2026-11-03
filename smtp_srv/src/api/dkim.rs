@@ -1,5 +1,6 @@
 use axum::{Json, extract::Path};
 use fred::{interfaces::KeysInterface, types::SetOptions};
+use sk_dkim::Sk;
 use xkv::R;
 
 use super::{Error, Result};
@@ -55,7 +56,7 @@ pub async fn get(Path(domain): Path<String>) -> Result<Json<[String; 2]>> {
   }
 
   // 实时派生 DKIM 密钥并导出 TXT 记录
-  let dkim = sk_dkim::Sk::new(&sk_bytes).dkim(SELECTOR, &domain);
+  let dkim = Sk::new(&sk_bytes).dkim(SELECTOR, &domain);
   let txt = dkim.txt();
 
   Ok(Json([SELECTOR.to_string(), txt]))

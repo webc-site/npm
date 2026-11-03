@@ -3,22 +3,20 @@
 ---
 
 <a id="en"></a>
-
 # b255 : base255 encoder and decoder to prevent forbidden colon bytes in keys
 
-- [b255 : base255 encoder and decoder to prevent forbidden colon bytes in keys](#b255-base255-encoder-and-decoder-to-prevent-forbidden-colon-bytes-in-keys)
-  - [Introduction](#introduction)
-  - [Usage](#usage)
-  - [Features](#features)
-  - [Design Architecture](#design-architecture)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [API Reference](#api-reference)
-    - [Constants](#constants)
-    - [Functions](#functions)
-    - [Errors](#errors)
-  - [History & Tech Trivia](#history-tech-trivia)
-  - [About](#about)
+- [Introduction](#introduction)
+- [Usage](#usage)
+- [Features](#features)
+- [Design Architecture](#design-architecture)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [API Reference](#api-reference)
+  - [Constants](#constants)
+  - [Functions](#functions)
+  - [Errors](#errors)
+- [History & Tech Trivia](#history-tech-trivia)
+- [About](#about)
 
 ## Introduction
 
@@ -107,31 +105,31 @@ In Redis key namespace management, colon (`:`) serves as the standard separator 
 
 Base255 adopts radix conversion to sidestep specific characters. This approach mirrors ancient Mesopotamian mathematics, where Babylonians utilized sexagesimal (base60) numerals. Unlike Base64, base255 leverages a high base near byte boundaries to retain spatial efficiency while excluding reserved symbols. The algorithm relies on Horner's method, formulated by British mathematician William George Horner in 1819, to evaluate polynomial bases efficiently.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # b255 : 规避键中冒号字节的 base255 编解码器
 
-- [b255 : 规避键中冒号字节的 base255 编解码器](#b255-规避键中冒号字节的-base255-编解码器)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [特性介绍](#特性介绍)
-  - [设计思路](#设计思路)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 说明](#api-说明)
-    - [常量](#常量)
-    - [函数](#函数)
-    - [错误类型](#错误类型)
-  - [背景与历史小故事](#背景与历史小故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [特性介绍](#特性介绍)
+- [设计思路](#设计思路)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [API 说明](#api-说明)
+  - [常量](#常量)
+  - [函数](#函数)
+  - [错误类型](#错误类型)
+- [背景与历史小故事](#背景与历史小故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -220,8 +218,10 @@ b255/
 
 为解决此冲突，进制转换的思想被引入。历史上，巴比伦人在公元前 2000 年左右发明了 60 进制系统。而计算机领域广泛使用的 Base64 则是通过压缩编码将二进制信息转为 ASCII 字符。不同的是，base255 使用了接近字节上限的进制基数（255），通过大整数的进制转化在保留高空间效率的前提下避开单一的保留字节。这一实现利用了 19 世纪英国数学家威廉·乔治·霍纳（William George Horner）提出的霍纳法则（Horner's method），极大地简化了高次多项式的求值运算。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

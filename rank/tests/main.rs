@@ -1,4 +1,5 @@
 use aok::{OK, Void};
+use coarsetime::Clock;
 use log::info;
 #[cfg(feature = "const")]
 use rank::RANK;
@@ -12,8 +13,8 @@ extern "C" fn _log_init() {
 #[test]
 fn test() -> Void {
   let r = Rank::new(100, 1.8);
-  let now = coarsetime::Clock::now_since_epoch().as_secs();
-  let recent = coarsetime::Clock::recent_since_epoch().as_secs();
+  let now = Clock::now_since_epoch().as_secs();
+  let recent = Clock::recent_since_epoch().as_secs();
   println!("now_since_epoch: {now}, recent_since_epoch: {recent}");
   let score = r.rank(80, 20, now - 3600);
   info!("score: {score}");

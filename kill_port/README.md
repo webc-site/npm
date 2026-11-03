@@ -3,21 +3,19 @@
 ---
 
 <a id="en"></a>
-
 # kill_port : Terminate processes by port cross-platform
 
-- [kill_port : Terminate processes by port cross-platform](#kill_port-terminate-processes-by-port-cross-platform)
-  - [Usage](#usage)
-  - [Features](#features)
-  - [Design](#design)
-  - [Tech Stack](#tech-stack)
-  - [Project Structure](#project-structure)
-  - [API](#api)
-    - [`kill_port::kill_port`](#kill_portkill_port)
-  - [History of Process Termination](#history-of-process-termination)
-  - [About](#about)
-
 Cross-platform utility to locate and terminate processes binding specified network ports. Designed for reliability and speed in development and automation workflows. Features dynamic PID deduplication.
+
+- [Usage](#usage)
+- [Features](#features)
+- [Design](#design)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [API](#api)
+  - [`kill_port::kill_port`](#kill_portkill_port)
+- [History of Process Termination](#history-of-process-termination)
+- [About](#about)
 
 ## Usage
 
@@ -102,30 +100,30 @@ The concept of process termination traces back to early Unix. The `kill` command
 
 Web developer environments frequently experience port collisions (`EADDRINUSE`) due to orphan development servers. Automated tools like `kill_port` eliminate manual lookup workflows by packing system signal logic into a single command.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # kill_port : 跨平台高效终止端口进程工具
 
-- [kill_port : 跨平台高效终止端口进程工具](#kill_port-跨平台高效终止端口进程工具)
-  - [使用演示](#使用演示)
-  - [特性介绍](#特性介绍)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [目录结构](#目录结构)
-  - [API 说明](#api-说明)
-    - [`kill_port::kill_port`](#kill_portkill_port)
-  - [历史小故事](#历史小故事)
-  - [关于](#关于)
-
 跨平台端口进程终止工具。定位并清除绑定指定端口的进程，保障开发与自动化工作流顺畅。提供安全可靠的进程去重设计。
+
+- [使用演示](#使用演示)
+- [特性介绍](#特性介绍)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [目录结构](#目录结构)
+- [API 说明](#api-说明)
+  - [`kill_port::kill_port`](#kill_portkill_port)
+- [历史小故事](#历史小故事)
+- [关于](#关于)
 
 ## 使用演示
 
@@ -210,8 +208,10 @@ pub fn kill_port(port: u16) -> std::io::Result<()>
 
 在当今开发环境中，由于热重载服务泛滥，僵尸开发进程强占端口（`EADDRINUSE`）屡见不鲜。以往手动使用 `lsof` 和 `kill -9` 的繁琐仪式，如今已由 `kill_port` 这种工具自动化接管，将底层的信号量控制逻辑妥善隐藏于精简的 API 之下。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

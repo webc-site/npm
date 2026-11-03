@@ -3,26 +3,24 @@
 ---
 
 <a id="en"></a>
-
 # expire_set : High-performance concurrent expiration set
 
-- [expire_set : High-performance concurrent expiration set](#expire_set-high-performance-concurrent-expiration-set)
-  - [Table of Contents](#table-of-contents)
-  - [Introduction](#introduction)
-  - [Features](#features)
-  - [Usage](#usage)
-  - [Design Philosophy](#design-philosophy)
-  - [API Documentation](#api-documentation)
-    - [`ExpireSet<K>`](#expiresetk)
-      - [`fn new(expire: u64) -> Self`](#fn-newexpire-u64-self)
-      - [`fn insert(&self, key: K)`](#fn-insertself-key-k)
-      - [`fn contains<Q>(&self, key: &Q) -> bool`](#fn-containsqself-key-q-bool)
-  - [Technology Stack](#technology-stack)
-  - [Directory Structure](#directory-structure)
-  - [Historical Trivia](#historical-trivia)
-  - [About](#about)
-
 A high-performance, concurrent set with automatic item expiration, built on top of `expire_cache` using unsafe raw pointers for maximum performance.
+
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Features](#features)
+- [Usage](#usage)
+- [Design Philosophy](#design-philosophy)
+- [API Documentation](#api-documentation)
+  - [`ExpireSet<K>`](#expiresetk)
+    - [`fn new(expire: u64) -> Self`](#fn-newexpire-u64-self)
+    - [`fn insert(&self, key: K)`](#fn-insertself-key-k)
+    - [`fn contains<Q>(&self, key: &Q) -> bool`](#fn-containsqself-key-q-bool)
+- [Technology Stack](#technology-stack)
+- [Directory Structure](#directory-structure)
+- [Historical Trivia](#historical-trivia)
+- [About](#about)
 
 ## Table of Contents
 
@@ -148,35 +146,35 @@ Double buffering originated in the late 1960s and became standard in the 1980s w
 
 Similarly, `expire_set` (via `expire_cache`) writes to a "current" buffer while keeping the "previous" buffer available for reads. When the timer fires, it "swaps" the buffers and clears the old one, ensuring a smooth transition and efficient bulk expiration.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # expire_set : 基于非安全原始指针的高性能并发过期集合
 
-- [expire_set : 基于非安全原始指针的高性能并发过期集合](#expire_set-基于非安全原始指针的高性能并发过期集合)
-  - [目录](#目录)
-  - [简介](#简介)
-  - [特性](#特性)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [API 文档](#api-文档)
-    - [`ExpireSet<K>`](#expiresetk)
-      - [`fn new(expire: u64) -> Self`](#fn-newexpire-u64-self)
-      - [`fn insert(&self, key: K)`](#fn-insertself-key-k)
-      - [`fn contains<Q>(&self, key: &Q) -> bool`](#fn-containsqself-key-q-bool)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [历史小故事](#历史小故事)
-  - [关于](#关于)
-
 基于 `expire_cache` 构建的高性能并发集合，使用非安全原始指针实现最大性能，支持自动过期。
+
+- [目录](#目录)
+- [简介](#简介)
+- [特性](#特性)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [API 文档](#api-文档)
+  - [`ExpireSet<K>`](#expiresetk)
+    - [`fn new(expire: u64) -> Self`](#fn-newexpire-u64-self)
+    - [`fn insert(&self, key: K)`](#fn-insertself-key-k)
+    - [`fn contains<Q>(&self, key: &Q) -> bool`](#fn-containsqself-key-q-bool)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [历史小故事](#历史小故事)
+- [关于](#关于)
 
 ## 目录
 
@@ -302,8 +300,10 @@ async fn main() {
 
 类似地，`expire_set`（通过 `expire_cache`）写入"当前"缓冲区，同时保留"上一个"缓冲区供读取。当定时器触发时，它"交换"缓冲区并清空旧缓冲区，确保平滑过渡和高效批量过期。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

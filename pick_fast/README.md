@@ -5,25 +5,24 @@
 <a id="en"></a>
 # PickFast : Lock-Free Weighted Load Balancer for Low-Latency Selection
 
-- [PickFast : Lock-Free Weighted Load Balancer for Low-Latency Selection](#pickfast-lock-free-weighted-load-balancer-for-low-latency-selection)
-  - [Navigation](#navigation)
-  - [Features](#features)
-  - [Usage Demonstration](#usage-demonstration)
-  - [Real DNS Resolution Example](#real-dns-resolution-example)
-  - [Custom Rank Strategy](#custom-rank-strategy)
-  - [Design Rationale](#design-rationale)
-    - [Call Flow](#call-flow)
-    - [EMA Smoothing](#ema-smoothing)
-  - [API Reference](#api-reference)
-    - [Core Types](#core-types)
-    - [Key Methods](#key-methods)
-    - [Other Types](#other-types)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [Historical Anecdote](#historical-anecdote)
-  - [About](#about)
-
 High-performance weighted random selection library with atomic EMA weight updates. Designed for load balancing, A/B testing, resource scheduling, and scenarios requiring probability-based selection with dynamic weight adjustment.
+
+- [Navigation](#navigation)
+- [Features](#features)
+- [Usage Demonstration](#usage-demonstration)
+- [Real DNS Resolution Example](#real-dns-resolution-example)
+- [Custom Rank Strategy](#custom-rank-strategy)
+- [Design Rationale](#design-rationale)
+  - [Call Flow](#call-flow)
+  - [EMA Smoothing](#ema-smoothing)
+- [API Reference](#api-reference)
+  - [Core Types](#core-types)
+  - [Key Methods](#key-methods)
+  - [Other Types](#other-types)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [Historical Anecdote](#historical-anecdote)
+- [About](#about)
 
 ## Navigation
 
@@ -309,25 +308,24 @@ This library is developed by [WebC.site](https://webc.site).
 <a id="zh"></a>
 # PickFast : 无锁加权负载均衡，优选低延迟节点
 
-- [PickFast : 无锁加权负载均衡，优选低延迟节点](#pickfast-无锁加权负载均衡优选低延迟节点)
-  - [目录](#目录)
-  - [项目特性](#项目特性)
-  - [使用演示](#使用演示)
-  - [真实 DNS 解析示例](#真实-dns-解析示例)
-  - [自定义权重计算](#自定义权重计算)
-  - [设计思路](#设计思路)
-    - [调用流程](#调用流程)
-    - [指数移动平均](#指数移动平均)
-  - [API 介绍](#api-介绍)
-    - [核心类型](#核心类型)
-    - [关键方法](#关键方法)
-    - [其他类型](#其他类型)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [历史小故事](#历史小故事)
-  - [关于](#关于)
-
 高性能加权随机选择库，支持权重平滑更新。专为负载均衡、A/B 测试、资源调度，以及需要基于概率选择与动态权重调整的场景设计。
+
+- [目录](#目录)
+- [项目特性](#项目特性)
+- [使用演示](#使用演示)
+- [真实 DNS 解析示例](#真实-dns-解析示例)
+- [自定义权重计算](#自定义权重计算)
+- [设计思路](#设计思路)
+  - [调用流程](#调用流程)
+  - [指数移动平均](#指数移动平均)
+- [API 介绍](#api-介绍)
+  - [核心类型](#核心类型)
+  - [关键方法](#关键方法)
+  - [其他类型](#其他类型)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [历史小故事](#历史小故事)
+- [关于](#关于)
 
 ## 目录
 

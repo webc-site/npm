@@ -3,17 +3,15 @@
 ---
 
 <a id="en"></a>
-
 # @1-/md : Extract code block positions and languages from Markdown
 
-- [@1-/md : Extract code block positions and languages from Markdown](#1-md-extract-code-block-positions-and-languages-from-markdown)
-  - [1. Features](#1-features)
-  - [2. Usage](#2-usage)
-  - [3. Design](#3-design)
-  - [4. Tech Stack](#4-tech-stack)
-  - [5. Code Structure](#5-code-structure)
-  - [6. History](#6-history)
-  - [About](#about)
+- [1. Features](#1-features)
+- [2. Usage](#2-usage)
+- [3. Design](#3-design)
+- [4. Tech Stack](#4-tech-stack)
+- [5. Code Structure](#5-code-structure)
+- [6. History](#6-history)
+- [About](#about)
 
 ## 1. Features
 
@@ -102,20 +100,19 @@ This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/md : 解析 Markdown 提取代码块位置与语言类型
 
-- [@1-/md : 解析 Markdown 提取代码块位置与语言类型](#1-md-解析-markdown-提取代码块位置与语言类型)
-  - [1. 功能介绍](#1-功能介绍)
-  - [2. 使用演示](#2-使用演示)
-  - [3. 设计思路](#3-设计思路)
-  - [4. 技术栈](#4-技术栈)
-  - [5. 代码结构](#5-代码结构)
-  - [6. 历史故事](#6-历史故事)
-  - [关于](#关于)
+- [1. 功能介绍](#1-功能介绍)
+- [2. 使用演示](#2-使用演示)
+- [3. 设计思路](#3-设计思路)
+- [4. 技术栈](#4-技术栈)
+- [5. 代码结构](#5-代码结构)
+- [6. 历史故事](#6-历史故事)
+- [关于](#关于)
 
 ## 1. 功能介绍
 
@@ -203,3 +200,4 @@ graph TD
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

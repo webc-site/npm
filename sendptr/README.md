@@ -3,23 +3,21 @@
 ---
 
 <a id="en"></a>
-
 # sendptr : Convenient cross-thread raw pointer usage
 
-- [sendptr : Convenient cross-thread raw pointer usage](#sendptr-convenient-cross-thread-raw-pointer-usage)
-  - [Table of Contents](#table-of-contents)
-  - [Features](#features)
-  - [Usage](#usage)
-  - [Design](#design)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [API](#api)
-    - [`struct SendPtr<T>`](#struct-sendptrt)
-      - [`fn new(ptr: *const T) -> Self`](#fn-newptr-const-t-self)
-      - [`fn get(&self) -> *const T`](#fn-getself-const-t)
-      - [`impl Deref for SendPtr<T>`](#impl-deref-for-sendptrt)
-  - [History](#history)
-  - [About](#about)
+- [Table of Contents](#table-of-contents)
+- [Features](#features)
+- [Usage](#usage)
+- [Design](#design)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [API](#api)
+  - [`struct SendPtr<T>`](#struct-sendptrt)
+    - [`fn new(ptr: *const T) -> Self`](#fn-newptr-const-t-self)
+    - [`fn get(&self) -> *const T`](#fn-getself-const-t)
+    - [`impl Deref for SendPtr<T>`](#impl-deref-for-sendptrt)
+- [History](#history)
+- [About](#about)
 
 ## Table of Contents
 
@@ -121,32 +119,32 @@ Rust's ownership and concurrency model, often summarized as "Fearless Concurrenc
 
 However, in low-level systems programming, interacting with FFI, or building custom synchronization primitives, developers often know that a specific pointer is indeed safe to move, even if the compiler cannot prove it. `sendptr` was created to serve as a trusted courier in these scenarios. It acts as a manual override, a "sheriff" that vouches for the raw pointer, allowing it to bypass the compiler's blockade and travel freely between threads. This follows a pattern seen in other low-level crates, providing a focused, minimal tool for a specific advanced use case.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # sendptr : 方便跨线程用裸指针
 
-- [sendptr : 方便跨线程用裸指针](#sendptr-方便跨线程用裸指针)
-  - [目录](#目录)
-  - [功能特性](#功能特性)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 接口](#api-接口)
-    - [`struct SendPtr<T>`](#struct-sendptrt)
-      - [`fn new(ptr: *const T) -> Self`](#fn-newptr-const-t-self)
-      - [`fn get(&self) -> *const T`](#fn-getself-const-t)
-      - [`impl Deref for SendPtr<T>`](#impl-deref-for-sendptrt)
-  - [历史背景](#历史背景)
-  - [关于](#关于)
+- [目录](#目录)
+- [功能特性](#功能特性)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [API 接口](#api-接口)
+  - [`struct SendPtr<T>`](#struct-sendptrt)
+    - [`fn new(ptr: *const T) -> Self`](#fn-newptr-const-t-self)
+    - [`fn get(&self) -> *const T`](#fn-getself-const-t)
+    - [`impl Deref for SendPtr<T>`](#impl-deref-for-sendptrt)
+- [历史背景](#历史背景)
+- [关于](#关于)
 
 ## 目录
 
@@ -248,8 +246,10 @@ Rust 的所有权和并发模型（常被称为“无畏并发”）在很大程
 
 然而，在底层系统编程、与 FFI 交互或构建自定义同步原语时，开发者往往清楚某个特定指针实际上是可以安全移动的，即使编译器无法证明这一点。`sendptr` 的诞生就是为了在这些场景中充当值得信赖的信使。它作为手动覆盖机制，就像“警长”，为裸指针担保，允许它绕过编译器的封锁，在线程间自由穿梭。这遵循了底层 crate 中常见的设计模式，为特定的高级用例提供专注且极简的工具。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

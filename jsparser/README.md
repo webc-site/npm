@@ -5,14 +5,13 @@
 <a id="en"></a>
 # @1-/jsparser : JavaScript Module Dependency Static Analyzer
 
-- [@1-/jsparser : JavaScript Module Dependency Static Analyzer](#1-jsparser-javascript-module-dependency-static-analyzer)
-  - [Functionality](#functionality)
-  - [Usage demonstration](#usage-demonstration)
-  - [Design approach](#design-approach)
-  - [Technology stack](#technology-stack)
-  - [Code structure](#code-structure)
-  - [Historical background](#historical-background)
-  - [About](#about)
+- [Functionality](#functionality)
+- [Usage demonstration](#usage-demonstration)
+- [Design approach](#design-approach)
+- [Technology stack](#technology-stack)
+- [Code structure](#code-structure)
+- [Historical background](#historical-background)
+- [About](#about)
 
 ## Functionality
 
@@ -98,14 +97,13 @@ This library is developed by [WebC.site](https://webc.site).
 <a id="zh"></a>
 # @1-/jsparser : JavaScript 模块依赖静态分析器
 
-- [@1-/jsparser : JavaScript 模块依赖静态分析器](#1-jsparser-javascript-模块依赖静态分析器)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 

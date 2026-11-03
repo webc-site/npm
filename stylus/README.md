@@ -5,14 +5,13 @@
 <a id="en"></a>
 # @1-/stylus : Lightweight modular Stylus CSS preprocessor
 
-- [@1-/stylus : Lightweight modular Stylus CSS preprocessor](#1-stylus-lightweight-modular-stylus-css-preprocessor)
-  - [Functionality](#functionality)
-  - [Usage demonstration](#usage-demonstration)
-  - [Design rationale](#design-rationale)
-  - [Technology stack](#technology-stack)
-  - [Code structure](#code-structure)
-  - [Historical context](#historical-context)
-  - [About](#about)
+- [Functionality](#functionality)
+- [Usage demonstration](#usage-demonstration)
+- [Design rationale](#design-rationale)
+- [Technology stack](#technology-stack)
+- [Code structure](#code-structure)
+- [Historical context](#historical-context)
+- [About](#about)
 
 ## Functionality
 
@@ -115,14 +114,13 @@ This library is developed by [WebC.site](https://webc.site).
 <a id="zh"></a>
 # @1-/stylus : Lightweight modular Stylus CSS preprocessor
 
-- [@1-/stylus : Lightweight modular Stylus CSS preprocessor](#1-stylus-lightweight-modular-stylus-css-preprocessor)
-  - [Functionality](#functionality)
-  - [Usage demonstration](#usage-demonstration)
-  - [Design rationale](#design-rationale)
-  - [Technology stack](#technology-stack)
-  - [Code structure](#code-structure)
-  - [Historical context](#historical-context)
-  - [关于](#关于)
+- [Functionality](#functionality)
+- [Usage demonstration](#usage-demonstration)
+- [Design rationale](#design-rationale)
+- [Technology stack](#technology-stack)
+- [Code structure](#code-structure)
+- [Historical context](#historical-context)
+- [关于](#关于)
 
 ## Functionality
 

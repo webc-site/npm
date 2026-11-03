@@ -3,32 +3,30 @@
 ---
 
 <a id="en"></a>
-
 # CIter: Zero-Copy Circular Iterator for Rust
 
-- [CIter: Zero-Copy Circular Iterator for Rust](#citer-zero-copy-circular-iterator-for-rust)
-  - [Table of Contents](#table-of-contents)
-  - [Overview](#overview)
-  - [Features](#features)
-  - [Usage Examples](#usage-examples)
-    - [Basic Circular Iteration](#basic-circular-iteration)
-    - [Position Tracking](#position-tracking)
-    - [Random Starting Position](#random-starting-position)
-    - [Manual Iteration](#manual-iteration)
-    - [Extracting Values Only](#extracting-values-only)
-  - [API Reference](#api-reference)
-    - [`CIter<'a, T>`](#citera-t)
-      - [Fields](#fields)
-      - [Methods](#methods)
-      - [Iterator Implementation](#iterator-implementation)
-  - [Design Philosophy](#design-philosophy)
-    - [Core Design Principles](#core-design-principles)
-    - [Module Interaction Flow](#module-interaction-flow)
-  - [Technical Stack](#technical-stack)
-  - [Project Structure](#project-structure)
-    - [Key Components](#key-components)
-  - [Historical Context](#historical-context)
-  - [About](#about)
+- [Table of Contents](#table-of-contents)
+- [Overview](#overview)
+- [Features](#features)
+- [Usage Examples](#usage-examples)
+  - [Basic Circular Iteration](#basic-circular-iteration)
+  - [Position Tracking](#position-tracking)
+  - [Random Starting Position](#random-starting-position)
+  - [Manual Iteration](#manual-iteration)
+  - [Extracting Values Only](#extracting-values-only)
+- [API Reference](#api-reference)
+  - [`CIter<'a, T>`](#citera-t)
+    - [Fields](#fields)
+    - [Methods](#methods)
+    - [Iterator Implementation](#iterator-implementation)
+- [Design Philosophy](#design-philosophy)
+  - [Core Design Principles](#core-design-principles)
+  - [Module Interaction Flow](#module-interaction-flow)
+- [Technical Stack](#technical-stack)
+- [Project Structure](#project-structure)
+  - [Key Components](#key-components)
+- [Historical Context](#historical-context)
+- [About](#about)
 
 ## Table of Contents
 
@@ -221,41 +219,41 @@ In systems programming, circular iterators became essential for implementing rin
 
 CIter's unique approach of preserving index information alongside values reflects modern needs in data processing, where maintaining context about element positions is crucial for algorithms like circular convolution, periodic data analysis, and rotating window operations. The modulo arithmetic approach used in CIter reflects decades of optimization in circular addressing, commonly found in digital signal processing and embedded systems where efficient wraparound behavior is critical for real-time performance.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # CIter: Rust 零拷贝循环迭代器
 
-- [CIter: Rust 零拷贝循环迭代器](#citer-rust-零拷贝循环迭代器)
-  - [目录导航](#目录导航)
-  - [项目概述](#项目概述)
-  - [核心特性](#核心特性)
-  - [使用示例](#使用示例)
-    - [基础循环迭代](#基础循环迭代)
-    - [位置跟踪](#位置跟踪)
-    - [随机起始位置](#随机起始位置)
-    - [手动迭代](#手动迭代)
-    - [仅提取值](#仅提取值)
-  - [API 参考](#api-参考)
-    - [`CIter<'a, T>`](#citera-t)
-      - [字段](#字段)
-      - [方法](#方法)
-      - [迭代器实现](#迭代器实现)
-  - [设计理念](#设计理念)
-    - [核心设计原则](#核心设计原则)
-    - [模块交互流程](#模块交互流程)
-  - [技术栈](#技术栈)
-  - [项目结构](#项目结构)
-    - [关键组件](#关键组件)
-  - [历史背景](#历史背景)
-  - [关于](#关于)
+- [目录导航](#目录导航)
+- [项目概述](#项目概述)
+- [核心特性](#核心特性)
+- [使用示例](#使用示例)
+  - [基础循环迭代](#基础循环迭代)
+  - [位置跟踪](#位置跟踪)
+  - [随机起始位置](#随机起始位置)
+  - [手动迭代](#手动迭代)
+  - [仅提取值](#仅提取值)
+- [API 参考](#api-参考)
+  - [`CIter<'a, T>`](#citera-t)
+    - [字段](#字段)
+    - [方法](#方法)
+    - [迭代器实现](#迭代器实现)
+- [设计理念](#设计理念)
+  - [核心设计原则](#核心设计原则)
+  - [模块交互流程](#模块交互流程)
+- [技术栈](#技术栈)
+- [项目结构](#项目结构)
+  - [关键组件](#关键组件)
+- [历史背景](#历史背景)
+- [关于](#关于)
 
 ## 目录导航
 
@@ -448,8 +446,10 @@ citer/
 
 CIter 在保留值的同时保留索引信息的独特方法反映了现代数据处理的需求，在循环卷积、周期性数据分析和旋转窗口操作等算法中，维护元素位置的上下文信息至关重要。CIter 中使用的模运算方法反映了循环寻址数十年的优化历程，这种方法在数字信号处理和嵌入式系统中很常见，在这些领域中，高效的环绕行为对实时性能至关重要。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

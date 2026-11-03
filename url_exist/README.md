@@ -3,17 +3,15 @@
 ---
 
 <a id="en"></a>
-
 # @1-/url_exist : Detect URL existence via HTTP HEAD request with timeout control
 
-- [@1-/url_exist : Detect URL existence via HTTP HEAD request with timeout control](#1-url_exist-detect-url-existence-via-http-head-request-with-timeout-control)
-  - [1. Features](#1-features)
-  - [2. Usage](#2-usage)
-  - [3. Design](#3-design)
-  - [4. Tech Stack](#4-tech-stack)
-  - [5. Code Structure](#5-code-structure)
-  - [6. History](#6-history)
-  - [About](#about)
+- [1. Features](#1-features)
+- [2. Usage](#2-usage)
+- [3. Design](#3-design)
+- [4. Tech Stack](#4-tech-stack)
+- [5. Code Structure](#5-code-structure)
+- [6. History](#6-history)
+- [About](#about)
 
 ## 1. Features
 
@@ -100,26 +98,26 @@ After Fetch API gained popularity, lack of native timeout support forced develop
 
 Native support for `AbortSignal.timeout` in modern runtimes (Node.js, Bun, browsers) simplified timeout handling.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/url_exist : 基于 HTTP HEAD 请求与超时控制的 URL 存在性检测
 
-- [@1-/url_exist : 基于 HTTP HEAD 请求与超时控制的 URL 存在性检测](#1-url_exist-基于-http-head-请求与超时控制的-url-存在性检测)
-  - [1. 功能介绍](#1-功能介绍)
-  - [2. 使用演示](#2-使用演示)
-  - [3. 设计思路](#3-设计思路)
-  - [4. 技术栈](#4-技术栈)
-  - [5. 代码结构](#5-代码结构)
-  - [6. 历史故事](#6-历史故事)
-  - [关于](#关于)
+- [1. 功能介绍](#1-功能介绍)
+- [2. 使用演示](#2-使用演示)
+- [3. 设计思路](#3-设计思路)
+- [4. 技术栈](#4-技术栈)
+- [5. 代码结构](#5-代码结构)
+- [6. 历史故事](#6-历史故事)
+- [关于](#关于)
 
 ## 1. 功能介绍
 
@@ -206,8 +204,10 @@ Fetch API 普及初期，因缺乏内置超时机制，开发者需手动组合 
 
 `AbortSignal.timeout` 获得主流运行时 (Node.js、Bun、浏览器) 原生支持后，超时控制得以极大简化。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

@@ -5,14 +5,13 @@
 <a id="en"></a>
 # @1-/dist : Monorepo package publishing automation and Git branch synchronization
 
-- [@1-/dist : Monorepo package publishing automation and Git branch synchronization](#1-dist-monorepo-package-publishing-automation-and-git-branch-synchronization)
-  - [Functionality](#functionality)
-  - [Usage demo](#usage-demo)
-  - [Design rationale](#design-rationale)
-  - [Tech stack](#tech-stack)
-  - [Code structure](#code-structure)
-  - [Historical story](#historical-story)
-  - [About](#about)
+- [Functionality](#functionality)
+- [Usage demo](#usage-demo)
+- [Design rationale](#design-rationale)
+- [Tech stack](#tech-stack)
+- [Code structure](#code-structure)
+- [Historical story](#historical-story)
+- [About](#about)
 
 ## Functionality
 
@@ -139,14 +138,13 @@ This library is developed by [WebC.site](https://webc.site).
 <a id="zh"></a>
 # @1-/dist : Monorepo 包发布自动化与 Git 分支同步
 
-- [@1-/dist : Monorepo 包发布自动化与 Git 分支同步](#1-dist-monorepo-包发布自动化与-git-分支同步)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 

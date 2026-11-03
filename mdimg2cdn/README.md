@@ -3,17 +3,15 @@
 ---
 
 <a id="en"></a>
-
 # @1-/mdimg2cdn : Convert local Markdown images to CDN URLs
 
-- [@1-/mdimg2cdn : Convert local Markdown images to CDN URLs](#1-mdimg2cdn-convert-local-markdown-images-to-cdn-urls)
-  - [Functionality](#functionality)
-  - [Usage Demonstration](#usage-demonstration)
-  - [Design Rationale](#design-rationale)
-  - [Technology Stack](#technology-stack)
-  - [Code Structure](#code-structure)
-  - [Historical Context](#historical-context)
-  - [About](#about)
+- [Functionality](#functionality)
+- [Usage Demonstration](#usage-demonstration)
+- [Design Rationale](#design-rationale)
+- [Technology Stack](#technology-stack)
+- [Code Structure](#code-structure)
+- [Historical Context](#historical-context)
+- [About](#about)
 
 ## Functionality
 
@@ -97,26 +95,26 @@ The core module (`_.js`) implements the main transformation algorithm, `cli.js` 
 
 The concept of content delivery networks emerged in the late 1990s. Akamai Technologies, founded in 1998, pioneered the CDN approach by distributing content across geographically dispersed edge servers to address web performance bottlenecks caused by geographic distance between users and origin servers. Akamai's foundational technology stemmed from research by MIT professor Tom Leighton and his team, whose algorithms optimized internet content routing and caching. Today's modern Markdown tooling like @1-/mdimg2cdn builds upon this foundational infrastructure, enabling developers to leverage CDN benefits without manual image management overhead.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/mdimg2cdn : 将本地 Markdown 图片转换为 CDN 链接
 
-- [@1-/mdimg2cdn : 将本地 Markdown 图片转换为 CDN 链接](#1-mdimg2cdn-将本地-markdown-图片转换为-cdn-链接)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -200,8 +198,10 @@ src/
 
 内容分发网络（CDN）概念诞生于 20 世纪 90 年代末。1998 年成立的 Akamai Technologies 开创性地采用分布式边缘服务器架构部署 CDN，旨在解决因用户与源服务器地理距离导致的网页性能瓶颈。Akamai 的技术基础源于麻省理工学院教授 Tom Leighton 及其团队的研究，其算法有效优化了互联网内容的路由与缓存策略。如今 @1-/mdimg2cdn 等现代 Markdown 工具构建于这一基础设施之上，使开发者无需手动管理图片即可享受 CDN 带来的性能优势。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

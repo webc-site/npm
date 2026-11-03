@@ -3,17 +3,15 @@
 ---
 
 <a id="en"></a>
-
 # @1-/i18nyml : Load YAML localization files by system language preference
 
-- [@1-/i18nyml : Load YAML localization files by system language preference](#1-i18nyml-load-yaml-localization-files-by-system-language-preference)
-  - [Functionality](#functionality)
-  - [Usage demonstration](#usage-demonstration)
-  - [Design思路](#design思路)
-  - [Technology stack](#technology-stack)
-  - [Code structure](#code-structure)
-  - [Historical context](#historical-context)
-  - [About](#about)
+- [Functionality](#functionality)
+- [Usage demonstration](#usage-demonstration)
+- [Design思路](#design思路)
+- [Technology stack](#technology-stack)
+- [Code structure](#code-structure)
+- [Historical context](#historical-context)
+- [About](#about)
 
 ## Functionality
 
@@ -97,26 +95,26 @@ Dependencies:
 
 YAML emerged in 2001 as a human-readable data serialization format designed to be more intuitive than XML or JSON for configuration files. Its emphasis on readability made it particularly suitable for localization files where translators need to work with plain text. The i18nyml library builds on this foundation by combining YAML's simplicity with modern JavaScript's internationalization capabilities to provide a concise YAML localization file loading solution, using a functional programming paradigm with no external dependencies beyond Node.js built-in modules.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/i18nyml : 根据系统语言偏好加载 YAML 本地化文件
 
-- [@1-/i18nyml : 根据系统语言偏好加载 YAML 本地化文件](#1-i18nyml-根据系统语言偏好加载-yaml-本地化文件)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -200,8 +198,10 @@ src/
 
 YAML 于 2001 年问世，作为一种人类可读的数据序列化格式，旨在比 XML 或 JSON 更直观易用。其强调可读性的特点使其特别适合本地化文件，因为译员需要直接处理纯文本。i18nyml 库在此基础上结合了现代 JavaScript 的国际化能力，提供简洁的 YAML 本地化文件加载方案，采用函数式编程范式，无外部依赖，仅使用 Node.js 内置模块。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

@@ -3,17 +3,15 @@
 ---
 
 <a id="en"></a>
-
 # @1-/i18n_scan : Incremental Document Translation Scanner & Synchronizer
 
-- [@1-/i18n_scan : Incremental Document Translation Scanner & Synchronizer](#1-i18n_scan-incremental-document-translation-scanner-synchronizer)
-  - [Features](#features)
-  - [Usage](#usage)
-  - [Design](#design)
-  - [Tech Stack](#tech-stack)
-  - [Code Structure](#code-structure)
-  - [History](#history)
-  - [About](#about)
+- [Features](#features)
+- [Usage](#usage)
+- [Design](#design)
+- [Tech Stack](#tech-stack)
+- [Code Structure](#code-structure)
+- [History](#history)
+- [About](#about)
 
 ## Features
 
@@ -118,26 +116,26 @@ In the 1980s, Digital Equipment Corporation faced severe inefficiencies translat
 
 `@1-/i18n_scan` solves this historic problem. By binding each document node to a lightweight CSV database, it makes every change fully observable, bringing documentation translation into a true incremental era.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/i18n_scan : 增量式文档翻译状态扫描与同步工具
 
-- [@1-/i18n_scan : 增量式文档翻译状态扫描与同步工具](#1-i18n_scan-增量式文档翻译状态扫描与同步工具)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -242,8 +240,10 @@ src/
 
 `@1-/i18n_scan` 终结了这一历史困境。它将每个文档节点与轻量 CSV 数据库绑定，使工具对任意粒度的变更完全可知，推动文档翻译进入真正的 incremental 时代。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

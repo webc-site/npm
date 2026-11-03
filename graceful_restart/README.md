@@ -3,29 +3,27 @@
 ---
 
 <a id="en"></a>
-
 # graceful_restart: Zero-Downtime Process Restart Library
 
-- [graceful_restart: Zero-Downtime Process Restart Library](#graceful_restart-zero-downtime-process-restart-library)
-  - [Table of Contents](#table-of-contents)
-  - [Features](#features)
-  - [Installation](#installation)
-  - [Usage](#usage)
-    - [Web Server Integration](#web-server-integration)
-    - [Request Handler Pattern](#request-handler-pattern)
-  - [Design Philosophy](#design-philosophy)
-    - [Core Components](#core-components)
-  - [Technical Stack](#technical-stack)
-  - [Project Structure](#project-structure)
-  - [API Reference](#api-reference)
-    - [Functions](#functions)
-      - [`graceful_restart()`](#graceful_restart)
-    - [Static Variables](#static-variables)
-      - [`LOCK: RwLock<()>`](#lock-rwlock)
-      - [`CANCEL: CancellationToken`](#cancel-cancellationtoken)
-  - [Platform Support](#platform-support)
-  - [Historical Context](#historical-context)
-  - [About](#about)
+- [Table of Contents](#table-of-contents)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Web Server Integration](#web-server-integration)
+  - [Request Handler Pattern](#request-handler-pattern)
+- [Design Philosophy](#design-philosophy)
+  - [Core Components](#core-components)
+- [Technical Stack](#technical-stack)
+- [Project Structure](#project-structure)
+- [API Reference](#api-reference)
+  - [Functions](#functions)
+    - [`graceful_restart()`](#graceful_restart)
+  - [Static Variables](#static-variables)
+    - [`LOCK: RwLock<()>`](#lock-rwlock)
+    - [`CANCEL: CancellationToken`](#cancel-cancellationtoken)
+- [Platform Support](#platform-support)
+- [Historical Context](#historical-context)
+- [About](#about)
 
 ## Table of Contents
 
@@ -244,38 +242,38 @@ The concept of graceful restart has deep roots in Unix system administration. Th
 
 Modern web servers like Nginx and Apache popularized zero-downtime restart patterns, allowing system administrators to update configurations or binary files without dropping active connections. This library brings similar capabilities to Rust web applications, using read-write locks to ensure that active HTTP requests complete before the process terminates, while new requests are handled by the restarted process.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # graceful_restart: 零停机进程重启库
 
-- [graceful_restart: 零停机进程重启库](#graceful_restart-零停机进程重启库)
-  - [目录导航](#目录导航)
-  - [功能特性](#功能特性)
-  - [安装方法](#安装方法)
-  - [使用示例](#使用示例)
-    - [网站服务器集成](#网站服务器集成)
-    - [请求处理器模式](#请求处理器模式)
-  - [设计思路](#设计思路)
-    - [核心组件](#核心组件)
-  - [技术堆栈](#技术堆栈)
-  - [项目结构](#项目结构)
-  - [API 参考](#api-参考)
-    - [函数](#函数)
-      - [`graceful_restart()`](#graceful_restart)
-    - [静态变量](#静态变量)
-      - [`LOCK: RwLock<()>`](#lock-rwlock)
-      - [`CANCEL: CancellationToken`](#cancel-cancellationtoken)
-  - [平台支持](#平台支持)
-  - [技术历史](#技术历史)
-  - [关于](#关于)
+- [目录导航](#目录导航)
+- [功能特性](#功能特性)
+- [安装方法](#安装方法)
+- [使用示例](#使用示例)
+  - [网站服务器集成](#网站服务器集成)
+  - [请求处理器模式](#请求处理器模式)
+- [设计思路](#设计思路)
+  - [核心组件](#核心组件)
+- [技术堆栈](#技术堆栈)
+- [项目结构](#项目结构)
+- [API 参考](#api-参考)
+  - [函数](#函数)
+    - [`graceful_restart()`](#graceful_restart)
+  - [静态变量](#静态变量)
+    - [`LOCK: RwLock<()>`](#lock-rwlock)
+    - [`CANCEL: CancellationToken`](#cancel-cancellationtoken)
+- [平台支持](#平台支持)
+- [技术历史](#技术历史)
+- [关于](#关于)
 
 ## 目录导航
 
@@ -494,8 +492,10 @@ graceful_restart/
 
 现代 Web 服务器如 Nginx 和 Apache 普及了零停机重启模式，允许系统管理员在不丢失活动连接的情况下更新配置或二进制文件。本库将类似功能引入 Rust 网站应用程序，使用读写锁确保活跃的 HTTP 请求在进程终止前完成，而新请求由重启后的进程处理。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

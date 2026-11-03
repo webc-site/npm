@@ -3,24 +3,22 @@
 ---
 
 <a id="en"></a>
-
 # trim_li : High-performance line-trimming, line-filtering, and text restoration library
 
-- [trim_li : High-performance line-trimming, line-filtering, and text restoration library](#trim_li-high-performance-line-trimming-line-filtering-and-text-restoration-library)
-  - [Usage](#usage)
-  - [Features](#features)
-  - [Design](#design)
-  - [Stack](#stack)
-  - [Directory Structure](#directory-structure)
-  - [API](#api)
-    - [Type Alias `Li`](#type-alias-li)
-    - [Function `trim_li`](#function-trim_li)
-    - [Struct `Restore`](#struct-restore)
-      - [Method `Restore::load`](#method-restoreload)
-  - [History](#history)
-  - [About](#about)
-
 High-performance, zero-copy line processing library in Rust. Scans byte streams using SIMD, trims trailing whitespaces, and filters trailing empty lines to extract non-empty lines, while providing a high-performance text restorer (`Restore`) based on roaring bitmap (`RoaringBitmap`).
+
+- [Usage](#usage)
+- [Features](#features)
+- [Design](#design)
+- [Stack](#stack)
+- [Directory Structure](#directory-structure)
+- [API](#api)
+  - [Type Alias `Li`](#type-alias-li)
+  - [Function `trim_li`](#function-trim_li)
+  - [Struct `Restore`](#struct-restore)
+    - [Method `Restore::load`](#method-restoreload)
+- [History](#history)
+- [About](#about)
 
 ## Usage
 
@@ -109,33 +107,33 @@ In mechanical typewriters, a carriage return carriage assembly physically moved 
 
 Microsoft DOS and Windows adopted the `CRLF` sequence, matching the teleprinter standard. Unix systems simplified newlines to a single `LF` to save memory, while early Apple Macintosh systems used a single `CR`. Modern text processing utilities must robustly normalize these distinct line endings while maintaining processing efficiency.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # trim_li : 过滤空行、修剪行尾空白及高性能文本还原库
 
-- [trim_li : 过滤空行、修剪行尾空白及高性能文本还原库](#trim_li-过滤空行修剪行尾空白及高性能文本还原库)
-  - [使用演示](#使用演示)
-  - [特性介绍](#特性介绍)
-  - [设计思路](#设计思路)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 说明](#api-说明)
-    - [类型别名 `Li`](#类型别名-li)
-    - [函数 `trim_li`](#函数-trim_li)
-    - [结构体 `Restore`](#结构体-restore)
-      - [方法 `Restore::load`](#方法-restoreload)
-  - [历史背景](#历史背景)
-  - [关于](#关于)
-
 高效、零拷贝的 Rust 行处理函数与还原机制。使用 SIMD 扫描字节流，自动去除行尾空白并过滤尾部空行，提取非空行列表。并提供基于咆哮位图（`RoaringBitmap`）的高性能文本还原控制体 `Restore`。
+
+- [使用演示](#使用演示)
+- [特性介绍](#特性介绍)
+- [设计思路](#设计思路)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [API 说明](#api-说明)
+  - [类型别名 `Li`](#类型别名-li)
+  - [函数 `trim_li`](#函数-trim_li)
+  - [结构体 `Restore`](#结构体-restore)
+    - [方法 `Restore::load`](#方法-restoreload)
+- [历史背景](#历史背景)
+- [关于](#关于)
 
 ## 使用演示
 
@@ -224,8 +222,10 @@ pub fn load<S: AsRef<str>>(&self, lines: &[S]) -> Option<hipstr::HipStr<'static>
 
 微软 DOS 及 Windows 操作系统采用 `CRLF` 组合以兼容电传打字机规范。Unix 系统为节省内存，精简并统一采用单字节 `LF`。早期苹果 Macintosh 系统则使用单字节 `CR`。现代文本处理组件必须高度兼容上述多种换行符，同时在解析性能上做到极致。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

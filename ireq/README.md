@@ -3,18 +3,16 @@
 ---
 
 <a id="en"></a>
-
 # ireq : Effortless HTTP requests for Rust
 
-- [ireq : Effortless HTTP requests for Rust](#ireq-effortless-http-requests-for-rust)
-  - [Features](#features)
-  - [Usage](#usage)
-  - [Design](#design)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [API Documentation](#api-documentation)
-  - [Historical Trivia](#historical-trivia)
-  - [About](#about)
+- [Features](#features)
+- [Usage](#usage)
+- [Design](#design)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [API Documentation](#api-documentation)
+- [Historical Trivia](#historical-trivia)
+- [About](#about)
 
 ## Features
 
@@ -133,27 +131,27 @@ graph TD
 
 The name `reqwest` is a playful fusion of `request` (the famous Python library) and the word `west` (as in "Go West"). The creator of `reqwest`, Sean McArthur, designed it to bring the simplicity of Python's `requests` library to the Rust ecosystem. Over time, it became the most widely used HTTP client library in the Rust community. `ireq` inherits this lineage, providing an even simpler, opinionated wrapper for rapid development.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # ireq : 极简 Rust HTTP 请求库
 
-- [ireq : 极简 Rust HTTP 请求库](#ireq-极简-rust-http-请求库)
-  - [特性介绍](#特性介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术堆栈](#技术堆栈)
-  - [Directory Structure](#directory-structure)
-  - [API 说明](#api-说明)
-  - [历史小故事](#历史小故事)
-  - [关于](#关于)
+- [特性介绍](#特性介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术堆栈](#技术堆栈)
+- [Directory Structure](#directory-structure)
+- [API 说明](#api-说明)
+- [历史小故事](#历史小故事)
+- [关于](#关于)
 
 ## 特性介绍
 
@@ -272,8 +270,10 @@ graph TD
 
 `reqwest` 的命名源于 Python 著名库 `requests` 与 “西（west）” 的谐音组合。作者 Sean McArthur 旨在为 Rust 生态系统带来如 Python `requests` 般简单易用的 HTTP 客户端体验。时至今日，它已成为 Rust 社区中使用最广泛的 HTTP 库。而 `ireq` 则是在此基础上的进一步精简包装，专为敏捷开发设计。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

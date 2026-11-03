@@ -6,6 +6,8 @@ use std::{
 use ciborium::Value;
 use serde::{Deserialize, Deserializer, Serialize, Serializer, de};
 
+use crate::Error;
+
 #[derive(Debug, Clone, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub struct RecordId {
   pub tb: String,
@@ -102,7 +104,7 @@ impl FromStr for RecordId {
         id: id.to_string(),
       })
     } else {
-      Err(crate::Error::RecordId(s.to_string()))
+      Err(Error::RecordId(s.to_string()))
     }
   }
 }

@@ -3,19 +3,17 @@
 ---
 
 <a id="en"></a>
-
 # @1-/hash : Length-bounded MD5 hash utility
 
-- [@1-/hash : Length-bounded MD5 hash utility](#1-hash-length-bounded-md5-hash-utility)
-  - [Features](#features)
-  - [Usage](#usage)
-    - [Hashing Strings](#hashing-strings)
-    - [Hashing Buffers](#hashing-buffers)
-  - [Design Concept](#design-concept)
-  - [Tech Stack](#tech-stack)
-  - [Code Structure](#code-structure)
-  - [History](#history)
-  - [About](#about)
+- [Features](#features)
+- [Usage](#usage)
+  - [Hashing Strings](#hashing-strings)
+  - [Hashing Buffers](#hashing-buffers)
+- [Design Concept](#design-concept)
+- [Tech Stack](#tech-stack)
+- [Code Structure](#code-structure)
+- [History](#history)
+- [About](#about)
 
 ## Features
 
@@ -88,28 +86,28 @@ src/
 
 MD5 (Message-Digest Algorithm 5) was designed by Ronald Rivest in 1991 to succeed MD4. Although cryptographic weaknesses (such as collision attacks) were demonstrated by Xiaoyun Wang and other researchers in 2004, MD5 remains widely adopted for non-cryptographic tasks. In checksum verification, caching, and identifier generation, MD5 continues to be a standard tool because of its fast computation and compact 16-byte output. This project extends that pragmatic approach by applying MD5 conditionally.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/hash : 长度受限的 MD5 哈希工具
 
-- [@1-/hash : 长度受限的 MD5 哈希工具](#1-hash-长度受限的-md5-哈希工具)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-    - [字符串哈希](#字符串哈希)
-    - [二进制哈希](#二进制哈希)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+  - [字符串哈希](#字符串哈希)
+  - [二进制哈希](#二进制哈希)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -182,8 +180,10 @@ src/
 
 MD5（Message-Digest Algorithm 5）由密码学家 Ronald Rivest 于 1991 年设计，用以取代存在安全缺陷的 MD4。尽管王小云教授等学者在 2004 年证明了 MD5 碰撞漏洞，使其不再适用于高安全性加密场景，但在数据校验、唯一标识生成等非加密领域，MD5 凭借 16 字节的紧凑输出和优秀的计算性能，依然被广泛应用。本项目继承并延伸了这一实用主义设计。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

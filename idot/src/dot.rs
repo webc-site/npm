@@ -10,7 +10,7 @@ use std::{
 
 use bytes::{BufMut, Bytes, BytesMut};
 use idns::Answer;
-use rustls::{crypto::ring::default_provider, pki_types::ServerName};
+use rustls::{ClientConfig, RootCertStore, crypto::ring::default_provider, pki_types::ServerName};
 use tokio::{
   io::{AsyncReadExt, AsyncWriteExt},
   net::TcpStream,
@@ -34,11 +34,11 @@ const MAX_MSG_LEN: usize = 65535;
 const MIN_MSG_LEN: usize = 12;
 
 static CONF: LazyLock<Arc<rustls::ClientConfig>> = LazyLock::new(|| {
-  let mut roots = rustls::RootCertStore::empty();
+  let mut roots = RootCertStore::empty();
   roots.extend(webpki_roots::TLS_SERVER_ROOTS.iter().cloned());
 
   Arc::new(
-    rustls::ClientConfig::builder_with_provider(Arc::new(default_provider()))
+    ClientConfig::builder_with_provider(Arc::new(default_provider()))
       .with_safe_default_protocol_versions()
       .unwrap_or_else(|_| unreachable!())
       .with_root_certificates(roots)

@@ -3,17 +3,15 @@
 ---
 
 <a id="en"></a>
-
 # ProtoRPC : Efficient Binary RPC for JavaScript
 
-- [ProtoRPC : Efficient Binary RPC for JavaScript](#protorpc-efficient-binary-rpc-for-javascript)
-  - [Functionality](#functionality)
-  - [Usage Example](#usage-example)
-  - [Design Principles](#design-principles)
-  - [Technology Stack](#technology-stack)
-  - [Code Structure](#code-structure)
-  - [Historical Context](#historical-context)
-  - [About](#about)
+- [Functionality](#functionality)
+- [Usage Example](#usage-example)
+- [Design Principles](#design-principles)
+- [Technology Stack](#technology-stack)
+- [Code Structure](#code-structure)
+- [Historical Context](#historical-context)
+- [About](#about)
 
 ## Functionality
 
@@ -123,26 +121,26 @@ src/
 
 Protocol Buffers were developed by Google in 2001 to address the challenge of efficient data serialization across distributed systems. The original design focused on compact binary representation, language neutrality, and extensibility. ProtoRPC implements these core principles in JavaScript without external dependencies, bringing Protocol Buffer efficiency to web applications. Unlike traditional Protocol Buffer implementations that require code generation, ProtoRPC uses runtime encoding/decoding functions, making it ideal for dynamic JavaScript environments where compile-time code generation is impractical. The library's streaming response handling and memory-efficient Uint8Array operations represent modern JavaScript best practices for high-performance network communication.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # ProtoRPC : 面向 JavaScript 的高效二进制 RPC
 
-- [ProtoRPC : 面向 JavaScript 的高效二进制 RPC](#protorpc-面向-javascript-的高效二进制-rpc)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -252,8 +250,10 @@ src/
 
 Protocol Buffers 由 Google 于 2001 年开发，旨在解决分布式系统中结构化数据高效序列化的难题。原始设计聚焦于紧凑的二进制表示、语言无关性和可扩展性。ProtoRPC 在 JavaScript 中实现了这些核心原则，无需外部依赖，将 Protocol Buffer 效率优势带入 Web 应用。与需要代码生成的传统 Protocol Buffer 实现不同，ProtoRPC 使用运行时编码/解码函数，在动态 JavaScript 环境中无需编译时代码生成，更适合实际 Web 开发场景。该库的流式响应处理和内存高效的 Uint8Array 操作代表了现代 JavaScript 高性能网络通信的最佳实践。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

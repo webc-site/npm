@@ -3,19 +3,17 @@
 ---
 
 <a id="en"></a>
-
 # @1-/new : Template-based project initializer with name replacement
 
-- [@1-/new : Template-based project initializer with name replacement](#1-new-template-based-project-initializer-with-name-replacement)
-  - [Features](#features)
-  - [Usage](#usage)
-    - [Command Line Interface (CLI)](#command-line-interface-cli)
-    - [Application Programming Interface (API)](#application-programming-interface-api)
-  - [Design Flow](#design-flow)
-  - [Tech Stack](#tech-stack)
-  - [Code Structure](#code-structure)
-  - [History](#history)
-  - [About](#about)
+- [Features](#features)
+- [Usage](#usage)
+  - [Command Line Interface (CLI)](#command-line-interface-cli)
+  - [Application Programming Interface (API)](#application-programming-interface-api)
+- [Design Flow](#design-flow)
+- [Tech Stack](#tech-stack)
+- [Code Structure](#code-structure)
+- [History](#history)
+- [About](#about)
 
 ## Features
 
@@ -103,22 +101,21 @@ This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/new : 基于模板与名称替换的项目初始化工具
 
-- [@1-/new : 基于模板与名称替换的项目初始化工具](#1-new-基于模板与名称替换的项目初始化工具)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-    - [命令行界面 (CLI)](#命令行界面-cli)
-    - [应用程序接口 (API)](#应用程序接口-api)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+  - [命令行界面 (CLI)](#命令行界面-cli)
+  - [应用程序接口 (API)](#应用程序接口-api)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -205,3 +202,4 @@ graph TD
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

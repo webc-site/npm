@@ -3,25 +3,23 @@
 ---
 
 <a id="en"></a>
-
 # ts\_ : High-performance, lightweight time measurement for Rust
 
-- [ts\_ : High-performance, lightweight time measurement for Rust](#ts_-high-performance-lightweight-time-measurement-for-rust)
-  - [Table of Contents](#table-of-contents)
-  - [Features](#features)
-  - [Usage](#usage)
-    - [Example](#example)
-  - [Design Philosophy](#design-philosophy)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [API Reference](#api-reference)
-    - [`nano()`](#nano)
-    - [`milli()`](#milli)
-    - [`sec()`](#sec)
-  - [History: The Quest for Speed](#history-the-quest-for-speed)
-  - [About](#about)
-
 `ts_` is a simplified wrapper around the `coarsetime` crate, designed to provide extremely fast and easy-to-use time measurement utilities. It focuses on speed and API stability, making it ideal for performance-critical applications where high-precision (but not necessarily atomic-clock level) timestamps are needed without the overhead of standard library calls.
+
+- [Table of Contents](#table-of-contents)
+- [Features](#features)
+- [Usage](#usage)
+  - [Example](#example)
+- [Design Philosophy](#design-philosophy)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [API Reference](#api-reference)
+  - [`nano()`](#nano)
+  - [`milli()`](#milli)
+  - [`sec()`](#sec)
+- [History: The Quest for Speed](#history-the-quest-for-speed)
+- [About](#about)
 
 ## Table of Contents
 
@@ -141,34 +139,34 @@ To solve this, the Linux kernel introduced the **vDSO (Virtual Dynamic Shared Ob
 
 `CLOCK_MONOTONIC_COARSE` was born from this innovation. It reads the time directly from this shared memory without triggering a context switch. While it might be slightly less precise than a full system call (updating only on timer ticks), it is orders of magnitude faster. `ts_` (via `coarsetime`) harnesses this power to give your Rust applications blazing fast time measurements.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # ts\_ : Rust 高性能轻量级时间测量库
 
-- [ts\_ : Rust 高性能轻量级时间测量库](#ts_-rust-高性能轻量级时间测量库)
-  - [目录](#目录)
-  - [功能特性](#功能特性)
-  - [使用演示](#使用演示)
-    - [示例代码](#示例代码)
-  - [设计思路](#设计思路)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 参考](#api-参考)
-    - [`nano()`](#nano)
-    - [`milli()`](#milli)
-    - [`sec()`](#sec)
-  - [历史趣闻：对速度的极致追求](#历史趣闻对速度的极致追求)
-  - [关于](#关于)
-
 `ts_` 是 `coarsetime` crate 的简化封装，旨在提供极速且易用的时间测量工具。它专注于速度和 API 稳定性，非常适合那些需要高性能时间戳但不需要原子钟级精度的应用场景，避免了标准库调用的额外开销。
+
+- [目录](#目录)
+- [功能特性](#功能特性)
+- [使用演示](#使用演示)
+  - [示例代码](#示例代码)
+- [设计思路](#设计思路)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [API 参考](#api-参考)
+  - [`nano()`](#nano)
+  - [`milli()`](#milli)
+  - [`sec()`](#sec)
+- [历史趣闻：对速度的极致追求](#历史趣闻对速度的极致追求)
+- [关于](#关于)
 
 ## 目录
 
@@ -288,8 +286,10 @@ pub fn sec() -> u64
 
 `CLOCK_MONOTONIC_COARSE` 正是这一创新的产物。它直接从这块共享内存中读取时间，而无需触发上下文切换。虽然它的精度可能略低于完整的系统调用（仅在定时器滴答时更新），但它的速度却快了几个数量级。`ts_`（通过 `coarsetime`）正是利用了这一机制，为您的 Rust 应用提供闪电般的时间测量能力。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

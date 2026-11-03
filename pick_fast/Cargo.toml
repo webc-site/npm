@@ -1,6 +1,6 @@
 [package]
 name = "pick_fast"
-version = "0.1.27"
+version = "0.1.28"
 edition = "2024"
 license = "MulanPSL-2.0"
 repository = "https://github.com/webc-site/npm.git"
@@ -39,11 +39,8 @@ optional = true
 
 [dev-dependencies]
 aok = "0.1.18"
-charts = "0.3.0"
 futures = "0.3"
 log_init = "0.1.39"
-plotters = "0.3.7"
-plotters-svg = "0.3.7"
 svg = "0.18.0"
 
 [dev-dependencies.hickory-resolver]

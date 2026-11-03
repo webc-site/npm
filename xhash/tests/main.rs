@@ -1,6 +1,6 @@
 #![cfg(all(feature = "fs", feature = "hasher", feature = "xhash"))]
 
-use std::path::PathBuf;
+use std::{fs::read, path::PathBuf};
 
 use xhash::{Hasher, fs::hash_len, xhash};
 
@@ -8,7 +8,7 @@ use xhash::{Hasher, fs::hash_len, xhash};
 fn test() -> aok::Result<()> {
   let dir: PathBuf = env!("CARGO_MANIFEST_DIR").into();
   let fp = dir.join("src/lib.rs");
-  let bin = std::fs::read(&fp)?;
+  let bin = read(&fp)?;
   let hash_xhash = xhash(&bin);
   // let mut hasher = gxhash::GxHasher::with_seed(0);
   // hasher.write(&bin);

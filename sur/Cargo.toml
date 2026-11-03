@@ -1,6 +1,6 @@
 [package]
 name = "sur"
-version = "0.1.10"
+version = "0.1.11"
 edition = "2024"
 license = "MulanPSL-2.0"
 repository = "https://github.com/webc-site/npm.git"
@@ -53,7 +53,6 @@ static_init = "1.0.4"
 
 [dev-dependencies.log_init]
 path = "../log_init"
-version = "0.1.39"
 
 [dev-dependencies.tokio]
 version = "1.54.1"

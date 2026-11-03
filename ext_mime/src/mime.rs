@@ -20,9 +20,11 @@ pub const APPLICATION_ALTO_COSTMAP_JSON: &str = "application/alto-costmap+json";
 pub const APPLICATION_ALTO_COSTMAPFILTER_JSON: &str = "application/alto-costmapfilter+json";
 pub const APPLICATION_ALTO_DIRECTORY_JSON: &str = "application/alto-directory+json";
 pub const APPLICATION_ALTO_ENDPOINTCOST_JSON: &str = "application/alto-endpointcost+json";
-pub const APPLICATION_ALTO_ENDPOINTCOSTPARAMS_JSON: &str = "application/alto-endpointcostparams+json";
+pub const APPLICATION_ALTO_ENDPOINTCOSTPARAMS_JSON: &str =
+  "application/alto-endpointcostparams+json";
 pub const APPLICATION_ALTO_ENDPOINTPROP_JSON: &str = "application/alto-endpointprop+json";
-pub const APPLICATION_ALTO_ENDPOINTPROPPARAMS_JSON: &str = "application/alto-endpointpropparams+json";
+pub const APPLICATION_ALTO_ENDPOINTPROPPARAMS_JSON: &str =
+  "application/alto-endpointpropparams+json";
 pub const APPLICATION_ALTO_ERROR_JSON: &str = "application/alto-error+json";
 pub const APPLICATION_ALTO_NETWORKMAP_JSON: &str = "application/alto-networkmap+json";
 pub const APPLICATION_ALTO_NETWORKMAPFILTER_JSON: &str = "application/alto-networkmapfilter+json";
@@ -30,8 +32,10 @@ pub const APPLICATION_ALTO_PROPMAP_JSON: &str = "application/alto-propmap+json";
 pub const APPLICATION_ALTO_PROPMAPPARAMS_JSON: &str = "application/alto-propmapparams+json";
 pub const APPLICATION_ALTO_TIPS_JSON: &str = "application/alto-tips+json";
 pub const APPLICATION_ALTO_TIPSPARAMS_JSON: &str = "application/alto-tipsparams+json";
-pub const APPLICATION_ALTO_UPDATESTREAMCONTROL_JSON: &str = "application/alto-updatestreamcontrol+json";
-pub const APPLICATION_ALTO_UPDATESTREAMPARAMS_JSON: &str = "application/alto-updatestreamparams+json";
+pub const APPLICATION_ALTO_UPDATESTREAMCONTROL_JSON: &str =
+  "application/alto-updatestreamcontrol+json";
+pub const APPLICATION_ALTO_UPDATESTREAMPARAMS_JSON: &str =
+  "application/alto-updatestreamparams+json";
 pub const APPLICATION_AML: &str = "application/aml";
 pub const APPLICATION_ANDREW_INSET: &str = "application/andrew-inset";
 pub const APPLICATION_APPINSTALLER: &str = "application/appinstaller";
@@ -97,7 +101,8 @@ pub const APPLICATION_COAP_EAP: &str = "application/coap-eap";
 pub const APPLICATION_COAP_GROUP_JSON: &str = "application/coap-group+json";
 pub const APPLICATION_COAP_PAYLOAD: &str = "application/coap-payload";
 pub const APPLICATION_COMMONGROUND: &str = "application/commonground";
-pub const APPLICATION_CONCISE_PROBLEM_DETAILS_CBOR: &str = "application/concise-problem-details+cbor";
+pub const APPLICATION_CONCISE_PROBLEM_DETAILS_CBOR: &str =
+  "application/concise-problem-details+cbor";
 pub const APPLICATION_CONFERENCE_INFO_XML: &str = "application/conference-info+xml";
 pub const APPLICATION_COSE: &str = "application/cose";
 pub const APPLICATION_COSE_KEY: &str = "application/cose-key";
@@ -153,14 +158,21 @@ pub const APPLICATION_EFI: &str = "application/efi";
 pub const APPLICATION_ELM_JSON: &str = "application/elm+json";
 pub const APPLICATION_ELM_XML: &str = "application/elm+xml";
 pub const APPLICATION_EMERGENCYCALLDATA_CAP_XML: &str = "application/emergencycalldata.cap+xml";
-pub const APPLICATION_EMERGENCYCALLDATA_COMMENT_XML: &str = "application/emergencycalldata.comment+xml";
-pub const APPLICATION_EMERGENCYCALLDATA_CONTROL_XML: &str = "application/emergencycalldata.control+xml";
-pub const APPLICATION_EMERGENCYCALLDATA_DEVICEINFO_XML: &str = "application/emergencycalldata.deviceinfo+xml";
+pub const APPLICATION_EMERGENCYCALLDATA_COMMENT_XML: &str =
+  "application/emergencycalldata.comment+xml";
+pub const APPLICATION_EMERGENCYCALLDATA_CONTROL_XML: &str =
+  "application/emergencycalldata.control+xml";
+pub const APPLICATION_EMERGENCYCALLDATA_DEVICEINFO_XML: &str =
+  "application/emergencycalldata.deviceinfo+xml";
 pub const APPLICATION_EMERGENCYCALLDATA_ECALL_MSD: &str = "application/emergencycalldata.ecall.msd";
-pub const APPLICATION_EMERGENCYCALLDATA_LEGACYESN_JSON: &str = "application/emergencycalldata.legacyesn+json";
-pub const APPLICATION_EMERGENCYCALLDATA_PROVIDERINFO_XML: &str = "application/emergencycalldata.providerinfo+xml";
-pub const APPLICATION_EMERGENCYCALLDATA_SERVICEINFO_XML: &str = "application/emergencycalldata.serviceinfo+xml";
-pub const APPLICATION_EMERGENCYCALLDATA_SUBSCRIBERINFO_XML: &str = "application/emergencycalldata.subscriberinfo+xml";
+pub const APPLICATION_EMERGENCYCALLDATA_LEGACYESN_JSON: &str =
+  "application/emergencycalldata.legacyesn+json";
+pub const APPLICATION_EMERGENCYCALLDATA_PROVIDERINFO_XML: &str =
+  "application/emergencycalldata.providerinfo+xml";
+pub const APPLICATION_EMERGENCYCALLDATA_SERVICEINFO_XML: &str =
+  "application/emergencycalldata.serviceinfo+xml";
+pub const APPLICATION_EMERGENCYCALLDATA_SUBSCRIBERINFO_XML: &str =
+  "application/emergencycalldata.subscriberinfo+xml";
 pub const APPLICATION_EMERGENCYCALLDATA_VEDS_XML: &str = "application/emergencycalldata.veds+xml";
 pub const APPLICATION_EMMA_XML: &str = "application/emma+xml";
 pub const APPLICATION_EMOTIONML_XML: &str = "application/emotionml+xml";
@@ -267,17 +279,20 @@ pub const APPLICATION_MATHEMATICA: &str = "application/mathematica";
 pub const APPLICATION_MATHML_XML: &str = "application/mathml+xml";
 pub const APPLICATION_MATHML_CONTENT_XML: &str = "application/mathml-content+xml";
 pub const APPLICATION_MATHML_PRESENTATION_XML: &str = "application/mathml-presentation+xml";
-pub const APPLICATION_MBMS_ASSOCIATED_PROCEDURE_DESCRIPTION_XML: &str = "application/mbms-associated-procedure-description+xml";
+pub const APPLICATION_MBMS_ASSOCIATED_PROCEDURE_DESCRIPTION_XML: &str =
+  "application/mbms-associated-procedure-description+xml";
 pub const APPLICATION_MBMS_DEREGISTER_XML: &str = "application/mbms-deregister+xml";
 pub const APPLICATION_MBMS_ENVELOPE_XML: &str = "application/mbms-envelope+xml";
 pub const APPLICATION_MBMS_MSK_XML: &str = "application/mbms-msk+xml";
 pub const APPLICATION_MBMS_MSK_RESPONSE_XML: &str = "application/mbms-msk-response+xml";
-pub const APPLICATION_MBMS_PROTECTION_DESCRIPTION_XML: &str = "application/mbms-protection-description+xml";
+pub const APPLICATION_MBMS_PROTECTION_DESCRIPTION_XML: &str =
+  "application/mbms-protection-description+xml";
 pub const APPLICATION_MBMS_RECEPTION_REPORT_XML: &str = "application/mbms-reception-report+xml";
 pub const APPLICATION_MBMS_REGISTER_XML: &str = "application/mbms-register+xml";
 pub const APPLICATION_MBMS_REGISTER_RESPONSE_XML: &str = "application/mbms-register-response+xml";
 pub const APPLICATION_MBMS_SCHEDULE_XML: &str = "application/mbms-schedule+xml";
-pub const APPLICATION_MBMS_USER_SERVICE_DESCRIPTION_XML: &str = "application/mbms-user-service-description+xml";
+pub const APPLICATION_MBMS_USER_SERVICE_DESCRIPTION_XML: &str =
+  "application/mbms-user-service-description+xml";
 pub const APPLICATION_MBOX: &str = "application/mbox";
 pub const APPLICATION_MEDIA_POLICY_DATASET_XML: &str = "application/media-policy-dataset+xml";
 pub const APPLICATION_MEDIA_CONTROL_XML: &str = "application/media_control+xml";
@@ -367,7 +382,8 @@ pub const APPLICATION_PLS_XML: &str = "application/pls+xml";
 pub const APPLICATION_POC_SETTINGS_XML: &str = "application/poc-settings+xml";
 pub const APPLICATION_POSTSCRIPT: &str = "application/postscript";
 pub const APPLICATION_PPSP_TRACKER_JSON: &str = "application/ppsp-tracker+json";
-pub const APPLICATION_PRIVATE_TOKEN_ISSUER_DIRECTORY: &str = "application/private-token-issuer-directory";
+pub const APPLICATION_PRIVATE_TOKEN_ISSUER_DIRECTORY: &str =
+  "application/private-token-issuer-directory";
 pub const APPLICATION_PRIVATE_TOKEN_REQUEST: &str = "application/private-token-request";
 pub const APPLICATION_PRIVATE_TOKEN_RESPONSE: &str = "application/private-token-response";
 pub const APPLICATION_PROBLEM_JSON: &str = "application/problem+json";
@@ -426,7 +442,8 @@ pub const APPLICATION_RTX: &str = "application/rtx";
 pub const APPLICATION_SAMLASSERTION_XML: &str = "application/samlassertion+xml";
 pub const APPLICATION_SAMLMETADATA_XML: &str = "application/samlmetadata+xml";
 pub const APPLICATION_SARIF_JSON: &str = "application/sarif+json";
-pub const APPLICATION_SARIF_EXTERNAL_PROPERTIES_JSON: &str = "application/sarif-external-properties+json";
+pub const APPLICATION_SARIF_EXTERNAL_PROPERTIES_JSON: &str =
+  "application/sarif-external-properties+json";
 pub const APPLICATION_SBE: &str = "application/sbe";
 pub const APPLICATION_SBML_XML: &str = "application/sbml+xml";
 pub const APPLICATION_SCAIP_XML: &str = "application/scaip+xml";
@@ -487,10 +504,12 @@ pub const APPLICATION_SWID_XML: &str = "application/swid+xml";
 pub const APPLICATION_TAMP_APEX_UPDATE: &str = "application/tamp-apex-update";
 pub const APPLICATION_TAMP_APEX_UPDATE_CONFIRM: &str = "application/tamp-apex-update-confirm";
 pub const APPLICATION_TAMP_COMMUNITY_UPDATE: &str = "application/tamp-community-update";
-pub const APPLICATION_TAMP_COMMUNITY_UPDATE_CONFIRM: &str = "application/tamp-community-update-confirm";
+pub const APPLICATION_TAMP_COMMUNITY_UPDATE_CONFIRM: &str =
+  "application/tamp-community-update-confirm";
 pub const APPLICATION_TAMP_ERROR: &str = "application/tamp-error";
 pub const APPLICATION_TAMP_SEQUENCE_ADJUST: &str = "application/tamp-sequence-adjust";
-pub const APPLICATION_TAMP_SEQUENCE_ADJUST_CONFIRM: &str = "application/tamp-sequence-adjust-confirm";
+pub const APPLICATION_TAMP_SEQUENCE_ADJUST_CONFIRM: &str =
+  "application/tamp-sequence-adjust-confirm";
 pub const APPLICATION_TAMP_STATUS_QUERY: &str = "application/tamp-status-query";
 pub const APPLICATION_TAMP_STATUS_RESPONSE: &str = "application/tamp-status-response";
 pub const APPLICATION_TAMP_UPDATE: &str = "application/tamp-update";
@@ -535,57 +554,84 @@ pub const APPLICATION_VCARD_JSON: &str = "application/vcard+json";
 pub const APPLICATION_VCARD_XML: &str = "application/vcard+xml";
 pub const APPLICATION_VEMMI: &str = "application/vemmi";
 pub const APPLICATION_VIVIDENCE_SCRIPTFILE: &str = "application/vividence.scriptfile";
-pub const APPLICATION_VND_1000MINDS_DECISION_MODEL_XML: &str = "application/vnd.1000minds.decision-model+xml";
+pub const APPLICATION_VND_1000MINDS_DECISION_MODEL_XML: &str =
+  "application/vnd.1000minds.decision-model+xml";
 pub const APPLICATION_VND_1OB: &str = "application/vnd.1ob";
 pub const APPLICATION_VND_3GPP_PROSE_XML: &str = "application/vnd.3gpp-prose+xml";
 pub const APPLICATION_VND_3GPP_PROSE_PC3A_XML: &str = "application/vnd.3gpp-prose-pc3a+xml";
 pub const APPLICATION_VND_3GPP_PROSE_PC3ACH_XML: &str = "application/vnd.3gpp-prose-pc3ach+xml";
 pub const APPLICATION_VND_3GPP_PROSE_PC3CH_XML: &str = "application/vnd.3gpp-prose-pc3ch+xml";
 pub const APPLICATION_VND_3GPP_PROSE_PC8_XML: &str = "application/vnd.3gpp-prose-pc8+xml";
-pub const APPLICATION_VND_3GPP_V2X_LOCAL_SERVICE_INFORMATION: &str = "application/vnd.3gpp-v2x-local-service-information";
+pub const APPLICATION_VND_3GPP_V2X_LOCAL_SERVICE_INFORMATION: &str =
+  "application/vnd.3gpp-v2x-local-service-information";
 pub const APPLICATION_VND_3GPP_5GNAS: &str = "application/vnd.3gpp.5gnas";
 pub const APPLICATION_VND_3GPP_5GSA2X: &str = "application/vnd.3gpp.5gsa2x";
-pub const APPLICATION_VND_3GPP_5GSA2X_LOCAL_SERVICE_INFORMATION: &str = "application/vnd.3gpp.5gsa2x-local-service-information";
+pub const APPLICATION_VND_3GPP_5GSA2X_LOCAL_SERVICE_INFORMATION: &str =
+  "application/vnd.3gpp.5gsa2x-local-service-information";
 pub const APPLICATION_VND_3GPP_5GSV2X: &str = "application/vnd.3gpp.5gsv2x";
-pub const APPLICATION_VND_3GPP_5GSV2X_LOCAL_SERVICE_INFORMATION: &str = "application/vnd.3gpp.5gsv2x-local-service-information";
-pub const APPLICATION_VND_3GPP_ACCESS_TRANSFER_EVENTS_XML: &str = "application/vnd.3gpp.access-transfer-events+xml";
+pub const APPLICATION_VND_3GPP_5GSV2X_LOCAL_SERVICE_INFORMATION: &str =
+  "application/vnd.3gpp.5gsv2x-local-service-information";
+pub const APPLICATION_VND_3GPP_ACCESS_TRANSFER_EVENTS_XML: &str =
+  "application/vnd.3gpp.access-transfer-events+xml";
 pub const APPLICATION_VND_3GPP_BSF_XML: &str = "application/vnd.3gpp.bsf+xml";
 pub const APPLICATION_VND_3GPP_CRS_XML: &str = "application/vnd.3gpp.crs+xml";
-pub const APPLICATION_VND_3GPP_CURRENT_LOCATION_DISCOVERY_XML: &str = "application/vnd.3gpp.current-location-discovery+xml";
+pub const APPLICATION_VND_3GPP_CURRENT_LOCATION_DISCOVERY_XML: &str =
+  "application/vnd.3gpp.current-location-discovery+xml";
 pub const APPLICATION_VND_3GPP_GMOP_XML: &str = "application/vnd.3gpp.gmop+xml";
 pub const APPLICATION_VND_3GPP_GTPC: &str = "application/vnd.3gpp.gtpc";
 pub const APPLICATION_VND_3GPP_INTERWORKING_DATA: &str = "application/vnd.3gpp.interworking-data";
 pub const APPLICATION_VND_3GPP_LPP: &str = "application/vnd.3gpp.lpp";
 pub const APPLICATION_VND_3GPP_MC_SIGNALLING_EAR: &str = "application/vnd.3gpp.mc-signalling-ear";
-pub const APPLICATION_VND_3GPP_MCDATA_AFFILIATION_COMMAND_XML: &str = "application/vnd.3gpp.mcdata-affiliation-command+xml";
+pub const APPLICATION_VND_3GPP_MCDATA_AFFILIATION_COMMAND_XML: &str =
+  "application/vnd.3gpp.mcdata-affiliation-command+xml";
 pub const APPLICATION_VND_3GPP_MCDATA_INFO_XML: &str = "application/vnd.3gpp.mcdata-info+xml";
-pub const APPLICATION_VND_3GPP_MCDATA_MSGSTORE_CTRL_REQUEST_XML: &str = "application/vnd.3gpp.mcdata-msgstore-ctrl-request+xml";
+pub const APPLICATION_VND_3GPP_MCDATA_MSGSTORE_CTRL_REQUEST_XML: &str =
+  "application/vnd.3gpp.mcdata-msgstore-ctrl-request+xml";
 pub const APPLICATION_VND_3GPP_MCDATA_PAYLOAD: &str = "application/vnd.3gpp.mcdata-payload";
 pub const APPLICATION_VND_3GPP_MCDATA_REGROUP_XML: &str = "application/vnd.3gpp.mcdata-regroup+xml";
-pub const APPLICATION_VND_3GPP_MCDATA_SERVICE_CONFIG_XML: &str = "application/vnd.3gpp.mcdata-service-config+xml";
+pub const APPLICATION_VND_3GPP_MCDATA_SERVICE_CONFIG_XML: &str =
+  "application/vnd.3gpp.mcdata-service-config+xml";
 pub const APPLICATION_VND_3GPP_MCDATA_SIGNALLING: &str = "application/vnd.3gpp.mcdata-signalling";
-pub const APPLICATION_VND_3GPP_MCDATA_UE_CONFIG_XML: &str = "application/vnd.3gpp.mcdata-ue-config+xml";
-pub const APPLICATION_VND_3GPP_MCDATA_USER_PROFILE_XML: &str = "application/vnd.3gpp.mcdata-user-profile+xml";
-pub const APPLICATION_VND_3GPP_MCPTT_AFFILIATION_COMMAND_XML: &str = "application/vnd.3gpp.mcptt-affiliation-command+xml";
-pub const APPLICATION_VND_3GPP_MCPTT_FLOOR_REQUEST_XML: &str = "application/vnd.3gpp.mcptt-floor-request+xml";
+pub const APPLICATION_VND_3GPP_MCDATA_UE_CONFIG_XML: &str =
+  "application/vnd.3gpp.mcdata-ue-config+xml";
+pub const APPLICATION_VND_3GPP_MCDATA_USER_PROFILE_XML: &str =
+  "application/vnd.3gpp.mcdata-user-profile+xml";
+pub const APPLICATION_VND_3GPP_MCPTT_AFFILIATION_COMMAND_XML: &str =
+  "application/vnd.3gpp.mcptt-affiliation-command+xml";
+pub const APPLICATION_VND_3GPP_MCPTT_FLOOR_REQUEST_XML: &str =
+  "application/vnd.3gpp.mcptt-floor-request+xml";
 pub const APPLICATION_VND_3GPP_MCPTT_INFO_XML: &str = "application/vnd.3gpp.mcptt-info+xml";
-pub const APPLICATION_VND_3GPP_MCPTT_LOCATION_INFO_XML: &str = "application/vnd.3gpp.mcptt-location-info+xml";
-pub const APPLICATION_VND_3GPP_MCPTT_MBMS_USAGE_INFO_XML: &str = "application/vnd.3gpp.mcptt-mbms-usage-info+xml";
+pub const APPLICATION_VND_3GPP_MCPTT_LOCATION_INFO_XML: &str =
+  "application/vnd.3gpp.mcptt-location-info+xml";
+pub const APPLICATION_VND_3GPP_MCPTT_MBMS_USAGE_INFO_XML: &str =
+  "application/vnd.3gpp.mcptt-mbms-usage-info+xml";
 pub const APPLICATION_VND_3GPP_MCPTT_REGROUP_XML: &str = "application/vnd.3gpp.mcptt-regroup+xml";
-pub const APPLICATION_VND_3GPP_MCPTT_SERVICE_CONFIG_XML: &str = "application/vnd.3gpp.mcptt-service-config+xml";
+pub const APPLICATION_VND_3GPP_MCPTT_SERVICE_CONFIG_XML: &str =
+  "application/vnd.3gpp.mcptt-service-config+xml";
 pub const APPLICATION_VND_3GPP_MCPTT_SIGNED_XML: &str = "application/vnd.3gpp.mcptt-signed+xml";
-pub const APPLICATION_VND_3GPP_MCPTT_UE_CONFIG_XML: &str = "application/vnd.3gpp.mcptt-ue-config+xml";
-pub const APPLICATION_VND_3GPP_MCPTT_UE_INIT_CONFIG_XML: &str = "application/vnd.3gpp.mcptt-ue-init-config+xml";
-pub const APPLICATION_VND_3GPP_MCPTT_USER_PROFILE_XML: &str = "application/vnd.3gpp.mcptt-user-profile+xml";
-pub const APPLICATION_VND_3GPP_MCVIDEO_AFFILIATION_COMMAND_XML: &str = "application/vnd.3gpp.mcvideo-affiliation-command+xml";
+pub const APPLICATION_VND_3GPP_MCPTT_UE_CONFIG_XML: &str =
+  "application/vnd.3gpp.mcptt-ue-config+xml";
+pub const APPLICATION_VND_3GPP_MCPTT_UE_INIT_CONFIG_XML: &str =
+  "application/vnd.3gpp.mcptt-ue-init-config+xml";
+pub const APPLICATION_VND_3GPP_MCPTT_USER_PROFILE_XML: &str =
+  "application/vnd.3gpp.mcptt-user-profile+xml";
+pub const APPLICATION_VND_3GPP_MCVIDEO_AFFILIATION_COMMAND_XML: &str =
+  "application/vnd.3gpp.mcvideo-affiliation-command+xml";
 pub const APPLICATION_VND_3GPP_MCVIDEO_INFO_XML: &str = "application/vnd.3gpp.mcvideo-info+xml";
-pub const APPLICATION_VND_3GPP_MCVIDEO_LOCATION_INFO_XML: &str = "application/vnd.3gpp.mcvideo-location-info+xml";
-pub const APPLICATION_VND_3GPP_MCVIDEO_MBMS_USAGE_INFO_XML: &str = "application/vnd.3gpp.mcvideo-mbms-usage-info+xml";
-pub const APPLICATION_VND_3GPP_MCVIDEO_REGROUP_XML: &str = "application/vnd.3gpp.mcvideo-regroup+xml";
-pub const APPLICATION_VND_3GPP_MCVIDEO_SERVICE_CONFIG_XML: &str = "application/vnd.3gpp.mcvideo-service-config+xml";
-pub const APPLICATION_VND_3GPP_MCVIDEO_TRANSMISSION_REQUEST_XML: &str = "application/vnd.3gpp.mcvideo-transmission-request+xml";
-pub const APPLICATION_VND_3GPP_MCVIDEO_UE_CONFIG_XML: &str = "application/vnd.3gpp.mcvideo-ue-config+xml";
-pub const APPLICATION_VND_3GPP_MCVIDEO_USER_PROFILE_XML: &str = "application/vnd.3gpp.mcvideo-user-profile+xml";
+pub const APPLICATION_VND_3GPP_MCVIDEO_LOCATION_INFO_XML: &str =
+  "application/vnd.3gpp.mcvideo-location-info+xml";
+pub const APPLICATION_VND_3GPP_MCVIDEO_MBMS_USAGE_INFO_XML: &str =
+  "application/vnd.3gpp.mcvideo-mbms-usage-info+xml";
+pub const APPLICATION_VND_3GPP_MCVIDEO_REGROUP_XML: &str =
+  "application/vnd.3gpp.mcvideo-regroup+xml";
+pub const APPLICATION_VND_3GPP_MCVIDEO_SERVICE_CONFIG_XML: &str =
+  "application/vnd.3gpp.mcvideo-service-config+xml";
+pub const APPLICATION_VND_3GPP_MCVIDEO_TRANSMISSION_REQUEST_XML: &str =
+  "application/vnd.3gpp.mcvideo-transmission-request+xml";
+pub const APPLICATION_VND_3GPP_MCVIDEO_UE_CONFIG_XML: &str =
+  "application/vnd.3gpp.mcvideo-ue-config+xml";
+pub const APPLICATION_VND_3GPP_MCVIDEO_USER_PROFILE_XML: &str =
+  "application/vnd.3gpp.mcvideo-user-profile+xml";
 pub const APPLICATION_VND_3GPP_MID_CALL_XML: &str = "application/vnd.3gpp.mid-call+xml";
 pub const APPLICATION_VND_3GPP_NGAP: &str = "application/vnd.3gpp.ngap";
 pub const APPLICATION_VND_3GPP_PFCP: &str = "application/vnd.3gpp.pfcp";
@@ -596,24 +642,32 @@ pub const APPLICATION_VND_3GPP_PINAPP_INFO_XML: &str = "application/vnd.3gpp.pin
 pub const APPLICATION_VND_3GPP_S1AP: &str = "application/vnd.3gpp.s1ap";
 pub const APPLICATION_VND_3GPP_SEAL_GROUP_DOC_XML: &str = "application/vnd.3gpp.seal-group-doc+xml";
 pub const APPLICATION_VND_3GPP_SEAL_INFO_XML: &str = "application/vnd.3gpp.seal-info+xml";
-pub const APPLICATION_VND_3GPP_SEAL_LOCATION_INFO_XML: &str = "application/vnd.3gpp.seal-location-info+xml";
-pub const APPLICATION_VND_3GPP_SEAL_MBMS_USAGE_INFO_XML: &str = "application/vnd.3gpp.seal-mbms-usage-info+xml";
-pub const APPLICATION_VND_3GPP_SEAL_NETWORK_QOS_MANAGEMENT_INFO_XML: &str = "application/vnd.3gpp.seal-network-qos-management-info+xml";
-pub const APPLICATION_VND_3GPP_SEAL_UE_CONFIG_INFO_XML: &str = "application/vnd.3gpp.seal-ue-config-info+xml";
-pub const APPLICATION_VND_3GPP_SEAL_UNICAST_INFO_XML: &str = "application/vnd.3gpp.seal-unicast-info+xml";
-pub const APPLICATION_VND_3GPP_SEAL_USER_PROFILE_INFO_XML: &str = "application/vnd.3gpp.seal-user-profile-info+xml";
+pub const APPLICATION_VND_3GPP_SEAL_LOCATION_INFO_XML: &str =
+  "application/vnd.3gpp.seal-location-info+xml";
+pub const APPLICATION_VND_3GPP_SEAL_MBMS_USAGE_INFO_XML: &str =
+  "application/vnd.3gpp.seal-mbms-usage-info+xml";
+pub const APPLICATION_VND_3GPP_SEAL_NETWORK_QOS_MANAGEMENT_INFO_XML: &str =
+  "application/vnd.3gpp.seal-network-qos-management-info+xml";
+pub const APPLICATION_VND_3GPP_SEAL_UE_CONFIG_INFO_XML: &str =
+  "application/vnd.3gpp.seal-ue-config-info+xml";
+pub const APPLICATION_VND_3GPP_SEAL_UNICAST_INFO_XML: &str =
+  "application/vnd.3gpp.seal-unicast-info+xml";
+pub const APPLICATION_VND_3GPP_SEAL_USER_PROFILE_INFO_XML: &str =
+  "application/vnd.3gpp.seal-user-profile-info+xml";
 pub const APPLICATION_VND_3GPP_SMS: &str = "application/vnd.3gpp.sms";
 pub const APPLICATION_VND_3GPP_SMS_XML: &str = "application/vnd.3gpp.sms+xml";
 pub const APPLICATION_VND_3GPP_SRVCC_EXT_XML: &str = "application/vnd.3gpp.srvcc-ext+xml";
 pub const APPLICATION_VND_3GPP_SRVCC_INFO_XML: &str = "application/vnd.3gpp.srvcc-info+xml";
-pub const APPLICATION_VND_3GPP_STATE_AND_EVENT_INFO_XML: &str = "application/vnd.3gpp.state-and-event-info+xml";
+pub const APPLICATION_VND_3GPP_STATE_AND_EVENT_INFO_XML: &str =
+  "application/vnd.3gpp.state-and-event-info+xml";
 pub const APPLICATION_VND_3GPP_USSD_XML: &str = "application/vnd.3gpp.ussd+xml";
 pub const APPLICATION_VND_3GPP_V2X: &str = "application/vnd.3gpp.v2x";
 pub const APPLICATION_VND_3GPP_VAE_INFO_XML: &str = "application/vnd.3gpp.vae-info+xml";
 pub const APPLICATION_VND_3GPP2_BCMCSINFO_XML: &str = "application/vnd.3gpp2.bcmcsinfo+xml";
 pub const APPLICATION_VND_3GPP2_SMS: &str = "application/vnd.3gpp2.sms";
 pub const APPLICATION_VND_3GPP2_TCAP: &str = "application/vnd.3gpp2.tcap";
-pub const APPLICATION_VND_3LIGHTSSOFTWARE_IMAGESCAL: &str = "application/vnd.3lightssoftware.imagescal";
+pub const APPLICATION_VND_3LIGHTSSOFTWARE_IMAGESCAL: &str =
+  "application/vnd.3lightssoftware.imagescal";
 pub const APPLICATION_VND_3M_POST_IT_NOTES: &str = "application/vnd.3m.post-it-notes";
 pub const APPLICATION_VND_ACCPAC_SIMPLY_ASO: &str = "application/vnd.accpac.simply.aso";
 pub const APPLICATION_VND_ACCPAC_SIMPLY_IMP: &str = "application/vnd.accpac.simply.imp";
@@ -621,7 +675,8 @@ pub const APPLICATION_VND_ACM_ADDRESSXFER_JSON: &str = "application/vnd.acm.addr
 pub const APPLICATION_VND_ACM_CHATBOT_JSON: &str = "application/vnd.acm.chatbot+json";
 pub const APPLICATION_VND_ACUCOBOL: &str = "application/vnd.acucobol";
 pub const APPLICATION_VND_ACUCORP: &str = "application/vnd.acucorp";
-pub const APPLICATION_VND_ADOBE_AIR_APPLICATION_INSTALLER_PACKAGE_ZIP: &str = "application/vnd.adobe.air-application-installer-package+zip";
+pub const APPLICATION_VND_ADOBE_AIR_APPLICATION_INSTALLER_PACKAGE_ZIP: &str =
+  "application/vnd.adobe.air-application-installer-package+zip";
 pub const APPLICATION_VND_ADOBE_FLASH_MOVIE: &str = "application/vnd.adobe.flash.movie";
 pub const APPLICATION_VND_ADOBE_FORMSCENTRAL_FCDT: &str = "application/vnd.adobe.formscentral.fcdt";
 pub const APPLICATION_VND_ADOBE_FXP: &str = "application/vnd.adobe.fxp";
@@ -630,7 +685,8 @@ pub const APPLICATION_VND_ADOBE_XDP_XML: &str = "application/vnd.adobe.xdp+xml";
 pub const APPLICATION_VND_ADOBE_XFDF: &str = "application/vnd.adobe.xfdf";
 pub const APPLICATION_VND_AETHER_IMP: &str = "application/vnd.aether.imp";
 pub const APPLICATION_VND_AFPC_AFPLINEDATA: &str = "application/vnd.afpc.afplinedata";
-pub const APPLICATION_VND_AFPC_AFPLINEDATA_PAGEDEF: &str = "application/vnd.afpc.afplinedata-pagedef";
+pub const APPLICATION_VND_AFPC_AFPLINEDATA_PAGEDEF: &str =
+  "application/vnd.afpc.afplinedata-pagedef";
 pub const APPLICATION_VND_AFPC_CMOCA_CMRESOURCE: &str = "application/vnd.afpc.cmoca-cmresource";
 pub const APPLICATION_VND_AFPC_FOCA_CHARSET: &str = "application/vnd.afpc.foca-charset";
 pub const APPLICATION_VND_AFPC_FOCA_CODEDFONT: &str = "application/vnd.afpc.foca-codedfont";
@@ -639,7 +695,8 @@ pub const APPLICATION_VND_AFPC_MODCA: &str = "application/vnd.afpc.modca";
 pub const APPLICATION_VND_AFPC_MODCA_CMTABLE: &str = "application/vnd.afpc.modca-cmtable";
 pub const APPLICATION_VND_AFPC_MODCA_FORMDEF: &str = "application/vnd.afpc.modca-formdef";
 pub const APPLICATION_VND_AFPC_MODCA_MEDIUMMAP: &str = "application/vnd.afpc.modca-mediummap";
-pub const APPLICATION_VND_AFPC_MODCA_OBJECTCONTAINER: &str = "application/vnd.afpc.modca-objectcontainer";
+pub const APPLICATION_VND_AFPC_MODCA_OBJECTCONTAINER: &str =
+  "application/vnd.afpc.modca-objectcontainer";
 pub const APPLICATION_VND_AFPC_MODCA_OVERLAY: &str = "application/vnd.afpc.modca-overlay";
 pub const APPLICATION_VND_AFPC_MODCA_PAGESEGMENT: &str = "application/vnd.afpc.modca-pagesegment";
 pub const APPLICATION_VND_AGE: &str = "application/vnd.age";
@@ -656,8 +713,10 @@ pub const APPLICATION_VND_AMUNDSEN_MAZE_XML: &str = "application/vnd.amundsen.ma
 pub const APPLICATION_VND_ANDROID_OTA: &str = "application/vnd.android.ota";
 pub const APPLICATION_VND_ANDROID_PACKAGE_ARCHIVE: &str = "application/vnd.android.package-archive";
 pub const APPLICATION_VND_ANKI: &str = "application/vnd.anki";
-pub const APPLICATION_VND_ANSER_WEB_CERTIFICATE_ISSUE_INITIATION: &str = "application/vnd.anser-web-certificate-issue-initiation";
-pub const APPLICATION_VND_ANSER_WEB_FUNDS_TRANSFER_INITIATION: &str = "application/vnd.anser-web-funds-transfer-initiation";
+pub const APPLICATION_VND_ANSER_WEB_CERTIFICATE_ISSUE_INITIATION: &str =
+  "application/vnd.anser-web-certificate-issue-initiation";
+pub const APPLICATION_VND_ANSER_WEB_FUNDS_TRANSFER_INITIATION: &str =
+  "application/vnd.anser-web-funds-transfer-initiation";
 pub const APPLICATION_VND_ANTIX_GAME_COMPONENT: &str = "application/vnd.antix.game-component";
 pub const APPLICATION_VND_APACHE_ARROW_FILE: &str = "application/vnd.apache.arrow.file";
 pub const APPLICATION_VND_APACHE_ARROW_STREAM: &str = "application/vnd.apache.arrow.stream";
@@ -668,7 +727,8 @@ pub const APPLICATION_VND_APACHE_THRIFT_JSON: &str = "application/vnd.apache.thr
 pub const APPLICATION_VND_APEXLANG: &str = "application/vnd.apexlang";
 pub const APPLICATION_VND_API_JSON: &str = "application/vnd.api+json";
 pub const APPLICATION_VND_APLEXTOR_WARRP_JSON: &str = "application/vnd.aplextor.warrp+json";
-pub const APPLICATION_VND_APOTHEKENDE_RESERVATION_JSON: &str = "application/vnd.apothekende.reservation+json";
+pub const APPLICATION_VND_APOTHEKENDE_RESERVATION_JSON: &str =
+  "application/vnd.apothekende.reservation+json";
 pub const APPLICATION_VND_APPLE_INSTALLER_XML: &str = "application/vnd.apple.installer+xml";
 pub const APPLICATION_VND_APPLE_KEYNOTE: &str = "application/vnd.apple.keynote";
 pub const APPLICATION_VND_APPLE_MPEGURL: &str = "application/vnd.apple.mpegurl";
@@ -711,30 +771,44 @@ pub const APPLICATION_VND_CAB_JSCRIPT: &str = "application/vnd.cab-jscript";
 pub const APPLICATION_VND_CANON_CPDL: &str = "application/vnd.canon-cpdl";
 pub const APPLICATION_VND_CANON_LIPS: &str = "application/vnd.canon-lips";
 pub const APPLICATION_VND_CAPASYSTEMS_PG_JSON: &str = "application/vnd.capasystems-pg+json";
-pub const APPLICATION_VND_CENDIO_THINLINC_CLIENTCONF: &str = "application/vnd.cendio.thinlinc.clientconf";
-pub const APPLICATION_VND_CENTURY_SYSTEMS_TCP_STREAM: &str = "application/vnd.century-systems.tcp_stream";
+pub const APPLICATION_VND_CENDIO_THINLINC_CLIENTCONF: &str =
+  "application/vnd.cendio.thinlinc.clientconf";
+pub const APPLICATION_VND_CENTURY_SYSTEMS_TCP_STREAM: &str =
+  "application/vnd.century-systems.tcp_stream";
 pub const APPLICATION_VND_CHEMDRAW_XML: &str = "application/vnd.chemdraw+xml";
 pub const APPLICATION_VND_CHESS_PGN: &str = "application/vnd.chess-pgn";
 pub const APPLICATION_VND_CHIPNUTS_KARAOKE_MMD: &str = "application/vnd.chipnuts.karaoke-mmd";
 pub const APPLICATION_VND_CIEDI: &str = "application/vnd.ciedi";
 pub const APPLICATION_VND_CINDERELLA: &str = "application/vnd.cinderella";
 pub const APPLICATION_VND_CIRPACK_ISDN_EXT: &str = "application/vnd.cirpack.isdn-ext";
-pub const APPLICATION_VND_CITATIONSTYLES_STYLE_XML: &str = "application/vnd.citationstyles.style+xml";
+pub const APPLICATION_VND_CITATIONSTYLES_STYLE_XML: &str =
+  "application/vnd.citationstyles.style+xml";
 pub const APPLICATION_VND_CLAYMORE: &str = "application/vnd.claymore";
 pub const APPLICATION_VND_CLOANTO_RP9: &str = "application/vnd.cloanto.rp9";
 pub const APPLICATION_VND_CLONK_C4GROUP: &str = "application/vnd.clonk.c4group";
-pub const APPLICATION_VND_CLUETRUST_CARTOMOBILE_CONFIG: &str = "application/vnd.cluetrust.cartomobile-config";
-pub const APPLICATION_VND_CLUETRUST_CARTOMOBILE_CONFIG_PKG: &str = "application/vnd.cluetrust.cartomobile-config-pkg";
-pub const APPLICATION_VND_CNCF_HELM_CHART_CONTENT_V1_TAR_GZIP: &str = "application/vnd.cncf.helm.chart.content.v1.tar+gzip";
-pub const APPLICATION_VND_CNCF_HELM_CHART_PROVENANCE_V1_PROV: &str = "application/vnd.cncf.helm.chart.provenance.v1.prov";
-pub const APPLICATION_VND_CNCF_HELM_CONFIG_V1_JSON: &str = "application/vnd.cncf.helm.config.v1+json";
+pub const APPLICATION_VND_CLUETRUST_CARTOMOBILE_CONFIG: &str =
+  "application/vnd.cluetrust.cartomobile-config";
+pub const APPLICATION_VND_CLUETRUST_CARTOMOBILE_CONFIG_PKG: &str =
+  "application/vnd.cluetrust.cartomobile-config-pkg";
+pub const APPLICATION_VND_CNCF_HELM_CHART_CONTENT_V1_TAR_GZIP: &str =
+  "application/vnd.cncf.helm.chart.content.v1.tar+gzip";
+pub const APPLICATION_VND_CNCF_HELM_CHART_PROVENANCE_V1_PROV: &str =
+  "application/vnd.cncf.helm.chart.provenance.v1.prov";
+pub const APPLICATION_VND_CNCF_HELM_CONFIG_V1_JSON: &str =
+  "application/vnd.cncf.helm.config.v1+json";
 pub const APPLICATION_VND_COFFEESCRIPT: &str = "application/vnd.coffeescript";
-pub const APPLICATION_VND_COLLABIO_XODOCUMENTS_DOCUMENT: &str = "application/vnd.collabio.xodocuments.document";
-pub const APPLICATION_VND_COLLABIO_XODOCUMENTS_DOCUMENT_TEMPLATE: &str = "application/vnd.collabio.xodocuments.document-template";
-pub const APPLICATION_VND_COLLABIO_XODOCUMENTS_PRESENTATION: &str = "application/vnd.collabio.xodocuments.presentation";
-pub const APPLICATION_VND_COLLABIO_XODOCUMENTS_PRESENTATION_TEMPLATE: &str = "application/vnd.collabio.xodocuments.presentation-template";
-pub const APPLICATION_VND_COLLABIO_XODOCUMENTS_SPREADSHEET: &str = "application/vnd.collabio.xodocuments.spreadsheet";
-pub const APPLICATION_VND_COLLABIO_XODOCUMENTS_SPREADSHEET_TEMPLATE: &str = "application/vnd.collabio.xodocuments.spreadsheet-template";
+pub const APPLICATION_VND_COLLABIO_XODOCUMENTS_DOCUMENT: &str =
+  "application/vnd.collabio.xodocuments.document";
+pub const APPLICATION_VND_COLLABIO_XODOCUMENTS_DOCUMENT_TEMPLATE: &str =
+  "application/vnd.collabio.xodocuments.document-template";
+pub const APPLICATION_VND_COLLABIO_XODOCUMENTS_PRESENTATION: &str =
+  "application/vnd.collabio.xodocuments.presentation";
+pub const APPLICATION_VND_COLLABIO_XODOCUMENTS_PRESENTATION_TEMPLATE: &str =
+  "application/vnd.collabio.xodocuments.presentation-template";
+pub const APPLICATION_VND_COLLABIO_XODOCUMENTS_SPREADSHEET: &str =
+  "application/vnd.collabio.xodocuments.spreadsheet";
+pub const APPLICATION_VND_COLLABIO_XODOCUMENTS_SPREADSHEET_TEMPLATE: &str =
+  "application/vnd.collabio.xodocuments.spreadsheet-template";
 pub const APPLICATION_VND_COLLECTION_JSON: &str = "application/vnd.collection+json";
 pub const APPLICATION_VND_COLLECTION_DOC_JSON: &str = "application/vnd.collection.doc+json";
 pub const APPLICATION_VND_COLLECTION_NEXT_JSON: &str = "application/vnd.collection.next+json";
@@ -769,7 +843,8 @@ pub const APPLICATION_VND_CYAN_DEAN_ROOT_XML: &str = "application/vnd.cyan.dean.
 pub const APPLICATION_VND_CYBANK: &str = "application/vnd.cybank";
 pub const APPLICATION_VND_CYCLONEDX_JSON: &str = "application/vnd.cyclonedx+json";
 pub const APPLICATION_VND_CYCLONEDX_XML: &str = "application/vnd.cyclonedx+xml";
-pub const APPLICATION_VND_D2L_COURSEPACKAGE1P0_ZIP: &str = "application/vnd.d2l.coursepackage1p0+zip";
+pub const APPLICATION_VND_D2L_COURSEPACKAGE1P0_ZIP: &str =
+  "application/vnd.d2l.coursepackage1p0+zip";
 pub const APPLICATION_VND_D3M_DATASET: &str = "application/vnd.d3m-dataset";
 pub const APPLICATION_VND_D3M_PROBLEM: &str = "application/vnd.d3m-problem";
 pub const APPLICATION_VND_DART: &str = "application/vnd.dart";
@@ -786,14 +861,16 @@ pub const APPLICATION_VND_DECE_UNSPECIFIED: &str = "application/vnd.dece.unspeci
 pub const APPLICATION_VND_DECE_ZIP: &str = "application/vnd.dece.zip";
 pub const APPLICATION_VND_DENOVO_FCSELAYOUT_LINK: &str = "application/vnd.denovo.fcselayout-link";
 pub const APPLICATION_VND_DESMUME_MOVIE: &str = "application/vnd.desmume.movie";
-pub const APPLICATION_VND_DIR_BI_PLATE_DL_NOSUFFIX: &str = "application/vnd.dir-bi.plate-dl-nosuffix";
+pub const APPLICATION_VND_DIR_BI_PLATE_DL_NOSUFFIX: &str =
+  "application/vnd.dir-bi.plate-dl-nosuffix";
 pub const APPLICATION_VND_DM_DELEGATION_XML: &str = "application/vnd.dm.delegation+xml";
 pub const APPLICATION_VND_DNA: &str = "application/vnd.dna";
 pub const APPLICATION_VND_DOCUMENT_JSON: &str = "application/vnd.document+json";
 pub const APPLICATION_VND_DOLBY_MLP: &str = "application/vnd.dolby.mlp";
 pub const APPLICATION_VND_DOLBY_MOBILE_1: &str = "application/vnd.dolby.mobile.1";
 pub const APPLICATION_VND_DOLBY_MOBILE_2: &str = "application/vnd.dolby.mobile.2";
-pub const APPLICATION_VND_DOREMIR_SCORECLOUD_BINARY_DOCUMENT: &str = "application/vnd.doremir.scorecloud-binary-document";
+pub const APPLICATION_VND_DOREMIR_SCORECLOUD_BINARY_DOCUMENT: &str =
+  "application/vnd.doremir.scorecloud-binary-document";
 pub const APPLICATION_VND_DPGRAPH: &str = "application/vnd.dpgraph";
 pub const APPLICATION_VND_DREAMFACTORY: &str = "application/vnd.dreamfactory";
 pub const APPLICATION_VND_DRIVE_JSON: &str = "application/vnd.drive+json";
@@ -811,13 +888,18 @@ pub const APPLICATION_VND_DVB_IPDCESGACCESS2: &str = "application/vnd.dvb.ipdces
 pub const APPLICATION_VND_DVB_IPDCESGPDD: &str = "application/vnd.dvb.ipdcesgpdd";
 pub const APPLICATION_VND_DVB_IPDCROAMING: &str = "application/vnd.dvb.ipdcroaming";
 pub const APPLICATION_VND_DVB_IPTV_ALFEC_BASE: &str = "application/vnd.dvb.iptv.alfec-base";
-pub const APPLICATION_VND_DVB_IPTV_ALFEC_ENHANCEMENT: &str = "application/vnd.dvb.iptv.alfec-enhancement";
-pub const APPLICATION_VND_DVB_NOTIF_AGGREGATE_ROOT_XML: &str = "application/vnd.dvb.notif-aggregate-root+xml";
+pub const APPLICATION_VND_DVB_IPTV_ALFEC_ENHANCEMENT: &str =
+  "application/vnd.dvb.iptv.alfec-enhancement";
+pub const APPLICATION_VND_DVB_NOTIF_AGGREGATE_ROOT_XML: &str =
+  "application/vnd.dvb.notif-aggregate-root+xml";
 pub const APPLICATION_VND_DVB_NOTIF_CONTAINER_XML: &str = "application/vnd.dvb.notif-container+xml";
 pub const APPLICATION_VND_DVB_NOTIF_GENERIC_XML: &str = "application/vnd.dvb.notif-generic+xml";
-pub const APPLICATION_VND_DVB_NOTIF_IA_MSGLIST_XML: &str = "application/vnd.dvb.notif-ia-msglist+xml";
-pub const APPLICATION_VND_DVB_NOTIF_IA_REGISTRATION_REQUEST_XML: &str = "application/vnd.dvb.notif-ia-registration-request+xml";
-pub const APPLICATION_VND_DVB_NOTIF_IA_REGISTRATION_RESPONSE_XML: &str = "application/vnd.dvb.notif-ia-registration-response+xml";
+pub const APPLICATION_VND_DVB_NOTIF_IA_MSGLIST_XML: &str =
+  "application/vnd.dvb.notif-ia-msglist+xml";
+pub const APPLICATION_VND_DVB_NOTIF_IA_REGISTRATION_REQUEST_XML: &str =
+  "application/vnd.dvb.notif-ia-registration-request+xml";
+pub const APPLICATION_VND_DVB_NOTIF_IA_REGISTRATION_RESPONSE_XML: &str =
+  "application/vnd.dvb.notif-ia-registration-response+xml";
 pub const APPLICATION_VND_DVB_NOTIF_INIT_XML: &str = "application/vnd.dvb.notif-init+xml";
 pub const APPLICATION_VND_DVB_PFR: &str = "application/vnd.dvb.pfr";
 pub const APPLICATION_VND_DVB_SERVICE: &str = "application/vnd.dvb.service";
@@ -837,7 +919,8 @@ pub const APPLICATION_VND_ECOWIN_SERIESUPDATE: &str = "application/vnd.ecowin.se
 pub const APPLICATION_VND_EFI_IMG: &str = "application/vnd.efi.img";
 pub const APPLICATION_VND_EFI_ISO: &str = "application/vnd.efi.iso";
 pub const APPLICATION_VND_ELN_ZIP: &str = "application/vnd.eln+zip";
-pub const APPLICATION_VND_EMCLIENT_ACCESSREQUEST_XML: &str = "application/vnd.emclient.accessrequest+xml";
+pub const APPLICATION_VND_EMCLIENT_ACCESSREQUEST_XML: &str =
+  "application/vnd.emclient.accessrequest+xml";
 pub const APPLICATION_VND_ENLIVEN: &str = "application/vnd.enliven";
 pub const APPLICATION_VND_ENPHASE_ENVOY: &str = "application/vnd.enphase.envoy";
 pub const APPLICATION_VND_EPRINTS_DATA_XML: &str = "application/vnd.eprints.data+xml";
@@ -865,7 +948,8 @@ pub const APPLICATION_VND_ETSI_IPTVSYNC_XML: &str = "application/vnd.etsi.iptvsy
 pub const APPLICATION_VND_ETSI_IPTVUEPROFILE_XML: &str = "application/vnd.etsi.iptvueprofile+xml";
 pub const APPLICATION_VND_ETSI_MCID_XML: &str = "application/vnd.etsi.mcid+xml";
 pub const APPLICATION_VND_ETSI_MHEG5: &str = "application/vnd.etsi.mheg5";
-pub const APPLICATION_VND_ETSI_OVERLOAD_CONTROL_POLICY_DATASET_XML: &str = "application/vnd.etsi.overload-control-policy-dataset+xml";
+pub const APPLICATION_VND_ETSI_OVERLOAD_CONTROL_POLICY_DATASET_XML: &str =
+  "application/vnd.etsi.overload-control-policy-dataset+xml";
 pub const APPLICATION_VND_ETSI_PSTN_XML: &str = "application/vnd.etsi.pstn+xml";
 pub const APPLICATION_VND_ETSI_SCI_XML: &str = "application/vnd.etsi.sci+xml";
 pub const APPLICATION_VND_ETSI_SIMSERVS_XML: &str = "application/vnd.etsi.simservs+xml";
@@ -902,8 +986,10 @@ pub const APPLICATION_VND_FROGANS_FNC: &str = "application/vnd.frogans.fnc";
 pub const APPLICATION_VND_FROGANS_LTF: &str = "application/vnd.frogans.ltf";
 pub const APPLICATION_VND_FSC_WEBLAUNCH: &str = "application/vnd.fsc.weblaunch";
 pub const APPLICATION_VND_FUJIFILM_FB_DOCUWORKS: &str = "application/vnd.fujifilm.fb.docuworks";
-pub const APPLICATION_VND_FUJIFILM_FB_DOCUWORKS_BINDER: &str = "application/vnd.fujifilm.fb.docuworks.binder";
-pub const APPLICATION_VND_FUJIFILM_FB_DOCUWORKS_CONTAINER: &str = "application/vnd.fujifilm.fb.docuworks.container";
+pub const APPLICATION_VND_FUJIFILM_FB_DOCUWORKS_BINDER: &str =
+  "application/vnd.fujifilm.fb.docuworks.binder";
+pub const APPLICATION_VND_FUJIFILM_FB_DOCUWORKS_CONTAINER: &str =
+  "application/vnd.fujifilm.fb.docuworks.container";
 pub const APPLICATION_VND_FUJIFILM_FB_JFI_XML: &str = "application/vnd.fujifilm.fb.jfi+xml";
 pub const APPLICATION_VND_FUJITSU_OASYS: &str = "application/vnd.fujitsu.oasys";
 pub const APPLICATION_VND_FUJITSU_OASYS2: &str = "application/vnd.fujitsu.oasys2";
@@ -914,8 +1000,10 @@ pub const APPLICATION_VND_FUJIXEROX_ART_EX: &str = "application/vnd.fujixerox.ar
 pub const APPLICATION_VND_FUJIXEROX_ART4: &str = "application/vnd.fujixerox.art4";
 pub const APPLICATION_VND_FUJIXEROX_DDD: &str = "application/vnd.fujixerox.ddd";
 pub const APPLICATION_VND_FUJIXEROX_DOCUWORKS: &str = "application/vnd.fujixerox.docuworks";
-pub const APPLICATION_VND_FUJIXEROX_DOCUWORKS_BINDER: &str = "application/vnd.fujixerox.docuworks.binder";
-pub const APPLICATION_VND_FUJIXEROX_DOCUWORKS_CONTAINER: &str = "application/vnd.fujixerox.docuworks.container";
+pub const APPLICATION_VND_FUJIXEROX_DOCUWORKS_BINDER: &str =
+  "application/vnd.fujixerox.docuworks.binder";
+pub const APPLICATION_VND_FUJIXEROX_DOCUWORKS_CONTAINER: &str =
+  "application/vnd.fujixerox.docuworks.container";
 pub const APPLICATION_VND_FUJIXEROX_HBPL: &str = "application/vnd.fujixerox.hbpl";
 pub const APPLICATION_VND_FUT_MISNET: &str = "application/vnd.fut-misnet";
 pub const APPLICATION_VND_FUTOIN_CBOR: &str = "application/vnd.futoin+cbor";
@@ -943,8 +1031,10 @@ pub const APPLICATION_VND_GEONEXT: &str = "application/vnd.geonext";
 pub const APPLICATION_VND_GEOPLAN: &str = "application/vnd.geoplan";
 pub const APPLICATION_VND_GEOSPACE: &str = "application/vnd.geospace";
 pub const APPLICATION_VND_GERBER: &str = "application/vnd.gerber";
-pub const APPLICATION_VND_GLOBALPLATFORM_CARD_CONTENT_MGT: &str = "application/vnd.globalplatform.card-content-mgt";
-pub const APPLICATION_VND_GLOBALPLATFORM_CARD_CONTENT_MGT_RESPONSE: &str = "application/vnd.globalplatform.card-content-mgt-response";
+pub const APPLICATION_VND_GLOBALPLATFORM_CARD_CONTENT_MGT: &str =
+  "application/vnd.globalplatform.card-content-mgt";
+pub const APPLICATION_VND_GLOBALPLATFORM_CARD_CONTENT_MGT_RESPONSE: &str =
+  "application/vnd.globalplatform.card-content-mgt-response";
 pub const APPLICATION_VND_GMX: &str = "application/vnd.gmx";
 pub const APPLICATION_VND_GNU_TALER_EXCHANGE_JSON: &str = "application/vnd.gnu.taler.exchange+json";
 pub const APPLICATION_VND_GNU_TALER_MERCHANT_JSON: &str = "application/vnd.gnu.taler.merchant+json";
@@ -960,7 +1050,8 @@ pub const APPLICATION_VND_GOOGLE_APPS_JAM: &str = "application/vnd.google-apps.j
 pub const APPLICATION_VND_GOOGLE_APPS_MAIL_LAYOUT: &str = "application/vnd.google-apps.mail-layout";
 pub const APPLICATION_VND_GOOGLE_APPS_MAP: &str = "application/vnd.google-apps.map";
 pub const APPLICATION_VND_GOOGLE_APPS_PHOTO: &str = "application/vnd.google-apps.photo";
-pub const APPLICATION_VND_GOOGLE_APPS_PRESENTATION: &str = "application/vnd.google-apps.presentation";
+pub const APPLICATION_VND_GOOGLE_APPS_PRESENTATION: &str =
+  "application/vnd.google-apps.presentation";
 pub const APPLICATION_VND_GOOGLE_APPS_SCRIPT: &str = "application/vnd.google-apps.script";
 pub const APPLICATION_VND_GOOGLE_APPS_SHORTCUT: &str = "application/vnd.google-apps.shortcut";
 pub const APPLICATION_VND_GOOGLE_APPS_SITE: &str = "application/vnd.google-apps.site";
@@ -971,7 +1062,8 @@ pub const APPLICATION_VND_GOOGLE_EARTH_KML_XML: &str = "application/vnd.google-e
 pub const APPLICATION_VND_GOOGLE_EARTH_KMZ: &str = "application/vnd.google-earth.kmz";
 pub const APPLICATION_VND_GOV_SK_E_FORM_XML: &str = "application/vnd.gov.sk.e-form+xml";
 pub const APPLICATION_VND_GOV_SK_E_FORM_ZIP: &str = "application/vnd.gov.sk.e-form+zip";
-pub const APPLICATION_VND_GOV_SK_XMLDATACONTAINER_XML: &str = "application/vnd.gov.sk.xmldatacontainer+xml";
+pub const APPLICATION_VND_GOV_SK_XMLDATACONTAINER_XML: &str =
+  "application/vnd.gov.sk.xmldatacontainer+xml";
 pub const APPLICATION_VND_GPXSEE_MAP_XML: &str = "application/vnd.gpxsee.map+xml";
 pub const APPLICATION_VND_GRAFEQ: &str = "application/vnd.grafeq";
 pub const APPLICATION_VND_GRIDMP: &str = "application/vnd.gridmp";
@@ -984,7 +1076,8 @@ pub const APPLICATION_VND_GROOVE_TOOL_TEMPLATE: &str = "application/vnd.groove-t
 pub const APPLICATION_VND_GROOVE_VCARD: &str = "application/vnd.groove-vcard";
 pub const APPLICATION_VND_HAL_JSON: &str = "application/vnd.hal+json";
 pub const APPLICATION_VND_HAL_XML: &str = "application/vnd.hal+xml";
-pub const APPLICATION_VND_HANDHELD_ENTERTAINMENT_XML: &str = "application/vnd.handheld-entertainment+xml";
+pub const APPLICATION_VND_HANDHELD_ENTERTAINMENT_XML: &str =
+  "application/vnd.handheld-entertainment+xml";
 pub const APPLICATION_VND_HBCI: &str = "application/vnd.hbci";
 pub const APPLICATION_VND_HC_JSON: &str = "application/vnd.hc+json";
 pub const APPLICATION_VND_HCL_BIREPORTS: &str = "application/vnd.hcl-bireports";
@@ -1021,16 +1114,22 @@ pub const APPLICATION_VND_IMS_IMSCCV1P1: &str = "application/vnd.ims.imsccv1p1";
 pub const APPLICATION_VND_IMS_IMSCCV1P2: &str = "application/vnd.ims.imsccv1p2";
 pub const APPLICATION_VND_IMS_IMSCCV1P3: &str = "application/vnd.ims.imsccv1p3";
 pub const APPLICATION_VND_IMS_LIS_V2_RESULT_JSON: &str = "application/vnd.ims.lis.v2.result+json";
-pub const APPLICATION_VND_IMS_LTI_V2_TOOLCONSUMERPROFILE_JSON: &str = "application/vnd.ims.lti.v2.toolconsumerprofile+json";
-pub const APPLICATION_VND_IMS_LTI_V2_TOOLPROXY_JSON: &str = "application/vnd.ims.lti.v2.toolproxy+json";
-pub const APPLICATION_VND_IMS_LTI_V2_TOOLPROXY_ID_JSON: &str = "application/vnd.ims.lti.v2.toolproxy.id+json";
-pub const APPLICATION_VND_IMS_LTI_V2_TOOLSETTINGS_JSON: &str = "application/vnd.ims.lti.v2.toolsettings+json";
-pub const APPLICATION_VND_IMS_LTI_V2_TOOLSETTINGS_SIMPLE_JSON: &str = "application/vnd.ims.lti.v2.toolsettings.simple+json";
+pub const APPLICATION_VND_IMS_LTI_V2_TOOLCONSUMERPROFILE_JSON: &str =
+  "application/vnd.ims.lti.v2.toolconsumerprofile+json";
+pub const APPLICATION_VND_IMS_LTI_V2_TOOLPROXY_JSON: &str =
+  "application/vnd.ims.lti.v2.toolproxy+json";
+pub const APPLICATION_VND_IMS_LTI_V2_TOOLPROXY_ID_JSON: &str =
+  "application/vnd.ims.lti.v2.toolproxy.id+json";
+pub const APPLICATION_VND_IMS_LTI_V2_TOOLSETTINGS_JSON: &str =
+  "application/vnd.ims.lti.v2.toolsettings+json";
+pub const APPLICATION_VND_IMS_LTI_V2_TOOLSETTINGS_SIMPLE_JSON: &str =
+  "application/vnd.ims.lti.v2.toolsettings.simple+json";
 pub const APPLICATION_VND_INFORMEDCONTROL_RMS_XML: &str = "application/vnd.informedcontrol.rms+xml";
 pub const APPLICATION_VND_INFORMIX_VISIONARY: &str = "application/vnd.informix-visionary";
 pub const APPLICATION_VND_INFOTECH_PROJECT: &str = "application/vnd.infotech.project";
 pub const APPLICATION_VND_INFOTECH_PROJECT_XML: &str = "application/vnd.infotech.project+xml";
-pub const APPLICATION_VND_INNOPATH_WAMP_NOTIFICATION: &str = "application/vnd.innopath.wamp.notification";
+pub const APPLICATION_VND_INNOPATH_WAMP_NOTIFICATION: &str =
+  "application/vnd.innopath.wamp.notification";
 pub const APPLICATION_VND_INSORS_IGM: &str = "application/vnd.insors.igm";
 pub const APPLICATION_VND_INTERCON_FORMNET: &str = "application/vnd.intercon.formnet";
 pub const APPLICATION_VND_INTERGEO: &str = "application/vnd.intergeo";
@@ -1045,25 +1144,32 @@ pub const APPLICATION_VND_IPLD_DAG_JSON: &str = "application/vnd.ipld.dag-json";
 pub const APPLICATION_VND_IPLD_RAW: &str = "application/vnd.ipld.raw";
 pub const APPLICATION_VND_IPTC_G2_CATALOGITEM_XML: &str = "application/vnd.iptc.g2.catalogitem+xml";
 pub const APPLICATION_VND_IPTC_G2_CONCEPTITEM_XML: &str = "application/vnd.iptc.g2.conceptitem+xml";
-pub const APPLICATION_VND_IPTC_G2_KNOWLEDGEITEM_XML: &str = "application/vnd.iptc.g2.knowledgeitem+xml";
+pub const APPLICATION_VND_IPTC_G2_KNOWLEDGEITEM_XML: &str =
+  "application/vnd.iptc.g2.knowledgeitem+xml";
 pub const APPLICATION_VND_IPTC_G2_NEWSITEM_XML: &str = "application/vnd.iptc.g2.newsitem+xml";
 pub const APPLICATION_VND_IPTC_G2_NEWSMESSAGE_XML: &str = "application/vnd.iptc.g2.newsmessage+xml";
 pub const APPLICATION_VND_IPTC_G2_PACKAGEITEM_XML: &str = "application/vnd.iptc.g2.packageitem+xml";
-pub const APPLICATION_VND_IPTC_G2_PLANNINGITEM_XML: &str = "application/vnd.iptc.g2.planningitem+xml";
+pub const APPLICATION_VND_IPTC_G2_PLANNINGITEM_XML: &str =
+  "application/vnd.iptc.g2.planningitem+xml";
 pub const APPLICATION_VND_IPUNPLUGGED_RCPROFILE: &str = "application/vnd.ipunplugged.rcprofile";
 pub const APPLICATION_VND_IREPOSITORY_PACKAGE_XML: &str = "application/vnd.irepository.package+xml";
 pub const APPLICATION_VND_IS_XPR: &str = "application/vnd.is-xpr";
 pub const APPLICATION_VND_ISAC_FCS: &str = "application/vnd.isac.fcs";
 pub const APPLICATION_VND_ISO11783_10_ZIP: &str = "application/vnd.iso11783-10+zip";
 pub const APPLICATION_VND_JAM: &str = "application/vnd.jam";
-pub const APPLICATION_VND_JAPANNET_DIRECTORY_SERVICE: &str = "application/vnd.japannet-directory-service";
-pub const APPLICATION_VND_JAPANNET_JPNSTORE_WAKEUP: &str = "application/vnd.japannet-jpnstore-wakeup";
+pub const APPLICATION_VND_JAPANNET_DIRECTORY_SERVICE: &str =
+  "application/vnd.japannet-directory-service";
+pub const APPLICATION_VND_JAPANNET_JPNSTORE_WAKEUP: &str =
+  "application/vnd.japannet-jpnstore-wakeup";
 pub const APPLICATION_VND_JAPANNET_PAYMENT_WAKEUP: &str = "application/vnd.japannet-payment-wakeup";
 pub const APPLICATION_VND_JAPANNET_REGISTRATION: &str = "application/vnd.japannet-registration";
-pub const APPLICATION_VND_JAPANNET_REGISTRATION_WAKEUP: &str = "application/vnd.japannet-registration-wakeup";
-pub const APPLICATION_VND_JAPANNET_SETSTORE_WAKEUP: &str = "application/vnd.japannet-setstore-wakeup";
+pub const APPLICATION_VND_JAPANNET_REGISTRATION_WAKEUP: &str =
+  "application/vnd.japannet-registration-wakeup";
+pub const APPLICATION_VND_JAPANNET_SETSTORE_WAKEUP: &str =
+  "application/vnd.japannet-setstore-wakeup";
 pub const APPLICATION_VND_JAPANNET_VERIFICATION: &str = "application/vnd.japannet-verification";
-pub const APPLICATION_VND_JAPANNET_VERIFICATION_WAKEUP: &str = "application/vnd.japannet-verification-wakeup";
+pub const APPLICATION_VND_JAPANNET_VERIFICATION_WAKEUP: &str =
+  "application/vnd.japannet-verification-wakeup";
 pub const APPLICATION_VND_JCP_JAVAME_MIDLET_RMS: &str = "application/vnd.jcp.javame.midlet-rms";
 pub const APPLICATION_VND_JISP: &str = "application/vnd.jisp";
 pub const APPLICATION_VND_JOOST_JODA_ARCHIVE: &str = "application/vnd.joost.joda-archive";
@@ -1092,8 +1198,10 @@ pub const APPLICATION_VND_LASZIP: &str = "application/vnd.laszip";
 pub const APPLICATION_VND_LDEV_PRODUCTLICENSING: &str = "application/vnd.ldev.productlicensing";
 pub const APPLICATION_VND_LEAP_JSON: &str = "application/vnd.leap+json";
 pub const APPLICATION_VND_LIBERTY_REQUEST_XML: &str = "application/vnd.liberty-request+xml";
-pub const APPLICATION_VND_LLAMAGRAPHICS_LIFE_BALANCE_DESKTOP: &str = "application/vnd.llamagraphics.life-balance.desktop";
-pub const APPLICATION_VND_LLAMAGRAPHICS_LIFE_BALANCE_EXCHANGE_XML: &str = "application/vnd.llamagraphics.life-balance.exchange+xml";
+pub const APPLICATION_VND_LLAMAGRAPHICS_LIFE_BALANCE_DESKTOP: &str =
+  "application/vnd.llamagraphics.life-balance.desktop";
+pub const APPLICATION_VND_LLAMAGRAPHICS_LIFE_BALANCE_EXCHANGE_XML: &str =
+  "application/vnd.llamagraphics.life-balance.exchange+xml";
 pub const APPLICATION_VND_LOGIPIPE_CIRCUIT_ZIP: &str = "application/vnd.logipipe.circuit+zip";
 pub const APPLICATION_VND_LOOM: &str = "application/vnd.loom";
 pub const APPLICATION_VND_LOTUS_1_2_3: &str = "application/vnd.lotus-1-2-3";
@@ -1105,8 +1213,10 @@ pub const APPLICATION_VND_LOTUS_SCREENCAM: &str = "application/vnd.lotus-screenc
 pub const APPLICATION_VND_LOTUS_WORDPRO: &str = "application/vnd.lotus-wordpro";
 pub const APPLICATION_VND_MACPORTS_PORTPKG: &str = "application/vnd.macports.portpkg";
 pub const APPLICATION_VND_MAPBOX_VECTOR_TILE: &str = "application/vnd.mapbox-vector-tile";
-pub const APPLICATION_VND_MARLIN_DRM_ACTIONTOKEN_XML: &str = "application/vnd.marlin.drm.actiontoken+xml";
-pub const APPLICATION_VND_MARLIN_DRM_CONFTOKEN_XML: &str = "application/vnd.marlin.drm.conftoken+xml";
+pub const APPLICATION_VND_MARLIN_DRM_ACTIONTOKEN_XML: &str =
+  "application/vnd.marlin.drm.actiontoken+xml";
+pub const APPLICATION_VND_MARLIN_DRM_CONFTOKEN_XML: &str =
+  "application/vnd.marlin.drm.conftoken+xml";
 pub const APPLICATION_VND_MARLIN_DRM_LICENSE_XML: &str = "application/vnd.marlin.drm.license+xml";
 pub const APPLICATION_VND_MARLIN_DRM_MDCF: &str = "application/vnd.marlin.drm.mdcf";
 pub const APPLICATION_VND_MASON_JSON: &str = "application/vnd.mason+json";
@@ -1117,7 +1227,8 @@ pub const APPLICATION_VND_MDL: &str = "application/vnd.mdl";
 pub const APPLICATION_VND_MDL_MBSDF: &str = "application/vnd.mdl-mbsdf";
 pub const APPLICATION_VND_MEDCALCDATA: &str = "application/vnd.medcalcdata";
 pub const APPLICATION_VND_MEDIASTATION_CDKEY: &str = "application/vnd.mediastation.cdkey";
-pub const APPLICATION_VND_MEDICALHOLODECK_RECORDXR: &str = "application/vnd.medicalholodeck.recordxr";
+pub const APPLICATION_VND_MEDICALHOLODECK_RECORDXR: &str =
+  "application/vnd.medicalholodeck.recordxr";
 pub const APPLICATION_VND_MERIDIAN_SLINGSHOT: &str = "application/vnd.meridian-slingshot";
 pub const APPLICATION_VND_MERMAID: &str = "application/vnd.mermaid";
 pub const APPLICATION_VND_MFER: &str = "application/vnd.mfer";
@@ -1125,12 +1236,15 @@ pub const APPLICATION_VND_MFMP: &str = "application/vnd.mfmp";
 pub const APPLICATION_VND_MICRO_JSON: &str = "application/vnd.micro+json";
 pub const APPLICATION_VND_MICROGRAFX_FLO: &str = "application/vnd.micrografx.flo";
 pub const APPLICATION_VND_MICROGRAFX_IGX: &str = "application/vnd.micrografx.igx";
-pub const APPLICATION_VND_MICROSOFT_PORTABLE_EXECUTABLE: &str = "application/vnd.microsoft.portable-executable";
-pub const APPLICATION_VND_MICROSOFT_WINDOWS_THUMBNAIL_CACHE: &str = "application/vnd.microsoft.windows.thumbnail-cache";
+pub const APPLICATION_VND_MICROSOFT_PORTABLE_EXECUTABLE: &str =
+  "application/vnd.microsoft.portable-executable";
+pub const APPLICATION_VND_MICROSOFT_WINDOWS_THUMBNAIL_CACHE: &str =
+  "application/vnd.microsoft.windows.thumbnail-cache";
 pub const APPLICATION_VND_MIELE_JSON: &str = "application/vnd.miele+json";
 pub const APPLICATION_VND_MIF: &str = "application/vnd.mif";
 pub const APPLICATION_VND_MINISOFT_HP3000_SAVE: &str = "application/vnd.minisoft-hp3000-save";
-pub const APPLICATION_VND_MITSUBISHI_MISTY_GUARD_TRUSTWEB: &str = "application/vnd.mitsubishi.misty-guard.trustweb";
+pub const APPLICATION_VND_MITSUBISHI_MISTY_GUARD_TRUSTWEB: &str =
+  "application/vnd.mitsubishi.misty-guard.trustweb";
 pub const APPLICATION_VND_MOBIUS_DAF: &str = "application/vnd.mobius.daf";
 pub const APPLICATION_VND_MOBIUS_DIS: &str = "application/vnd.mobius.dis";
 pub const APPLICATION_VND_MOBIUS_MBK: &str = "application/vnd.mobius.mbk";
@@ -1144,7 +1258,8 @@ pub const APPLICATION_VND_MOPHUN_CERTIFICATE: &str = "application/vnd.mophun.cer
 pub const APPLICATION_VND_MOTOROLA_FLEXSUITE: &str = "application/vnd.motorola.flexsuite";
 pub const APPLICATION_VND_MOTOROLA_FLEXSUITE_ADSI: &str = "application/vnd.motorola.flexsuite.adsi";
 pub const APPLICATION_VND_MOTOROLA_FLEXSUITE_FIS: &str = "application/vnd.motorola.flexsuite.fis";
-pub const APPLICATION_VND_MOTOROLA_FLEXSUITE_GOTAP: &str = "application/vnd.motorola.flexsuite.gotap";
+pub const APPLICATION_VND_MOTOROLA_FLEXSUITE_GOTAP: &str =
+  "application/vnd.motorola.flexsuite.gotap";
 pub const APPLICATION_VND_MOTOROLA_FLEXSUITE_KMR: &str = "application/vnd.motorola.flexsuite.kmr";
 pub const APPLICATION_VND_MOTOROLA_FLEXSUITE_TTC: &str = "application/vnd.motorola.flexsuite.ttc";
 pub const APPLICATION_VND_MOTOROLA_FLEXSUITE_WEM: &str = "application/vnd.motorola.flexsuite.wem";
@@ -1156,10 +1271,14 @@ pub const APPLICATION_VND_MS_ASF: &str = "application/vnd.ms-asf";
 pub const APPLICATION_VND_MS_CAB_COMPRESSED: &str = "application/vnd.ms-cab-compressed";
 pub const APPLICATION_VND_MS_COLOR_ICCPROFILE: &str = "application/vnd.ms-color.iccprofile";
 pub const APPLICATION_VND_MS_EXCEL: &str = "application/vnd.ms-excel";
-pub const APPLICATION_VND_MS_EXCEL_ADDIN_MACROENABLED_12: &str = "application/vnd.ms-excel.addin.macroenabled.12";
-pub const APPLICATION_VND_MS_EXCEL_SHEET_BINARY_MACROENABLED_12: &str = "application/vnd.ms-excel.sheet.binary.macroenabled.12";
-pub const APPLICATION_VND_MS_EXCEL_SHEET_MACROENABLED_12: &str = "application/vnd.ms-excel.sheet.macroenabled.12";
-pub const APPLICATION_VND_MS_EXCEL_TEMPLATE_MACROENABLED_12: &str = "application/vnd.ms-excel.template.macroenabled.12";
+pub const APPLICATION_VND_MS_EXCEL_ADDIN_MACROENABLED_12: &str =
+  "application/vnd.ms-excel.addin.macroenabled.12";
+pub const APPLICATION_VND_MS_EXCEL_SHEET_BINARY_MACROENABLED_12: &str =
+  "application/vnd.ms-excel.sheet.binary.macroenabled.12";
+pub const APPLICATION_VND_MS_EXCEL_SHEET_MACROENABLED_12: &str =
+  "application/vnd.ms-excel.sheet.macroenabled.12";
+pub const APPLICATION_VND_MS_EXCEL_TEMPLATE_MACROENABLED_12: &str =
+  "application/vnd.ms-excel.template.macroenabled.12";
 pub const APPLICATION_VND_MS_FONTOBJECT: &str = "application/vnd.ms-fontobject";
 pub const APPLICATION_VND_MS_HTMLHELP: &str = "application/vnd.ms-htmlhelp";
 pub const APPLICATION_VND_MS_IMS: &str = "application/vnd.ms-ims";
@@ -1168,32 +1287,47 @@ pub const APPLICATION_VND_MS_OFFICE_ACTIVEX_XML: &str = "application/vnd.ms-offi
 pub const APPLICATION_VND_MS_OFFICETHEME: &str = "application/vnd.ms-officetheme";
 pub const APPLICATION_VND_MS_OPENTYPE: &str = "application/vnd.ms-opentype";
 pub const APPLICATION_VND_MS_OUTLOOK: &str = "application/vnd.ms-outlook";
-pub const APPLICATION_VND_MS_PACKAGE_OBFUSCATED_OPENTYPE: &str = "application/vnd.ms-package.obfuscated-opentype";
+pub const APPLICATION_VND_MS_PACKAGE_OBFUSCATED_OPENTYPE: &str =
+  "application/vnd.ms-package.obfuscated-opentype";
 pub const APPLICATION_VND_MS_PKI_SECCAT: &str = "application/vnd.ms-pki.seccat";
 pub const APPLICATION_VND_MS_PKI_STL: &str = "application/vnd.ms-pki.stl";
-pub const APPLICATION_VND_MS_PLAYREADY_INITIATOR_XML: &str = "application/vnd.ms-playready.initiator+xml";
+pub const APPLICATION_VND_MS_PLAYREADY_INITIATOR_XML: &str =
+  "application/vnd.ms-playready.initiator+xml";
 pub const APPLICATION_VND_MS_POWERPOINT: &str = "application/vnd.ms-powerpoint";
-pub const APPLICATION_VND_MS_POWERPOINT_ADDIN_MACROENABLED_12: &str = "application/vnd.ms-powerpoint.addin.macroenabled.12";
-pub const APPLICATION_VND_MS_POWERPOINT_PRESENTATION_MACROENABLED_12: &str = "application/vnd.ms-powerpoint.presentation.macroenabled.12";
-pub const APPLICATION_VND_MS_POWERPOINT_SLIDE_MACROENABLED_12: &str = "application/vnd.ms-powerpoint.slide.macroenabled.12";
-pub const APPLICATION_VND_MS_POWERPOINT_SLIDESHOW_MACROENABLED_12: &str = "application/vnd.ms-powerpoint.slideshow.macroenabled.12";
-pub const APPLICATION_VND_MS_POWERPOINT_TEMPLATE_MACROENABLED_12: &str = "application/vnd.ms-powerpoint.template.macroenabled.12";
-pub const APPLICATION_VND_MS_PRINTDEVICECAPABILITIES_XML: &str = "application/vnd.ms-printdevicecapabilities+xml";
-pub const APPLICATION_VND_MS_PRINTING_PRINTTICKET_XML: &str = "application/vnd.ms-printing.printticket+xml";
-pub const APPLICATION_VND_MS_PRINTSCHEMATICKET_XML: &str = "application/vnd.ms-printschematicket+xml";
+pub const APPLICATION_VND_MS_POWERPOINT_ADDIN_MACROENABLED_12: &str =
+  "application/vnd.ms-powerpoint.addin.macroenabled.12";
+pub const APPLICATION_VND_MS_POWERPOINT_PRESENTATION_MACROENABLED_12: &str =
+  "application/vnd.ms-powerpoint.presentation.macroenabled.12";
+pub const APPLICATION_VND_MS_POWERPOINT_SLIDE_MACROENABLED_12: &str =
+  "application/vnd.ms-powerpoint.slide.macroenabled.12";
+pub const APPLICATION_VND_MS_POWERPOINT_SLIDESHOW_MACROENABLED_12: &str =
+  "application/vnd.ms-powerpoint.slideshow.macroenabled.12";
+pub const APPLICATION_VND_MS_POWERPOINT_TEMPLATE_MACROENABLED_12: &str =
+  "application/vnd.ms-powerpoint.template.macroenabled.12";
+pub const APPLICATION_VND_MS_PRINTDEVICECAPABILITIES_XML: &str =
+  "application/vnd.ms-printdevicecapabilities+xml";
+pub const APPLICATION_VND_MS_PRINTING_PRINTTICKET_XML: &str =
+  "application/vnd.ms-printing.printticket+xml";
+pub const APPLICATION_VND_MS_PRINTSCHEMATICKET_XML: &str =
+  "application/vnd.ms-printschematicket+xml";
 pub const APPLICATION_VND_MS_PROJECT: &str = "application/vnd.ms-project";
 pub const APPLICATION_VND_MS_TNEF: &str = "application/vnd.ms-tnef";
 pub const APPLICATION_VND_MS_VISIO_VIEWER: &str = "application/vnd.ms-visio.viewer";
-pub const APPLICATION_VND_MS_WINDOWS_DEVICEPAIRING: &str = "application/vnd.ms-windows.devicepairing";
-pub const APPLICATION_VND_MS_WINDOWS_NWPRINTING_OOB: &str = "application/vnd.ms-windows.nwprinting.oob";
-pub const APPLICATION_VND_MS_WINDOWS_PRINTERPAIRING: &str = "application/vnd.ms-windows.printerpairing";
+pub const APPLICATION_VND_MS_WINDOWS_DEVICEPAIRING: &str =
+  "application/vnd.ms-windows.devicepairing";
+pub const APPLICATION_VND_MS_WINDOWS_NWPRINTING_OOB: &str =
+  "application/vnd.ms-windows.nwprinting.oob";
+pub const APPLICATION_VND_MS_WINDOWS_PRINTERPAIRING: &str =
+  "application/vnd.ms-windows.printerpairing";
 pub const APPLICATION_VND_MS_WINDOWS_WSD_OOB: &str = "application/vnd.ms-windows.wsd.oob";
 pub const APPLICATION_VND_MS_WMDRM_LIC_CHLG_REQ: &str = "application/vnd.ms-wmdrm.lic-chlg-req";
 pub const APPLICATION_VND_MS_WMDRM_LIC_RESP: &str = "application/vnd.ms-wmdrm.lic-resp";
 pub const APPLICATION_VND_MS_WMDRM_METER_CHLG_REQ: &str = "application/vnd.ms-wmdrm.meter-chlg-req";
 pub const APPLICATION_VND_MS_WMDRM_METER_RESP: &str = "application/vnd.ms-wmdrm.meter-resp";
-pub const APPLICATION_VND_MS_WORD_DOCUMENT_MACROENABLED_12: &str = "application/vnd.ms-word.document.macroenabled.12";
-pub const APPLICATION_VND_MS_WORD_TEMPLATE_MACROENABLED_12: &str = "application/vnd.ms-word.template.macroenabled.12";
+pub const APPLICATION_VND_MS_WORD_DOCUMENT_MACROENABLED_12: &str =
+  "application/vnd.ms-word.document.macroenabled.12";
+pub const APPLICATION_VND_MS_WORD_TEMPLATE_MACROENABLED_12: &str =
+  "application/vnd.ms-word.template.macroenabled.12";
 pub const APPLICATION_VND_MS_WORKS: &str = "application/vnd.ms-works";
 pub const APPLICATION_VND_MS_WPL: &str = "application/vnd.ms-wpl";
 pub const APPLICATION_VND_MS_XPSDOCUMENT: &str = "application/vnd.ms-xpsdocument";
@@ -1208,10 +1342,14 @@ pub const APPLICATION_VND_MUSICIAN: &str = "application/vnd.musician";
 pub const APPLICATION_VND_MUVEE_STYLE: &str = "application/vnd.muvee.style";
 pub const APPLICATION_VND_MYNFC: &str = "application/vnd.mynfc";
 pub const APPLICATION_VND_NACAMAR_YBRID_JSON: &str = "application/vnd.nacamar.ybrid+json";
-pub const APPLICATION_VND_NATO_BINDINGDATAOBJECT_CBOR: &str = "application/vnd.nato.bindingdataobject+cbor";
-pub const APPLICATION_VND_NATO_BINDINGDATAOBJECT_JSON: &str = "application/vnd.nato.bindingdataobject+json";
-pub const APPLICATION_VND_NATO_BINDINGDATAOBJECT_XML: &str = "application/vnd.nato.bindingdataobject+xml";
-pub const APPLICATION_VND_NATO_OPENXMLFORMATS_PACKAGE_IEPD_ZIP: &str = "application/vnd.nato.openxmlformats-package.iepd+zip";
+pub const APPLICATION_VND_NATO_BINDINGDATAOBJECT_CBOR: &str =
+  "application/vnd.nato.bindingdataobject+cbor";
+pub const APPLICATION_VND_NATO_BINDINGDATAOBJECT_JSON: &str =
+  "application/vnd.nato.bindingdataobject+json";
+pub const APPLICATION_VND_NATO_BINDINGDATAOBJECT_XML: &str =
+  "application/vnd.nato.bindingdataobject+xml";
+pub const APPLICATION_VND_NATO_OPENXMLFORMATS_PACKAGE_IEPD_ZIP: &str =
+  "application/vnd.nato.openxmlformats-package.iepd+zip";
 pub const APPLICATION_VND_NCD_CONTROL: &str = "application/vnd.ncd.control";
 pub const APPLICATION_VND_NCD_REFERENCE: &str = "application/vnd.ncd.reference";
 pub const APPLICATION_VND_NEARST_INV_JSON: &str = "application/vnd.nearst.inv+json";
@@ -1230,13 +1368,16 @@ pub const APPLICATION_VND_NOKIA_CATALOGS: &str = "application/vnd.nokia.catalogs
 pub const APPLICATION_VND_NOKIA_CONML_WBXML: &str = "application/vnd.nokia.conml+wbxml";
 pub const APPLICATION_VND_NOKIA_CONML_XML: &str = "application/vnd.nokia.conml+xml";
 pub const APPLICATION_VND_NOKIA_IPTV_CONFIG_XML: &str = "application/vnd.nokia.iptv.config+xml";
-pub const APPLICATION_VND_NOKIA_ISDS_RADIO_PRESETS: &str = "application/vnd.nokia.isds-radio-presets";
+pub const APPLICATION_VND_NOKIA_ISDS_RADIO_PRESETS: &str =
+  "application/vnd.nokia.isds-radio-presets";
 pub const APPLICATION_VND_NOKIA_LANDMARK_WBXML: &str = "application/vnd.nokia.landmark+wbxml";
 pub const APPLICATION_VND_NOKIA_LANDMARK_XML: &str = "application/vnd.nokia.landmark+xml";
-pub const APPLICATION_VND_NOKIA_LANDMARKCOLLECTION_XML: &str = "application/vnd.nokia.landmarkcollection+xml";
+pub const APPLICATION_VND_NOKIA_LANDMARKCOLLECTION_XML: &str =
+  "application/vnd.nokia.landmarkcollection+xml";
 pub const APPLICATION_VND_NOKIA_N_GAGE_AC_XML: &str = "application/vnd.nokia.n-gage.ac+xml";
 pub const APPLICATION_VND_NOKIA_N_GAGE_DATA: &str = "application/vnd.nokia.n-gage.data";
-pub const APPLICATION_VND_NOKIA_N_GAGE_SYMBIAN_INSTALL: &str = "application/vnd.nokia.n-gage.symbian.install";
+pub const APPLICATION_VND_NOKIA_N_GAGE_SYMBIAN_INSTALL: &str =
+  "application/vnd.nokia.n-gage.symbian.install";
 pub const APPLICATION_VND_NOKIA_NCD: &str = "application/vnd.nokia.ncd";
 pub const APPLICATION_VND_NOKIA_PCD_WBXML: &str = "application/vnd.nokia.pcd+wbxml";
 pub const APPLICATION_VND_NOKIA_PCD_XML: &str = "application/vnd.nokia.pcd+xml";
@@ -1247,41 +1388,64 @@ pub const APPLICATION_VND_NOVADIGM_EDX: &str = "application/vnd.novadigm.edx";
 pub const APPLICATION_VND_NOVADIGM_EXT: &str = "application/vnd.novadigm.ext";
 pub const APPLICATION_VND_NTT_LOCAL_CONTENT_SHARE: &str = "application/vnd.ntt-local.content-share";
 pub const APPLICATION_VND_NTT_LOCAL_FILE_TRANSFER: &str = "application/vnd.ntt-local.file-transfer";
-pub const APPLICATION_VND_NTT_LOCAL_OGW_REMOTE_ACCESS: &str = "application/vnd.ntt-local.ogw_remote-access";
+pub const APPLICATION_VND_NTT_LOCAL_OGW_REMOTE_ACCESS: &str =
+  "application/vnd.ntt-local.ogw_remote-access";
 pub const APPLICATION_VND_NTT_LOCAL_SIP_TA_REMOTE: &str = "application/vnd.ntt-local.sip-ta_remote";
-pub const APPLICATION_VND_NTT_LOCAL_SIP_TA_TCP_STREAM: &str = "application/vnd.ntt-local.sip-ta_tcp_stream";
+pub const APPLICATION_VND_NTT_LOCAL_SIP_TA_TCP_STREAM: &str =
+  "application/vnd.ntt-local.sip-ta_tcp_stream";
 pub const APPLICATION_VND_OAI_WORKFLOWS: &str = "application/vnd.oai.workflows";
 pub const APPLICATION_VND_OAI_WORKFLOWS_JSON: &str = "application/vnd.oai.workflows+json";
 pub const APPLICATION_VND_OAI_WORKFLOWS_YAML: &str = "application/vnd.oai.workflows+yaml";
 pub const APPLICATION_VND_OASIS_OPENDOCUMENT_BASE: &str = "application/vnd.oasis.opendocument.base";
-pub const APPLICATION_VND_OASIS_OPENDOCUMENT_CHART: &str = "application/vnd.oasis.opendocument.chart";
-pub const APPLICATION_VND_OASIS_OPENDOCUMENT_CHART_TEMPLATE: &str = "application/vnd.oasis.opendocument.chart-template";
-pub const APPLICATION_VND_OASIS_OPENDOCUMENT_DATABASE: &str = "application/vnd.oasis.opendocument.database";
-pub const APPLICATION_VND_OASIS_OPENDOCUMENT_FORMULA: &str = "application/vnd.oasis.opendocument.formula";
-pub const APPLICATION_VND_OASIS_OPENDOCUMENT_FORMULA_TEMPLATE: &str = "application/vnd.oasis.opendocument.formula-template";
-pub const APPLICATION_VND_OASIS_OPENDOCUMENT_GRAPHICS: &str = "application/vnd.oasis.opendocument.graphics";
-pub const APPLICATION_VND_OASIS_OPENDOCUMENT_GRAPHICS_TEMPLATE: &str = "application/vnd.oasis.opendocument.graphics-template";
-pub const APPLICATION_VND_OASIS_OPENDOCUMENT_IMAGE: &str = "application/vnd.oasis.opendocument.image";
-pub const APPLICATION_VND_OASIS_OPENDOCUMENT_IMAGE_TEMPLATE: &str = "application/vnd.oasis.opendocument.image-template";
-pub const APPLICATION_VND_OASIS_OPENDOCUMENT_PRESENTATION: &str = "application/vnd.oasis.opendocument.presentation";
-pub const APPLICATION_VND_OASIS_OPENDOCUMENT_PRESENTATION_TEMPLATE: &str = "application/vnd.oasis.opendocument.presentation-template";
-pub const APPLICATION_VND_OASIS_OPENDOCUMENT_SPREADSHEET: &str = "application/vnd.oasis.opendocument.spreadsheet";
-pub const APPLICATION_VND_OASIS_OPENDOCUMENT_SPREADSHEET_TEMPLATE: &str = "application/vnd.oasis.opendocument.spreadsheet-template";
+pub const APPLICATION_VND_OASIS_OPENDOCUMENT_CHART: &str =
+  "application/vnd.oasis.opendocument.chart";
+pub const APPLICATION_VND_OASIS_OPENDOCUMENT_CHART_TEMPLATE: &str =
+  "application/vnd.oasis.opendocument.chart-template";
+pub const APPLICATION_VND_OASIS_OPENDOCUMENT_DATABASE: &str =
+  "application/vnd.oasis.opendocument.database";
+pub const APPLICATION_VND_OASIS_OPENDOCUMENT_FORMULA: &str =
+  "application/vnd.oasis.opendocument.formula";
+pub const APPLICATION_VND_OASIS_OPENDOCUMENT_FORMULA_TEMPLATE: &str =
+  "application/vnd.oasis.opendocument.formula-template";
+pub const APPLICATION_VND_OASIS_OPENDOCUMENT_GRAPHICS: &str =
+  "application/vnd.oasis.opendocument.graphics";
+pub const APPLICATION_VND_OASIS_OPENDOCUMENT_GRAPHICS_TEMPLATE: &str =
+  "application/vnd.oasis.opendocument.graphics-template";
+pub const APPLICATION_VND_OASIS_OPENDOCUMENT_IMAGE: &str =
+  "application/vnd.oasis.opendocument.image";
+pub const APPLICATION_VND_OASIS_OPENDOCUMENT_IMAGE_TEMPLATE: &str =
+  "application/vnd.oasis.opendocument.image-template";
+pub const APPLICATION_VND_OASIS_OPENDOCUMENT_PRESENTATION: &str =
+  "application/vnd.oasis.opendocument.presentation";
+pub const APPLICATION_VND_OASIS_OPENDOCUMENT_PRESENTATION_TEMPLATE: &str =
+  "application/vnd.oasis.opendocument.presentation-template";
+pub const APPLICATION_VND_OASIS_OPENDOCUMENT_SPREADSHEET: &str =
+  "application/vnd.oasis.opendocument.spreadsheet";
+pub const APPLICATION_VND_OASIS_OPENDOCUMENT_SPREADSHEET_TEMPLATE: &str =
+  "application/vnd.oasis.opendocument.spreadsheet-template";
 pub const APPLICATION_VND_OASIS_OPENDOCUMENT_TEXT: &str = "application/vnd.oasis.opendocument.text";
-pub const APPLICATION_VND_OASIS_OPENDOCUMENT_TEXT_MASTER: &str = "application/vnd.oasis.opendocument.text-master";
-pub const APPLICATION_VND_OASIS_OPENDOCUMENT_TEXT_MASTER_TEMPLATE: &str = "application/vnd.oasis.opendocument.text-master-template";
-pub const APPLICATION_VND_OASIS_OPENDOCUMENT_TEXT_TEMPLATE: &str = "application/vnd.oasis.opendocument.text-template";
-pub const APPLICATION_VND_OASIS_OPENDOCUMENT_TEXT_WEB: &str = "application/vnd.oasis.opendocument.text-web";
+pub const APPLICATION_VND_OASIS_OPENDOCUMENT_TEXT_MASTER: &str =
+  "application/vnd.oasis.opendocument.text-master";
+pub const APPLICATION_VND_OASIS_OPENDOCUMENT_TEXT_MASTER_TEMPLATE: &str =
+  "application/vnd.oasis.opendocument.text-master-template";
+pub const APPLICATION_VND_OASIS_OPENDOCUMENT_TEXT_TEMPLATE: &str =
+  "application/vnd.oasis.opendocument.text-template";
+pub const APPLICATION_VND_OASIS_OPENDOCUMENT_TEXT_WEB: &str =
+  "application/vnd.oasis.opendocument.text-web";
 pub const APPLICATION_VND_OBN: &str = "application/vnd.obn";
 pub const APPLICATION_VND_OCF_CBOR: &str = "application/vnd.ocf+cbor";
-pub const APPLICATION_VND_OCI_IMAGE_MANIFEST_V1_JSON: &str = "application/vnd.oci.image.manifest.v1+json";
+pub const APPLICATION_VND_OCI_IMAGE_MANIFEST_V1_JSON: &str =
+  "application/vnd.oci.image.manifest.v1+json";
 pub const APPLICATION_VND_OFTN_L10N_JSON: &str = "application/vnd.oftn.l10n+json";
-pub const APPLICATION_VND_OIPF_CONTENTACCESSDOWNLOAD_XML: &str = "application/vnd.oipf.contentaccessdownload+xml";
-pub const APPLICATION_VND_OIPF_CONTENTACCESSSTREAMING_XML: &str = "application/vnd.oipf.contentaccessstreaming+xml";
+pub const APPLICATION_VND_OIPF_CONTENTACCESSDOWNLOAD_XML: &str =
+  "application/vnd.oipf.contentaccessdownload+xml";
+pub const APPLICATION_VND_OIPF_CONTENTACCESSSTREAMING_XML: &str =
+  "application/vnd.oipf.contentaccessstreaming+xml";
 pub const APPLICATION_VND_OIPF_CSPG_HEXBINARY: &str = "application/vnd.oipf.cspg-hexbinary";
 pub const APPLICATION_VND_OIPF_DAE_SVG_XML: &str = "application/vnd.oipf.dae.svg+xml";
 pub const APPLICATION_VND_OIPF_DAE_XHTML_XML: &str = "application/vnd.oipf.dae.xhtml+xml";
-pub const APPLICATION_VND_OIPF_MIPPVCONTROLMESSAGE_XML: &str = "application/vnd.oipf.mippvcontrolmessage+xml";
+pub const APPLICATION_VND_OIPF_MIPPVCONTROLMESSAGE_XML: &str =
+  "application/vnd.oipf.mippvcontrolmessage+xml";
 pub const APPLICATION_VND_OIPF_PAE_GEM: &str = "application/vnd.oipf.pae.gem";
 pub const APPLICATION_VND_OIPF_SPDISCOVERY_XML: &str = "application/vnd.oipf.spdiscovery+xml";
 pub const APPLICATION_VND_OIPF_SPDLIST_XML: &str = "application/vnd.oipf.spdlist+xml";
@@ -1291,21 +1455,29 @@ pub const APPLICATION_VND_OLPC_SUGAR: &str = "application/vnd.olpc-sugar";
 pub const APPLICATION_VND_OMA_SCWS_CONFIG: &str = "application/vnd.oma-scws-config";
 pub const APPLICATION_VND_OMA_SCWS_HTTP_REQUEST: &str = "application/vnd.oma-scws-http-request";
 pub const APPLICATION_VND_OMA_SCWS_HTTP_RESPONSE: &str = "application/vnd.oma-scws-http-response";
-pub const APPLICATION_VND_OMA_BCAST_ASSOCIATED_PROCEDURE_PARAMETER_XML: &str = "application/vnd.oma.bcast.associated-procedure-parameter+xml";
-pub const APPLICATION_VND_OMA_BCAST_DRM_TRIGGER_XML: &str = "application/vnd.oma.bcast.drm-trigger+xml";
+pub const APPLICATION_VND_OMA_BCAST_ASSOCIATED_PROCEDURE_PARAMETER_XML: &str =
+  "application/vnd.oma.bcast.associated-procedure-parameter+xml";
+pub const APPLICATION_VND_OMA_BCAST_DRM_TRIGGER_XML: &str =
+  "application/vnd.oma.bcast.drm-trigger+xml";
 pub const APPLICATION_VND_OMA_BCAST_IMD_XML: &str = "application/vnd.oma.bcast.imd+xml";
 pub const APPLICATION_VND_OMA_BCAST_LTKM: &str = "application/vnd.oma.bcast.ltkm";
-pub const APPLICATION_VND_OMA_BCAST_NOTIFICATION_XML: &str = "application/vnd.oma.bcast.notification+xml";
-pub const APPLICATION_VND_OMA_BCAST_PROVISIONINGTRIGGER: &str = "application/vnd.oma.bcast.provisioningtrigger";
+pub const APPLICATION_VND_OMA_BCAST_NOTIFICATION_XML: &str =
+  "application/vnd.oma.bcast.notification+xml";
+pub const APPLICATION_VND_OMA_BCAST_PROVISIONINGTRIGGER: &str =
+  "application/vnd.oma.bcast.provisioningtrigger";
 pub const APPLICATION_VND_OMA_BCAST_SGBOOT: &str = "application/vnd.oma.bcast.sgboot";
 pub const APPLICATION_VND_OMA_BCAST_SGDD_XML: &str = "application/vnd.oma.bcast.sgdd+xml";
 pub const APPLICATION_VND_OMA_BCAST_SGDU: &str = "application/vnd.oma.bcast.sgdu";
-pub const APPLICATION_VND_OMA_BCAST_SIMPLE_SYMBOL_CONTAINER: &str = "application/vnd.oma.bcast.simple-symbol-container";
-pub const APPLICATION_VND_OMA_BCAST_SMARTCARD_TRIGGER_XML: &str = "application/vnd.oma.bcast.smartcard-trigger+xml";
+pub const APPLICATION_VND_OMA_BCAST_SIMPLE_SYMBOL_CONTAINER: &str =
+  "application/vnd.oma.bcast.simple-symbol-container";
+pub const APPLICATION_VND_OMA_BCAST_SMARTCARD_TRIGGER_XML: &str =
+  "application/vnd.oma.bcast.smartcard-trigger+xml";
 pub const APPLICATION_VND_OMA_BCAST_SPROV_XML: &str = "application/vnd.oma.bcast.sprov+xml";
 pub const APPLICATION_VND_OMA_BCAST_STKM: &str = "application/vnd.oma.bcast.stkm";
-pub const APPLICATION_VND_OMA_CAB_ADDRESS_BOOK_XML: &str = "application/vnd.oma.cab-address-book+xml";
-pub const APPLICATION_VND_OMA_CAB_FEATURE_HANDLER_XML: &str = "application/vnd.oma.cab-feature-handler+xml";
+pub const APPLICATION_VND_OMA_CAB_ADDRESS_BOOK_XML: &str =
+  "application/vnd.oma.cab-address-book+xml";
+pub const APPLICATION_VND_OMA_CAB_FEATURE_HANDLER_XML: &str =
+  "application/vnd.oma.cab-feature-handler+xml";
 pub const APPLICATION_VND_OMA_CAB_PCC_XML: &str = "application/vnd.oma.cab-pcc+xml";
 pub const APPLICATION_VND_OMA_CAB_SUBS_INVITE_XML: &str = "application/vnd.oma.cab-subs-invite+xml";
 pub const APPLICATION_VND_OMA_CAB_USER_PREFS_XML: &str = "application/vnd.oma.cab-user-prefs+xml";
@@ -1313,16 +1485,21 @@ pub const APPLICATION_VND_OMA_DCD: &str = "application/vnd.oma.dcd";
 pub const APPLICATION_VND_OMA_DCDC: &str = "application/vnd.oma.dcdc";
 pub const APPLICATION_VND_OMA_DD2_XML: &str = "application/vnd.oma.dd2+xml";
 pub const APPLICATION_VND_OMA_DRM_RISD_XML: &str = "application/vnd.oma.drm.risd+xml";
-pub const APPLICATION_VND_OMA_GROUP_USAGE_LIST_XML: &str = "application/vnd.oma.group-usage-list+xml";
+pub const APPLICATION_VND_OMA_GROUP_USAGE_LIST_XML: &str =
+  "application/vnd.oma.group-usage-list+xml";
 pub const APPLICATION_VND_OMA_LWM2M_CBOR: &str = "application/vnd.oma.lwm2m+cbor";
 pub const APPLICATION_VND_OMA_LWM2M_JSON: &str = "application/vnd.oma.lwm2m+json";
 pub const APPLICATION_VND_OMA_LWM2M_TLV: &str = "application/vnd.oma.lwm2m+tlv";
 pub const APPLICATION_VND_OMA_PAL_XML: &str = "application/vnd.oma.pal+xml";
-pub const APPLICATION_VND_OMA_POC_DETAILED_PROGRESS_REPORT_XML: &str = "application/vnd.oma.poc.detailed-progress-report+xml";
-pub const APPLICATION_VND_OMA_POC_FINAL_REPORT_XML: &str = "application/vnd.oma.poc.final-report+xml";
+pub const APPLICATION_VND_OMA_POC_DETAILED_PROGRESS_REPORT_XML: &str =
+  "application/vnd.oma.poc.detailed-progress-report+xml";
+pub const APPLICATION_VND_OMA_POC_FINAL_REPORT_XML: &str =
+  "application/vnd.oma.poc.final-report+xml";
 pub const APPLICATION_VND_OMA_POC_GROUPS_XML: &str = "application/vnd.oma.poc.groups+xml";
-pub const APPLICATION_VND_OMA_POC_INVOCATION_DESCRIPTOR_XML: &str = "application/vnd.oma.poc.invocation-descriptor+xml";
-pub const APPLICATION_VND_OMA_POC_OPTIMIZED_PROGRESS_REPORT_XML: &str = "application/vnd.oma.poc.optimized-progress-report+xml";
+pub const APPLICATION_VND_OMA_POC_INVOCATION_DESCRIPTOR_XML: &str =
+  "application/vnd.oma.poc.invocation-descriptor+xml";
+pub const APPLICATION_VND_OMA_POC_OPTIMIZED_PROGRESS_REPORT_XML: &str =
+  "application/vnd.oma.poc.optimized-progress-report+xml";
 pub const APPLICATION_VND_OMA_PUSH: &str = "application/vnd.oma.push";
 pub const APPLICATION_VND_OMA_SCIDM_MESSAGES_XML: &str = "application/vnd.oma.scidm.messages+xml";
 pub const APPLICATION_VND_OMA_XCAP_DIRECTORY_XML: &str = "application/vnd.oma.xcap-directory+xml";
@@ -1344,80 +1521,154 @@ pub const APPLICATION_VND_OPENOFFICEORG_EXTENSION: &str = "application/vnd.openo
 pub const APPLICATION_VND_OPENSTREETMAP_DATA_XML: &str = "application/vnd.openstreetmap.data+xml";
 pub const APPLICATION_VND_OPENTIMESTAMPS_OTS: &str = "application/vnd.opentimestamps.ots";
 pub const APPLICATION_VND_OPENVPI_DSPX_JSON: &str = "application/vnd.openvpi.dspx+json";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_CUSTOM_PROPERTIES_XML: &str = "application/vnd.openxmlformats-officedocument.custom-properties+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_CUSTOMXMLPROPERTIES_XML: &str = "application/vnd.openxmlformats-officedocument.customxmlproperties+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_DRAWING_XML: &str = "application/vnd.openxmlformats-officedocument.drawing+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_DRAWINGML_CHART_XML: &str = "application/vnd.openxmlformats-officedocument.drawingml.chart+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_DRAWINGML_CHARTSHAPES_XML: &str = "application/vnd.openxmlformats-officedocument.drawingml.chartshapes+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_DRAWINGML_DIAGRAMCOLORS_XML: &str = "application/vnd.openxmlformats-officedocument.drawingml.diagramcolors+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_DRAWINGML_DIAGRAMDATA_XML: &str = "application/vnd.openxmlformats-officedocument.drawingml.diagramdata+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_DRAWINGML_DIAGRAMLAYOUT_XML: &str = "application/vnd.openxmlformats-officedocument.drawingml.diagramlayout+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_DRAWINGML_DIAGRAMSTYLE_XML: &str = "application/vnd.openxmlformats-officedocument.drawingml.diagramstyle+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_EXTENDED_PROPERTIES_XML: &str = "application/vnd.openxmlformats-officedocument.extended-properties+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_COMMENTAUTHORS_XML: &str = "application/vnd.openxmlformats-officedocument.presentationml.commentauthors+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_COMMENTS_XML: &str = "application/vnd.openxmlformats-officedocument.presentationml.comments+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_HANDOUTMASTER_XML: &str = "application/vnd.openxmlformats-officedocument.presentationml.handoutmaster+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_NOTESMASTER_XML: &str = "application/vnd.openxmlformats-officedocument.presentationml.notesmaster+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_NOTESSLIDE_XML: &str = "application/vnd.openxmlformats-officedocument.presentationml.notesslide+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_PRESENTATION: &str = "application/vnd.openxmlformats-officedocument.presentationml.presentation";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_PRESENTATION_MAIN_XML: &str = "application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_PRESPROPS_XML: &str = "application/vnd.openxmlformats-officedocument.presentationml.presprops+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_SLIDE: &str = "application/vnd.openxmlformats-officedocument.presentationml.slide";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_SLIDE_XML: &str = "application/vnd.openxmlformats-officedocument.presentationml.slide+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_SLIDELAYOUT_XML: &str = "application/vnd.openxmlformats-officedocument.presentationml.slidelayout+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_SLIDEMASTER_XML: &str = "application/vnd.openxmlformats-officedocument.presentationml.slidemaster+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_SLIDESHOW: &str = "application/vnd.openxmlformats-officedocument.presentationml.slideshow";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_SLIDESHOW_MAIN_XML: &str = "application/vnd.openxmlformats-officedocument.presentationml.slideshow.main+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_SLIDEUPDATEINFO_XML: &str = "application/vnd.openxmlformats-officedocument.presentationml.slideupdateinfo+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_TABLESTYLES_XML: &str = "application/vnd.openxmlformats-officedocument.presentationml.tablestyles+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_TAGS_XML: &str = "application/vnd.openxmlformats-officedocument.presentationml.tags+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_TEMPLATE: &str = "application/vnd.openxmlformats-officedocument.presentationml.template";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_TEMPLATE_MAIN_XML: &str = "application/vnd.openxmlformats-officedocument.presentationml.template.main+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_VIEWPROPS_XML: &str = "application/vnd.openxmlformats-officedocument.presentationml.viewprops+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_CALCCHAIN_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.calcchain+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_CHARTSHEET_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.chartsheet+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_COMMENTS_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.comments+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_CONNECTIONS_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.connections+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_DIALOGSHEET_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.dialogsheet+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_EXTERNALLINK_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.externallink+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_PIVOTCACHEDEFINITION_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.pivotcachedefinition+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_PIVOTCACHERECORDS_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.pivotcacherecords+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_PIVOTTABLE_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.pivottable+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_QUERYTABLE_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.querytable+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_REVISIONHEADERS_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.revisionheaders+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_REVISIONLOG_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.revisionlog+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_SHAREDSTRINGS_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.sharedstrings+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_SHEET: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_SHEET_MAIN_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_SHEETMETADATA_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheetmetadata+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_STYLES_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_TABLE_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.table+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_TABLESINGLECELLS_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.tablesinglecells+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_TEMPLATE: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.template";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_TEMPLATE_MAIN_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.template.main+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_USERNAMES_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.usernames+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_VOLATILEDEPENDENCIES_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.volatiledependencies+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_WORKSHEET_XML: &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_THEME_XML: &str = "application/vnd.openxmlformats-officedocument.theme+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_THEMEOVERRIDE_XML: &str = "application/vnd.openxmlformats-officedocument.themeoverride+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_VMLDRAWING: &str = "application/vnd.openxmlformats-officedocument.vmldrawing";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_COMMENTS_XML: &str = "application/vnd.openxmlformats-officedocument.wordprocessingml.comments+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_DOCUMENT: &str = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_DOCUMENT_GLOSSARY_XML: &str = "application/vnd.openxmlformats-officedocument.wordprocessingml.document.glossary+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_DOCUMENT_MAIN_XML: &str = "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_ENDNOTES_XML: &str = "application/vnd.openxmlformats-officedocument.wordprocessingml.endnotes+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_FONTTABLE_XML: &str = "application/vnd.openxmlformats-officedocument.wordprocessingml.fonttable+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_FOOTER_XML: &str = "application/vnd.openxmlformats-officedocument.wordprocessingml.footer+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_FOOTNOTES_XML: &str = "application/vnd.openxmlformats-officedocument.wordprocessingml.footnotes+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_NUMBERING_XML: &str = "application/vnd.openxmlformats-officedocument.wordprocessingml.numbering+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_SETTINGS_XML: &str = "application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_STYLES_XML: &str = "application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_TEMPLATE: &str = "application/vnd.openxmlformats-officedocument.wordprocessingml.template";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_TEMPLATE_MAIN_XML: &str = "application/vnd.openxmlformats-officedocument.wordprocessingml.template.main+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_WEBSETTINGS_XML: &str = "application/vnd.openxmlformats-officedocument.wordprocessingml.websettings+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_PACKAGE_CORE_PROPERTIES_XML: &str = "application/vnd.openxmlformats-package.core-properties+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_PACKAGE_DIGITAL_SIGNATURE_XMLSIGNATURE_XML: &str = "application/vnd.openxmlformats-package.digital-signature-xmlsignature+xml";
-pub const APPLICATION_VND_OPENXMLFORMATS_PACKAGE_RELATIONSHIPS_XML: &str = "application/vnd.openxmlformats-package.relationships+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_CUSTOM_PROPERTIES_XML: &str =
+  "application/vnd.openxmlformats-officedocument.custom-properties+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_CUSTOMXMLPROPERTIES_XML: &str =
+  "application/vnd.openxmlformats-officedocument.customxmlproperties+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_DRAWING_XML: &str =
+  "application/vnd.openxmlformats-officedocument.drawing+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_DRAWINGML_CHART_XML: &str =
+  "application/vnd.openxmlformats-officedocument.drawingml.chart+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_DRAWINGML_CHARTSHAPES_XML: &str =
+  "application/vnd.openxmlformats-officedocument.drawingml.chartshapes+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_DRAWINGML_DIAGRAMCOLORS_XML: &str =
+  "application/vnd.openxmlformats-officedocument.drawingml.diagramcolors+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_DRAWINGML_DIAGRAMDATA_XML: &str =
+  "application/vnd.openxmlformats-officedocument.drawingml.diagramdata+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_DRAWINGML_DIAGRAMLAYOUT_XML: &str =
+  "application/vnd.openxmlformats-officedocument.drawingml.diagramlayout+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_DRAWINGML_DIAGRAMSTYLE_XML: &str =
+  "application/vnd.openxmlformats-officedocument.drawingml.diagramstyle+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_EXTENDED_PROPERTIES_XML: &str =
+  "application/vnd.openxmlformats-officedocument.extended-properties+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_COMMENTAUTHORS_XML: &str =
+  "application/vnd.openxmlformats-officedocument.presentationml.commentauthors+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_COMMENTS_XML: &str =
+  "application/vnd.openxmlformats-officedocument.presentationml.comments+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_HANDOUTMASTER_XML: &str =
+  "application/vnd.openxmlformats-officedocument.presentationml.handoutmaster+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_NOTESMASTER_XML: &str =
+  "application/vnd.openxmlformats-officedocument.presentationml.notesmaster+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_NOTESSLIDE_XML: &str =
+  "application/vnd.openxmlformats-officedocument.presentationml.notesslide+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_PRESENTATION: &str =
+  "application/vnd.openxmlformats-officedocument.presentationml.presentation";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_PRESENTATION_MAIN_XML: &str =
+  "application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_PRESPROPS_XML: &str =
+  "application/vnd.openxmlformats-officedocument.presentationml.presprops+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_SLIDE: &str =
+  "application/vnd.openxmlformats-officedocument.presentationml.slide";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_SLIDE_XML: &str =
+  "application/vnd.openxmlformats-officedocument.presentationml.slide+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_SLIDELAYOUT_XML: &str =
+  "application/vnd.openxmlformats-officedocument.presentationml.slidelayout+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_SLIDEMASTER_XML: &str =
+  "application/vnd.openxmlformats-officedocument.presentationml.slidemaster+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_SLIDESHOW: &str =
+  "application/vnd.openxmlformats-officedocument.presentationml.slideshow";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_SLIDESHOW_MAIN_XML: &str =
+  "application/vnd.openxmlformats-officedocument.presentationml.slideshow.main+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_SLIDEUPDATEINFO_XML: &str =
+  "application/vnd.openxmlformats-officedocument.presentationml.slideupdateinfo+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_TABLESTYLES_XML: &str =
+  "application/vnd.openxmlformats-officedocument.presentationml.tablestyles+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_TAGS_XML: &str =
+  "application/vnd.openxmlformats-officedocument.presentationml.tags+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_TEMPLATE: &str =
+  "application/vnd.openxmlformats-officedocument.presentationml.template";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_TEMPLATE_MAIN_XML: &str =
+  "application/vnd.openxmlformats-officedocument.presentationml.template.main+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_PRESENTATIONML_VIEWPROPS_XML: &str =
+  "application/vnd.openxmlformats-officedocument.presentationml.viewprops+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_CALCCHAIN_XML: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.calcchain+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_CHARTSHEET_XML: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.chartsheet+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_COMMENTS_XML: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.comments+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_CONNECTIONS_XML: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.connections+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_DIALOGSHEET_XML: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.dialogsheet+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_EXTERNALLINK_XML: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.externallink+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_PIVOTCACHEDEFINITION_XML:
+  &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.pivotcachedefinition+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_PIVOTCACHERECORDS_XML: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.pivotcacherecords+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_PIVOTTABLE_XML: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.pivottable+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_QUERYTABLE_XML: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.querytable+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_REVISIONHEADERS_XML: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.revisionheaders+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_REVISIONLOG_XML: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.revisionlog+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_SHAREDSTRINGS_XML: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sharedstrings+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_SHEET: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_SHEET_MAIN_XML: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_SHEETMETADATA_XML: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheetmetadata+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_STYLES_XML: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_TABLE_XML: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.table+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_TABLESINGLECELLS_XML: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.tablesinglecells+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_TEMPLATE: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.template";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_TEMPLATE_MAIN_XML: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.template.main+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_USERNAMES_XML: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.usernames+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_VOLATILEDEPENDENCIES_XML:
+  &str = "application/vnd.openxmlformats-officedocument.spreadsheetml.volatiledependencies+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_SPREADSHEETML_WORKSHEET_XML: &str =
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_THEME_XML: &str =
+  "application/vnd.openxmlformats-officedocument.theme+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_THEMEOVERRIDE_XML: &str =
+  "application/vnd.openxmlformats-officedocument.themeoverride+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_VMLDRAWING: &str =
+  "application/vnd.openxmlformats-officedocument.vmldrawing";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_COMMENTS_XML: &str =
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.comments+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_DOCUMENT: &str =
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_DOCUMENT_GLOSSARY_XML:
+  &str = "application/vnd.openxmlformats-officedocument.wordprocessingml.document.glossary+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_DOCUMENT_MAIN_XML: &str =
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_ENDNOTES_XML: &str =
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.endnotes+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_FONTTABLE_XML: &str =
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.fonttable+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_FOOTER_XML: &str =
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.footer+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_FOOTNOTES_XML: &str =
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.footnotes+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_NUMBERING_XML: &str =
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.numbering+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_SETTINGS_XML: &str =
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_STYLES_XML: &str =
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_TEMPLATE: &str =
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.template";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_TEMPLATE_MAIN_XML: &str =
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.template.main+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_WEBSETTINGS_XML: &str =
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.websettings+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_PACKAGE_CORE_PROPERTIES_XML: &str =
+  "application/vnd.openxmlformats-package.core-properties+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_PACKAGE_DIGITAL_SIGNATURE_XMLSIGNATURE_XML: &str =
+  "application/vnd.openxmlformats-package.digital-signature-xmlsignature+xml";
+pub const APPLICATION_VND_OPENXMLFORMATS_PACKAGE_RELATIONSHIPS_XML: &str =
+  "application/vnd.openxmlformats-package.relationships+xml";
 pub const APPLICATION_VND_ORACLE_RESOURCE_JSON: &str = "application/vnd.oracle.resource+json";
 pub const APPLICATION_VND_ORANGE_INDATA: &str = "application/vnd.orange.indata";
 pub const APPLICATION_VND_OSA_NETDEPLOY: &str = "application/vnd.osa.netdeploy";
@@ -1437,10 +1688,12 @@ pub const APPLICATION_VND_PAWAAFILE: &str = "application/vnd.pawaafile";
 pub const APPLICATION_VND_PCOS: &str = "application/vnd.pcos";
 pub const APPLICATION_VND_PG_FORMAT: &str = "application/vnd.pg.format";
 pub const APPLICATION_VND_PG_OSASLI: &str = "application/vnd.pg.osasli";
-pub const APPLICATION_VND_PIACCESS_APPLICATION_LICENCE: &str = "application/vnd.piaccess.application-licence";
+pub const APPLICATION_VND_PIACCESS_APPLICATION_LICENCE: &str =
+  "application/vnd.piaccess.application-licence";
 pub const APPLICATION_VND_PICSEL: &str = "application/vnd.picsel";
 pub const APPLICATION_VND_PMI_WIDGET: &str = "application/vnd.pmi.widget";
-pub const APPLICATION_VND_POC_GROUP_ADVERTISEMENT_XML: &str = "application/vnd.poc.group-advertisement+xml";
+pub const APPLICATION_VND_POC_GROUP_ADVERTISEMENT_XML: &str =
+  "application/vnd.poc.group-advertisement+xml";
 pub const APPLICATION_VND_POCKETLEARN: &str = "application/vnd.pocketlearn";
 pub const APPLICATION_VND_POWERBUILDER6: &str = "application/vnd.powerbuilder6";
 pub const APPLICATION_VND_POWERBUILDER6_S: &str = "application/vnd.powerbuilder6-s";
@@ -1467,18 +1720,28 @@ pub const APPLICATION_VND_QUOBJECT_QUOXDOCUMENT: &str = "application/vnd.quobjec
 pub const APPLICATION_VND_RADISYS_MOML_XML: &str = "application/vnd.radisys.moml+xml";
 pub const APPLICATION_VND_RADISYS_MSML_XML: &str = "application/vnd.radisys.msml+xml";
 pub const APPLICATION_VND_RADISYS_MSML_AUDIT_XML: &str = "application/vnd.radisys.msml-audit+xml";
-pub const APPLICATION_VND_RADISYS_MSML_AUDIT_CONF_XML: &str = "application/vnd.radisys.msml-audit-conf+xml";
-pub const APPLICATION_VND_RADISYS_MSML_AUDIT_CONN_XML: &str = "application/vnd.radisys.msml-audit-conn+xml";
-pub const APPLICATION_VND_RADISYS_MSML_AUDIT_DIALOG_XML: &str = "application/vnd.radisys.msml-audit-dialog+xml";
-pub const APPLICATION_VND_RADISYS_MSML_AUDIT_STREAM_XML: &str = "application/vnd.radisys.msml-audit-stream+xml";
+pub const APPLICATION_VND_RADISYS_MSML_AUDIT_CONF_XML: &str =
+  "application/vnd.radisys.msml-audit-conf+xml";
+pub const APPLICATION_VND_RADISYS_MSML_AUDIT_CONN_XML: &str =
+  "application/vnd.radisys.msml-audit-conn+xml";
+pub const APPLICATION_VND_RADISYS_MSML_AUDIT_DIALOG_XML: &str =
+  "application/vnd.radisys.msml-audit-dialog+xml";
+pub const APPLICATION_VND_RADISYS_MSML_AUDIT_STREAM_XML: &str =
+  "application/vnd.radisys.msml-audit-stream+xml";
 pub const APPLICATION_VND_RADISYS_MSML_CONF_XML: &str = "application/vnd.radisys.msml-conf+xml";
 pub const APPLICATION_VND_RADISYS_MSML_DIALOG_XML: &str = "application/vnd.radisys.msml-dialog+xml";
-pub const APPLICATION_VND_RADISYS_MSML_DIALOG_BASE_XML: &str = "application/vnd.radisys.msml-dialog-base+xml";
-pub const APPLICATION_VND_RADISYS_MSML_DIALOG_FAX_DETECT_XML: &str = "application/vnd.radisys.msml-dialog-fax-detect+xml";
-pub const APPLICATION_VND_RADISYS_MSML_DIALOG_FAX_SENDRECV_XML: &str = "application/vnd.radisys.msml-dialog-fax-sendrecv+xml";
-pub const APPLICATION_VND_RADISYS_MSML_DIALOG_GROUP_XML: &str = "application/vnd.radisys.msml-dialog-group+xml";
-pub const APPLICATION_VND_RADISYS_MSML_DIALOG_SPEECH_XML: &str = "application/vnd.radisys.msml-dialog-speech+xml";
-pub const APPLICATION_VND_RADISYS_MSML_DIALOG_TRANSFORM_XML: &str = "application/vnd.radisys.msml-dialog-transform+xml";
+pub const APPLICATION_VND_RADISYS_MSML_DIALOG_BASE_XML: &str =
+  "application/vnd.radisys.msml-dialog-base+xml";
+pub const APPLICATION_VND_RADISYS_MSML_DIALOG_FAX_DETECT_XML: &str =
+  "application/vnd.radisys.msml-dialog-fax-detect+xml";
+pub const APPLICATION_VND_RADISYS_MSML_DIALOG_FAX_SENDRECV_XML: &str =
+  "application/vnd.radisys.msml-dialog-fax-sendrecv+xml";
+pub const APPLICATION_VND_RADISYS_MSML_DIALOG_GROUP_XML: &str =
+  "application/vnd.radisys.msml-dialog-group+xml";
+pub const APPLICATION_VND_RADISYS_MSML_DIALOG_SPEECH_XML: &str =
+  "application/vnd.radisys.msml-dialog-speech+xml";
+pub const APPLICATION_VND_RADISYS_MSML_DIALOG_TRANSFORM_XML: &str =
+  "application/vnd.radisys.msml-dialog-transform+xml";
 pub const APPLICATION_VND_RAINSTOR_DATA: &str = "application/vnd.rainstor.data";
 pub const APPLICATION_VND_RAPID: &str = "application/vnd.rapid";
 pub const APPLICATION_VND_RAR: &str = "application/vnd.rar";
@@ -1511,8 +1774,10 @@ pub const APPLICATION_VND_SEALED_NET: &str = "application/vnd.sealed.net";
 pub const APPLICATION_VND_SEALED_PPT: &str = "application/vnd.sealed.ppt";
 pub const APPLICATION_VND_SEALED_TIFF: &str = "application/vnd.sealed.tiff";
 pub const APPLICATION_VND_SEALED_XLS: &str = "application/vnd.sealed.xls";
-pub const APPLICATION_VND_SEALEDMEDIA_SOFTSEAL_HTML: &str = "application/vnd.sealedmedia.softseal.html";
-pub const APPLICATION_VND_SEALEDMEDIA_SOFTSEAL_PDF: &str = "application/vnd.sealedmedia.softseal.pdf";
+pub const APPLICATION_VND_SEALEDMEDIA_SOFTSEAL_HTML: &str =
+  "application/vnd.sealedmedia.softseal.html";
+pub const APPLICATION_VND_SEALEDMEDIA_SOFTSEAL_PDF: &str =
+  "application/vnd.sealedmedia.softseal.pdf";
 pub const APPLICATION_VND_SEEMAIL: &str = "application/vnd.seemail";
 pub const APPLICATION_VND_SEIS_JSON: &str = "application/vnd.seis+json";
 pub const APPLICATION_VND_SEMA: &str = "application/vnd.sema";
@@ -1520,8 +1785,10 @@ pub const APPLICATION_VND_SEMD: &str = "application/vnd.semd";
 pub const APPLICATION_VND_SEMF: &str = "application/vnd.semf";
 pub const APPLICATION_VND_SHADE_SAVE_FILE: &str = "application/vnd.shade-save-file";
 pub const APPLICATION_VND_SHANA_INFORMED_FORMDATA: &str = "application/vnd.shana.informed.formdata";
-pub const APPLICATION_VND_SHANA_INFORMED_FORMTEMPLATE: &str = "application/vnd.shana.informed.formtemplate";
-pub const APPLICATION_VND_SHANA_INFORMED_INTERCHANGE: &str = "application/vnd.shana.informed.interchange";
+pub const APPLICATION_VND_SHANA_INFORMED_FORMTEMPLATE: &str =
+  "application/vnd.shana.informed.formtemplate";
+pub const APPLICATION_VND_SHANA_INFORMED_INTERCHANGE: &str =
+  "application/vnd.shana.informed.interchange";
 pub const APPLICATION_VND_SHANA_INFORMED_PACKAGE: &str = "application/vnd.shana.informed.package";
 pub const APPLICATION_VND_SHOOTPROOF_JSON: &str = "application/vnd.shootproof+json";
 pub const APPLICATION_VND_SHOPKICK_JSON: &str = "application/vnd.shopkick+json";
@@ -1536,8 +1803,10 @@ pub const APPLICATION_VND_SMART_NOTEBOOK: &str = "application/vnd.smart.notebook
 pub const APPLICATION_VND_SMART_TEACHER: &str = "application/vnd.smart.teacher";
 pub const APPLICATION_VND_SMINTIO_PORTALS_ARCHIVE: &str = "application/vnd.smintio.portals.archive";
 pub const APPLICATION_VND_SNESDEV_PAGE_TABLE: &str = "application/vnd.snesdev-page-table";
-pub const APPLICATION_VND_SOFTWARE602_FILLER_FORM_XML: &str = "application/vnd.software602.filler.form+xml";
-pub const APPLICATION_VND_SOFTWARE602_FILLER_FORM_XML_ZIP: &str = "application/vnd.software602.filler.form-xml-zip";
+pub const APPLICATION_VND_SOFTWARE602_FILLER_FORM_XML: &str =
+  "application/vnd.software602.filler.form+xml";
+pub const APPLICATION_VND_SOFTWARE602_FILLER_FORM_XML_ZIP: &str =
+  "application/vnd.software602.filler.form-xml-zip";
 pub const APPLICATION_VND_SOLENT_SDKM_XML: &str = "application/vnd.solent.sdkm+xml";
 pub const APPLICATION_VND_SPOTFIRE_DXP: &str = "application/vnd.spotfire.dxp";
 pub const APPLICATION_VND_SPOTFIRE_SFS: &str = "application/vnd.spotfire.sfs";
@@ -1550,7 +1819,8 @@ pub const APPLICATION_VND_STARDIVISION_DRAW: &str = "application/vnd.stardivisio
 pub const APPLICATION_VND_STARDIVISION_IMPRESS: &str = "application/vnd.stardivision.impress";
 pub const APPLICATION_VND_STARDIVISION_MATH: &str = "application/vnd.stardivision.math";
 pub const APPLICATION_VND_STARDIVISION_WRITER: &str = "application/vnd.stardivision.writer";
-pub const APPLICATION_VND_STARDIVISION_WRITER_GLOBAL: &str = "application/vnd.stardivision.writer-global";
+pub const APPLICATION_VND_STARDIVISION_WRITER_GLOBAL: &str =
+  "application/vnd.stardivision.writer-global";
 pub const APPLICATION_VND_STEPMANIA_PACKAGE: &str = "application/vnd.stepmania.package";
 pub const APPLICATION_VND_STEPMANIA_STEPCHART: &str = "application/vnd.stepmania.stepchart";
 pub const APPLICATION_VND_STREET_STREAM: &str = "application/vnd.street-stream";
@@ -1560,7 +1830,8 @@ pub const APPLICATION_VND_SUN_XML_CALC_TEMPLATE: &str = "application/vnd.sun.xml
 pub const APPLICATION_VND_SUN_XML_DRAW: &str = "application/vnd.sun.xml.draw";
 pub const APPLICATION_VND_SUN_XML_DRAW_TEMPLATE: &str = "application/vnd.sun.xml.draw.template";
 pub const APPLICATION_VND_SUN_XML_IMPRESS: &str = "application/vnd.sun.xml.impress";
-pub const APPLICATION_VND_SUN_XML_IMPRESS_TEMPLATE: &str = "application/vnd.sun.xml.impress.template";
+pub const APPLICATION_VND_SUN_XML_IMPRESS_TEMPLATE: &str =
+  "application/vnd.sun.xml.impress.template";
 pub const APPLICATION_VND_SUN_XML_MATH: &str = "application/vnd.sun.xml.math";
 pub const APPLICATION_VND_SUN_XML_WRITER: &str = "application/vnd.sun.xml.writer";
 pub const APPLICATION_VND_SUN_XML_WRITER_GLOBAL: &str = "application/vnd.sun.xml.writer.global";
@@ -1582,7 +1853,8 @@ pub const APPLICATION_VND_SYNCML_DMTNDS_WBXML: &str = "application/vnd.syncml.dm
 pub const APPLICATION_VND_SYNCML_DMTNDS_XML: &str = "application/vnd.syncml.dmtnds+xml";
 pub const APPLICATION_VND_SYNCML_DS_NOTIFICATION: &str = "application/vnd.syncml.ds.notification";
 pub const APPLICATION_VND_TABLESCHEMA_JSON: &str = "application/vnd.tableschema+json";
-pub const APPLICATION_VND_TAO_INTENT_MODULE_ARCHIVE: &str = "application/vnd.tao.intent-module-archive";
+pub const APPLICATION_VND_TAO_INTENT_MODULE_ARCHIVE: &str =
+  "application/vnd.tao.intent-module-archive";
 pub const APPLICATION_VND_TCPDUMP_PCAP: &str = "application/vnd.tcpdump.pcap";
 pub const APPLICATION_VND_THINK_CELL_PPTTC_JSON: &str = "application/vnd.think-cell.ppttc+json";
 pub const APPLICATION_VND_TMD_MEDIAFLEX_API_XML: &str = "application/vnd.tmd.mediaflex.api+xml";
@@ -1603,7 +1875,8 @@ pub const APPLICATION_VND_UOML_XML: &str = "application/vnd.uoml+xml";
 pub const APPLICATION_VND_UPLANET_ALERT: &str = "application/vnd.uplanet.alert";
 pub const APPLICATION_VND_UPLANET_ALERT_WBXML: &str = "application/vnd.uplanet.alert-wbxml";
 pub const APPLICATION_VND_UPLANET_BEARER_CHOICE: &str = "application/vnd.uplanet.bearer-choice";
-pub const APPLICATION_VND_UPLANET_BEARER_CHOICE_WBXML: &str = "application/vnd.uplanet.bearer-choice-wbxml";
+pub const APPLICATION_VND_UPLANET_BEARER_CHOICE_WBXML: &str =
+  "application/vnd.uplanet.bearer-choice-wbxml";
 pub const APPLICATION_VND_UPLANET_CACHEOP: &str = "application/vnd.uplanet.cacheop";
 pub const APPLICATION_VND_UPLANET_CACHEOP_WBXML: &str = "application/vnd.uplanet.cacheop-wbxml";
 pub const APPLICATION_VND_UPLANET_CHANNEL: &str = "application/vnd.uplanet.channel";
@@ -1619,8 +1892,10 @@ pub const APPLICATION_VND_VCX: &str = "application/vnd.vcx";
 pub const APPLICATION_VND_VD_STUDY: &str = "application/vnd.vd-study";
 pub const APPLICATION_VND_VECTORWORKS: &str = "application/vnd.vectorworks";
 pub const APPLICATION_VND_VEL_JSON: &str = "application/vnd.vel+json";
-pub const APPLICATION_VND_VERAISON_TSM_REPORT_CBOR: &str = "application/vnd.veraison.tsm-report+cbor";
-pub const APPLICATION_VND_VERAISON_TSM_REPORT_JSON: &str = "application/vnd.veraison.tsm-report+json";
+pub const APPLICATION_VND_VERAISON_TSM_REPORT_CBOR: &str =
+  "application/vnd.veraison.tsm-report+cbor";
+pub const APPLICATION_VND_VERAISON_TSM_REPORT_JSON: &str =
+  "application/vnd.veraison.tsm-report+json";
 pub const APPLICATION_VND_VERIMATRIX_VCAS: &str = "application/vnd.verimatrix.vcas";
 pub const APPLICATION_VND_VERITONE_AION_JSON: &str = "application/vnd.veritone.aion+json";
 pub const APPLICATION_VND_VERYANT_THIN: &str = "application/vnd.veryant.thin";
@@ -1645,7 +1920,8 @@ pub const APPLICATION_VND_WINDOWS_DEVICEPAIRING: &str = "application/vnd.windows
 pub const APPLICATION_VND_WMC: &str = "application/vnd.wmc";
 pub const APPLICATION_VND_WMF_BOOTSTRAP: &str = "application/vnd.wmf.bootstrap";
 pub const APPLICATION_VND_WOLFRAM_MATHEMATICA: &str = "application/vnd.wolfram.mathematica";
-pub const APPLICATION_VND_WOLFRAM_MATHEMATICA_PACKAGE: &str = "application/vnd.wolfram.mathematica.package";
+pub const APPLICATION_VND_WOLFRAM_MATHEMATICA_PACKAGE: &str =
+  "application/vnd.wolfram.mathematica.package";
 pub const APPLICATION_VND_WOLFRAM_PLAYER: &str = "application/vnd.wolfram.player";
 pub const APPLICATION_VND_WORDLIFT: &str = "application/vnd.wordlift";
 pub const APPLICATION_VND_WORDPERFECT: &str = "application/vnd.wordperfect";
@@ -1671,7 +1947,8 @@ pub const APPLICATION_VND_YAMAHA_HV_DIC: &str = "application/vnd.yamaha.hv-dic";
 pub const APPLICATION_VND_YAMAHA_HV_SCRIPT: &str = "application/vnd.yamaha.hv-script";
 pub const APPLICATION_VND_YAMAHA_HV_VOICE: &str = "application/vnd.yamaha.hv-voice";
 pub const APPLICATION_VND_YAMAHA_OPENSCOREFORMAT: &str = "application/vnd.yamaha.openscoreformat";
-pub const APPLICATION_VND_YAMAHA_OPENSCOREFORMAT_OSFPVG_XML: &str = "application/vnd.yamaha.openscoreformat.osfpvg+xml";
+pub const APPLICATION_VND_YAMAHA_OPENSCOREFORMAT_OSFPVG_XML: &str =
+  "application/vnd.yamaha.openscoreformat.osfpvg+xml";
 pub const APPLICATION_VND_YAMAHA_REMOTE_SETUP: &str = "application/vnd.yamaha.remote-setup";
 pub const APPLICATION_VND_YAMAHA_SMAF_AUDIO: &str = "application/vnd.yamaha.smaf-audio";
 pub const APPLICATION_VND_YAMAHA_SMAF_PHRASE: &str = "application/vnd.yamaha.smaf-phrase";
@@ -1857,7 +2134,8 @@ pub const APPLICATION_XCAP_EL_XML: &str = "application/xcap-el+xml";
 pub const APPLICATION_XCAP_ERROR_XML: &str = "application/xcap-error+xml";
 pub const APPLICATION_XCAP_NS_XML: &str = "application/xcap-ns+xml";
 pub const APPLICATION_XCON_CONFERENCE_INFO_XML: &str = "application/xcon-conference-info+xml";
-pub const APPLICATION_XCON_CONFERENCE_INFO_DIFF_XML: &str = "application/xcon-conference-info-diff+xml";
+pub const APPLICATION_XCON_CONFERENCE_INFO_DIFF_XML: &str =
+  "application/xcon-conference-info-diff+xml";
 pub const APPLICATION_XENC_XML: &str = "application/xenc+xml";
 pub const APPLICATION_XFDF: &str = "application/xfdf";
 pub const APPLICATION_XHTML_XML: &str = "application/xhtml+xml";

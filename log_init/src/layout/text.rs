@@ -1,10 +1,14 @@
 use std::{
   cell::Cell,
+  fmt,
   fmt::Write,
   io::{IsTerminal, stdout},
+  str::from_utf8,
 };
 
+use coarsetime::Clock;
 use colored::{ColoredString, Colorize};
+use jiff::{Timestamp, Zoned};
 use logforth::{
   Error as LogforthError, Layout,
   diagnostic::Diagnostic,
@@ -54,14 +58,14 @@ struct ArrayWriter {
 }
 
 impl Write for ArrayWriter {
-  fn write_str(&mut self, s: &str) -> std::fmt::Result {
+  fn write_str(&mut self, s: &str) -> fmt::Result {
     let bytes = s.as_bytes();
     if self.pos + bytes.len() <= 19 {
       self.buf[self.pos..self.pos + bytes.len()].copy_from_slice(bytes);
       self.pos += bytes.len();
       Ok(())
     } else {
-      Err(std::fmt::Error)
+      Err(fmt::Error)
     }
   }
 }
@@ -71,23 +75,23 @@ fn write_timestamp(buf: &mut String, ts: u64) {
     let (cached_ts, cached_bytes) = cell.get();
     if cached_ts == ts
       && cached_ts != 0
-      && let Ok(s) = std::str::from_utf8(&cached_bytes)
+      && let Ok(s) = from_utf8(&cached_bytes)
     {
       buf.push_str(s);
       return;
     }
 
     if let Ok(ts_i64) = i64::try_from(ts)
-      && let Ok(timestamp) = jiff::Timestamp::from_second(ts_i64)
+      && let Ok(timestamp) = Timestamp::from_second(ts_i64)
     {
-      let zoned = jiff::Zoned::new(timestamp, crate::TZ.clone());
+      let zoned = Zoned::new(timestamp, crate::TZ.clone());
       let mut writer = ArrayWriter {
         buf: [0u8; 19],
         pos: 0,
       };
       if write!(writer, "{}", zoned.strftime("%Y-%m-%d %H:%M:%S")).is_ok()
         && writer.pos == 19
-        && let Ok(s) = std::str::from_utf8(&writer.buf)
+        && let Ok(s) = from_utf8(&writer.buf)
       {
         cell.set((ts, writer.buf));
         buf.push_str(s);
@@ -125,7 +129,7 @@ impl Layout for Text {
         );
       }
     } else {
-      let ts = coarsetime::Clock::now_since_epoch().as_secs();
+      let ts = Clock::now_since_epoch().as_secs();
       let _ = write!(buf, "{level} ");
       write_timestamp(&mut buf, ts);
       if let Some(line) = record.line() {

@@ -1,6 +1,6 @@
 [package]
 name = "smtp_srv"
-version = "0.2.39"
+version = "0.2.40"
 edition = "2024"
 license = "MulanPSL-2.0"
 repository = "https://github.com/webc-site/npm.git"
@@ -14,7 +14,7 @@ categories = [
 "cryptography",
 "development-tools"
 ]
-exclude = ["examples/conf"]
+exclude = [ "examples/conf" ]
 
 [package.metadata.docs.rs]
 all-features = true
@@ -45,7 +45,7 @@ version = "0.8.9"
 optional = true
 
 [dependencies.sk_dkim]
-version = "0.1.8"
+version = "0.1.9"
 path = "../sk_dkim"
 features = [ "pk" ]
 optional = true
@@ -89,7 +89,7 @@ version = "0.1.17"
 path = "../xmail"
 
 [dependencies.graceful_restart]
-version = "0.1.8"
+version = "0.1.9"
 path = "../graceful_restart"
 
 [dependencies.log_init]
@@ -97,7 +97,7 @@ version = "0.1.39"
 features = [ "systemd" ]
 
 [dependencies.smtp_send]
-version = "0.1.37"
+version = "0.1.38"
 path = "../smtp_send"
 
 [dependencies.mimalloc]
@@ -113,11 +113,11 @@ version = "0.1.5"
 path = "../auth_env"
 
 [dependencies.cert_by_host]
-version = "0.1.11"
+version = "0.1.12"
 path = "../cert_by_host"
 
 [dependencies.smtp_recv]
-version = "0.1.69"
+version = "0.1.70"
 path = "../smtp_recv"
 
 [dependencies.ssl_trait]
@@ -134,4 +134,4 @@ hex = "0.4.3"
 [dev-dependencies.sk_dkim]
 path = "../sk_dkim"
 features = [ "pk" ]
-version = "0.1.8"
+version = "0.1.9"

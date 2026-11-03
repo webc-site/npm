@@ -3,19 +3,17 @@
 ---
 
 <a id="en"></a>
-
 # @1-/md5 : Efficiently compute MD5 hashes for files and text
 
-- [@1-/md5 : Efficiently compute MD5 hashes for files and text](#1-md5-efficiently-compute-md5-hashes-for-files-and-text)
-  - [Functionality](#functionality)
-  - [Usage demonstration](#usage-demonstration)
-    - [1. Calculate file MD5](#1-calculate-file-md5)
-    - [2. Format and calculate text MD5](#2-format-and-calculate-text-md5)
-  - [Design rationale](#design-rationale)
-  - [Technology stack](#technology-stack)
-  - [Code structure](#code-structure)
-  - [Historical context](#historical-context)
-  - [About](#about)
+- [Functionality](#functionality)
+- [Usage demonstration](#usage-demonstration)
+  - [1. Calculate file MD5](#1-calculate-file-md5)
+  - [2. Format and calculate text MD5](#2-format-and-calculate-text-md5)
+- [Design rationale](#design-rationale)
+- [Technology stack](#technology-stack)
+- [Code structure](#code-structure)
+- [Historical context](#historical-context)
+- [About](#about)
 
 ## Functionality
 
@@ -85,28 +83,28 @@ graph TD
 
 The MD5 algorithm was designed by Ronald Rivest in 1991 to replace MD4 and specified in RFC 1321 in 1992. Though cryptographically broken for collision resistance since 2004, MD5 remains suitable for non-security-critical applications such as checksum verification, data partitioning, and file integrity checking. This library implements streaming chunked processing to handle large files efficiently.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/md5 : 高效计算文件与文本 MD5 哈希值
 
-- [@1-/md5 : 高效计算文件与文本 MD5 哈希值](#1-md5-高效计算文件与文本-md5-哈希值)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-    - [1. 计算文件 MD5](#1-计算文件-md5)
-    - [2. 格式化并计算文本 MD5](#2-格式化并计算文本-md5)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+  - [1. 计算文件 MD5](#1-计算文件-md5)
+  - [2. 格式化并计算文本 MD5](#2-格式化并计算文本-md5)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -176,8 +174,10 @@ graph TD
 
 MD5 算法由 Ronald Rivest 于 1991 年设计，用于替代 MD4，并于 1992 年在 RFC 1321 中正式发布。尽管自 2004 年起已证实其碰撞抵抗性被攻破，MD5 仍适用于非密码学场景，例如校验和验证、数据分区与文件完整性检查。本库采用流式分块处理方式，高效支持大文件计算。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

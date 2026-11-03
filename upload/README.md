@@ -3,27 +3,25 @@
 ---
 
 <a id="en"></a>
-
 # upload : High-performance S3 client with content-addressable deduplication
 
-- [upload : High-performance S3 client with content-addressable deduplication](#upload-high-performance-s3-client-with-content-addressable-deduplication)
-  - [Features](#features)
-  - [Usage](#usage)
-  - [Design](#design)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [API Description](#api-description)
-    - [`S3`](#s3)
-      - [`S3::new`](#s3new)
-      - [`S3::upload`](#s3upload)
-      - [`S3::upload_xhash`](#s3upload_xhash)
-      - [`S3::delete`](#s3delete)
-    - [`Conf`](#conf)
-    - [`Error`](#error)
-  - [Historical Trivia](#historical-trivia)
-  - [About](#about)
-
 High-performance S3 client library. Uses content-addressable storage for client-side deduplication.
+
+- [Features](#features)
+- [Usage](#usage)
+- [Design](#design)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [API Description](#api-description)
+  - [`S3`](#s3)
+    - [`S3::new`](#s3new)
+    - [`S3::upload`](#s3upload)
+    - [`S3::upload_xhash`](#s3upload_xhash)
+    - [`S3::delete`](#s3delete)
+  - [`Conf`](#conf)
+  - [`Error`](#error)
+- [Historical Trivia](#historical-trivia)
+- [About](#about)
 
 ## Features
 
@@ -187,36 +185,36 @@ pub enum Error {
 
 Content-Addressable Storage (CAS) concept originated in 1955 when Dudley Allen Buck invented Content-Addressable Memory (CAM). In 2002, EMC released Centera, establishing modern CAS standard driven by Sarbanes-Oxley Act compliance requirements. Today, CAS forms structural basis of Git, Docker, and IPFS.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # upload : 极简高性能内容寻址去重 S3 文件上传库
 
-- [upload : 极简高性能内容寻址去重 S3 文件上传库](#upload-极简高性能内容寻址去重-s3-文件上传库)
-  - [项目功能介绍](#项目功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 说明](#api-说明)
-    - [`S3`](#s3)
-      - [`S3::new`](#s3new)
-      - [`S3::upload`](#s3upload)
-      - [`S3::upload_xhash`](#s3upload_xhash)
-      - [`S3::delete`](#s3delete)
-    - [`Conf`](#conf)
-    - [`Error`](#error)
-  - [历史小故事](#历史小故事)
-  - [关于](#关于)
-
 高性能 S3 客户端。采用内容寻址存储设计，支持客户端去重。
+
+- [项目功能介绍](#项目功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [API 说明](#api-说明)
+  - [`S3`](#s3)
+    - [`S3::new`](#s3new)
+    - [`S3::upload`](#s3upload)
+    - [`S3::upload_xhash`](#s3upload_xhash)
+    - [`S3::delete`](#s3delete)
+  - [`Conf`](#conf)
+  - [`Error`](#error)
+- [历史小故事](#历史小故事)
+- [关于](#关于)
 
 ## 项目功能介绍
 
@@ -380,8 +378,10 @@ pub enum Error {
 
 内容寻址存储 (CAS) 概念源于 1955 年 Dudley Allen Buck 发明的内容寻址内存 (CAM)。2002 年，EMC 发布 Centera，确立现代 CAS 标准，主要满足 Sarbanes-Oxley 法案的合规数据归档需求。如今，CAS 成为 Git、Docker、IPFS 的底层基石。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

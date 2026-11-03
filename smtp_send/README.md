@@ -3,22 +3,20 @@
 ---
 
 <a id="en"></a>
-
 # smtp_send
 
-- [smtp_send](#smtp_send)
-  - [Features](#features)
-  - [Usage](#usage)
-  - [API](#api)
-    - [`Send`](#send)
-    - [`SendResult`](#sendresult)
-    - [`Error`](#error)
-    - [Standalone Functions](#standalone-functions)
-  - [Directory Structure](#directory-structure)
-  - [Tech Stack](#tech-stack)
-  - [About](#about)
-
 SMTP email sending library with DKIM signing, MX lookup, and automatic bounce handling.
+
+- [Features](#features)
+- [Usage](#usage)
+- [API](#api)
+  - [`Send`](#send)
+  - [`SendResult`](#sendresult)
+  - [`Error`](#error)
+  - [Standalone Functions](#standalone-functions)
+- [Directory Structure](#directory-structure)
+- [Tech Stack](#tech-stack)
+- [About](#about)
 
 ## Features
 
@@ -142,31 +140,31 @@ src/
 - `papaya` - DKIM signer caching
 - `async-scoped` - Scoped async tasks for concurrent sending
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # smtp_send
 
-- [smtp_send](#smtp_send)
-  - [功能](#功能)
-  - [使用](#使用)
-  - [API](#api)
-    - [`Send`](#send)
-    - [`SendResult`](#sendresult)
-    - [`Error`](#error)
-    - [独立函数](#独立函数)
-  - [目录结构](#目录结构)
-  - [技术栈](#技术栈)
-  - [关于](#关于)
-
 支持 DKIM 签名、MX 查询和自动退信处理的 SMTP 邮件发送库。
+
+- [功能](#功能)
+- [使用](#使用)
+- [API](#api)
+  - [`Send`](#send)
+  - [`SendResult`](#sendresult)
+  - [`Error`](#error)
+  - [独立函数](#独立函数)
+- [目录结构](#目录结构)
+- [技术栈](#技术栈)
+- [关于](#关于)
 
 ## 功能
 
@@ -290,8 +288,10 @@ src/
 - `papaya` - DKIM 签名器缓存
 - `async-scoped` - 作用域异步任务，用于并发发送
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

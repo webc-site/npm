@@ -3,31 +3,29 @@
 ---
 
 <a id="en"></a>
-
 # smtp_recv: Dual-Port Secure SMTP Server
-
-- [smtp_recv: Dual-Port Secure SMTP Server](#smtp_recv-dual-port-secure-smtp-server)
-  - [Table of Contents](#table-of-contents)
-  - [Core Architecture](#core-architecture)
-    - [1. Port 25: Inbound Forwarding (MX)](#1-port-25-inbound-forwarding-mx)
-    - [2. Port 465: Outbound Submission](#2-port-465-outbound-submission)
-    - [Architecture Diagram](#architecture-diagram)
-  - [Features](#features)
-  - [Installation & Integration](#installation-integration)
-    - [1. Implement Traits](#1-implement-traits)
-    - [2. Run the Server](#2-run-the-server)
-  - [How It Works](#how-it-works)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [API Reference](#api-reference)
-    - [`smtp_recv::run`](#smtp_recvrun)
-    - [`smtp_recv::Mailer`](#smtp_recvmailer)
-  - [Historical Context](#historical-context)
-  - [About](#about)
 
 **smtp_recv** is a secure-by-default, high-performance SMTP server implementation in Rust, featuring a **Dual-Port Strategy** that simultaneously handles **Inbound Email Forwarding** and **Authenticated Outbound Submission**.
 
 Designed for modern email architectures, it enforces strict security standards, leverages `tokio` for asynchronous I/O, and integrates seamlessly with your existing infrastructure via simple Traits.
+
+- [Table of Contents](#table-of-contents)
+- [Core Architecture](#core-architecture)
+  - [1. Port 25: Inbound Forwarding (MX)](#1-port-25-inbound-forwarding-mx)
+  - [2. Port 465: Outbound Submission](#2-port-465-outbound-submission)
+  - [Architecture Diagram](#architecture-diagram)
+- [Features](#features)
+- [Installation & Integration](#installation-integration)
+  - [1. Implement Traits](#1-implement-traits)
+  - [2. Run the Server](#2-run-the-server)
+- [How It Works](#how-it-works)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [API Reference](#api-reference)
+  - [`smtp_recv::run`](#smtp_recvrun)
+  - [`smtp_recv::Mailer`](#smtp_recvmailer)
+- [Historical Context](#historical-context)
+- [About](#about)
 
 ## Table of Contents
 
@@ -223,40 +221,40 @@ Because of this specific vulnerability, major providers like Gmail and Outlook c
 
 ```
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # smtp_recv: 双端口安全 SMTP 服务器
-
-- [smtp_recv: 双端口安全 SMTP 服务器](#smtp_recv-双端口安全-smtp-服务器)
-  - [目录](#目录)
-  - [核心架构](#核心架构)
-    - [1. 25 端口: 入站转发 (MX)](#1-25-端口-入站转发-mx)
-    - [2. 465 端口: 出站提交 (Submission)](#2-465-端口-出站提交-submission)
-    - [架构示意图](#架构示意图)
-  - [功能特性](#功能特性)
-  - [安装与集成](#安装与集成)
-    - [1. 实现 Traits](#1-实现-traits)
-    - [2. 启动服务](#2-启动服务)
-  - [工作原理](#工作原理)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 参考](#api-参考)
-    - [`smtp_recv::run`](#smtp_recvrun)
-    - [`smtp_recv::Mailer`](#smtp_recvmailer)
-  - [历史背景](#历史背景)
-  - [关于](#关于)
 
 **smtp_recv** 是一个基于 Rust 实现的安全优先、高性能 SMTP 服务器，采用**双端口策略**，同时支持**端口 25 的入站邮件转发**和**端口 465 的出站邮件安全提交**。
 
 即使是在高并发环境下，也能保持极低的资源占用。通过强制的安全默认设置（如 Implicit TLS 和 SNI），它为现代邮件架构提供了坚实的基础设施。
+
+- [目录](#目录)
+- [核心架构](#核心架构)
+  - [1. 25 端口: 入站转发 (MX)](#1-25-端口-入站转发-mx)
+  - [2. 465 端口: 出站提交 (Submission)](#2-465-端口-出站提交-submission)
+  - [架构示意图](#架构示意图)
+- [功能特性](#功能特性)
+- [安装与集成](#安装与集成)
+  - [1. 实现 Traits](#1-实现-traits)
+  - [2. 启动服务](#2-启动服务)
+- [工作原理](#工作原理)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [API 参考](#api-参考)
+  - [`smtp_recv::run`](#smtp_recvrun)
+  - [`smtp_recv::Mailer`](#smtp_recvmailer)
+- [历史背景](#历史背景)
+- [关于](#关于)
 
 ## 目录
 
@@ -448,8 +446,10 @@ pub trait Mailer: Clone + Send + Sync + 'static {
 
 正因为这种无法根除的中间人风险，Gmail、Outlook 等主流服务商始终坚持支持 465 端口。它的 "Implicit TLS" 模式不给降级攻击留任何机会——如果不加密，就无法通信。时至今日，465 端口经历了重大的复兴，已重新成为安全提交邮件的推荐实践（JMAP 等现代标准已承认其地位），这证明了有时"默认安全"的简单设计才是经得起时间考验的真理。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

@@ -13,7 +13,7 @@ pub fn recv_overflow(body: &[u8]) -> bool {
   msg
     .headers()
     .iter()
-    .filter(|h| h.name == HeaderName::Received)
+    .filter(|h| h.name() == HeaderName::Received)
     .count()
     >= MAX_RECEIVED
 }

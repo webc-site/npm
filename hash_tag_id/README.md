@@ -3,20 +3,18 @@
 ---
 
 <a id="en"></a>
-
 # hash_tag_id : Generate Redis hash tags by mapping same ID to same node
 
-- [hash_tag_id : Generate Redis hash tags by mapping same ID to same node](#hash_tag_id-generate-redis-hash-tags-by-mapping-same-id-to-same-node)
-  - [Description](#description)
-  - [Usage](#usage)
-  - [Features](#features)
-  - [Design Flow](#design-flow)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [API Reference](#api-reference)
-    - [`hash_tag_id`](#hash_tag_id)
-  - [History & Trivia](#history-trivia)
-  - [About](#about)
+- [Description](#description)
+- [Usage](#usage)
+- [Features](#features)
+- [Design Flow](#design-flow)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [API Reference](#api-reference)
+  - [`hash_tag_id`](#hash_tag_id)
+- [History & Trivia](#history-trivia)
+- [About](#about)
 
 ## Description
 
@@ -87,29 +85,29 @@ Allocates heap memory and returns a boxed byte slice containing the Redis hash t
 
 Redis Cluster divides the key space into 16,384 hash slots. Salvatore Sanfilippo (antirez) selected this number to optimize cluster bus message sizes and routing overhead. To allow operations on multiple keys at once, hash tags `{...}` were introduced, matching slots by hashing only the string within the braces. By converting numeric IDs into compact little-endian bytes inside these braces, hash slot collisions are resolved for keys belonging to the same entity.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # hash_tag_id : 生成 Redis hash tag 将相同 ID 数据路由至同节点
 
-- [hash_tag_id : 生成 Redis hash tag 将相同 ID 数据路由至同节点](#hash_tag_id-生成-redis-hash-tag-将相同-id-数据路由至同节点)
-  - [项目功能介绍](#项目功能介绍)
-  - [使用演示](#使用演示)
-  - [特性介绍](#特性介绍)
-  - [设计思路](#设计思路)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 说明](#api-说明)
-    - [`hash_tag_id`](#hash_tag_id)
-  - [历史与背景](#历史与背景)
-  - [关于](#关于)
+- [项目功能介绍](#项目功能介绍)
+- [使用演示](#使用演示)
+- [特性介绍](#特性介绍)
+- [设计思路](#设计思路)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [API 说明](#api-说明)
+  - [`hash_tag_id`](#hash_tag_id)
+- [历史与背景](#历史与背景)
+- [关于](#关于)
 
 ## 项目功能介绍
 
@@ -180,8 +178,10 @@ pub fn hash_tag_id(id: u64) -> Box<[u8]>
 
 Redis Cluster 将键空间划分为 16,384 哈希槽。创始人 Salvatore Sanfilippo (antirez) 选定此数值以优化集群总线消息大小与路由开销。为支持多键事务与脚本操作，Redis 引入 hash tags `{...}` 机制，仅对花括号内字符串计算哈希。将 ID 转换为紧凑小端字节并置于花括号内，可避免跨槽查询（`CROSSSLOT`）限制，保障同 ID 数据精确路由至同分片。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

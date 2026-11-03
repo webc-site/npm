@@ -3,27 +3,25 @@
 ---
 
 <a id="en"></a>
-
 # dns_parse : DNS Message Build and Parse
 
-- [dns_parse : DNS Message Build and Parse](#dns_parse-dns-message-build-and-parse)
-  - [Features](#features)
-  - [Installation](#installation)
-  - [Usage](#usage)
-    - [Build DNS Query](#build-dns-query)
-    - [Parse DNS Response](#parse-dns-response)
-  - [API Reference](#api-reference)
-    - [Functions](#functions)
-      - [`build`](#build)
-      - [`parse`](#parse)
-    - [Types](#types)
-      - [`Answer` (from idns)](#answer-from-idns)
-    - [Error Types](#error-types)
-  - [Record Value Formats](#record-value-formats)
-  - [Tech Stack](#tech-stack)
-  - [About](#about)
-
 A lightweight DNS message builder and parser library, used by [idoq](https://crates.io/crates/idoq) (DoQ) and [idot](https://crates.io/crates/idot) (DoT).
+
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Build DNS Query](#build-dns-query)
+  - [Parse DNS Response](#parse-dns-response)
+- [API Reference](#api-reference)
+  - [Functions](#functions)
+    - [`build`](#build)
+    - [`parse`](#parse)
+  - [Types](#types)
+    - [`Answer` (from idns)](#answer-from-idns)
+  - [Error Types](#error-types)
+- [Record Value Formats](#record-value-formats)
+- [Tech Stack](#tech-stack)
+- [About](#about)
 
 ## Features
 
@@ -137,36 +135,36 @@ pub struct Answer {
 | Error     | thiserror |
 | Hex       | hex       |
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # dns_parse : DNS 消息构建与解析
 
-- [dns_parse : DNS 消息构建与解析](#dns_parse-dns-消息构建与解析)
-  - [特性](#特性)
-  - [安装](#安装)
-  - [使用](#使用)
-    - [构建 DNS 查询](#构建-dns-查询)
-    - [解析 DNS 响应](#解析-dns-响应)
-  - [API 参考](#api-参考)
-    - [函数](#函数)
-      - [`build`](#build)
-      - [`parse`](#parse)
-    - [类型](#类型)
-      - [`Answer`（来自 idns）](#answer来自-idns)
-    - [错误类型](#错误类型)
-  - [记录值格式](#记录值格式)
-  - [技术栈](#技术栈)
-  - [关于](#关于)
-
 轻量级 DNS 消息构建和解析库，供 [idoq](https://crates.io/crates/idoq) (DoQ) 和 [idot](https://crates.io/crates/idot) (DoT) 使用。
+
+- [特性](#特性)
+- [安装](#安装)
+- [使用](#使用)
+  - [构建 DNS 查询](#构建-dns-查询)
+  - [解析 DNS 响应](#解析-dns-响应)
+- [API 参考](#api-参考)
+  - [函数](#函数)
+    - [`build`](#build)
+    - [`parse`](#parse)
+  - [类型](#类型)
+    - [`Answer`（来自 idns）](#answer来自-idns)
+  - [错误类型](#错误类型)
+- [记录值格式](#记录值格式)
+- [技术栈](#技术栈)
+- [关于](#关于)
 
 ## 特性
 
@@ -280,8 +278,10 @@ pub struct Answer {
 | 错误     | thiserror |
 | 十六进制 | hex       |
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

@@ -5,14 +5,13 @@
 <a id="en"></a>
 # @1-/minify_htm : Lightweight HTML minification with script tag fixes
 
-- [@1-/minify_htm : Lightweight HTML minification with script tag fixes](#1-minify_htm-lightweight-html-minification-with-script-tag-fixes)
-  - [Functionality](#functionality)
-  - [Usage demonstration](#usage-demonstration)
-  - [Design rationale](#design-rationale)
-  - [Technology stack](#technology-stack)
-  - [Code structure](#code-structure)
-  - [Historical context](#historical-context)
-  - [About](#about)
+- [Functionality](#functionality)
+- [Usage demonstration](#usage-demonstration)
+- [Design rationale](#design-rationale)
+- [Technology stack](#technology-stack)
+- [Code structure](#code-structure)
+- [Historical context](#historical-context)
+- [About](#about)
 
 ## Functionality
 Minifies HTML content while preserving essential functionality and fixing script tag closing issues. Addresses the common problem where minification incorrectly transforms `</script>` into `;</script>`, which breaks browser parsing.
@@ -71,14 +70,13 @@ This library is developed by [WebC.site](https://webc.site).
 <a id="zh"></a>
 # @1-/minify_htm : 轻量级 HTML 压缩并修复脚本标签闭合
 
-- [@1-/minify_htm : 轻量级 HTML 压缩并修复脚本标签闭合](#1-minify_htm-轻量级-html-压缩并修复脚本标签闭合)
-  - [功能特性](#功能特性)
-  - [使用示例](#使用示例)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史背景](#历史背景)
-  - [关于](#关于)
+- [功能特性](#功能特性)
+- [使用示例](#使用示例)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史背景](#历史背景)
+- [关于](#关于)
 
 ## 功能特性
 压缩 HTML 内容同时保持核心功能正常，并修正脚本标签闭合问题。解决压缩过程中将 `</script>` 错误转换为 `;</script>` 导致浏览器解析失败的常见问题。

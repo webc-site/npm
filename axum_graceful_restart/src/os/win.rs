@@ -6,10 +6,12 @@ use std::{
 
 use axum::Router;
 use socket2::{Domain, Socket, Type};
-use tokio::{net::TcpListener, time::sleep};
+use tokio::{
+  net::TcpListener, signal::ctrl_c, sync::oneshot::channel, task::spawn_blocking, time::sleep,
+};
 use tracing::{error, info};
 
-use crate::Result;
+use crate::{Result, os::consts::SHUTDOWN_TIMEOUT};
 
 const RESTART_DELAY: Duration = Duration::from_millis(500);
 
@@ -25,7 +27,7 @@ fn listen(addr: SocketAddr) -> Result<TcpListener> {
 }
 
 async fn wait_for_shutdown() -> Result<()> {
-  tokio::signal::ctrl_c().await?;
+  ctrl_c().await?;
   let pid = process_id();
   info!("{pid} | Ctrl+C recv");
   Ok(())
@@ -75,7 +77,7 @@ impl GracefulRestart {
   }
 
   pub async fn serve(self, app: Router) -> Result<()> {
-    let (shutdown_trigger_tx, shutdown_trigger_rx) = tokio::sync::oneshot::channel::<()>();
+    let (shutdown_trigger_tx, shutdown_trigger_rx) = channel::<()>();
 
     let shutdown = async {
       if let Err(err) = wait_for_shutdown().await {
@@ -90,7 +92,7 @@ impl GracefulRestart {
     let port = self.addr.port();
     tokio::spawn(async move {
       sleep(RESTART_DELAY).await;
-      let _ = tokio::task::spawn_blocking(move || {
+      let _ = spawn_blocking(move || {
         term_old_processes(port);
       })
       .await;
@@ -103,8 +105,8 @@ impl GracefulRestart {
     let shutdown_timeout = async {
       let _ = shutdown_trigger_rx.await;
       tokio::select! {
-        _ = sleep(crate::os::consts::SHUTDOWN_TIMEOUT) => {
-          info!("graceful shutdown timeout ({:?}), forcing exit", crate::os::consts::SHUTDOWN_TIMEOUT);
+        _ = sleep(SHUTDOWN_TIMEOUT) => {
+          info!("graceful shutdown timeout ({:?}), forcing exit", SHUTDOWN_TIMEOUT);
         }
         _ = wait_for_shutdown() => {
           info!("force shutdown signal received during graceful shutdown");

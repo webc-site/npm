@@ -1,7 +1,7 @@
 use std::{env, panic};
 
 use log::{debug, error, info, trace, warn};
-use log_init::{Text, level_color};
+use log_init::{Kv, Text, level_color};
 use logforth::{
   Layout,
   record::{Level, Record},
@@ -85,10 +85,10 @@ fn test_text_layout_format_color() {
 
 #[test]
 fn test_kv_methods() {
-  let kv = log_init::Kv::new();
+  let kv = Kv::new();
   assert!(kv.text.is_empty());
 
-  let kv_cap = log_init::Kv::with_capacity(64);
+  let kv_cap = Kv::with_capacity(64);
   assert!(kv_cap.text.is_empty());
 }
 

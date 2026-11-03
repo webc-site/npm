@@ -3,27 +3,25 @@
 ---
 
 <a id="en"></a>
-
 # xmail : Normalize and Parse Email Addresses with Ease
 
-- [xmail : Normalize and Parse Email Addresses with Ease](#xmail-normalize-and-parse-email-addresses-with-ease)
-  - [Table of Contents](#table-of-contents)
-  - [Introduction](#introduction)
-  - [Features](#features)
-  - [Usage](#usage)
-    - [Examples](#examples)
-  - [Design](#design)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [API Reference](#api-reference)
-    - [`user_host(mail: impl AsRef<str>) -> Option<(String, String)>`](#user_hostmail-impl-asrefstr-optionstring-string)
-    - [`norm_user_host(mail: impl AsRef<str>) -> Option<(String, String)>`](#norm_user_hostmail-impl-asrefstr-optionstring-string)
-    - [`norm(mail: impl AsRef<str>) -> Option<String>`](#normmail-impl-asrefstr-optionstring)
-    - [`norm_tld(mail: impl AsRef<str>) -> Option<(String, String)>`](#norm_tldmail-impl-asrefstr-optionstring-string)
-  - [History](#history)
-  - [About](#about)
-
 [English](readme/en.md) | [中文](readme/zh.md)
+
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Features](#features)
+- [Usage](#usage)
+  - [Examples](#examples)
+- [Design](#design)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [API Reference](#api-reference)
+  - [`user_host(mail: impl AsRef<str>) -> Option<(String, String)>`](#user_hostmail-impl-asrefstr-optionstring-string)
+  - [`norm_user_host(mail: impl AsRef<str>) -> Option<(String, String)>`](#norm_user_hostmail-impl-asrefstr-optionstring-string)
+  - [`norm(mail: impl AsRef<str>) -> Option<String>`](#normmail-impl-asrefstr-optionstring)
+  - [`norm_tld(mail: impl AsRef<str>) -> Option<(String, String)>`](#norm_tldmail-impl-asrefstr-optionstring-string)
+- [History](#history)
+- [About](#about)
 
 ## Table of Contents
 
@@ -146,36 +144,36 @@ The `@` symbol in email addresses was introduced by Ray Tomlinson in 1971 to sep
 
 The term **Punycode**, used in this library for international domains, has an interesting origin. It rhymes with "Unicode" and is "puny" in three ways: it uses a small character set (ASCII), generates short strings, and has a small implementation footprint. This clever encoding allows non-ASCII characters (like Chinese or Emoji) to exist within the legacy ASCII-only DNS system.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # xmail : 轻松实现邮件地址的标准化与解析
 
-- [xmail : 轻松实现邮件地址的标准化与解析](#xmail-轻松实现邮件地址的标准化与解析)
-  - [目录](#目录)
-  - [简介](#简介)
-  - [功能特性](#功能特性)
-  - [使用说明](#使用说明)
-    - [示例代码](#示例代码)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [目录结构](#目录结构)
-  - [API 参考](#api-参考)
-    - [`user_host(mail: impl AsRef<str>) -> Option<(String, String)>`](#user_hostmail-impl-asrefstr-optionstring-string)
-    - [`norm_user_host(mail: impl AsRef<str>) -> Option<(String, String)>`](#norm_user_hostmail-impl-asrefstr-optionstring-string)
-    - [`norm(mail: impl AsRef<str>) -> Option<String>`](#normmail-impl-asrefstr-optionstring)
-    - [`norm_tld(mail: impl AsRef<str>) -> Option<(String, String)>`](#norm_tldmail-impl-asrefstr-optionstring-string)
-  - [历史趣闻](#历史趣闻)
-  - [关于](#关于)
-
 [English](en.md) | [中文](zh.md)
+
+- [目录](#目录)
+- [简介](#简介)
+- [功能特性](#功能特性)
+- [使用说明](#使用说明)
+  - [示例代码](#示例代码)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [目录结构](#目录结构)
+- [API 参考](#api-参考)
+  - [`user_host(mail: impl AsRef<str>) -> Option<(String, String)>`](#user_hostmail-impl-asrefstr-optionstring-string)
+  - [`norm_user_host(mail: impl AsRef<str>) -> Option<(String, String)>`](#norm_user_hostmail-impl-asrefstr-optionstring-string)
+  - [`norm(mail: impl AsRef<str>) -> Option<String>`](#normmail-impl-asrefstr-optionstring)
+  - [`norm_tld(mail: impl AsRef<str>) -> Option<(String, String)>`](#norm_tldmail-impl-asrefstr-optionstring-string)
+- [历史趣闻](#历史趣闻)
+- [关于](#关于)
 
 ## 目录
 
@@ -298,8 +296,10 @@ _需要 `tld` 特性。_ 标准化邮件地址，并返回包含完整邮件地�
 
 本项目用于处理国际域名的 **Punycode** 一词也有其有趣的起源。它与 "Unicode" 押韵，并且在三个方面体现了 "puny"（微小）的含义：它使用极小的字符集（ASCII），生成短字符串，且实现代码量很小。这种巧妙的编码方式使得非 ASCII 字符（如中文或 Emoji）得以在仅支持 ASCII 的传统 DNS 系统中共存。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

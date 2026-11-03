@@ -3,29 +3,27 @@
 ---
 
 <a id="en"></a>
-
 # ip_set : Fast IP Range Matching with Binary Search
 
-- [ip_set : Fast IP Range Matching with Binary Search](#ip_set-fast-ip-range-matching-with-binary-search)
-  - [Table of Contents](#table-of-contents)
-  - [Introduction](#introduction)
-  - [Features](#features)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [API Reference](#api-reference)
-    - [Traits](#traits)
-    - [Structs](#structs)
-    - [Type Aliases](#type-aliases)
-  - [Design](#design)
-    - [Why Binary Search Over Trie?](#why-binary-search-over-trie)
-    - [Lookup Flow](#lookup-flow)
-    - [CIDR to Range Conversion](#cidr-to-range-conversion)
-  - [Tech Stack](#tech-stack)
-  - [Project Structure](#project-structure)
-  - [History](#history)
-    - [The Birth of CIDR](#the-birth-of-cidr)
-    - [Binary Search: A 1946 Algorithm](#binary-search-a-1946-algorithm)
-  - [About](#about)
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Reference](#api-reference)
+  - [Traits](#traits)
+  - [Structs](#structs)
+  - [Type Aliases](#type-aliases)
+- [Design](#design)
+  - [Why Binary Search Over Trie?](#why-binary-search-over-trie)
+  - [Lookup Flow](#lookup-flow)
+  - [CIDR to Range Conversion](#cidr-to-range-conversion)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [History](#history)
+  - [The Birth of CIDR](#the-birth-of-cidr)
+  - [Binary Search: A 1946 Algorithm](#binary-search-a-1946-algorithm)
+- [About](#about)
 
 ## Table of Contents
 
@@ -229,38 +227,38 @@ The bug? Integer overflow in `(low + high) / 2`. The fix: `low + (high - low) / 
 
 Rust's `partition_point` uses this correct form internally.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # ip_set : 基于二分查找的高效 IP 范围匹配
 
-- [ip_set : 基于二分查找的高效 IP 范围匹配](#ip_set-基于二分查找的高效-ip-范围匹配)
-  - [目录](#目录)
-  - [简介](#简介)
-  - [特性](#特性)
-  - [安装](#安装)
-  - [使用](#使用)
-  - [API 参考](#api-参考)
-    - [Trait](#trait)
-    - [结构体](#结构体)
-    - [类型别名](#类型别名)
-  - [设计思路](#设计思路)
-    - [为何选择二分查找而非前缀树？](#为何选择二分查找而非前缀树)
-    - [查找流程](#查找流程)
-    - [CIDR 转范围](#cidr-转范围)
-  - [技术栈](#技术栈)
-  - [目录结构](#目录结构)
-  - [历史](#历史)
-    - [CIDR 的诞生](#cidr-的诞生)
-    - [二分查找：1946 年的算法](#二分查找1946-年的算法)
-  - [关于](#关于)
+- [目录](#目录)
+- [简介](#简介)
+- [特性](#特性)
+- [安装](#安装)
+- [使用](#使用)
+- [API 参考](#api-参考)
+  - [Trait](#trait)
+  - [结构体](#结构体)
+  - [类型别名](#类型别名)
+- [设计思路](#设计思路)
+  - [为何选择二分查找而非前缀树？](#为何选择二分查找而非前缀树)
+  - [查找流程](#查找流程)
+  - [CIDR 转范围](#cidr-转范围)
+- [技术栈](#技术栈)
+- [目录结构](#目录结构)
+- [历史](#历史)
+  - [CIDR 的诞生](#cidr-的诞生)
+  - [二分查找：1946 年的算法](#二分查找1946-年的算法)
+- [关于](#关于)
 
 ## 目录
 
@@ -464,8 +462,10 @@ ip_set/
 
 Rust 的 `partition_point` 内部使用了正确的形式。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

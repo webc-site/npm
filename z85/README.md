@@ -3,20 +3,18 @@
 ---
 
 <a id="en"></a>
-
 # @1-/z85 : Ultra-Fast and Minimal Z85 Encoding and Decoding Implementation
 
-- [@1-/z85 : Ultra-Fast and Minimal Z85 Encoding and Decoding Implementation](#1-z85-ultra-fast-and-minimal-z85-encoding-and-decoding-implementation)
-  - [Functionality](#functionality)
-  - [Usage](#usage)
-    - [Install](#install)
-    - [Encoding](#encoding)
-    - [Decoding](#decoding)
-  - [Design Rationale](#design-rationale)
-  - [Technology Stack](#technology-stack)
-  - [Code Structure](#code-structure)
-  - [Historical Context](#historical-context)
-  - [About](#about)
+- [Functionality](#functionality)
+- [Usage](#usage)
+  - [Install](#install)
+  - [Encoding](#encoding)
+  - [Decoding](#decoding)
+- [Design Rationale](#design-rationale)
+- [Technology Stack](#technology-stack)
+- [Code Structure](#code-structure)
+- [Historical Context](#historical-context)
+- [About](#about)
 
 ## Functionality
 
@@ -101,29 +99,29 @@ src/
 
 Z85 encoding was designed by Pieter Hintjens in 2011 for the ZeroMQ protocol as a replacement for Base64 and Ascii85. Its key innovation is the selection of 85 printable ASCII characters (0–9, a–z, A–Z, .-:+=^!/\*?&<>()[]{}@%$#), reducing encoded data size by ~12% compared to Base64 while completely avoiding the parsing ambiguity introduced by the `z` character in Ascii85. RFC 32 formally standardized it, establishing Z85 as the de facto standard for textual binary data transport within the ZeroMQ ecosystem.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/z85 : 极速、超轻量、零依赖的 Z85 编解码实现
 
-- [@1-/z85 : 极速、超轻量、零依赖的 Z85 编解码实现](#1-z85-极速超轻量零依赖的-z85-编解码实现)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-    - [安装](#安装)
-    - [编码](#编码)
-    - [解码](#解码)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+  - [安装](#安装)
+  - [编码](#编码)
+  - [解码](#解码)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -208,8 +206,10 @@ src/
 
 Z85 编码由 Pieter Hintjens 于 2011 年为 ZeroMQ 协议设计，旨在替代 Base64 和 Ascii85。其核心创新在于选用 85 个可打印 ASCII 字符（0–9, a–z, A–Z, .-:+=^!/\*?&<>()[]{}@%$#），使编码后数据体积比 Base64 减少约 12%，且完全规避了 Ascii85 中因 `z` 字符导致的解析歧义问题。RFC 32 将其正式标准化，成为 ZeroMQ 生态中二进制数据文本化传输的事实标准。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

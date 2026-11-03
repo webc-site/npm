@@ -3,28 +3,26 @@
 ---
 
 <a id="en"></a>
-
 # xboot : Async Static Variable Initialization with Priority Support
 
-- [xboot : Async Static Variable Initialization with Priority Support](#xboot-async-static-variable-initialization-with-priority-support)
-  - [Table of Contents](#table-of-contents)
-  - [Introduction](#introduction)
-  - [Features](#features)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Design](#design)
-    - [Execution Flow](#execution-flow)
-    - [Key Mechanisms](#key-mechanisms)
-  - [Tech Stack](#tech-stack)
-  - [Project Structure](#project-structure)
-  - [API Reference](#api-reference)
-    - [Data Structures](#data-structures)
-    - [Types](#types)
-    - [Statics](#statics)
-    - [Functions](#functions)
-    - [Macros](#macros)
-  - [History](#history)
-  - [About](#about)
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Design](#design)
+  - [Execution Flow](#execution-flow)
+  - [Key Mechanisms](#key-mechanisms)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [API Reference](#api-reference)
+  - [Data Structures](#data-structures)
+  - [Types](#types)
+  - [Statics](#statics)
+  - [Functions](#functions)
+  - [Macros](#macros)
+- [History](#history)
+- [About](#about)
 
 ## Table of Contents
 
@@ -232,37 +230,37 @@ David Tolnay created the `linkme` crate to provide a safe, cross-platform distri
 xboot builds on this foundation by introducing asynchronous task execution and strict priority scheduling.
 This allows developers to define complex, interdependent async initializations (such as database connections and service discovery) that resolve deterministically before `main` starts, preventing initialization order issues while maintaining safety and performance.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # xboot : 支持优先级的异步静态变量初始化
 
-- [xboot : 支持优先级的异步静态变量初始化](#xboot-支持优先级的异步静态变量初始化)
-  - [目录](#目录)
-  - [简介](#简介)
-  - [特性](#特性)
-  - [安装](#安装)
-  - [使用](#使用)
-  - [设计](#设计)
-    - [初始化流程](#初始化流程)
-    - [核心机制](#核心机制)
-  - [技术栈](#技术栈)
-  - [项目结构](#项目结构)
-  - [API 参考](#api-参考)
-    - [数据结构](#数据结构)
-    - [类型](#类型)
-    - [静态变量](#静态变量)
-    - [函数](#函数)
-    - [宏](#宏)
-  - [历史](#历史)
-  - [关于](#关于)
+- [目录](#目录)
+- [简介](#简介)
+- [特性](#特性)
+- [安装](#安装)
+- [使用](#使用)
+- [设计](#设计)
+  - [初始化流程](#初始化流程)
+  - [核心机制](#核心机制)
+- [技术栈](#技术栈)
+- [项目结构](#项目结构)
+- [API 参考](#api-参考)
+  - [数据结构](#数据结构)
+  - [类型](#类型)
+  - [静态变量](#静态变量)
+  - [函数](#函数)
+  - [宏](#宏)
+- [历史](#历史)
+- [关于](#关于)
 
 ## 目录
 
@@ -467,8 +465,10 @@ C++ 中这一经典缺陷被称为“静态初始化顺序灾难”（Static Ini
 Rust 开发者 David Tolnay 编写的 `linkme` 利用链接段实现跨平台分布式切片，提供了安全高效的链接期收集方案。
 xboot 在此基础上结合异步协程与优先级调度，使现代 Rust 应用程序能够按拓扑顺序确定性地在 `main` 启动前初始化数据库、服务等复杂异步资源，在保障安全性的同时维持极致运行效率。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

@@ -3,17 +3,15 @@
 ---
 
 <a id="en"></a>
-
 # @1-/bar : TTY-aware command-line progress bar and status display
 
-- [@1-/bar : TTY-aware command-line progress bar and status display](#1-bar-tty-aware-command-line-progress-bar-and-status-display)
-  - [Functionality](#functionality)
-  - [Usage demonstration](#usage-demonstration)
-  - [Design rationale](#design-rationale)
-  - [Technology stack](#technology-stack)
-  - [Code structure](#code-structure)
-  - [Historical background](#historical-background)
-  - [About](#about)
+- [Functionality](#functionality)
+- [Usage demonstration](#usage-demonstration)
+- [Design rationale](#design-rationale)
+- [Technology stack](#technology-stack)
+- [Code structure](#code-structure)
+- [Historical background](#historical-background)
+- [About](#about)
 
 ## Functionality
 
@@ -79,26 +77,26 @@ src/
 
 The Mulan Public Software License (MulanPSL) is an open-source license developed in China, designed to be compatible with international open-source practices while addressing local legal requirements. Version 2.0, released in 2020, improved compatibility with other licenses and clarified terms for patent grants and trademark usage.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/bar : TTY 感知的命令行进度条及状态显示
 
-- [@1-/bar : TTY 感知的命令行进度条及状态显示](#1-bar-tty-感知的命令行进度条及状态显示)
-  - [功能介绍](#功能介绍)
-  - [使用演示](#使用演示)
-  - [设计思路](#设计思路)
-  - [技术栈](#技术栈)
-  - [代码结构](#代码结构)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [功能介绍](#功能介绍)
+- [使用演示](#使用演示)
+- [设计思路](#设计思路)
+- [技术栈](#技术栈)
+- [代码结构](#代码结构)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 功能介绍
 
@@ -164,8 +162,10 @@ src/
 
 木兰公共许可证（MulanPSL）是中国开发的开源许可证，旨在兼容国际开源实践同时满足本地法律要求。2.0 版本于 2020 年发布，提升了与其他许可证的兼容性，并明确了专利授权和商标使用条款。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

@@ -3,19 +3,17 @@
 ---
 
 <a id="en"></a>
-
 # @1-/sqlite : Automatic resource management and transaction wrapper for Bun:SQLite
 
-- [@1-/sqlite : Automatic resource management and transaction wrapper for Bun:SQLite](#1-sqlite-automatic-resource-management-and-transaction-wrapper-for-bunsqlite)
-  - [1. Features](#1-features)
-  - [2. Usage](#2-usage)
-    - [Auto Directory Creation and Resource Cleanup](#auto-directory-creation-and-resource-cleanup)
-    - [Transaction Control](#transaction-control)
-  - [3. Design](#3-design)
-  - [4. Tech Stack](#4-tech-stack)
-  - [5. Code Structure](#5-code-structure)
-  - [6. History](#6-history)
-  - [About](#about)
+- [1. Features](#1-features)
+- [2. Usage](#2-usage)
+  - [Auto Directory Creation and Resource Cleanup](#auto-directory-creation-and-resource-cleanup)
+  - [Transaction Control](#transaction-control)
+- [3. Design](#3-design)
+- [4. Tech Stack](#4-tech-stack)
+- [5. Code Structure](#5-code-structure)
+- [6. History](#6-history)
+- [About](#about)
 
 ## 1. Features
 
@@ -111,28 +109,28 @@ To build a database that required no installation, no administration, did not de
 This design revolutionized local data storage.
 Today, SQLite is the most widely deployed database engine, running on billions of devices, smartphones, and web browsers.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # @1-/sqlite : 支持自动资源管理与事务的 Bun:SQLite 封装
 
-- [@1-/sqlite : 支持自动资源管理与事务的 Bun:SQLite 封装](#1-sqlite-支持自动资源管理与事务的-bunsqlite-封装)
-  - [1. 功能介绍](#1-功能介绍)
-  - [2. 使用演示](#2-使用演示)
-    - [自动创建目录与释放资源](#自动创建目录与释放资源)
-    - [事务控制](#事务控制)
-  - [3. 设计思路](#3-设计思路)
-  - [4. 技术栈](#4-技术栈)
-  - [5. 代码结构](#5-代码结构)
-  - [6. 历史故事](#6-历史故事)
-  - [关于](#关于)
+- [1. 功能介绍](#1-功能介绍)
+- [2. 使用演示](#2-使用演示)
+  - [自动创建目录与释放资源](#自动创建目录与释放资源)
+  - [事务控制](#事务控制)
+- [3. 设计思路](#3-设计思路)
+- [4. 技术栈](#4-技术栈)
+- [5. 代码结构](#5-代码结构)
+- [6. 历史故事](#6-历史故事)
+- [关于](#关于)
 
 ## 1. 功能介绍
 
@@ -228,8 +226,10 @@ SQLite 的诞生源自于 2000 年。
 这一设计彻底改变了嵌入式与本地存储的游戏规则。
 如今，SQLite 已经是全球部署量最大的数据库，运行在数十亿台设备、手机以及现代浏览器中。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

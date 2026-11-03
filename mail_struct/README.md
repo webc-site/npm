@@ -3,40 +3,38 @@
 ---
 
 <a id="en"></a>
-
 # mail_struct : Minimalist Email Structure for Rust
 
-- [mail_struct : Minimalist Email Structure for Rust](#mail_struct-minimalist-email-structure-for-rust)
-  - [Table of Contents](#table-of-contents)
-  - [Features](#features)
-  - [Usage](#usage)
-    - [Creating and Grouping Emails by Domain](#creating-and-grouping-emails-by-domain)
-  - [Design Philosophy](#design-philosophy)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [API Documentation](#api-documentation)
-    - [`struct Mail`](#struct-mail)
-    - [`struct HostUserLi`](#struct-hostuserli)
-      - [Methods](#methods)
-        - [`add(&mut self, mail: impl AsRef<str>) -> bool`](#addmut-self-mail-impl-asrefstr-bool)
-        - [`user_li(&self, host: &str) -> Option<&HashSet<String>>`](#user_liself-host-str-optionhashsetstring)
-      - [Trait Implementations](#trait-implementations)
-        - [`Deref<Target = HashMap<String, HashSet<String>>>`](#dereftarget-hashmapstring-hashsetstring)
-        - [`DerefMut<Target = HashMap<String, HashSet<String>>>`](#derefmuttarget-hashmapstring-hashsetstring)
-        - [`FromIterator<T: AsRef<str>>`](#fromiteratort-asrefstr)
-      - [Methods](#methods)
-        - [`new(sender: impl AsRef<str>, to_li: impl IntoIterator<Item = impl AsRef<str>>, body: impl Into<Vec<u8>>) -> Option<Self>`](#newsender-impl-asrefstr-to_li-impl-intoiteratoritem-impl-asrefstr-body-impl-intovecu8-optionself)
-      - [Trait Implementations](#trait-implementations)
-        - [`IntoIterator` for `&'a Mail` (requires `send` feature)](#intoiterator-for-a-mail-requires-send-feature)
-    - [`struct UserMail`](#struct-usermail)
-    - [`struct MailMessage<'a>` (requires `send` feature)](#struct-mailmessagea-requires-send-feature)
-      - [Trait Implementations](#trait-implementations)
-        - [`IntoMessage<'a>`](#intomessagea)
-        - [`IntoIterator`](#intoiterator)
-  - [Historical Context](#historical-context)
-  - [About](#about)
-
 `mail_struct` is a lightweight Rust library designed to define a clear and efficient structure for email messages. It provides optional integration with `bitcode` for efficient encoding/decoding and `mail-send` for SMTP transmission with domain-based grouping, making it a versatile choice for email handling in Rust applications.
+
+- [Table of Contents](#table-of-contents)
+- [Features](#features)
+- [Usage](#usage)
+  - [Creating and Grouping Emails by Domain](#creating-and-grouping-emails-by-domain)
+- [Design Philosophy](#design-philosophy)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [API Documentation](#api-documentation)
+  - [`struct Mail`](#struct-mail)
+  - [`struct HostUserLi`](#struct-hostuserli)
+    - [Methods](#methods)
+      - [`add(&mut self, mail: impl AsRef<str>) -> bool`](#addmut-self-mail-impl-asrefstr-bool)
+      - [`user_li(&self, host: &str) -> Option<&HashSet<String>>`](#user_liself-host-str-optionhashsetstring)
+    - [Trait Implementations](#trait-implementations)
+      - [`Deref<Target = HashMap<String, HashSet<String>>>`](#dereftarget-hashmapstring-hashsetstring)
+      - [`DerefMut<Target = HashMap<String, HashSet<String>>>`](#derefmuttarget-hashmapstring-hashsetstring)
+      - [`FromIterator<T: AsRef<str>>`](#fromiteratort-asrefstr)
+    - [Methods](#methods)
+      - [`new(sender: impl AsRef<str>, to_li: impl IntoIterator<Item = impl AsRef<str>>, body: impl Into<Vec<u8>>) -> Option<Self>`](#newsender-impl-asrefstr-to_li-impl-intoiteratoritem-impl-asrefstr-body-impl-intovecu8-optionself)
+    - [Trait Implementations](#trait-implementations)
+      - [`IntoIterator` for `&'a Mail` (requires `send` feature)](#intoiterator-for-a-mail-requires-send-feature)
+  - [`struct UserMail`](#struct-usermail)
+  - [`struct MailMessage<'a>` (requires `send` feature)](#struct-mailmessagea-requires-send-feature)
+    - [Trait Implementations](#trait-implementations)
+      - [`IntoMessage<'a>`](#intomessagea)
+      - [`IntoIterator`](#intoiterator)
+- [Historical Context](#historical-context)
+- [About](#about)
 
 ## Table of Contents
 
@@ -245,49 +243,49 @@ The design of email systems dates back to the early 1980s with the publication o
 
 `mail_struct` honors this tradition by focusing on the _structure_ of the message (the content), while delegating the _transport_ (the envelope and transmission) to specialized libraries like `mail-send`. This modular approach mirrors the original design philosophy of the internet's most enduring communication protocol, ensuring flexibility and maintainability.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # mail_struct : 极简 Rust 邮件结构库
 
-- [mail_struct : 极简 Rust 邮件结构库](#mail_struct-极简-rust-邮件结构库)
-  - [目录](#目录)
-  - [功能特性](#功能特性)
-  - [使用指南](#使用指南)
-    - [创建并按域名分组邮件](#创建并按域名分组邮件)
-  - [设计理念](#设计理念)
-  - [技术栈](#技术栈)
-  - [目录结构](#目录结构)
-  - [API 文档](#api-文档)
-    - [`struct Mail`](#struct-mail)
-    - [`struct HostUserLi`](#struct-hostuserli)
-      - [方法](#方法)
-        - [`add(&mut self, mail: impl AsRef<str>) -> bool`](#addmut-self-mail-impl-asrefstr-bool)
-        - [`user_li(&self, host: &str) -> Option<&HashSet<String>>`](#user_liself-host-str-optionhashsetstring)
-      - [Trait 实现](#trait-实现)
-        - [`Deref<Target = HashMap<String, HashSet<String>>>`](#dereftarget-hashmapstring-hashsetstring)
-        - [`DerefMut<Target = HashMap<String, HashSet<String>>>`](#derefmuttarget-hashmapstring-hashsetstring)
-        - [`FromIterator<T: AsRef<str>>`](#fromiteratort-asrefstr)
-      - [方法](#方法)
-        - [`new(sender: impl AsRef<str>, to_li: impl IntoIterator<Item = impl AsRef<str>>, body: impl Into<Vec<u8>>) -> Option<Self>`](#newsender-impl-asrefstr-to_li-impl-intoiteratoritem-impl-asrefstr-body-impl-intovecu8-optionself)
-      - [Trait 实现](#trait-实现)
-        - [`IntoIterator` for `&'a Mail` (需要 `send` 特性)](#intoiterator-for-a-mail-需要-send-特性)
-    - [`struct UserMail`](#struct-usermail)
-    - [`struct MailMessage<'a>` (需要 `send` 特性)](#struct-mailmessagea-需要-send-特性)
-      - [Trait 实现](#trait-实现)
-        - [`IntoMessage<'a>`](#intomessagea)
-        - [`IntoIterator`](#intoiterator)
-  - [历史背景](#历史背景)
-  - [关于](#关于)
-
 `mail_struct` 是一个轻量级的 Rust 库，旨在为邮件消息定义清晰且高效的结构。它提供了与 `bitcode`（用于高效编码/解码）和 `mail-send`（用于基于域名分组的 SMTP 传输）的可选集成，使其成为 Rust 应用中处理邮件的灵活选择。
+
+- [目录](#目录)
+- [功能特性](#功能特性)
+- [使用指南](#使用指南)
+  - [创建并按域名分组邮件](#创建并按域名分组邮件)
+- [设计理念](#设计理念)
+- [技术栈](#技术栈)
+- [目录结构](#目录结构)
+- [API 文档](#api-文档)
+  - [`struct Mail`](#struct-mail)
+  - [`struct HostUserLi`](#struct-hostuserli)
+    - [方法](#方法)
+      - [`add(&mut self, mail: impl AsRef<str>) -> bool`](#addmut-self-mail-impl-asrefstr-bool)
+      - [`user_li(&self, host: &str) -> Option<&HashSet<String>>`](#user_liself-host-str-optionhashsetstring)
+    - [Trait 实现](#trait-实现)
+      - [`Deref<Target = HashMap<String, HashSet<String>>>`](#dereftarget-hashmapstring-hashsetstring)
+      - [`DerefMut<Target = HashMap<String, HashSet<String>>>`](#derefmuttarget-hashmapstring-hashsetstring)
+      - [`FromIterator<T: AsRef<str>>`](#fromiteratort-asrefstr)
+    - [方法](#方法)
+      - [`new(sender: impl AsRef<str>, to_li: impl IntoIterator<Item = impl AsRef<str>>, body: impl Into<Vec<u8>>) -> Option<Self>`](#newsender-impl-asrefstr-to_li-impl-intoiteratoritem-impl-asrefstr-body-impl-intovecu8-optionself)
+    - [Trait 实现](#trait-实现)
+      - [`IntoIterator` for `&'a Mail` (需要 `send` 特性)](#intoiterator-for-a-mail-需要-send-特性)
+  - [`struct UserMail`](#struct-usermail)
+  - [`struct MailMessage<'a>` (需要 `send` 特性)](#struct-mailmessagea-需要-send-特性)
+    - [Trait 实现](#trait-实现)
+      - [`IntoMessage<'a>`](#intomessagea)
+      - [`IntoIterator`](#intoiterator)
+- [历史背景](#历史背景)
+- [关于](#关于)
 
 ## 目录
 
@@ -496,8 +494,10 @@ async fn example() {
 
 `mail_struct` 秉承了这一传统，专注于消息的**结构**（内容），而将**传输**（信封和发送）委托给像 `mail-send` 这样的专用库。这种模块化的方法反映了互联网最持久通信协议的原始设计哲学，确保了灵活性和可维护性。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+

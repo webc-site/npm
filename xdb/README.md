@@ -3,26 +3,24 @@
 ---
 
 <a id="en"></a>
-
 # xdb : Fast and environment-driven MySQL connection pool initialization
 
-- [xdb : Fast and environment-driven MySQL connection pool initialization](#xdb-fast-and-environment-driven-mysql-connection-pool-initialization)
-  - [Table of Contents](#table-of-contents)
-  - [Introduction](#introduction)
-  - [Usage](#usage)
-    - [Manual Pool Creation](#manual-pool-creation)
-    - [Environment-Driven Global Pool (xboot)](#environment-driven-global-pool-xboot)
-  - [Features](#features)
-  - [Design](#design)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [API](#api)
-    - [Functions](#functions)
-      - [`pool`](#pool)
-    - [Statics](#statics)
-      - [`DB`](#db)
-  - [History](#history)
-  - [About](#about)
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Usage](#usage)
+  - [Manual Pool Creation](#manual-pool-creation)
+  - [Environment-Driven Global Pool (xboot)](#environment-driven-global-pool-xboot)
+- [Features](#features)
+- [Design](#design)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [API](#api)
+  - [Functions](#functions)
+    - [`pool`](#pool)
+  - [Statics](#statics)
+    - [`DB`](#db)
+- [History](#history)
+- [About](#about)
 
 ## Table of Contents
 
@@ -182,35 +180,35 @@ Available only when `xboot` feature is enabled.
 
 In the early days of database engineering, establishing database connections was slow. Software systems performed TCP handshakes, TLS handshakes, and database authentication for each request. This led to massive latency. The concept of connection pools emerged to solve this issue by reusing established connections, significantly improving application performance. xdb inherits this legacy and optimizes it for modern Rust ecosystem, providing zero-boilerplate connection pooling mechanism.
 
+
 ## About
 
 This library is developed by [WebC.site](https://webc.site).
 
 [WebC.site](https://webc.site): A new paradigm of web development for AI
 
+
 ---
 
 <a id="zh"></a>
-
 # xdb : 快速且环境驱动的 MySQL 连接池初始化
 
-- [xdb : 快速且环境驱动的 MySQL 连接池初始化](#xdb-快速且环境驱动的-mysql-连接池初始化)
-  - [目录](#目录)
-  - [项目功能介绍](#项目功能介绍)
-  - [使用演示](#使用演示)
-    - [手动创建连接池](#手动创建连接池)
-    - [环境驱动全局连接池 (xboot)](#环境驱动全局连接池-xboot)
-  - [特性介绍](#特性介绍)
-  - [设计思路](#设计思路)
-  - [技术堆栈](#技术堆栈)
-  - [目录结构](#目录结构)
-  - [API 说明](#api-说明)
-    - [函数](#函数)
-      - [`pool`](#pool)
-    - [静态变量](#静态变量)
-      - [`DB`](#db)
-  - [历史故事](#历史故事)
-  - [关于](#关于)
+- [目录](#目录)
+- [项目功能介绍](#项目功能介绍)
+- [使用演示](#使用演示)
+  - [手动创建连接池](#手动创建连接池)
+  - [环境驱动全局连接池 (xboot)](#环境驱动全局连接池-xboot)
+- [特性介绍](#特性介绍)
+- [设计思路](#设计思路)
+- [技术堆栈](#技术堆栈)
+- [目录结构](#目录结构)
+- [API 说明](#api-说明)
+  - [函数](#函数)
+    - [`pool`](#pool)
+  - [静态变量](#静态变量)
+    - [`DB`](#db)
+- [历史故事](#历史故事)
+- [关于](#关于)
 
 ## 目录
 
@@ -370,8 +368,10 @@ pub static DB: mysql_async::Pool;
 
 在数据库工程早期阶段，建立连接操作高昂。系统需为每次请求执行 TCP 握手、TLS 握手及数据库身份验证。这带来了巨大的延迟。随后连接池概念诞生，通过复用已有连接，大幅提升应用性能。xdb 继承此设计，针对现代 Rust 生态进行优化，提供无样板代码的连接池机制。
 
+
 ## 关于
 
 本库由 [WebC.site](https://webc.site) 开发。
 
 [WebC.site](https://webc.site) : 面向人工智能的网站开发新范式
+
