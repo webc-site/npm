@@ -6,21 +6,33 @@ license = "MulanPSL-2.0"
 repository = "https://github.com/webc-site/npm.git"
 homepage = "https://github.com/webc-site/npm/tree/main/upload"
 description = "Minimal high-performance S3 client with content-addressable deduplication / 极简高性能内容寻址去重S3客户端"
-keywords = ["s3", "upload", "deduplication", "content-addressable", "storage"]
-categories = ["web-programming", "network-programming", "encoding", "cryptography", "filesystem"]
+keywords = [
+"s3",
+"upload",
+"deduplication",
+"content-addressable",
+"storage"
+]
+categories = [
+"web-programming",
+"network-programming",
+"encoding",
+"cryptography",
+"filesystem"
+]
 readme = "README.md"
 
 [package.metadata.docs.rs]
 all-features = true
-rustdoc-args = ["--cfg", "docsrs"]
+rustdoc-args = [ "--cfg", "docsrs" ]
 
 [features]
-default = []
-xhash = ["dep:xhash"]
+default = [ ]
+xhash = [ "dep:xhash" ]
 
 [[test]]
 name = "main"
-required-features = ["xhash"]
+required-features = [ "xhash" ]
 
 [dependencies]
 base64 = "0.23.1"
@@ -33,25 +45,29 @@ log = "0.4.35"
 memchr = "2.8.3"
 sha2 = "0.11.1"
 thiserror = "2.0.21"
-ts_ = { version = "0.1.4", path = "../ts_", features = ["sec"] }
+
+[dependencies.ts_]
+version = "0.1.4"
+path = "../ts_"
+features = [ "sec" ]
 
 [dependencies.ext_mime]
-version = "0.1.3"
+version = "0.1.6"
 path = "../ext_mime"
 
 [dependencies.reqwest]
 version = "0.13.5"
 default-features = false
-features = ["rustls"]
+features = [ "rustls" ]
 
 [dependencies.tokio]
 version = "1.54.1"
-features = ["macros", "rt-multi-thread"]
+features = [ "macros", "rt-multi-thread" ]
 
 [dependencies.xhash]
 version = "0.1.38"
 path = "../xhash"
-features = ["xhash", "b64"]
+features = [ "xhash", "b64" ]
 optional = true
 
 [dev-dependencies]

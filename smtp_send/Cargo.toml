@@ -6,15 +6,21 @@ license = "MulanPSL-2.0"
 repository = "https://github.com/webc-site/npm.git"
 homepage = "https://github.com/webc-site/npm/tree/main/smtp_send"
 description = "SMTP email sending library with built-in DKIM signing and MX lookup support. / 支持内置 DKIM 签名和 MX 记录查询的 SMTP 邮件发送库。"
-keywords = ["smtp", "dkim", "email", "mx", "mailer"]
-categories = ["email", "network-programming", "asynchronous", "cryptography", "development-tools"]
+keywords = [ "smtp", "dkim", "email", "mx", "mailer" ]
+categories = [
+"email",
+"network-programming",
+"asynchronous",
+"cryptography",
+"development-tools"
+]
 
 [package.metadata.docs.rs]
 all-features = true
-rustdoc-args = ["--cfg", "docsrs"]
+rustdoc-args = [ "--cfg", "docsrs" ]
 
 [features]
-default = []
+default = [ ]
 
 [dependencies]
 bitcode = "0.6.9"
@@ -41,24 +47,24 @@ path = "../idot"
 
 [dependencies.static_init]
 version = "1.0.4"
-features = ["parking_lot"]
+features = [ "parking_lot" ]
 
 [dependencies.idns]
 version = "0.2.16"
 path = "../idns"
-features = ["mx", "cache"]
+features = [ "mx", "cache" ]
 
 [dependencies.async-scoped]
 version = "0.9"
-features = ["use-tokio"]
+features = [ "use-tokio" ]
 
 [dependencies.serde]
 version = "1.0"
-features = ["derive"]
+features = [ "derive" ]
 
 [dependencies.smtp-proto]
 version = "0.2.5"
-features = ["serde"]
+features = [ "serde" ]
 
 [dependencies.sk_dkim]
 version = "0.1.8"
@@ -67,11 +73,11 @@ path = "../sk_dkim"
 [dependencies.mail_struct]
 version = "0.1.23"
 path = "../mail_struct"
-features = ["encode", "send"]
+features = [ "encode", "send" ]
 
 [dependencies.tokio]
 version = "1.54.1"
-features = ["rt-multi-thread"]
+features = [ "rt-multi-thread" ]
 
 [dev-dependencies]
 aok = "0.1.18"
@@ -82,12 +88,13 @@ rustls = "0.23.46"
 
 [dev-dependencies.static_init]
 version = "1.0.4"
-features = ["parking_lot"]
+features = [ "parking_lot" ]
 
 [dev-dependencies.sk_dkim]
 path = "../sk_dkim"
-features = ["pk"]
+features = [ "pk" ]
+version = "0.1.8"
 
 [dev-dependencies.tokio]
 version = "1.54.1"
-features = ["macros", "rt", "rt-multi-thread", "time", "sync"]
+features = [ "macros", "rt", "rt-multi-thread", "time", "sync" ]
