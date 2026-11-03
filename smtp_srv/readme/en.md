@@ -9,6 +9,7 @@
 - [Exported API](#exported-api)
 - [Tech Stack](#tech-stack)
 - [Directory Structure](#directory-structure)
+- [Dependency Update and Deployment](#dependency-update-and-deployment)
 - [History](#history)
 
 ## Introduction
@@ -275,6 +276,33 @@ smtp_srv/
 └── test/
     └── test_smtp.js     # SMTP client test
 ```
+
+## Dependency Update and Deployment
+
+Workflow for updating underlying libraries (such as `cert_by_host`) and deploying this service:
+
+### 1. Publish Underlying Library Locally
+In the project root directory:
+```bash
+./sh/init.sh
+./sh/dist.sh cert_by_host
+```
+This increments the version number and publishes the library to crates.io.
+
+### 2. Upgrade Dependencies and Publish Service Locally
+In the project root directory:
+```bash
+./sh/upgrade.sh
+./sh/dist.sh smtp_srv
+```
+This updates the service dependencies and publishes the new `smtp_srv` version to crates.io.
+
+### 3. Compile and Deploy on Server
+Log in to the target server `c1ip` (NixOS) and run:
+```bash
+/root/site/nix/soft/smtp_srv.sh
+```
+This pulls the latest source code from crates.io to compile the binary, distributes it across nodes, and reloads the service gracefully.
 
 ## History
 

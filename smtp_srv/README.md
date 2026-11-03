@@ -5,29 +5,32 @@
 <a id="en"></a>
 # smtp_srv : High-Performance SMTPS Server with Auto-Refreshing Certificates
 
-- [smtp_srv : High-Performance SMTPS Server with Auto-Refreshing Certificates](#smtp_srv-high-performance-smtps-server-with-auto-refreshing-certificates)
-  - [Table of Contents](#table-of-contents)
-  - [Introduction](#introduction)
-  - [Features](#features)
-  - [Architecture](#architecture)
-    - [Port 25 - Mail Reception & Forwarding](#port-25-mail-reception-forwarding)
-    - [Port 465 - User Authentication & Sending](#port-465-user-authentication-sending)
-    - [Forwarding Rule Lookup](#forwarding-rule-lookup)
-    - [Database Schema](#database-schema)
-  - [Usage](#usage)
-    - [Helper Management Scripts (examples)](#helper-management-scripts-examples)
-      - [1. DKIM Configuration Script (`examples/dkim.js`)](#1-dkim-configuration-script-examplesdkimjs)
-      - [2. Cloudflare DNS Automated DKIM Configuration Script (`examples/dkim.cf.js`)](#2-cloudflare-dns-automated-dkim-configuration-script-examplesdkimcfjs)
-      - [3. SMTP User Management Script (`examples/smtp_user.js`)](#3-smtp-user-management-script-examplessmtp_userjs)
-      - [4. Mail Sending Test Script (`examples/mailSend.js`)](#4-mail-sending-test-script-examplesmailsendjs)
-  - [Exported API](#exported-api)
-    - [Functions](#functions)
-    - [Structs](#structs)
-    - [Modules](#modules)
-  - [Tech Stack](#tech-stack)
-  - [Directory Structure](#directory-structure)
-  - [History](#history)
-  - [About](#about)
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Features](#features)
+- [Architecture](#architecture)
+  - [Port 25 - Mail Reception & Forwarding](#port-25-mail-reception-forwarding)
+  - [Port 465 - User Authentication & Sending](#port-465-user-authentication-sending)
+  - [Forwarding Rule Lookup](#forwarding-rule-lookup)
+  - [Database Schema](#database-schema)
+- [Usage](#usage)
+  - [Helper Management Scripts (examples)](#helper-management-scripts-examples)
+    - [1. DKIM Configuration Script (`examples/dkim.js`)](#1-dkim-configuration-script-examplesdkimjs)
+    - [2. Cloudflare DNS Automated DKIM Configuration Script (`examples/dkim.cf.js`)](#2-cloudflare-dns-automated-dkim-configuration-script-examplesdkimcfjs)
+    - [3. SMTP User Management Script (`examples/smtp_user.js`)](#3-smtp-user-management-script-examplessmtp_userjs)
+    - [4. Mail Sending Test Script (`examples/mailSend.js`)](#4-mail-sending-test-script-examplesmailsendjs)
+- [Exported API](#exported-api)
+  - [Functions](#functions)
+  - [Structs](#structs)
+  - [Modules](#modules)
+- [Tech Stack](#tech-stack)
+- [Directory Structure](#directory-structure)
+- [Dependency Update and Deployment](#dependency-update-and-deployment)
+  - [1. Publish Underlying Library Locally](#1-publish-underlying-library-locally)
+  - [2. Upgrade Dependencies and Publish Service Locally](#2-upgrade-dependencies-and-publish-service-locally)
+  - [3. Compile and Deploy on Server](#3-compile-and-deploy-on-server)
+- [History](#history)
+- [About](#about)
 
 ## Table of Contents
 
@@ -38,6 +41,7 @@
 - [Exported API](#exported-api)
 - [Tech Stack](#tech-stack)
 - [Directory Structure](#directory-structure)
+- [Dependency Update and Deployment](#dependency-update-and-deployment)
 - [History](#history)
 
 ## Introduction
@@ -305,6 +309,33 @@ smtp_srv/
     └── test_smtp.js     # SMTP client test
 ```
 
+## Dependency Update and Deployment
+
+Workflow for updating underlying libraries (such as `cert_by_host`) and deploying this service:
+
+### 1. Publish Underlying Library Locally
+In the project root directory:
+```bash
+./sh/init.sh
+./sh/dist.sh cert_by_host
+```
+This increments the version number and publishes the library to crates.io.
+
+### 2. Upgrade Dependencies and Publish Service Locally
+In the project root directory:
+```bash
+./sh/upgrade.sh
+./sh/dist.sh smtp_srv
+```
+This updates the service dependencies and publishes the new `smtp_srv` version to crates.io.
+
+### 3. Compile and Deploy on Server
+Log in to the target server `c1ip` (NixOS) and run:
+```bash
+/root/site/nix/soft/smtp_srv.sh
+```
+This pulls the latest source code from crates.io to compile the binary, distributes it across nodes, and reloads the service gracefully.
+
 ## History
 
 The `@` symbol in email addresses was chosen by Ray Tomlinson in 1971 when he sent the first network email on ARPANET. He needed a character to separate username from hostname that wouldn't appear in names. Looking at his Model 33 Teletype keyboard, he picked `@` — a symbol rarely used at the time. The content of that first email was likely just test characters like "QWERTYUIOP". This simple choice became the universal identifier for digital communication.
@@ -324,28 +355,32 @@ This library is developed by [WebC.site](https://webc.site).
 <a id="zh"></a>
 # smtp_srv : 高性能自动热更新证书的 SMTPS 服务器
 
-- [smtp_srv : 高性能自动热更新证书的 SMTPS 服务器](#smtp_srv-高性能自动热更新证书的-smtps-服务器)
-  - [目录](#目录)
-  - [简介](#简介)
-  - [功能特性](#功能特性)
-  - [架构设计](#架构设计)
-    - [25 端口 - 收信与转发](#25-端口-收信与转发)
-    - [465 端口 - 用户认证与发信](#465-端口-用户认证与发信)
-    - [转发规则查询](#转发规则查询)
-    - [数据库设计 (Schema)](#数据库设计-schema)
-  - [使用演示](#使用演示)
-    - [辅助管理脚本 (examples)](#辅助管理脚本-examples)
-      - [1. DKIM 密钥配置脚本 (`examples/dkim.js`)](#1-dkim-密钥配置脚本-examplesdkimjs)
-      - [2. Cloudflare DNS 自动配置 DKIM 脚本 (`examples/dkim.cf.js`)](#2-cloudflare-dns-自动配置-dkim-脚本-examplesdkimcfjs)
-      - [3. 用户邮箱账户配置脚本 (`examples/smtp_user.js`)](#3-用户邮箱账户配置脚本-examplessmtp_userjs)
-      - [4. 邮件发送测试脚本 (`examples/mailSend.js`)](#4-邮件发送测试脚本-examplesmailsendjs)
-  - [API 接口](#api-接口)
-    - [函数](#函数)
-    - [数据结构](#数据结构)
-    - [模块](#模块)
-  - [技术栈](#技术栈)
-  - [目录结构](#目录结构)
-  - [关于](#关于)
+- [目录](#目录)
+- [简介](#简介)
+- [功能特性](#功能特性)
+- [架构设计](#架构设计)
+  - [25 端口 - 收信与转发](#25-端口-收信与转发)
+  - [465 端口 - 用户认证与发信](#465-端口-用户认证与发信)
+  - [转发规则查询](#转发规则查询)
+  - [数据库设计 (Schema)](#数据库设计-schema)
+- [使用演示](#使用演示)
+  - [辅助管理脚本 (examples)](#辅助管理脚本-examples)
+    - [1. DKIM 密钥配置脚本 (`examples/dkim.js`)](#1-dkim-密钥配置脚本-examplesdkimjs)
+    - [2. Cloudflare DNS 自动配置 DKIM 脚本 (`examples/dkim.cf.js`)](#2-cloudflare-dns-自动配置-dkim-脚本-examplesdkimcfjs)
+    - [3. 用户邮箱账户配置脚本 (`examples/smtp_user.js`)](#3-用户邮箱账户配置脚本-examplessmtp_userjs)
+    - [4. 邮件发送测试脚本 (`examples/mailSend.js`)](#4-邮件发送测试脚本-examplesmailsendjs)
+- [API 接口](#api-接口)
+  - [函数](#函数)
+  - [数据结构](#数据结构)
+  - [模块](#模块)
+- [技术栈](#技术栈)
+- [目录结构](#目录结构)
+- [依赖更新与部署](#依赖更新与部署)
+  - [1. 本地发布基础库](#1-本地发布基础库)
+  - [2. 本地更新依赖并发布服务](#2-本地更新依赖并发布服务)
+  - [3. 服务器编译与部署](#3-服务器编译与部署)
+- [历史趣闻](#历史趣闻)
+- [关于](#关于)
 
 ## 目录
 
@@ -356,6 +391,7 @@ This library is developed by [WebC.site](https://webc.site).
 - [API 接口](#api-接口)
 - [技术栈](#技术栈)
 - [目录结构](#目录结构)
+- [依赖更新与部署](#依赖更新与部署)
 - [历史趣闻](#历史趣闻)
 
 ## 简介
@@ -622,6 +658,39 @@ smtp_srv/
 └── test/
     └── test_smtp.js     # SMTP 客户端测试
 ```
+
+## 依赖更新与部署
+
+基础库（如 `cert_by_host`）变更后，重新编译和部署本服务的完整流程：
+
+### 1. 本地发布基础库
+在开发机工程根目录执行：
+```bash
+./sh/init.sh
+./sh/dist.sh cert_by_host
+```
+该脚本将自增版本号，并将基础库发布至 crates.io。
+
+### 2. 本地更新依赖并发布服务
+在开发机工程根目录执行：
+```bash
+./sh/upgrade.sh
+./sh/dist.sh smtp_srv
+```
+该脚本将升级本服务对基础库的依赖版本，并将新版本发布至 crates.io。
+
+### 3. 服务器编译与部署
+登录目标服务器 `c1ip`（NixOS 操作系统），执行部署脚本：
+```bash
+/root/site/nix/soft/smtp_srv.sh
+```
+该脚本将从 crates.io 拉取最新源码编译二进制，分发至各节点并平滑重载服务。
+
+## 历史趣闻
+
+电子邮件地址中的 `@` 符号由 Ray Tomlinson 于 1971 年在 ARPANET 上发送第一封网络邮件时选定。他当时需要一个既能分隔用户名与主机名、又不会出现在普通名字里的字符。审视 Model 33 电传打字机键盘后，他选中了当时极少使用的 `@`。这一定格不仅成为人类数字通信的通用标识，也让邮件协议跨越半个世纪延续至今。
+
+
 
 ## 关于
 

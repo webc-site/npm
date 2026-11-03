@@ -1,6 +1,6 @@
 [package]
 name = "smtp_srv"
-version = "0.2.37"
+version = "0.2.39"
 edition = "2024"
 license = "MulanPSL-2.0"
 repository = "https://github.com/webc-site/npm.git"
@@ -14,6 +14,7 @@ categories = [
 "cryptography",
 "development-tools"
 ]
+exclude = ["examples/conf"]
 
 [package.metadata.docs.rs]
 all-features = true
@@ -112,7 +113,7 @@ version = "0.1.5"
 path = "../auth_env"
 
 [dependencies.cert_by_host]
-version = "0.1.9"
+version = "0.1.11"
 path = "../cert_by_host"
 
 [dependencies.smtp_recv]
