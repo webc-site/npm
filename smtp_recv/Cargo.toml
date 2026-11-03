@@ -1,6 +1,6 @@
 [package]
 name = "smtp_recv"
-version = "0.1.70"
+version = "0.1.71"
 edition = "2024"
 license = "MulanPSL-2.0"
 repository = "https://github.com/webc-site/npm.git"
@@ -75,7 +75,7 @@ version = "0.1.34"
 path = "../socket_port"
 
 [dependencies.mail_struct]
-version = "0.1.23"
+version = "0.1.24"
 path = "../mail_struct"
 
 [dependencies.ssl_trait]

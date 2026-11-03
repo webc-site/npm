@@ -1,6 +1,6 @@
 [package]
 name = "smtp_srv"
-version = "0.2.40"
+version = "0.2.41"
 edition = "2024"
 license = "MulanPSL-2.0"
 repository = "https://github.com/webc-site/npm.git"
@@ -97,14 +97,14 @@ version = "0.1.39"
 features = [ "systemd" ]
 
 [dependencies.smtp_send]
-version = "0.1.38"
+version = "0.1.39"
 path = "../smtp_send"
 
 [dependencies.mimalloc]
 version = "0.1.52"
 
 [dependencies.mail_struct]
-version = "0.1.23"
+version = "0.1.24"
 path = "../mail_struct"
 features = [ "encode" ]
 
@@ -117,7 +117,7 @@ version = "0.1.12"
 path = "../cert_by_host"
 
 [dependencies.smtp_recv]
-version = "0.1.70"
+version = "0.1.71"
 path = "../smtp_recv"
 
 [dependencies.ssl_trait]
@@ -134,4 +134,3 @@ hex = "0.4.3"
 [dev-dependencies.sk_dkim]
 path = "../sk_dkim"
 features = [ "pk" ]
-version = "0.1.9"

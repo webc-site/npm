@@ -1,6 +1,6 @@
 [package]
 name = "smtp_send"
-version = "0.1.38"
+version = "0.1.39"
 edition = "2024"
 license = "MulanPSL-2.0"
 repository = "https://github.com/webc-site/npm.git"
@@ -71,7 +71,7 @@ version = "0.1.9"
 path = "../sk_dkim"
 
 [dependencies.mail_struct]
-version = "0.1.23"
+version = "0.1.24"
 path = "../mail_struct"
 features = [ "encode", "send" ]
 
