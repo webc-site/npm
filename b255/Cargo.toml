@@ -27,11 +27,11 @@ name = "main"
 required-features = ["encode", "decode"]
 
 [dependencies]
-thiserror = "2.0.20"
+thiserror = "2.0.21"
 
 [dev-dependencies]
 aok = "0.1.18"
-log = "0.4.34"
+log = "0.4.35"
 static_init = "1.0.4"
 
 [dev-dependencies.log_init]

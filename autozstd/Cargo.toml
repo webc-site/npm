@@ -18,11 +18,11 @@ all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
 
 [dependencies]
-thiserror = "2.0.20"
-zstd = { version = "0.13.3", features = ["experimental"] }
+thiserror = "2.0.21"
+zstd = { version = "0.14.3", features = ["experimental"] }
 
 [dev-dependencies]
 aok = "0.1.18"
-log = "0.4.34"
+log = "0.4.35"
 log_init = "0.1.39"
 static_init = "1.0.4"

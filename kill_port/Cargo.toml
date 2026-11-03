@@ -24,13 +24,13 @@ default = []
 
 [dev-dependencies]
 aok = "0.1.18"
-log = "0.4.34"
+log = "0.4.35"
 log_init = "0.1.39"
 static_init = { version = "1.0.4", features = ["parking_lot"] }
 
 [dependencies]
 listeners = "0.6.1"
-log = "0.4.34"
+log = "0.4.35"
 
 [target.'cfg(unix)'.dependencies.nix]
 version = "0.31.3"

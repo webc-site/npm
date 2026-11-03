@@ -25,19 +25,19 @@ rustdoc-args = ["--cfg", "docsrs"]
 
 [dependencies]
 bytes = "1.12.1"
-thiserror = "2.0.20"
+thiserror = "2.0.21"
 
 [dev-dependencies]
 aok = "0.1.18"
-log = "0.4.34"
+log = "0.4.35"
 log_init = "0.1.39"
 static_init = "1.0.4"
-tokio = { version = "1.53.1", features = ["macros", "rt-multi-thread"] }
+tokio = { version = "1.54.1", features = ["macros", "rt-multi-thread"] }
 
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
-reqwest = { version = "0.13.4", default-features = false, features = ["rustls"] }
+reqwest = { version = "0.13.5", default-features = false, features = ["rustls"] }
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 getrandom = { version = "0.4", features = ["wasm_js"] }
 gloo-net = { version = "0.7.0", default-features = false, features = ["http"] }
-js-sys = "0.3.104"
+js-sys = "0.3.107"

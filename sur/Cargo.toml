@@ -24,13 +24,13 @@ rustdoc-args = [ "--cfg", "docsrs" ]
 default = [ ]
 
 [dependencies]
-arc-swap = "1.9.2"
+arc-swap = "1.9.3"
 base64 = "0.23.1"
 bytes = "1.12.1"
 ciborium = "0.2.2"
-log = "0.4.34"
-sonic-rs = "0.5.8"
-thiserror = "2.0.20"
+log = "0.4.35"
+sonic-rs = "0.5.10"
+thiserror = "2.0.21"
 
 [dependencies.reqer]
 version = "0.1.2"
@@ -47,17 +47,17 @@ features = [ "sec" ]
 
 [dev-dependencies]
 aok = "0.1.18"
-log = "0.4.34"
-sonic-rs = "0.5.8"
+log = "0.4.35"
+sonic-rs = "0.5.10"
 static_init = "1.0.4"
 
 [dev-dependencies.log_init]
 path = "../log_init"
 
 [dev-dependencies.tokio]
-version = "1.53.1"
+version = "1.54.1"
 features = [ "macros", "rt-multi-thread" ]
 
 [target."cfg(target_arch = \"wasm32\")".dependencies.getrandom]
-version = "0.3"
+version = "0.4"
 features = [ "wasm_js" ]

@@ -19,7 +19,7 @@ all-features = true
 
 [dev-dependencies]
 aok = "0.1.18"
-log = "0.4.34"
+log = "0.4.35"
 
 [dev-dependencies.static_init]
 version = "1.0.4"

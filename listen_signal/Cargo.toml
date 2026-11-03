@@ -17,16 +17,16 @@ rustdoc-args = ["--cfg", "docsrs"]
 default = []
 
 [dependencies]
-signal-hook = "0.4.4"
+signal-hook = "0.4.6"
 signal-hook-tokio = { version = "0.4.0", features = ["futures-v0_3"] }
 static_init = { version = "1.0.4", features = ["parking_lot"] }
 
 [dev-dependencies]
 aok = "0.1.18"
 futures = "0.3"
-log = "0.4.34"
+log = "0.4.35"
 log_init = "0.1.39"
 static_init = { version = "1.0.4", features = ["parking_lot"] }
-tokio = { version = "1.53.1", features = ["rt-multi-thread", "macros", "time"] }
+tokio = { version = "1.54.1", features = ["rt-multi-thread", "macros", "time"] }
 tokio-test = "0.4"
 libc = "0.2"

@@ -21,7 +21,7 @@ default = []
 
 [dev-dependencies]
 aok = "0.1.18"
-log = "0.4.34"
+log = "0.4.35"
 log_init = "0.1.39"
 
 [dev-dependencies.static_init]
@@ -29,15 +29,15 @@ version = "1.0.4"
 features = ["parking_lot"]
 
 [dev-dependencies.tokio]
-version = "1.53.1"
+version = "1.54.1"
 features = ["macros", "rt", "rt-multi-thread", "time", "sync"]
 
 [dependencies]
 futures = "0.3.34"
 linkme = "0.3.37"
-log = "0.4.34"
-thiserror = "2.0.20"
-tokio-util = "0.7.19"
+log = "0.4.35"
+thiserror = "2.0.21"
+tokio-util = "0.7.20"
 xboot = "0.1.39"
 
 [dependencies.listen_signal]
@@ -45,7 +45,7 @@ version = "0.1.16"
 path = "../listen_signal"
 
 [dependencies.tokio]
-version = "1.53.1"
+version = "1.54.1"
 features = ["macros", "process", "rt", "signal", "time"]
 
 [target."cfg(unix)".dependencies]

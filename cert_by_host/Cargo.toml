@@ -21,15 +21,15 @@ default = []
 
 [dependencies]
 anyhow = "1.0.104"
-coarsetime = "0.1.37"
+coarsetime = "0.1.38"
 fred = "10.1.0"
 genv = "0.1.18"
 linkme = "0.3.37"
 papaya = "0.2.5"
-parking_lot = "0.12.5"
+parking_lot = "0.13.0"
 rustls-pemfile = "2.2.0"
-sonic-rs = "0.5.8"
-thiserror = "2.0.20"
+sonic-rs = "0.5.10"
+thiserror = "2.0.21"
 x509-parser = "0.18.1"
 xboot = "0.1.39"
 
@@ -42,7 +42,7 @@ version = "0.1.4"
 path = "../ssl_trait"
 
 [dependencies.tokio]
-version = "1.53.1"
+version = "1.54.1"
 features = ["time"]
 
 [dependencies.expire_set]
@@ -55,7 +55,7 @@ features = ["r"]
 
 [dev-dependencies]
 aok = "0.1.18"
-log = "0.4.34"
+log = "0.4.35"
 log_init = "0.1.39"
 xboot = "0.1.39"
 
@@ -64,5 +64,5 @@ version = "1.0.4"
 features = ["parking_lot"]
 
 [dev-dependencies.tokio]
-version = "1.53.1"
+version = "1.54.1"
 features = ["macros", "rt", "rt-multi-thread", "time", "sync"]

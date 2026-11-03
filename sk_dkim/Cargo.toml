@@ -21,11 +21,11 @@ rustdoc-args = ["--cfg", "docsrs"]
 base64 = { version = "0.23.1", optional = true }
 blake3 = "1.8.7"
 rand_chacha = "0.10.0"
-rsa = "0.10.0-rc.18"
+rsa = "0.10.0-rc.20"
 
 [dev-dependencies]
 aok = "0.1.18"
 genv = "0.1.18"
-log = "0.4.34"
+log = "0.4.35"
 log_init = "0.1.39"
 static_init = { version = "1.0.4", features = ["parking_lot"] }

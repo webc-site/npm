@@ -35,7 +35,7 @@ optional = true
 aok = "0.1.18"
 charts = "0.3.0"
 futures = "0.3"
-hickory-resolver = { version = "0.26.1", features = ["tokio"] }
+hickory-resolver = { version = "0.26.3", features = ["tokio"] }
 log_init = "0.1.39"
 plotters = "0.3.7"
 plotters-svg = "0.3.7"
@@ -53,5 +53,5 @@ features = ["milli"]
 path = "../race"
 
 [dev-dependencies.tokio]
-version = "1.53.1"
+version = "1.54.1"
 features = ["macros", "rt", "rt-multi-thread", "time", "sync", "net"]

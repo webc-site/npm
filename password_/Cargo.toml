@@ -17,12 +17,12 @@ all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
 
 [dependencies]
-argon2 = "0.5.3"
-rand = "0.10.2"
+argon2 = "0.6.0"
+rand = "0.10.3"
 static_init = { version = "1.0.4", features = ["parking_lot"] }
 
 [dev-dependencies]
 aok = "0.1.18"
-log = "0.4.34"
+log = "0.4.35"
 log_init = "0.1.39"
 static_init = { version = "1.0.4", features = ["parking_lot"] }

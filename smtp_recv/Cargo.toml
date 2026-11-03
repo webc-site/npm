@@ -32,10 +32,10 @@ aok = "0.1.18"
 base64 = "0.23.1"
 drop = "0.1.4"
 email_address = "0.2.9"
-log = "0.4.34"
-thiserror = "2.0.20"
-tokio-rustls = "0.26.4"
-tokio-util = "0.7.19"
+log = "0.4.35"
+thiserror = "2.0.21"
+tokio-rustls = "0.26.6"
+tokio-util = "0.7.20"
 xboot = "0.1.39"
 
 [dependencies.xmail]
@@ -83,19 +83,19 @@ version = "0.1.4"
 path = "../ssl_trait"
 
 [dependencies.rustls]
-version = "0.23.43"
+version = "0.23.46"
 features = [ "ring" ]
 
 [dependencies.tokio]
-version = "1.53.1"
+version = "1.54.1"
 features = [ "macros", "rt", "rt-multi-thread", "time", "sync", "full" ]
 
 [dev-dependencies]
-mail-parser = "0.11.8"
+mail-parser = "1.0.1"
 aok = "0.1.18"
 log_init = "0.1.39"
-serde_yaml_bw = "2.5.7"
-webpki-roots = "1.0.9"
+serde_yaml_bw = "2.5.8"
+webpki-roots = "1.0.11"
 rustls-pemfile = "2.2.0"
 
 [dev-dependencies.static_init]

@@ -23,18 +23,18 @@ aok = "0.1.18"
 fred = "10.1.0"
 genv = "0.1.18"
 intbin = "0.2.4"
-log = "0.4.34"
-rustls = "0.23.43"
+log = "0.4.35"
+rustls = "0.23.46"
 xbin = "0.1.14"
 xboot = "0.1.39"
-mail-send = "0.6.2"
+mail-send = "0.7.0"
 rustls-pki-types = "1.15.1"
 axum = { version = "0.8.9", optional = true }
 base64 = "0.23.1"
 sk_dkim = { version = "0.1.8", path = "../sk_dkim", features = ["pk"], optional = true }
 getrandom = { version = "0.4.3", optional = true }
-thiserror = "2.0.20"
-sonic-rs = "0.5.8"
+thiserror = "2.0.21"
+sonic-rs = "0.5.10"
 serde = { version = "1.0.229", features = ["derive"] }
 ts_ = { version = "0.1.4", path = "../ts_", features = ["sec"] }
 
@@ -100,7 +100,7 @@ version = "0.1.4"
 path = "../ssl_trait"
 
 [dependencies.tokio]
-version = "1.53.1"
+version = "1.54.1"
 features = ["rt-multi-thread"]
 
 [dev-dependencies]

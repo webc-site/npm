@@ -25,12 +25,12 @@ path = "../expire_cache"
 features = ["hashset"]
 
 [dependencies.tokio]
-version = "1.53.1"
+version = "1.54.1"
 features = ["time", "rt"]
 
 [dev-dependencies]
 aok = "0.1.18"
-log = "0.4.34"
+log = "0.4.35"
 log_init = "0.1.39"
 
 [dev-dependencies.static_init]
@@ -38,5 +38,5 @@ version = "1.0.4"
 features = ["parking_lot"]
 
 [dev-dependencies.tokio]
-version = "1.53.1"
+version = "1.54.1"
 features = ["macros", "rt", "rt-multi-thread", "time", "sync"]
