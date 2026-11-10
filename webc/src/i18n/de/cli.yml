@@ -1,0 +1,15 @@
+add: Komponente hinzufügen
+dev: Starten Sie den Entwicklungs- und Debugging-Server
+new: Neue Komponente
+npm: Erstellen Sie das dist/npm-Paket
+npmPublish: Veröffentlichen Sie das NPM-Paket
+npmRelease: Schieben Sie den aktuellen Zweig in den Release-Zweig (lösen Sie den Release-Prozess der Github-Aktion aus).
+readme: Generieren Sie das Stammverzeichnis README.md und fügen Sie zu Beginn eine mehrsprachige Navigation hinzu
+redirect2html: Kopieren Sie Seiten basierend auf _redirects
+site: Erstellen Sie eine statische Site-Vorschau für dist/site
+dist: Erstellen Sie eine statische Site und veröffentlichen Sie sie unter dist/dist
+siteSrv: Erstellen Sie eine statische Site-Vorschau und starten Sie den Vorschauserver
+distSrv: Erstellen Sie eine statische Site zur Veröffentlichung und starten Sie den Vorschauserver
+jsDoc: Überprüfen Sie src/js-Dokumente und arbeiten Sie mit künstlicher Intelligenz zusammen, um eine automatische Dokumentvervollständigung zu realisieren
+tran: übersetzen
+init: Komponentenbibliothek initialisieren

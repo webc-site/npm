@@ -1,0 +1,15 @@
+add: Bæta við íhlut
+dev: Byrjaðu þróunar- og villuleitarþjóninn
+new: Nýr hluti
+npm: Búðu til dist/npm pakkann
+npmPublish: Birtu npm pakka
+npmRelease: Ýttu núverandi grein að útgáfugreininni (kveiktu á losunarferli github aðgerða)
+readme: Búðu til rótarskrá README.md og bættu við fjöltungumálaleiðsögn í upphafi
+redirect2html: Afritaðu síður byggðar á _tilvísunum
+site: Búðu til kyrrstæða forskoðun vefsvæðis til að dist/síðu
+dist: Búðu til kyrrstæða síðu og birtu hana í dist/dist
+siteSrv: Búðu til kyrrstæða forskoðun vefsvæðis og ræstu forskoðunarþjóninn
+distSrv: Búðu til kyrrstæða síðu til birtingar og ræstu forskoðunarþjóninn
+jsDoc: Staðfestu src/js skjöl og vinna með gervigreind til að gera sjálfvirka skjalaútfyllingu
+tran: þýða
+init: Frumstilla íhlutasafn

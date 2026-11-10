@@ -1,0 +1,15 @@
+add: Magdagdag ng sangkap
+dev: Simulan ang pag-develop at pag-debug ng server
+new: Bagong bahagi
+npm: Buuin ang dist/npm package
+npmPublish: I-publish ang npm package
+npmRelease: Itulak ang kasalukuyang branch sa release branch (trigger ang github action release process)
+readme: Bumuo ng root directory na README.md at magdagdag ng multi-language navigation sa simula
+redirect2html: Kopyahin ang mga pahina batay sa _redirects
+site: Bumuo ng static na preview ng site sa dist/site
+dist: Bumuo ng isang static na site at i-publish ito sa dist/dist
+siteSrv: Bumuo ng static na preview ng site at simulan ang preview server
+distSrv: Bumuo ng isang static na site para sa publikasyon at simulan ang preview server
+jsDoc: I-verify ang mga dokumento ng src/js at makipagtulungan sa artificial intelligence para ma-realize ang awtomatikong pagkumpleto ng dokumento
+tran: isalin
+init: Magsimula ng component library

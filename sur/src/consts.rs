@@ -1,0 +1,9 @@
+pub const APPLICATION_CBOR: &str = "application/cbor";
+pub(crate) const CONTENT_TYPE: &str = "Content-Type";
+pub(crate) const ACCEPT: &str = "Accept";
+pub(crate) const AUTHORIZATION: &str = "Authorization";
+pub(crate) const SURREAL_NS: &str = "surreal-ns";
+pub(crate) const SURREAL_DB: &str = "surreal-db";
+pub(crate) const QUERY: &str = "query";
+pub(crate) const SIGNIN: &str = "signin";
+pub(crate) const ERR: &str = "ERR";

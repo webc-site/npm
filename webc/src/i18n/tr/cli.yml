@@ -1,0 +1,15 @@
+add: Bileşen ekle
+dev: Geliştirme ve hata ayıklama sunucusunu başlatın
+new: Yeni bileşen
+npm: dist/npm paketini oluşturun
+npmPublish: Npm paketini yayınla
+npmRelease: Geçerli dalı serbest bırakma dalına itin (github eylemi serbest bırakma sürecini tetikleyin)
+readme: README.md kök dizinini oluşturun ve başlangıca çok dilli gezinme ekleyin
+redirect2html: Sayfaları _yönlendirmelere göre kopyala
+site: Dağıtım/siteye statik site önizlemesi oluşturun
+dist: Statik bir site oluşturun ve bunu dist/dist'te yayınlayın
+siteSrv: Statik bir site önizlemesi oluşturun ve önizleme sunucusunu başlatın
+distSrv: Yayınlanmak üzere statik bir site oluşturun ve önizleme sunucusunu başlatın
+jsDoc: Otomatik belge tamamlamayı gerçekleştirmek için src/js belgelerini doğrulayın ve yapay zeka ile işbirliği yapın
+tran: tercüme etmek
+init: Bileşen kitaplığını başlat

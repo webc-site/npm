@@ -1,0 +1,15 @@
+add: Komponent əlavə edin
+dev: İnkişaf və sazlama serverinə başlayın
+new: Yeni komponent
+npm: dist/npm paketini yaradın
+npmPublish: npm paketini dərc edin
+npmRelease: Cari filialı buraxılış filialına itələyin (github əməliyyatının buraxılması prosesini işə salın)
+readme: README.md kök kataloqunu yaradın və başlanğıcda çoxdilli naviqasiya əlavə edin
+redirect2html: _redirects əsasında səhifələri kopyalayın
+site: Dist/sayt üçün statik sayt önizləməsini yaradın
+dist: Statik sayt yaradın və onu dist/dist üçün dərc edin
+siteSrv: Statik sayt önizləməsini yaradın və ilkin baxış serverini işə salın
+distSrv: Nəşr üçün statik sayt yaradın və ilkin baxış serverini işə salın
+jsDoc: src/js sənədlərini yoxlayın və sənədin avtomatik tamamlanmasını həyata keçirmək üçün süni intellektlə əməkdaşlıq edin
+tran: tərcümə et
+init: Komponent kitabxanasını işə salın

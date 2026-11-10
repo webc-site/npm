@@ -1,0 +1,15 @@
+add: Gehitu osagaia
+dev: Hasi garapen eta arazketa zerbitzaria
+new: Osagai berria
+npm: Eraiki dist/npm paketea
+npmPublish: Argitaratu npm paketea
+npmRelease: Bultza uneko adarra askapen-adarrera (abiarazi github ekintza askatzeko prozesua)
+readme: Sortu root direktorioa README.md eta gehitu hizkuntza anitzeko nabigazioa hasieran
+redirect2html: Kopiatu orriak _birbideratzeetan oinarrituta
+site: Eraiki gunearen aurrebista estatikoa dist/gunera
+dist: Eraiki gune estatiko bat eta argitaratu dist/dist-en
+siteSrv: Eraiki gunearen aurrebista estatiko bat eta hasi aurrebista zerbitzaria
+distSrv: Eraiki gune estatiko bat argitaratzeko eta hasi aurrebista zerbitzaria
+jsDoc: Egiaztatu src/js dokumentuak eta kooperatu adimen artifizialarekin dokumentuak automatikoki osatzeko
+tran: itzuli
+init: Hasieratu osagaien liburutegia

@@ -1,0 +1,15 @@
+add: Add component
+dev: Start the development and debugging server
+new: New component
+npm: Build the dist/npm package
+npmPublish: Publish npm package
+npmRelease: Push the current branch to the release branch (trigger the github action release process)
+readme: Generate root directory README.md and add multi-language navigation at the beginning
+redirect2html: Copy pages based on _redirects
+site: Build static site preview to dist/site
+dist: Build a static site and publish it to dist/dist
+siteSrv: Build a static site preview and start the preview server
+distSrv: Build a static site for publication and start the preview server
+jsDoc: Verify src/js documents and cooperate with artificial intelligence to realize automatic document completion
+tran: Translate
+init: Initialize component library

@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message Call {
+  uint64 id = 1;
+  string url = 2;
+  bytes args = 3;
+}
+
+message CallLi {
+  repeated Call li = 1;
+}

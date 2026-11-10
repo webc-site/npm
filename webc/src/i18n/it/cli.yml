@@ -1,0 +1,15 @@
+add: Aggiungi componente
+dev: Avviare il server di sviluppo e debug
+new: Nuovo componente
+npm: Costruisci il pacchetto dist/npm
+npmPublish: Pubblica il pacchetto npm
+npmRelease: Spingi il ramo corrente sul ramo di rilascio (attiva il processo di rilascio dell'azione github)
+readme: Genera la directory root README.md e aggiungi la navigazione multilingue all'inizio
+redirect2html: Copia le pagine in base a _reindirizzamenti
+site: Crea un'anteprima del sito statico su dist/site
+dist: Costruisci un sito statico e pubblicalo su dist/dist
+siteSrv: Crea un'anteprima del sito statico e avvia il server di anteprima
+distSrv: Costruisci un sito statico per la pubblicazione e avvia il server di anteprima
+jsDoc: Verifica i documenti src/js e collabora con l'intelligenza artificiale per realizzare il completamento automatico dei documenti
+tran: tradurre
+init: Inizializza la libreria dei componenti
