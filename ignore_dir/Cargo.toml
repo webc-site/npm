@@ -1,0 +1,23 @@
+[package]
+name = "ignore_dir"
+version = "0.1.0"
+edition = "2024"
+license = "MulanPSL-2.0"
+repository = "https://github.com/webc-site/npm.git"
+homepage = "https://github.com/webc-site/npm/tree/main/ignore_dir"
+description = "Directory ignore policy for directory walkers: hidden directories plus common dependency and build output directories / 目录遍历忽略策略：隐藏目录与常见依赖、构建产物目录"
+keywords = ["ignore", "directory", "walk", "hidden", "filter"]
+categories = ["filesystem", "development-tools"]
+readme = "README.md"
+
+[features]
+default = []
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
+
+[dependencies]
+
+[dev-dependencies]
+aok = "0.1.18"

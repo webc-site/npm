@@ -1,6 +1,6 @@
 [package]
 name = "find_ext"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 license = "MulanPSL-2.0"
 repository = "https://github.com/webc-site/npm.git"
@@ -19,6 +19,7 @@ rustdoc-args = ["--cfg", "docsrs"]
 
 [dependencies]
 crossfire = "3.1.22"
+ignore_dir = { version = "0.1.0", path = "../ignore_dir" }
 log = "0.4.34"
 thiserror = "2.0.20"
 walkdir = "2.5.0"

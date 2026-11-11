@@ -8,12 +8,10 @@ use crossfire::{
   Rx,
   mpsc::{self, Array},
 };
+use ignore_dir::{DefaultIgnore, Ignore};
 use walkdir::WalkDir;
 
-use crate::{
-  Error, Result,
-  ignore::{DefaultIgnore, Ignore},
-};
+use crate::{Error, Result};
 
 /// 有界队列容量，遍历线程最多领先接收方 64 条路径。
 pub const CHANNEL_SIZE: usize = 64;

@@ -28,6 +28,7 @@ queue is an MPSC bounded channel from `crossfire`.
 - **Streaming**: emit paths while walking, with stable memory use
 - **Bounded queue**: fixed capacity of 64; a fast producer blocks instead of piling up
 - **Sensible defaults**: skips dot-directories plus `node_modules`, `target`, and other common directories
+- **Shared policy**: rules come from [`ignore_dir`](https://crates.io/crates/ignore_dir) and are reusable on their own
 - **Pluggable policy**: implement `Ignore` or pass a closure
 - **Exact extension match**: the part after the last `.`; `a.b.rs` has extension `rs`
 - **No symlink following**: avoids loops and escaping the tree
@@ -91,6 +92,9 @@ supported.
 Creates a finder with a custom ignore policy. The custom policy **replaces** the
 default one; compose with [`DefaultIgnore`](#defaultignore) to keep it.
 
+`Ignore`, `DefaultIgnore`, and `IGNORE_DIR` come from the `ignore_dir` crate and
+are re-exported by `find_ext`, so no extra dependency is needed.
+
 ### `FindExt::find(&self, dir: impl AsRef<Path>) -> Result<Receiver>`
 
 Starts the walk thread and returns the receiver.
@@ -116,18 +120,18 @@ A blocking receiver. Main methods:
 
 Two kinds of directories are skipped by default:
 
-1. Any directory whose name starts with `.`, such as `.git`, `.cache`, `.venv`
+1. Any directory whose name starts with `.`, decided by `ignore_dir::is_hidden`
 2. Common directories listed in [`IGNORE_DIR`]:
 
 ```text
 node_modules  target  dist  build  out  vendor  bower_components
-coverage  Pods  __pycache__  venv  .venv  .git  .hg  .svn  .idea
-.vscode  .next  .nuxt  .output  .cache  .turbo  .parcel-cache
-.svelte-kit  .docusaurus  .gradle  .terraform
+coverage  Pods  __pycache__  venv
 ```
 
-Rules apply to directories only, not file names. **The root directory is never
-ignored**, so you can start a walk directly at `node_modules`.
+Directories starting with `.` are no longer listed one by one; `.git`, `.cache`,
+`.venv`, and the rest match automatically. Rules apply to directories only, not
+file names. **The root directory is never ignored**, so you can start a walk
+directly at `node_modules`.
 
 Custom `Ignore`:
 

@@ -47,6 +47,7 @@ queue is an MPSC bounded channel from `crossfire`.
 - **Streaming**: emit paths while walking, with stable memory use
 - **Bounded queue**: fixed capacity of 64; a fast producer blocks instead of piling up
 - **Sensible defaults**: skips dot-directories plus `node_modules`, `target`, and other common directories
+- **Shared policy**: rules come from [`ignore_dir`](https://crates.io/crates/ignore_dir) and are reusable on their own
 - **Pluggable policy**: implement `Ignore` or pass a closure
 - **Exact extension match**: the part after the last `.`; `a.b.rs` has extension `rs`
 - **No symlink following**: avoids loops and escaping the tree
@@ -110,6 +111,9 @@ supported.
 Creates a finder with a custom ignore policy. The custom policy **replaces** the
 default one; compose with [`DefaultIgnore`](#defaultignore) to keep it.
 
+`Ignore`, `DefaultIgnore`, and `IGNORE_DIR` come from the `ignore_dir` crate and
+are re-exported by `find_ext`, so no extra dependency is needed.
+
 ### `FindExt::find(&self, dir: impl AsRef<Path>) -> Result<Receiver>`
 
 Starts the walk thread and returns the receiver.
@@ -135,18 +139,18 @@ A blocking receiver. Main methods:
 
 Two kinds of directories are skipped by default:
 
-1. Any directory whose name starts with `.`, such as `.git`, `.cache`, `.venv`
+1. Any directory whose name starts with `.`, decided by `ignore_dir::is_hidden`
 2. Common directories listed in [`IGNORE_DIR`]:
 
 ```text
 node_modules  target  dist  build  out  vendor  bower_components
-coverage  Pods  __pycache__  venv  .venv  .git  .hg  .svn  .idea
-.vscode  .next  .nuxt  .output  .cache  .turbo  .parcel-cache
-.svelte-kit  .docusaurus  .gradle  .terraform
+coverage  Pods  __pycache__  venv
 ```
 
-Rules apply to directories only, not file names. **The root directory is never
-ignored**, so you can start a walk directly at `node_modules`.
+Directories starting with `.` are no longer listed one by one; `.git`, `.cache`,
+`.venv`, and the rest match automatically. Rules apply to directories only, not
+file names. **The root directory is never ignored**, so you can start a walk
+directly at `node_modules`.
 
 Custom `Ignore`:
 
@@ -261,6 +265,7 @@ This library is developed by [WebC.site](https://webc.site).
 - **流式返回**：边遍历边发送，内存占用稳定
 - **有界队列**：固定 64 条容量，生产过快时自动阻塞，不无限堆积
 - **默认忽略**：跳过 `.` 开头的目录与 `node_modules`、`target` 等常见目录
+- **忽略策略独立**：规则来自 [`ignore_dir`](https://crates.io/crates/ignore_dir)，可单独复用
 - **可替换策略**：实现 `Ignore` 或直接传闭包，自定义忽略规则
 - **扩展名精确匹配**：取文件名最后一个 `.` 之后的部分，`a.b.rs` 的扩展名是 `rs`
 - **不跟随符号链接**：避免循环与越界遍历
@@ -323,6 +328,9 @@ let finder = FindExt::new_with_ignore(
 创建查找器，使用自定义忽略策略。自定义策略会**完全替换**默认策略，
 需要保留默认行为时可组合 [`DefaultIgnore`](#defaultignore)。
 
+`Ignore`、`DefaultIgnore`、`IGNORE_DIR` 由 `ignore_dir` crate 提供，
+`find_ext` 重新导出，无需额外依赖。
+
 ### `FindExt::find(&self, dir: impl AsRef<Path>) -> Result<Receiver>`
 
 启动遍历线程并返回接收器。
@@ -348,16 +356,15 @@ pub type Receiver = crossfire::mpsc::Rx<crossfire::mpsc::Array<PathBuf>>;
 
 默认跳过两类目录：
 
-1. 以 `.` 开头的目录，例如 `.git`、`.cache`、`.venv`
+1. 以 `.` 开头的目录，由 `ignore_dir::is_hidden` 统一判断
 2. [`IGNORE_DIR`] 中的常见目录：
 
 ```text
 node_modules  target  dist  build  out  vendor  bower_components
-coverage  Pods  __pycache__  venv  .venv  .git  .hg  .svn  .idea
-.vscode  .next  .nuxt  .output  .cache  .turbo  .parcel-cache
-.svelte-kit  .docusaurus  .gradle  .terraform
+coverage  Pods  __pycache__  venv
 ```
 
+以 `.` 开头的目录不再逐个配置，`.git`、`.cache`、`.venv` 等自动命中。
 规则只作用于目录，不作用于文件名。**根目录永远不忽略**，
 因此可以直接把 `node_modules` 作为起点。
 

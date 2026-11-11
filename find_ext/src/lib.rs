@@ -13,8 +13,7 @@
 
 mod error;
 mod find_ext;
-mod ignore;
 
 pub use error::{Error, Result};
 pub use find_ext::{CHANNEL_SIZE, FindExt, Receiver};
-pub use ignore::{DefaultIgnore, IGNORE_DIR, Ignore};
+pub use ignore_dir::{DefaultIgnore, IGNORE_DIR, Ignore, is_hidden};
