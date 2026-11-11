@@ -29,8 +29,11 @@ fn common_dir() -> Void {
     assert!(ignored(name), "{name}");
   }
   assert!(ignored("NODE_MODULES"));
+  assert!(ignored("TARGET"));
   assert!(!ignored("src"));
   assert!(!ignored("targets"));
+  assert!(!ignored("1234"));
+  assert!(!ignored(""));
   OK
 }
 

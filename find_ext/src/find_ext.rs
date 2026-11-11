@@ -19,11 +19,50 @@ pub const CHANNEL_SIZE: usize = 64;
 /// 文件路径接收器。
 pub type Receiver = Rx<Array<PathBuf>>;
 
+/// 扩展名集合，含编译期不可知但构建期一次算好的长度掩码。
+struct ExtSet {
+  li: Box<[Box<str>]>,
+  len: u64,
+}
+
+impl ExtSet {
+  fn new(ext_li: impl IntoIterator<Item = impl AsRef<str>>) -> Self {
+    let mut li: Vec<Box<str>> = ext_li.into_iter().map(|ext| ext.as_ref().into()).collect();
+    li.sort_unstable();
+    li.dedup();
+
+    let mut len = 0_u64;
+    for ext in &li {
+      let size = ext.len();
+      if size < u64::BITS as usize {
+        len |= 1 << size;
+      }
+    }
+
+    Self { li: li.into(), len }
+  }
+
+  #[inline]
+  fn is_empty(&self) -> bool {
+    self.li.is_empty()
+  }
+
+  #[inline]
+  fn has(&self, suffix: &[u8]) -> bool {
+    // 扩展名远短于 u32 上限，截断不会发生
+    self
+      .len
+      .checked_shr(suffix.len() as u32)
+      .is_some_and(|bits| bits & 1 == 1)
+      && self.li.iter().any(|ext| ext.as_bytes() == suffix)
+  }
+}
+
 /// 按扩展名查找文件，遍历在独立线程中进行，结果通过有界队列流式返回。
 ///
 /// `I` 为编译期确定的忽略策略，避免目录判断的虚调用开销。
 pub struct FindExt<I: Ignore = DefaultIgnore> {
-  ext: Arc<[Box<str>]>,
+  ext: Arc<ExtSet>,
   ignore: Arc<I>,
 }
 
@@ -50,11 +89,8 @@ impl<I: Ignore + 'static> FindExt<I> {
   ///
   /// 重复扩展名会自动去重。
   pub fn new_with_ignore(ext_li: impl IntoIterator<Item = impl AsRef<str>>, ignore: I) -> Self {
-    let mut ext: Vec<Box<str>> = ext_li.into_iter().map(|ext| ext.as_ref().into()).collect();
-    ext.sort_unstable();
-    ext.dedup();
     Self {
-      ext: ext.into(),
+      ext: Arc::new(ExtSet::new(ext_li)),
       ignore: Arc::new(ignore),
     }
   }
@@ -102,7 +138,7 @@ impl<I: Ignore + 'static> FindExt<I> {
           };
           let suffix = &name[dot + 1..];
 
-          if ext.iter().any(|ext| ext.as_bytes() == suffix) && tx.send(entry.into_path()).is_err() {
+          if ext.has(suffix) && tx.send(entry.into_path()).is_err() {
             // 接收器已丢弃
             break;
           }

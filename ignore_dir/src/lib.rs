@@ -37,6 +37,8 @@ pub const IGNORE_DIR: &[&str] = &[
 
 /// `IGNORE_DIR` 中出现过的名字长度，编译期生成。
 const IGNORE_LEN: u64 = len_mask(IGNORE_DIR);
+/// `IGNORE_DIR` 中出现过的首字节，编译期生成。
+const IGNORE_HEAD: u64 = head_mask(IGNORE_DIR);
 
 const fn len_mask(list: &[&str]) -> u64 {
   let mut mask = 0_u64;
@@ -48,12 +50,46 @@ const fn len_mask(list: &[&str]) -> u64 {
   mask
 }
 
+const fn lower(byte: u8) -> u8 {
+  if byte >= b'A' && byte <= b'Z' {
+    byte + 32
+  } else {
+    byte
+  }
+}
+
+/// 首字节映射到 0..=36，非字母数字统一到 36。
+const fn head_bit(byte: u8) -> u32 {
+  let byte = lower(byte);
+  if byte >= b'a' && byte <= b'z' {
+    (byte - b'a') as u32
+  } else if byte >= b'0' && byte <= b'9' {
+    26 + (byte - b'0') as u32
+  } else {
+    36
+  }
+}
+
+const fn head_mask(list: &[&str]) -> u64 {
+  let mut mask = 0_u64;
+  let mut i = 0;
+  while i < list.len() {
+    mask |= 1 << head_bit(list[i].as_bytes()[0]);
+    i += 1;
+  }
+  mask
+}
+
 #[inline]
-fn maybe_common(len: usize) -> bool {
+fn maybe_common(bytes: &[u8]) -> bool {
+  let Some(&head) = bytes.first() else {
+    return false;
+  };
   // 目录名远小于 u32 上限，截断不会发生
   IGNORE_LEN
-    .checked_shr(len as u32)
+    .checked_shr(bytes.len() as u32)
     .is_some_and(|bits| bits & 1 == 1)
+    && (IGNORE_HEAD >> head_bit(head)) & 1 == 1
 }
 
 /// 目录名是否以 `.` 开头。
@@ -83,7 +119,7 @@ impl Ignore for DefaultIgnore {
   fn ignore(&self, name: &OsStr) -> bool {
     let bytes = name.as_encoded_bytes();
     hidden(bytes)
-      || (maybe_common(bytes.len())
+      || (maybe_common(bytes)
         && IGNORE_DIR
           .iter()
           .any(|dir| dir.as_bytes().eq_ignore_ascii_case(bytes)))

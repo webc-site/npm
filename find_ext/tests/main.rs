@@ -103,6 +103,19 @@ fn custom_ignore() -> Void {
 }
 
 #[test]
+fn ext_length_filter() -> Void {
+  let tmp = TempDir::new()?;
+  let root = tmp.path();
+
+  touch(root, "a.r");
+  touch(root, "b.rss");
+  touch(root, "c.rs");
+  touch(root, "d.");
+
+  expect(root, &["rs"], &["c.rs"])
+}
+
+#[test]
 fn missing_dir_yields_nothing() -> Void {
   let tmp = TempDir::new()?;
   let rx = FindExt::new(["rs"]).find(tmp.path().join("not_exist"))?;
