@@ -26,6 +26,7 @@ queue is an MPSC bounded channel from `crossfire`.
 ## Features
 
 - **Streaming**: emit paths while walking, with stable memory use
+- **Iterator friendly**: `Receiver` implements `Iterator`, and `&Receiver` works in `for` loops
 - **Bounded queue**: fixed capacity of 64; a fast producer blocks instead of piling up
 - **Sensible defaults**: skips dot-directories plus `node_modules`, `target`, and other common directories
 - **Shared policy**: rules come from [`ignore_dir`](https://crates.io/crates/ignore_dir) and are reusable on their own
@@ -57,11 +58,11 @@ fn main() -> find_ext::Result<()> {
 }
 ```
 
-`Receiver` is a blocking `crossfire` receiver, so you can also loop manually:
+`Receiver` is a blocking receiver, so you can also loop manually:
 
 ```rust
 let rx = finder.find("/srv/app")?;
-while let Ok(path) = rx.recv() {
+while let Some(path) = rx.recv() {
   process(&path);
 }
 ```
@@ -116,14 +117,15 @@ Starts the walk thread and returns the receiver.
 ### `Receiver`
 
 ```rust
-pub type Receiver = crossfire::mpsc::Rx<crossfire::mpsc::Array<PathBuf>>;
+pub struct Receiver { /* ... */ }
 ```
 
-A blocking receiver. Main methods:
+A blocking receiver that yields `None` after the channel closes. Main methods:
 
-- `recv() -> Result<PathBuf, RecvError>`: block until a path arrives or the channel closes
-- `recv_timeout(Duration)`: same, with a timeout
-- `iter()`: iterator adapter
+- `recv() -> Option<PathBuf>`: block until a path arrives or the channel closes
+- `try_recv() -> Option<PathBuf>`: non-blocking attempt
+- `iter() -> Iter<'_>`: borrowed iteration
+- `IntoIterator`: both `Receiver` and `&Receiver` work in `for` loops
 
 ## Ignore Rules
 
@@ -195,7 +197,7 @@ they are logged with `log::debug!` and skipped.
 ```rust
 match FindExt::new(["rs"]).find(".") {
   Ok(rx) => {
-    while let Ok(path) = rx.recv() {
+    while let Some(path) = rx.recv() {
       println!("{}", path.display());
     }
   }

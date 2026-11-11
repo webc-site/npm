@@ -4,20 +4,14 @@ use std::{
   thread,
 };
 
-use crossfire::{
-  Rx,
-  mpsc::{self, Array},
-};
+use crossfire::mpsc;
 use ignore_dir::{DefaultIgnore, Ignore};
 use walkdir::WalkDir;
 
-use crate::{Error, Result};
+use crate::{Error, Result, receiver::Receiver};
 
 /// 有界队列容量，遍历线程最多领先接收方 64 条路径。
 pub const CHANNEL_SIZE: usize = 64;
-
-/// 文件路径接收器。
-pub type Receiver = Rx<Array<PathBuf>>;
 
 /// 扩展名集合，含编译期不可知但构建期一次算好的长度掩码。
 struct ExtSet {
@@ -101,7 +95,7 @@ impl<I: Ignore + 'static> FindExt<I> {
   pub fn find(&self, dir: impl AsRef<Path>) -> Result<Receiver> {
     let (tx, rx) = mpsc::bounded_blocking::<PathBuf>(CHANNEL_SIZE);
     if self.ext.is_empty() {
-      return Ok(rx);
+      return Ok(Receiver::new(rx));
     }
 
     let dir = dir.as_ref().to_path_buf();
@@ -146,6 +140,6 @@ impl<I: Ignore + 'static> FindExt<I> {
       })
       .map_err(Error::Spawn)?;
 
-    Ok(rx)
+    Ok(Receiver::new(rx))
   }
 }

@@ -4,8 +4,7 @@
 //!
 //! ```
 //! let finder = find_ext::FindExt::new(["rs", "toml"]);
-//! let rx = finder.find(".")?;
-//! while let Ok(path) = rx.recv() {
+//! for path in finder.find(".")? {
 //!   println!("{}", path.display());
 //! }
 //! # Ok::<(), find_ext::Error>(())
@@ -13,7 +12,9 @@
 
 mod error;
 mod find_ext;
+mod receiver;
 
 pub use error::{Error, Result};
-pub use find_ext::{CHANNEL_SIZE, FindExt, Receiver};
+pub use find_ext::{CHANNEL_SIZE, FindExt};
 pub use ignore_dir::{DefaultIgnore, IGNORE_DIR, Ignore, is_hidden};
+pub use receiver::{Iter, Receiver};

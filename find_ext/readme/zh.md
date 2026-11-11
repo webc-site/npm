@@ -23,6 +23,7 @@
 ## 功能特性
 
 - **流式返回**：边遍历边发送，内存占用稳定
+- **迭代友好**：`Receiver` 实现 `Iterator`，`&Receiver` 也可直接 `for`
 - **有界队列**：固定 64 条容量，生产过快时自动阻塞，不无限堆积
 - **默认忽略**：跳过 `.` 开头的目录与 `node_modules`、`target` 等常见目录
 - **忽略策略独立**：规则来自 [`ignore_dir`](https://crates.io/crates/ignore_dir)，可单独复用
@@ -54,11 +55,11 @@ fn main() -> find_ext::Result<()> {
 }
 ```
 
-`Receiver` 是 `crossfire` 的阻塞接收器，也可以手动循环：
+`Receiver` 是阻塞接收器，也可以手动循环：
 
 ```rust
 let rx = finder.find("/srv/app")?;
-while let Ok(path) = rx.recv() {
+while let Some(path) = rx.recv() {
   process(&path);
 }
 ```
@@ -111,14 +112,15 @@ pub struct FindExt<I: Ignore = DefaultIgnore> { /* ... */ }
 ### `Receiver`
 
 ```rust
-pub type Receiver = crossfire::mpsc::Rx<crossfire::mpsc::Array<PathBuf>>;
+pub struct Receiver { /* ... */ }
 ```
 
-阻塞式接收器，主要方法：
+阻塞式接收器，通道关闭后返回 `None`。主要方法：
 
-- `recv() -> Result<PathBuf, RecvError>`：阻塞直到有路径或通道关闭
-- `recv_timeout(Duration)`：带超时
-- `iter()`：迭代适配器
+- `recv() -> Option<PathBuf>`：阻塞直到有路径或通道关闭
+- `try_recv() -> Option<PathBuf>`：非阻塞尝试
+- `iter() -> Iter<'_>`：借用式迭代
+- `IntoIterator`：`Receiver` 与 `&Receiver` 均可直接用于 `for`
 
 ## 忽略规则
 
@@ -187,7 +189,7 @@ pub enum Error {
 ```rust
 match FindExt::new(["rs"]).find(".") {
   Ok(rx) => {
-    while let Ok(path) = rx.recv() {
+    while let Some(path) = rx.recv() {
       println!("{}", path.display());
     }
   }

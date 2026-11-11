@@ -23,11 +23,7 @@ fn touch(root: &Path, rel: &str) {
 }
 
 fn collect(rx: Receiver) -> BTreeSet<PathBuf> {
-  let mut set = BTreeSet::new();
-  while let Ok(path) = rx.recv() {
-    set.insert(path);
-  }
-  set
+  rx.into_iter().collect()
 }
 
 fn rel_set(root: &Path, set: BTreeSet<PathBuf>) -> BTreeSet<String> {
@@ -113,6 +109,19 @@ fn ext_length_filter() -> Void {
   touch(root, "d.");
 
   expect(root, &["rs"], &["c.rs"])
+}
+
+#[test]
+fn receiver_by_ref() -> Void {
+  let tmp = TempDir::new()?;
+  let root = tmp.path();
+  touch(root, "a.rs");
+
+  let rx = FindExt::new(["rs"]).find(root)?;
+  let got: BTreeSet<PathBuf> = rx.iter().collect();
+  assert_eq!(got.len(), 1);
+  assert!(rx.try_recv().is_none());
+  OK
 }
 
 #[test]
