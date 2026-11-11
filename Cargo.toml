@@ -52,7 +52,7 @@ members = [
   "axum_graceful_restart/tests",
   "hash_tag_id",
   "captcha_srv"
-, "sur", "reqer", "find_conf"]
+, "sur", "reqer", "find_conf", "find_ext"]
 
 [profile.release]
 lto = true
