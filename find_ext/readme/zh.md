@@ -27,6 +27,7 @@
 - **默认忽略**：跳过 `.` 开头的目录与 `node_modules`、`target` 等常见目录
 - **忽略策略独立**：规则来自 [`ignore_dir`](https://crates.io/crates/ignore_dir)，可单独复用
 - **可替换策略**：实现 `Ignore` 或直接传闭包，自定义忽略规则
+- **静态分发**：忽略策略类型由泛型确定，目录判断无虚调用开销
 - **扩展名精确匹配**：取文件名最后一个 `.` 之后的部分，`a.b.rs` 的扩展名是 `rs`
 - **不跟随符号链接**：避免循环与越界遍历
 - **不 panic**：线程启动失败通过 `Result` 返回，遍历中的单条错误只记录日志
@@ -76,6 +77,10 @@ let finder = FindExt::new_with_ignore(
 
 ## API 参考
 
+```rust
+pub struct FindExt<I: Ignore = DefaultIgnore> { /* ... */ }
+```
+
 ### `FindExt::new(ext_li: impl IntoIterator<Item = impl AsRef<str>>) -> FindExt`
 
 创建查找器，使用默认忽略策略。
@@ -83,10 +88,12 @@ let finder = FindExt::new_with_ignore(
 `ext_li` 中每项是**不含 `.`** 的扩展名，例如 `["toml", "yml", "yaml"]`。
 不支持 `["*.toml"]` 或 `[".toml"]` 这类写法。
 
-### `FindExt::new_with_ignore(ext_li, ignore: impl Ignore + 'static) -> FindExt`
+### `FindExt::new_with_ignore(ext_li, ignore: I) -> FindExt<I>`
 
 创建查找器，使用自定义忽略策略。自定义策略会**完全替换**默认策略，
 需要保留默认行为时可组合 [`DefaultIgnore`](#defaultignore)。
+
+重复扩展名会自动去重。`I` 为编译期确定的忽略策略类型。
 
 `Ignore`、`DefaultIgnore`、`IGNORE_DIR` 由 `ignore_dir` crate 提供，
 `find_ext` 重新导出，无需额外依赖。
@@ -96,6 +103,7 @@ let finder = FindExt::new_with_ignore(
 启动遍历线程并返回接收器。
 
 - `dir` 可以是文件或目录；是文件时只检查该文件本身
+- 扩展名集合为空时直接返回已关闭接收器，不启动线程
 - 返回时线程已开始运行，接收器关闭表示遍历结束
 - 丢弃接收器会终止队列，遍历线程在下一次发送失败时退出
 - 线程名固定为 `find_ext`

@@ -1,7 +1,7 @@
 use std::{
   collections::BTreeSet,
   ffi::OsStr,
-  fs,
+  fs, iter,
   path::{Path, PathBuf},
 };
 
@@ -106,6 +106,15 @@ fn custom_ignore() -> Void {
 fn missing_dir_yields_nothing() -> Void {
   let tmp = TempDir::new()?;
   let rx = FindExt::new(["rs"]).find(tmp.path().join("not_exist"))?;
+  assert!(collect(rx).is_empty());
+  OK
+}
+
+#[test]
+fn empty_ext_yields_nothing() -> Void {
+  let tmp = TempDir::new()?;
+  touch(tmp.path(), "a.rs");
+  let rx = FindExt::new(iter::empty::<&str>()).find(tmp.path())?;
   assert!(collect(rx).is_empty());
   OK
 }

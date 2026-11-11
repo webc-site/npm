@@ -35,6 +35,27 @@ pub const IGNORE_DIR: &[&str] = &[
   "venv",
 ];
 
+/// `IGNORE_DIR` 中出现过的名字长度，编译期生成。
+const IGNORE_LEN: u64 = len_mask(IGNORE_DIR);
+
+const fn len_mask(list: &[&str]) -> u64 {
+  let mut mask = 0_u64;
+  let mut i = 0;
+  while i < list.len() {
+    mask |= 1 << list[i].len();
+    i += 1;
+  }
+  mask
+}
+
+#[inline]
+fn maybe_common(len: usize) -> bool {
+  // 目录名远小于 u32 上限，截断不会发生
+  IGNORE_LEN
+    .checked_shr(len as u32)
+    .is_some_and(|bits| bits & 1 == 1)
+}
+
 /// 目录名是否以 `.` 开头。
 #[inline]
 pub fn is_hidden(name: &OsStr) -> bool {
@@ -62,9 +83,10 @@ impl Ignore for DefaultIgnore {
   fn ignore(&self, name: &OsStr) -> bool {
     let bytes = name.as_encoded_bytes();
     hidden(bytes)
-      || IGNORE_DIR
-        .iter()
-        .any(|dir| dir.as_bytes().eq_ignore_ascii_case(bytes))
+      || (maybe_common(bytes.len())
+        && IGNORE_DIR
+          .iter()
+          .any(|dir| dir.as_bytes().eq_ignore_ascii_case(bytes)))
   }
 }
 

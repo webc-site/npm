@@ -20,10 +20,20 @@ pub const CHANNEL_SIZE: usize = 64;
 pub type Receiver = Rx<Array<PathBuf>>;
 
 /// 按扩展名查找文件，遍历在独立线程中进行，结果通过有界队列流式返回。
-#[derive(Clone)]
-pub struct FindExt {
+///
+/// `I` 为编译期确定的忽略策略，避免目录判断的虚调用开销。
+pub struct FindExt<I: Ignore = DefaultIgnore> {
   ext: Arc<[Box<str>]>,
-  ignore: Arc<dyn Ignore>,
+  ignore: Arc<I>,
+}
+
+impl<I: Ignore> Clone for FindExt<I> {
+  fn clone(&self) -> Self {
+    Self {
+      ext: self.ext.clone(),
+      ignore: self.ignore.clone(),
+    }
+  }
 }
 
 impl FindExt {
@@ -33,15 +43,18 @@ impl FindExt {
   pub fn new(ext_li: impl IntoIterator<Item = impl AsRef<str>>) -> Self {
     Self::new_with_ignore(ext_li, DefaultIgnore)
   }
+}
 
+impl<I: Ignore + 'static> FindExt<I> {
   /// 指定目录忽略策略。
-  pub fn new_with_ignore(
-    ext_li: impl IntoIterator<Item = impl AsRef<str>>,
-    ignore: impl Ignore + 'static,
-  ) -> Self {
-    let ext: Arc<[Box<str>]> = ext_li.into_iter().map(|ext| ext.as_ref().into()).collect();
+  ///
+  /// 重复扩展名会自动去重。
+  pub fn new_with_ignore(ext_li: impl IntoIterator<Item = impl AsRef<str>>, ignore: I) -> Self {
+    let mut ext: Vec<Box<str>> = ext_li.into_iter().map(|ext| ext.as_ref().into()).collect();
+    ext.sort_unstable();
+    ext.dedup();
     Self {
-      ext,
+      ext: ext.into(),
       ignore: Arc::new(ignore),
     }
   }

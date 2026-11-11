@@ -20,7 +20,7 @@
 - [Usage](#usage)
 - [API Reference](#api-reference)
   - [`FindExt::new(ext_li: impl IntoIterator<Item = impl AsRef<str>>) -> FindExt`](#findextnewext_li-impl-intoiteratoritem-impl-asrefstr-findext)
-  - [`FindExt::new_with_ignore(ext_li, ignore: impl Ignore + 'static) -> FindExt`](#findextnew_with_ignoreext_li-ignore-impl-ignore-static-findext)
+  - [`FindExt::new_with_ignore(ext_li, ignore: I) -> FindExt<I>`](#findextnew_with_ignoreext_li-ignore-i-findexti)
   - [`FindExt::find(&self, dir: impl AsRef<Path>) -> Result<Receiver>`](#findextfindself-dir-impl-asrefpath-resultreceiver)
   - [`Receiver`](#receiver)
 - [Ignore Rules](#ignore-rules)
@@ -49,6 +49,7 @@ queue is an MPSC bounded channel from `crossfire`.
 - **Sensible defaults**: skips dot-directories plus `node_modules`, `target`, and other common directories
 - **Shared policy**: rules come from [`ignore_dir`](https://crates.io/crates/ignore_dir) and are reusable on their own
 - **Pluggable policy**: implement `Ignore` or pass a closure
+- **Static dispatch**: the ignore type is a generic parameter, so directory checks avoid vtable calls
 - **Exact extension match**: the part after the last `.`; `a.b.rs` has extension `rs`
 - **No symlink following**: avoids loops and escaping the tree
 - **No panics**: spawn failures return `Result`; per-entry walk errors are logged and skipped
@@ -98,6 +99,10 @@ let finder = FindExt::new_with_ignore(
 
 ## API Reference
 
+```rust
+pub struct FindExt<I: Ignore = DefaultIgnore> { /* ... */ }
+```
+
 ### `FindExt::new(ext_li: impl IntoIterator<Item = impl AsRef<str>>) -> FindExt`
 
 Creates a finder with the default ignore policy.
@@ -106,10 +111,13 @@ Each item in `ext_li` is an extension **without a leading dot**, for example
 `["toml", "yml", "yaml"]`. Patterns such as `["*.toml"]` or `[".toml"]` are not
 supported.
 
-### `FindExt::new_with_ignore(ext_li, ignore: impl Ignore + 'static) -> FindExt`
+### `FindExt::new_with_ignore(ext_li, ignore: I) -> FindExt<I>`
 
 Creates a finder with a custom ignore policy. The custom policy **replaces** the
 default one; compose with [`DefaultIgnore`](#defaultignore) to keep it.
+
+Duplicate extensions are deduplicated. `I` is the ignore type, fixed at compile
+time.
 
 `Ignore`, `DefaultIgnore`, and `IGNORE_DIR` come from the `ignore_dir` crate and
 are re-exported by `find_ext`, so no extra dependency is needed.
@@ -119,6 +127,7 @@ are re-exported by `find_ext`, so no extra dependency is needed.
 Starts the walk thread and returns the receiver.
 
 - `dir` may be a file or a directory; a file is checked by itself
+- An empty extension set returns an already-closed receiver without starting a thread
 - The thread is already running when this returns; a closed receiver means the walk finished
 - Dropping the receiver closes the queue, and the walk thread exits on its next failed send
 - The thread is named `find_ext`
@@ -241,7 +250,7 @@ This library is developed by [WebC.site](https://webc.site).
 - [使用方法](#使用方法)
 - [API 参考](#api-参考)
   - [`FindExt::new(ext_li: impl IntoIterator<Item = impl AsRef<str>>) -> FindExt`](#findextnewext_li-impl-intoiteratoritem-impl-asrefstr-findext)
-  - [`FindExt::new_with_ignore(ext_li, ignore: impl Ignore + 'static) -> FindExt`](#findextnew_with_ignoreext_li-ignore-impl-ignore-static-findext)
+  - [`FindExt::new_with_ignore(ext_li, ignore: I) -> FindExt<I>`](#findextnew_with_ignoreext_li-ignore-i-findexti)
   - [`FindExt::find(&self, dir: impl AsRef<Path>) -> Result<Receiver>`](#findextfindself-dir-impl-asrefpath-resultreceiver)
   - [`Receiver`](#receiver)
 - [忽略规则](#忽略规则)
@@ -267,6 +276,7 @@ This library is developed by [WebC.site](https://webc.site).
 - **默认忽略**：跳过 `.` 开头的目录与 `node_modules`、`target` 等常见目录
 - **忽略策略独立**：规则来自 [`ignore_dir`](https://crates.io/crates/ignore_dir)，可单独复用
 - **可替换策略**：实现 `Ignore` 或直接传闭包，自定义忽略规则
+- **静态分发**：忽略策略类型由泛型确定，目录判断无虚调用开销
 - **扩展名精确匹配**：取文件名最后一个 `.` 之后的部分，`a.b.rs` 的扩展名是 `rs`
 - **不跟随符号链接**：避免循环与越界遍历
 - **不 panic**：线程启动失败通过 `Result` 返回，遍历中的单条错误只记录日志
@@ -316,6 +326,10 @@ let finder = FindExt::new_with_ignore(
 
 ## API 参考
 
+```rust
+pub struct FindExt<I: Ignore = DefaultIgnore> { /* ... */ }
+```
+
 ### `FindExt::new(ext_li: impl IntoIterator<Item = impl AsRef<str>>) -> FindExt`
 
 创建查找器，使用默认忽略策略。
@@ -323,10 +337,12 @@ let finder = FindExt::new_with_ignore(
 `ext_li` 中每项是**不含 `.`** 的扩展名，例如 `["toml", "yml", "yaml"]`。
 不支持 `["*.toml"]` 或 `[".toml"]` 这类写法。
 
-### `FindExt::new_with_ignore(ext_li, ignore: impl Ignore + 'static) -> FindExt`
+### `FindExt::new_with_ignore(ext_li, ignore: I) -> FindExt<I>`
 
 创建查找器，使用自定义忽略策略。自定义策略会**完全替换**默认策略，
 需要保留默认行为时可组合 [`DefaultIgnore`](#defaultignore)。
+
+重复扩展名会自动去重。`I` 为编译期确定的忽略策略类型。
 
 `Ignore`、`DefaultIgnore`、`IGNORE_DIR` 由 `ignore_dir` crate 提供，
 `find_ext` 重新导出，无需额外依赖。
@@ -336,6 +352,7 @@ let finder = FindExt::new_with_ignore(
 启动遍历线程并返回接收器。
 
 - `dir` 可以是文件或目录；是文件时只检查该文件本身
+- 扩展名集合为空时直接返回已关闭接收器，不启动线程
 - 返回时线程已开始运行，接收器关闭表示遍历结束
 - 丢弃接收器会终止队列，遍历线程在下一次发送失败时退出
 - 线程名固定为 `find_ext`

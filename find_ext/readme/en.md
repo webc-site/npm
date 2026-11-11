@@ -30,6 +30,7 @@ queue is an MPSC bounded channel from `crossfire`.
 - **Sensible defaults**: skips dot-directories plus `node_modules`, `target`, and other common directories
 - **Shared policy**: rules come from [`ignore_dir`](https://crates.io/crates/ignore_dir) and are reusable on their own
 - **Pluggable policy**: implement `Ignore` or pass a closure
+- **Static dispatch**: the ignore type is a generic parameter, so directory checks avoid vtable calls
 - **Exact extension match**: the part after the last `.`; `a.b.rs` has extension `rs`
 - **No symlink following**: avoids loops and escaping the tree
 - **No panics**: spawn failures return `Result`; per-entry walk errors are logged and skipped
@@ -79,6 +80,10 @@ let finder = FindExt::new_with_ignore(
 
 ## API Reference
 
+```rust
+pub struct FindExt<I: Ignore = DefaultIgnore> { /* ... */ }
+```
+
 ### `FindExt::new(ext_li: impl IntoIterator<Item = impl AsRef<str>>) -> FindExt`
 
 Creates a finder with the default ignore policy.
@@ -87,10 +92,13 @@ Each item in `ext_li` is an extension **without a leading dot**, for example
 `["toml", "yml", "yaml"]`. Patterns such as `["*.toml"]` or `[".toml"]` are not
 supported.
 
-### `FindExt::new_with_ignore(ext_li, ignore: impl Ignore + 'static) -> FindExt`
+### `FindExt::new_with_ignore(ext_li, ignore: I) -> FindExt<I>`
 
 Creates a finder with a custom ignore policy. The custom policy **replaces** the
 default one; compose with [`DefaultIgnore`](#defaultignore) to keep it.
+
+Duplicate extensions are deduplicated. `I` is the ignore type, fixed at compile
+time.
 
 `Ignore`, `DefaultIgnore`, and `IGNORE_DIR` come from the `ignore_dir` crate and
 are re-exported by `find_ext`, so no extra dependency is needed.
@@ -100,6 +108,7 @@ are re-exported by `find_ext`, so no extra dependency is needed.
 Starts the walk thread and returns the receiver.
 
 - `dir` may be a file or a directory; a file is checked by itself
+- An empty extension set returns an already-closed receiver without starting a thread
 - The thread is already running when this returns; a closed receiver means the walk finished
 - Dropping the receiver closes the queue, and the walk thread exits on its next failed send
 - The thread is named `find_ext`
