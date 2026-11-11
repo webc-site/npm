@@ -125,6 +125,18 @@ fn receiver_by_ref() -> Void {
 }
 
 #[test]
+fn long_ext() -> Void {
+  let tmp = TempDir::new()?;
+  let root = tmp.path();
+  let ext = "a".repeat(64);
+  touch(root, &format!("x.{ext}"));
+
+  let rx = FindExt::new([ext.as_str()]).find(root)?;
+  assert_eq!(collect(rx).len(), 1);
+  OK
+}
+
+#[test]
 fn missing_dir_yields_nothing() -> Void {
   let tmp = TempDir::new()?;
   let rx = FindExt::new(["rs"]).find(tmp.path().join("not_exist"))?;

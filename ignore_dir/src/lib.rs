@@ -44,7 +44,10 @@ const fn len_mask(list: &[&str]) -> u64 {
   let mut mask = 0_u64;
   let mut i = 0;
   while i < list.len() {
-    mask |= 1 << list[i].len();
+    let len = list[i].len();
+    // 超长目录名会破坏长度掩码，构建期直接失败
+    assert!(len < u64::BITS as usize);
+    mask |= 1 << len;
     i += 1;
   }
   mask
@@ -74,7 +77,10 @@ const fn head_mask(list: &[&str]) -> u64 {
   let mut mask = 0_u64;
   let mut i = 0;
   while i < list.len() {
-    mask |= 1 << head_bit(list[i].as_bytes()[0]);
+    let bytes = list[i].as_bytes();
+    // 空目录名无法提供首字节，构建期直接失败
+    assert!(!bytes.is_empty());
+    mask |= 1 << head_bit(bytes[0]);
     i += 1;
   }
   mask

@@ -13,10 +13,12 @@ use crate::{Error, Result, receiver::Receiver};
 /// 有界队列容量，遍历线程最多领先接收方 64 条路径。
 pub const CHANNEL_SIZE: usize = 64;
 
-/// 扩展名集合，含编译期不可知但构建期一次算好的长度掩码。
+/// 扩展名集合，含构建期一次算好的长度掩码。
 struct ExtSet {
   li: Box<[Box<str>]>,
   len: u64,
+  /// 存在长度超出掩码范围的扩展名。
+  long: bool,
 }
 
 impl ExtSet {
@@ -26,14 +28,21 @@ impl ExtSet {
     li.dedup();
 
     let mut len = 0_u64;
+    let mut long = false;
     for ext in &li {
       let size = ext.len();
       if size < u64::BITS as usize {
         len |= 1 << size;
+      } else {
+        long = true;
       }
     }
 
-    Self { li: li.into(), len }
+    Self {
+      li: li.into(),
+      len,
+      long,
+    }
   }
 
   #[inline]
@@ -44,11 +53,15 @@ impl ExtSet {
   #[inline]
   fn has(&self, suffix: &[u8]) -> bool {
     // 扩展名远短于 u32 上限，截断不会发生
-    self
-      .len
-      .checked_shr(suffix.len() as u32)
-      .is_some_and(|bits| bits & 1 == 1)
-      && self.li.iter().any(|ext| ext.as_bytes() == suffix)
+    let len_ok = if suffix.len() >= u64::BITS as usize {
+      self.long
+    } else {
+      self
+        .len
+        .checked_shr(suffix.len() as u32)
+        .is_some_and(|bits| bits & 1 == 1)
+    };
+    len_ok && self.li.iter().any(|ext| ext.as_bytes() == suffix)
   }
 }
 
