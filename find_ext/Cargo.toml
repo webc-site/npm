@@ -1,12 +1,14 @@
 [package]
 name = "find_ext"
-version.workspace = true
-edition.workspace = true
-license.workspace = true
-repository.workspace = true
-description = "find_ext"
-keywords = []
-categories = []
+version = "0.1.0"
+edition = "2024"
+license = "MulanPSL-2.0"
+repository = "https://github.com/webc-site/npm.git"
+homepage = "https://github.com/webc-site/npm/tree/main/find_ext"
+description = "Find files by extension while walking a directory, streaming paths through a bounded channel / 遍历目录按后缀查找文件，通过有界队列流式返回"
+keywords = ["find", "extension", "walk", "directory", "stream"]
+categories = ["filesystem", "development-tools"]
+readme = "README.md"
 
 [features]
 default = []
@@ -16,11 +18,14 @@ all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
 
 [dependencies]
+crossfire = "3.1.22"
+log = "0.4.34"
 thiserror = "2.0.20"
+walkdir = "2.5.0"
 
 [dev-dependencies]
 aok = "0.1.18"
 ctor = "1.0.13"
-log = "0.4.34"
 log_init = "0.1.39"
+tempfile = "3.27.0"
 
