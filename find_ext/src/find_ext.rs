@@ -50,10 +50,14 @@ impl FindExt {
   ///
   /// 返回接收器后遍历已在线程中开始。丢弃接收器会让遍历线程尽快退出。
   pub fn find(&self, dir: impl AsRef<Path>) -> Result<Receiver> {
+    let (tx, rx) = mpsc::bounded_blocking::<PathBuf>(CHANNEL_SIZE);
+    if self.ext.is_empty() {
+      return Ok(rx);
+    }
+
     let dir = dir.as_ref().to_path_buf();
     let ext = self.ext.clone();
     let ignore = self.ignore.clone();
-    let (tx, rx) = mpsc::bounded_blocking::<PathBuf>(CHANNEL_SIZE);
 
     thread::Builder::new()
       .name("find_ext".into())

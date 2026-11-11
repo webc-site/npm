@@ -36,8 +36,14 @@ pub const IGNORE_DIR: &[&str] = &[
 ];
 
 /// 目录名是否以 `.` 开头。
+#[inline]
 pub fn is_hidden(name: &OsStr) -> bool {
-  name.as_encoded_bytes().first() == Some(&b'.')
+  hidden(name.as_encoded_bytes())
+}
+
+#[inline]
+fn hidden(bytes: &[u8]) -> bool {
+  bytes.first() == Some(&b'.')
 }
 
 /// 目录忽略策略。
@@ -52,9 +58,10 @@ pub trait Ignore: Send + Sync {
 pub struct DefaultIgnore;
 
 impl Ignore for DefaultIgnore {
+  #[inline]
   fn ignore(&self, name: &OsStr) -> bool {
     let bytes = name.as_encoded_bytes();
-    is_hidden(name)
+    hidden(bytes)
       || IGNORE_DIR
         .iter()
         .any(|dir| dir.as_bytes().eq_ignore_ascii_case(bytes))
@@ -65,6 +72,7 @@ impl<F> Ignore for F
 where
   F: Fn(&OsStr) -> bool + Send + Sync,
 {
+  #[inline]
   fn ignore(&self, name: &OsStr) -> bool {
     self(name)
   }

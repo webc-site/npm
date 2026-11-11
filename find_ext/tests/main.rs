@@ -1,5 +1,6 @@
 use std::{
   collections::BTreeSet,
+  ffi::OsStr,
   fs,
   path::{Path, PathBuf},
 };
@@ -93,8 +94,7 @@ fn custom_ignore() -> Void {
   touch(root, "keep/a.yaml");
   touch(root, "skipme/b.yaml");
 
-  let rx =
-    FindExt::new_with_ignore(["yaml"], |name: &std::ffi::OsStr| name == "skipme").find(root)?;
+  let rx = FindExt::new_with_ignore(["yaml"], |name: &OsStr| name == "skipme").find(root)?;
   let got = rel_set(root, collect(rx));
 
   let want: BTreeSet<String> = ["keep/a.yaml".to_string()].into_iter().collect();
