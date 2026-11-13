@@ -1,0 +1,15 @@
+add: Adjon hozzá komponenst
+dev: Indítsa el a fejlesztő és hibakereső szervert
+new: Új komponens
+npm: Építse fel a dist/npm csomagot
+npmPublish: npm csomag közzététele
+npmRelease: Tolja az aktuális ágat a kiadási ághoz (indítsa el a github művelet kiadási folyamatát)
+readme: Létrehozza a README.md gyökérkönyvtárat, és az elején adjon hozzá többnyelvű navigációt
+redirect2html: Oldalak másolása a _redirects alapján
+site: Statikus webhely-előnézet létrehozása a dist/site-hez
+dist: Hozzon létre egy statikus webhelyet, és tegye közzé a dist/dist
+siteSrv: Hozzon létre egy statikus webhely-előnézetet, és indítsa el az előnézeti kiszolgálót
+distSrv: Hozzon létre egy statikus webhelyet a közzétételhez, és indítsa el az előnézeti kiszolgálót
+jsDoc: Ellenőrizze az src/js dokumentumokat, és működjön együtt a mesterséges intelligenciával az automatikus dokumentumkiegészítés megvalósítása érdekében
+tran: lefordítani
+init: A komponens könyvtár inicializálása

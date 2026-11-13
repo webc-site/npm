@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+set -e
+cargo check --all-features

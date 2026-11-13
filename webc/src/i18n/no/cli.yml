@@ -1,0 +1,15 @@
+add: Legg til komponent
+dev: Start utviklings- og feilsøkingsserveren
+new: Ny komponent
+npm: Bygg dist/npm-pakken
+npmPublish: Publiser npm-pakken
+npmRelease: Skyv gjeldende gren til utgivelsesgrenen (utløs github-handlingsutgivelsesprosessen)
+readme: Generer rotkatalog README.md og legg til flerspråklig navigasjon i begynnelsen
+redirect2html: Kopier sider basert på _redirects
+site: Bygg statisk forhåndsvisning av nettstedet til dist/nettsted
+dist: Bygg et statisk nettsted og publiser det til dist/dist
+siteSrv: Bygg en statisk forhåndsvisning av nettstedet og start forhåndsvisningsserveren
+distSrv: Bygg et statisk nettsted for publisering og start forhåndsvisningsserveren
+jsDoc: Bekreft src/js-dokumenter og samarbeid med kunstig intelligens for å realisere automatisk dokumentfullføring
+tran: oversette
+init: Initialiser komponentbiblioteket

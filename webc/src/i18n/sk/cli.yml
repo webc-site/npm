@@ -1,0 +1,15 @@
+add: Pridať komponent
+dev: Spustite vývojový a ladiaci server
+new: Nový komponent
+npm: Zostavte balík dist/npm
+npmPublish: Zverejniť balík npm
+npmRelease: Presuňte aktuálnu vetvu do vetvy vydania (spustite proces uvoľnenia akcie github)
+readme: Vygenerujte koreňový adresár README.md a na začiatok pridajte viacjazyčnú navigáciu
+redirect2html: Skopírujte stránky na základe _redirects
+site: Vytvorte statický náhľad lokality na dist/site
+dist: Vytvorte statickú stránku a zverejnite ju na dist/dist
+siteSrv: Vytvorte statickú ukážku lokality a spustite ukážkový server
+distSrv: Vytvorte statickú lokalitu na publikovanie a spustite server ukážok
+jsDoc: Overujte dokumenty src/js a spolupracujte s umelou inteligenciou na realizácii automatického dokončovania dokumentov
+tran: preložiť
+init: Inicializujte knižnicu komponentov

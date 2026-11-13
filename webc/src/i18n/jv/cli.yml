@@ -1,0 +1,15 @@
+add: Tambah komponen
+dev: Miwiti server pangembangan lan debugging
+new: Komponen anyar
+npm: Mbangun paket dist/npm
+npmPublish: Nerbitake paket npm
+npmRelease: Push cabang saiki menyang cabang rilis (micu proses rilis aksi github)
+readme: Gawe direktori ROOT README.md lan tambahake navigasi multi-basa ing wiwitan
+redirect2html: Nyalin kaca adhedhasar _redirects
+site: Mbangun pratinjau situs statis menyang dist/situs
+dist: Mbangun situs statis lan nerbitake menyang dist/dist
+siteSrv: Mbangun pratinjau situs statis lan miwiti server pratinjau
+distSrv: Mbangun situs statis kanggo publikasi lan miwiti server pratinjau
+jsDoc: Verifikasi dokumen src/js lan kerja sama karo intelijen buatan kanggo ngrampungake dokumen otomatis
+tran: nerjemahake
+init: Initialize perpustakaan komponen

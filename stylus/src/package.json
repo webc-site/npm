@@ -1,0 +1,30 @@
+{
+  "name": "@1-/stylus",
+  "version": "0.1.5",
+  "description": "Lightweight modular Stylus CSS preprocessor",
+  "keywords": [
+    "compiler",
+    "css",
+    "modular",
+    "preprocessor",
+    "stylus"
+  ],
+  "homepage": "https://github.com/webc-site/npm/tree/main/stylus",
+  "license": "MulanPSL-2.0",
+  "author": "x-at-01@googlegroups.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webc-site/npm.git"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./_.js",
+    "./*": "./*"
+  },
+  "dependencies": {
+    "@3-/log": "^0.1.9",
+    "@3-/read": "^0.1.4",
+    "@jridgewell/gen-mapping": "^0.3.13",
+    "known-css-properties": "^0.37.0"
+  }
+}

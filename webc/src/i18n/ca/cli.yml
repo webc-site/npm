@@ -1,0 +1,15 @@
+add: Afegeix un component
+dev: Inicieu el servidor de desenvolupament i depuració
+new: Nou component
+npm: Creeu el paquet dist/npm
+npmPublish: Publicar el paquet npm
+npmRelease: Empènyer la branca actual a la branca de llançament (activar el procés de llançament de l'acció de github)
+readme: Genereu el directori arrel README.md i afegiu navegació en diversos idiomes al principi
+redirect2html: Copieu pàgines basades en _redireccions
+site: Creeu una vista prèvia del lloc estàtica a dist/site
+dist: Creeu un lloc estàtic i publiqueu-lo a dist/dist
+siteSrv: Creeu una vista prèvia del lloc estàtica i inicieu el servidor de vista prèvia
+distSrv: Creeu un lloc estàtic per a la publicació i inicieu el servidor de vista prèvia
+jsDoc: Verifiqueu els documents src/js i col·laboreu amb la intel·ligència artificial per completar automàticament els documents
+tran: traduir
+init: Inicialitzar la biblioteca de components

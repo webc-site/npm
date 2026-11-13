@@ -1,0 +1,27 @@
+[package]
+name = "find_conf"
+version = "0.2.0"
+edition = "2024"
+license = "MulanPSL-2.0"
+repository = "https://github.com/webc-site/npm.git"
+homepage = "https://github.com/webc-site/npm/tree/main/find_conf"
+description = "Find a config file by walking up from a directory / 从目录逐级向上查找配置文件"
+keywords = ["config", "find", "walk", "directory", "path"]
+categories = ["filesystem", "development-tools"]
+readme = "README.md"
+
+[features]
+default = []
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
+
+[dependencies]
+thiserror = "2.0.20"
+
+[dev-dependencies]
+aok = "0.1.18"
+ctor = "1.0.13"
+log = "0.4.34"
+log_init = "0.1.39"

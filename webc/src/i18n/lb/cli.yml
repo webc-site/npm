@@ -1,0 +1,15 @@
+add: Komponent dobäisetzen
+dev: Start der Entwécklung an Debugging Server
+new: Neie Komponent
+npm: Baut den dist/npm Package
+npmPublish: Verëffentlechen npm Package
+npmRelease: Dréckt déi aktuell Branche op d'Verëffentlechungszweige (ausléist de Github Action Release Prozess)
+readme: Generéiere Root Verzeechnes README.md a füügt méisproocheg Navigatioun am Ufank un
+redirect2html: Kopéiert Säiten baséiert op _Redirects
+site: Bauen statesch Site Virschau fir dist / Site
+dist: Bauen e statesche Site a publizéieren se op dist / dist
+siteSrv: Baut eng statesch Site Virschau an start de Virschau Server
+distSrv: Baut e statesche Site fir d'Publikatioun an start de Virschau Server
+jsDoc: Verifizéiere src / js Dokumenter a kooperéiere mat kënschtlecher Intelligenz fir automatesch Dokumenter fäerdeg ze realiséieren
+tran: iwwersetzen
+init: Initialiséiere Komponentbibliothéik

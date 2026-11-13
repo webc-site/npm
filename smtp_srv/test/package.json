@@ -1,0 +1,7 @@
+{
+  "description": "Test suites for SMTP server package",
+  "type": "module",
+  "dependencies": {
+    "nodemailer": "^10.4.0"
+  }
+}

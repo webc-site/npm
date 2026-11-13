@@ -1,0 +1,15 @@
+add: Żid komponent
+dev: Ibda s-server ta 'żvilupp u debugging
+new: Komponent ġdid
+npm: Ibni l-pakkett dist/npm
+npmPublish: Ippubblika pakkett npm
+npmRelease: Imbotta l-fergħa attwali għall-fergħa tar-rilaxx (tqajjem il-proċess tar-rilaxx tal-azzjoni github)
+readme: Iġġenera direttorju għerq README.md u żid navigazzjoni b'ħafna lingwi fil-bidu
+redirect2html: Ikkopja paġni bbażati fuq _redirects
+site: Ibni preview statiku tas-sit għal dist/sit
+dist: Ibni sit statiku u ippubblikah għal dist/dist
+siteSrv: Ibni preview statiku tas-sit u ibda s-server tal-preview
+distSrv: Ibni sit statiku għall-pubblikazzjoni u ibda s-server tal-preview
+jsDoc: Ivverifika d-dokumenti src/js u tikkoopera ma 'intelliġenza artifiċjali biex tirrealizza t-tlestija awtomatika tad-dokument
+tran: tittraduċi
+init: Inizjalizza librerija tal-komponenti
